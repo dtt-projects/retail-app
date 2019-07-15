@@ -1,0 +1,39 @@
+/* CSS Module for the base URL. */
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+
+.container {
+  width: 100%;
+}
+
+.container--text__centered {
+  text-align: center;
+}
+
+.header {
+  font-size: 2rem;
+}
+
+.header__lg {
+  font-size: 4rem;
+}
+
+.img-banner {
+  width: 100%;
+}
+
+.img-banner--container__as-paragraph {
+  width: 100%;
+  text-align: center;
+}
+
+.img-banner--img {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  text-align: center;
+}

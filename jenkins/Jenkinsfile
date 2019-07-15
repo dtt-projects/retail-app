@@ -1,0 +1,21 @@
+pipeline {
+    agent {
+        node { label 'zOS-ZATB' } 
+    }
+    /*
+    options {
+        skipDefaultCheckout()
+    }
+    */
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building... "
+                //echo "Building.. GIT_BRANCH: ${GIT_BRANCH}"
+                //echo "GIT_LOCAL_BRANCH: ${GIT_LOCAL_BRANCH}"
+                //echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
+                //checkout scm
+            }
+        }
+    }
+}

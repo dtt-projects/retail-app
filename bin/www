@@ -1,0 +1,109 @@
+#!/usr/bin/env node
+/**
+ * @module www
+ * @fileoverview Module to start a node server with some bindings built in.
+ */
+
+// DO NOT EDIT DIRECTLY!
+// This module contains functions both auto-generated and hand-written. Only
+// edit this module if you know what you are doing and you are sure of what you
+// will be adding/changing/removing.
+
+// Module dependencies.
+const app = require('../app');
+const debug = require('debug')('server-template:server');
+const http = require('http');
+
+
+const DEFAULT_PORT_NUMBER = '3000';
+
+
+/**
+ * @function normalizePort
+ * @description Normalize a port into a number, string, or false.
+ * @param {Number} val The value of the port to use.
+ * @returns {Boolean|Number} False if we cannot normalize the port, or the number
+ *    if we can.
+ */
+const normalizePort = (val) => {
+  const port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * @function onError
+ * @description Handle an error triggered from the server.
+ * @param {Error} error The error object captured from the server.
+ * @throws {Error} Throws the original error if we cannot handle the type of error
+ *    caught.
+ */
+const onError = (error) => {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  const bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * @function onListening
+ * @description Server listening event handler. Called automatically after the
+ *    server starts.
+ */
+const onListening = () => {
+  const addr = server.address();
+  const bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+
+/**
+ * @type {Number}
+ * @constant
+ * Get port from environment and store in Express.
+ */
+const port = normalizePort(process.env.PORT) || DEFAULT_PORT_NUMBER;
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+const server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+console.log('Server started on port ' + port);
