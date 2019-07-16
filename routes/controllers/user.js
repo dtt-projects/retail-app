@@ -28,5 +28,5 @@ const login = (req, res, next) => {
 
 
 module.exports = {
-  sendHomepage,
+  login,
 }

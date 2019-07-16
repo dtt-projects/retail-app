@@ -2,19 +2,54 @@ pipeline {
     agent {
         node { label 'zOS_Share' } 
     }
-    /*
-    options {
-        skipDefaultCheckout()
-    }
-    */
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo "Building... "
-                //echo "Building.. GIT_BRANCH: ${GIT_BRANCH}"
-                //echo "GIT_LOCAL_BRANCH: ${GIT_LOCAL_BRANCH}"
-                //echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
-                //checkout scm
+                echo "Checking out source code from Git..."
+                checkout scm
+                echo "Done checking out source code."
+            }
+        }
+        stage('Setup Environment') {
+            environment {
+                NODE_ENV = "test"
+            }
+            steps {
+                echo "Begin setup..."
+                echo "Node environment is: ${env.NODE_ENV}"
+
+                sh 'node -v'
+                sh 'npm prune'
+                sh 'npm install'
+                echo "End setup."
+            }
+        }
+        post {
+            failure {
+                echo "Build failed!"
+            }
+            unstable {
+                echo "Build unstable; check tests for failures."
+            }
+        }
+        stage('Testing') {
+            environment {
+                NODE_ENV = "test"
+            }
+            steps {
+                echo "Begin testing..."
+                sh 'npm test'
+                echo "testing complete."
+            }
+        }
+        stage('Prune and Cleanup') {
+            steps {
+                echo "Skipping building stage. "
+                // Clean up remaining node_modules and extra files
+                // to prevent filespace pollution and running out
+                // of disk space.
+                sh 'rm -rf node_modules/'
             }
         }
     }

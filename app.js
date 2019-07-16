@@ -14,7 +14,7 @@ const logger = require('morgan');
 const helmet = require('helmet');
 
 // Internal Dependencies
-const indexRouter = require('./routes/root');
+const rootRouter = require('./routes/root');
 const usersRouter = require('./routes/users');
 const errorHandler = require('./routes/error');
 
@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up routes.
-app.use('/', indexRouter);
+app.use('/', rootRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

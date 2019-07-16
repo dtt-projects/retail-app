@@ -28,6 +28,6 @@ const userController = require('./controllers/user');
 
 
 /* GET users listing. */
-router.post('/login', userController.login);
+userRouter.post('/login', userController.login);
 
-module.exports = router;
+module.exports = userRouter;
