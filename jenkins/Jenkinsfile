@@ -25,14 +25,6 @@ pipeline {
                 echo "End setup."
             }
         }
-        post {
-            failure {
-                echo "Build failed!"
-            }
-            unstable {
-                echo "Build unstable; check tests for failures."
-            }
-        }
         stage('Testing') {
             environment {
                 NODE_ENV = "test"
@@ -53,4 +45,13 @@ pipeline {
             }
         }
     }
+
+    post {
+            failure {
+                echo "Build failed!"
+            }
+            unstable {
+                echo "Build unstable; check tests for failures."
+            }
+        }
 }
