@@ -19,8 +19,7 @@ pipeline {
                 echo "Begin setup..."
                 echo "Node environment is: ${env.NODE_ENV}"
                 sh 'export PATH=$PATH:/usr/lpp/IBM/cnj/IBM/node-v6.11.2-os390-s390x/bin/'
-                sh 'type python'
-                sh 'type java'
+                sh 'echo $PATH'
                 sh 'type node'
                 sh 'node --version'
                 sh 'npm prune'
