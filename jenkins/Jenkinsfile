@@ -19,6 +19,7 @@ pipeline {
                 echo "Begin setup..."
                 echo "Node environment is: ${env.NODE_ENV}"
 
+                sh 'type node'
                 sh 'node --version'
                 sh 'npm prune'
                 sh 'npm install'
