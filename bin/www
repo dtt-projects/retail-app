@@ -6,16 +6,41 @@
 
 // DO NOT EDIT DIRECTLY!
 // This module contains functions both auto-generated and hand-written. Only
-// edit this module if you know what you are doing and you are sure of what you
-// will be adding/changing/removing.
+// edit this module if you know and are sure of what you are doing.
+
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-console */
+
 
 // Module dependencies.
-const app = require('../app');
 const debug = require('debug')('server-template:server');
 const http = require('http');
+const app = require('../app');
 
-
+// Global variables.
 const DEFAULT_PORT_NUMBER = '3000';
+
+/**
+ * @type {String}
+ * @public @var
+ * Pipe server setup values into string.
+ */
+let pipe;
+
+/**
+ * @type {Number}
+ * @public @var
+ * Get port from environment and store in Express.
+ */
+let port;
+
+
+/**
+ * @type {Object}
+ * @public @var
+ * Establish an Express server object.
+ */
+let server;
 
 
 /**
@@ -26,20 +51,20 @@ const DEFAULT_PORT_NUMBER = '3000';
  *    if we can.
  */
 const normalizePort = (val) => {
-  const port = parseInt(val, 10);
+  const parsedPortVal = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (isNaN(parsedPortVal)) {
     // named pipe
     return val;
   }
 
-  if (port >= 0) {
+  if (parsedPortVal >= 0) {
     // port number
-    return port;
+    return parsedPortVal;
   }
 
   return false;
-}
+};
 
 /**
  * @function onError
@@ -54,17 +79,17 @@ const onError = (error) => {
   }
 
   const bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+    ? `Pipe ${pipe}`
+    : `Port ${port}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      console.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -78,32 +103,27 @@ const onError = (error) => {
  *    server starts.
  */
 const onListening = () => {
-  const addr = server.address();
+  const addr = server.address;
   const bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
+    ? `pipe ${addr}`
+    : `port ${addr.port}`;
+  debug('Listening on ', bind);
+};
 
 
-/**
- * @type {Number}
- * @constant
- * Get port from environment and store in Express.
- */
-const port = normalizePort(process.env.PORT) || DEFAULT_PORT_NUMBER;
+port = normalizePort(process.env.NODE_PORT) || DEFAULT_PORT_NUMBER;
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 server.listen(port);
 server.on('error', onError);
-server.on('listening', onListening);
+server.on('listening', onListening.bind(this, server));
 
-console.log('Server started on port ' + port);
+console.log('Server started on port ', port);

@@ -37,6 +37,17 @@ pipeline {
                 echo "testing complete."
             }
         }
+        stage('Deploy') {
+            environment {
+                NODE_ENV = "production"
+                PORT = 3000
+            }
+            steps {
+                echo "Begin deployment..."
+                sh "npm run restart"
+            }
+        }
+        /*
         stage('Prune and Cleanup') {
             steps {
                 echo "Skipping building stage. "
@@ -46,6 +57,7 @@ pipeline {
                 sh 'rm -rf node_modules/'
             }
         }
+        */
     }
 
     post {
