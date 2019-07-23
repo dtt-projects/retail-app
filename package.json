@@ -40,7 +40,7 @@
     "start": "npm run start:dev",
     "start:dev": "node bin/www",
     "start:prod": "node ./bin/www &",
-    "restart": "bash ./bin/restart",
+    "restart": "bash bin/restart",
     "profile": "bash ./scripts/profile.sh"
   },
   "repository": {
