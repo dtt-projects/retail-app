@@ -28,11 +28,15 @@ start_script() {
   export NODE_ENV=production;
   export NODE_PORT=3000;
 
-  node_script="node $THIS_DIR/prod";
+  node_script="node $THIS_DIR/www &";
   printf "Starting Node server in background...\n";
   
-  # Start script.
+  # Start script. Capture started ID and print it to the user
+  # for debugging purposes.
   eval $node_script;
+  NEW_PROC_PID="$!"
+
+  printf "New server process started with ID: $NEW_PROC_ID";
 
   return 0;
 }

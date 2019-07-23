@@ -12,8 +12,6 @@
     "expect-ct": "^0.2.0",
     "express": "~4.16.0",
     "express-enforces-ssl": "^1.1.0",
-    "forever": "^1.0.0",
-    "forever-monitor": "^1.7.1",
     "hbs": "^4.0.4",
     "helmet": "^3.18.0",
     "http-errors": "~1.6.2",

@@ -13,12 +13,14 @@
 
 
 // Module dependencies.
+const fs = require('fs');
 const debug = require('debug')('server-template:server');
 const http = require('http');
+const path = require('path');
 const app = require('../app');
 
 // Global variables.
-const DEFAULT_PORT_NUMBER = '3000';
+const DEFAULT_PORT_NUMBER = 3000;
 
 /**
  * @type {String}
@@ -95,7 +97,7 @@ const onError = (error) => {
     default:
       throw error;
   }
-}
+};
 
 /**
  * @function onListening
@@ -111,13 +113,44 @@ const onListening = () => {
 };
 
 
-port = normalizePort(process.env.NODE_PORT) || DEFAULT_PORT_NUMBER;
+/**
+ * @function setupRedirectPipes
+ * @description Redirect stdout, stderr and uncaught exceptions to log files.
+ */
+const setupRedirectPipes = () => {
+  // Set up stdout, stderr redirects via WriteStream pipe.
+
+  const stdoutPipe = fs.createWriteStream(path.join(__dirname, '../logs/stdout.log'));
+  const stderrPipe = fs.createWriteStream(path.join(__dirname, '../logs/stderr.log'));
+
+  // Redirect pipe. Bind `this` to the respective write stream.
+
+  process.stdout.write = stdoutPipe.write.bind(stdoutPipe);
+  process.stderr.write = stderrPipe.write.bind(stderrPipe);
+
+  // Capture uncaught exceptions.
+
+  process.on('uncaughtException', (err) => {
+    console.error((err && err.stack) ? err.stack : err);
+  });
+};
+
+
+/**
+ * Set up port number for the server.
+ */
+port = normalizePort(process.env.NODE_PORT) || normalizePort(DEFAULT_PORT_NUMBER);
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 server = http.createServer(app);
+
+
+// Set up stdout, stderr redirects.
+
+setupRedirectPipes();
 
 /**
  * Listen on provided port, on all network interfaces.

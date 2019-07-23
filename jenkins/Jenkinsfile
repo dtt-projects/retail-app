@@ -18,9 +18,9 @@ pipeline {
             steps {
                 echo "Begin setup..."
                 echo "Node environment is: ${env.NODE_ENV}"
-                sh 'export PATH=$PATH:/usr/lpp/IBM/cnj/IBM/node-v6.11.2-os390-s390x/bin/'
-                sh 'echo $PATH'
-                sh 'type node'
+                // sh 'export PATH=$PATH:/usr/lpp/IBM/cnj/IBM/node-v6.11.2-os390-s390x/bin/'
+                // sh 'echo $PATH'
+                // sh 'type node'
                 sh 'node --version'
                 sh 'npm prune'
                 sh 'npm install'
@@ -40,7 +40,7 @@ pipeline {
         stage('Deploy') {
             environment {
                 NODE_ENV = "production"
-                PORT = 3000
+                NODE_PORT = 3000
             }
             steps {
                 echo "Begin deployment..."
