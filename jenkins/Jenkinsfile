@@ -43,9 +43,12 @@ pipeline {
                 NODE_PORT = 3000
             }
             steps {
-                echo "Running parameters:"
+                echo "\nRunning parameters:"
                 sh "pwd"
+                echo "\nDirectory contents:"
                 sh "ls -la"
+                echo "\nRunning binary directory:"
+                sh "ls -la bin"
                 sh "npm run restart:server"
             }
         }
