@@ -43,7 +43,7 @@ pipeline {
                 NODE_PORT = 3000
             }
             steps {
-                sh "echo \"Begin deployment in directory $(pwd)...\""
+                sh "pwd"
                 sh "npm restart:server"
             }
         }
