@@ -21,6 +21,16 @@ kill_node_instances() {
 }
 
 
+# Set up log directory and corresponding files to redirect output.
+setup_logs() {
+  printf "Making directories and files for piped output...\n";
+  mkdir -p logs;
+  touch logs/stderr.log;
+  touch logs/stdout.log;
+  printf "Made directories and files for piped output.\n";
+}
+
+
 # Start a script as a background process. Expects the first argument to
 # be a Bash command to execute. The background process is started with
 # the "&" character.
@@ -30,6 +40,9 @@ start_script() {
 
   node_script="node $THIS_DIR/www &";
   printf "Starting Node server in background...\n";
+
+  # Set up log directories/files.
+  setup_logs;
   
   # Start script. Capture started ID and print it to the user
   # for debugging purposes.
