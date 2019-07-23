@@ -44,7 +44,7 @@ pipeline {
             }
             steps {
                 sh "pwd"
-                sh "npm restart:server"
+                sh "npm run restart:server"
             }
         }
         /*
