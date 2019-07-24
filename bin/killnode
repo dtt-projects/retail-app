@@ -51,7 +51,6 @@ start_script() {
 main () {
   # Get all active node instances
   kill_node_instances;
-  start_script $1;
   exit 0;
 }
 
