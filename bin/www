@@ -181,6 +181,10 @@ const setupRedirectPipes = () => {
 port = normalizePort(process.env.NODE_PORT) || normalizePort(DEFAULT_PORT_NUMBER);
 app.set('port', port);
 
+// Set up stdout, stderr redirects.
+setupLoggingFiles();
+setupRedirectPipes();
+
 /**
  * Create HTTP server.
  */
@@ -195,7 +199,3 @@ server.on('error', onError);
 server.on('listening', onListening.bind(this, server));
 
 console.log('Server started on port ', port);
-
-// Set up stdout, stderr redirects.
-// setupLoggingFiles();
-// setupRedirectPipes();
