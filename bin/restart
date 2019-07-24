@@ -28,7 +28,10 @@ kill_node_instances() {
 # the "&" character.
 start_script() {
   export NODE_ENV=production;
-  export NODE_PORT=3000;
+
+  if [[ -z "$NODE_PORT" ]]; then
+    export NODE_PORT=9520;
+  fi
 
   node_script="node $THIS_DIR/www &";
   printf "Starting Node server in background...\n";
@@ -48,7 +51,7 @@ start_script() {
 main () {
   # Get all active node instances
   kill_node_instances;
-  start_script;
+  start_script $1;
   exit 0;
 }
 
