@@ -21,7 +21,7 @@ const app = require('../app');
 
 // Global variables.
 const DEFAULT_PORT_NUMBER = 3000;
-const LOG_DIR = path.join(__dirname, 'logs')
+const LOG_DIR = path.join(__dirname, '../logs');
 const LOG_FILES = [
   path.join(LOG_DIR, 'stdout.log'),
   path.join(LOG_DIR, 'stderr.log'),
