@@ -188,11 +188,6 @@ app.set('port', port);
 server = http.createServer(app);
 
 
-// Set up stdout, stderr redirects.
-setupLoggingFiles();
-setupRedirectPipes();
-
-
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -201,3 +196,7 @@ server.on('error', onError);
 server.on('listening', onListening.bind(this, server));
 
 console.log('Server started on port ', port);
+
+// Set up stdout, stderr redirects.
+setupLoggingFiles();
+setupRedirectPipes();
