@@ -50,7 +50,7 @@ pipeline {
                 echo "\nRunning binary directory:"
                 sh "ls -la bin"
                 sh "bash ./bin/restart"
-                sh "export NODE_ENV=production; export NODE_PORT=9520; node ./bin/www"
+                sh "export NODE_ENV=production; export NODE_PORT=9520; nohup node ./bin/www &"
                 echo "Server start output log:"
                 sh "cat logs/stdout.log"
                 echo "Server start error log:"
