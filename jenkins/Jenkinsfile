@@ -22,7 +22,7 @@ pipeline {
                 // sh 'echo $PATH'
                 // sh 'type node'
                 sh 'node --version'
-                sh 'npm prune'
+                sh 'npm prune --production'
                 sh 'npm install'
                 echo "End setup."
             }
