@@ -23,7 +23,6 @@ pipeline {
                 // sh 'type node'
                 sh 'node --version'
                 sh 'npm install'
-                sh 'npm prune --production'
                 echo "End setup."
             }
         }
@@ -42,6 +41,7 @@ pipeline {
                 NODE_ENV = "production"
             }
             steps {
+                sh 'npm prune --production'
                 echo "\nRunning parameters:"
                 echo env.PATH
                 sh "pwd"
