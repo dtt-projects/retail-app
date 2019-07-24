@@ -22,8 +22,8 @@ pipeline {
                 // sh 'echo $PATH'
                 // sh 'type node'
                 sh 'node --version'
-                sh 'npm prune --production'
                 sh 'npm install'
+                sh 'npm prune --production'
                 echo "End setup."
             }
         }
@@ -40,7 +40,6 @@ pipeline {
         stage('Deploy') {
             environment {
                 NODE_ENV = "production"
-                NODE_PORT = 3000
             }
             steps {
                 echo "\nRunning parameters:"
