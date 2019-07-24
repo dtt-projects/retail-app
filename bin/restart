@@ -11,7 +11,7 @@ kill_node_instances() {
   # grep is not feature complete on the share system (missing flags
   # like "-o") and we don't have pgrep, so we will use basic grep/
   # awk features to capture running node instances.
-  node_instances="$(ps -ef | awk '/node/ {print $2}')";
+  node_instances="$(ps -ef | grep node | grep -v "grep" | awk '{print $2}')";
 
   if [[ -z "$node_instances" ]]; then
     printf "No running Node instances found.\n"
