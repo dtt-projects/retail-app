@@ -164,8 +164,7 @@ const setupRedirectPipes = () => {
 
     if (index === 0) {
       process.stdout.write = outputPipe.write.bind(outputPipe);
-    }
-    else {
+    } else {
       process.stderr.write = outputPipe.write.bind(outputPipe);
     }
   });
