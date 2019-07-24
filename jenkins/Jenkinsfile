@@ -44,6 +44,7 @@ pipeline {
             }
             steps {
                 echo "\nRunning parameters:"
+                echo env.PATH
                 sh "pwd"
                 echo "\nDirectory contents:"
                 sh "ls -la"
