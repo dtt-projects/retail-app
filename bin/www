@@ -197,5 +197,5 @@ server.on('listening', onListening.bind(this, server));
 console.log('Server started on port ', port);
 
 // Set up stdout, stderr redirects.
-setupLoggingFiles();
-setupRedirectPipes();
+// setupLoggingFiles();
+// setupRedirectPipes();
