@@ -15,6 +15,7 @@ kill_node_instances() {
 
   if [[ -z "$node_instances" ]]; then
     printf "No running Node instances found.\n"
+    echo "$(ps -ef | grep node)";
   else
     printf "Existing node processes found.\n"
     printf "Killing $(echo $node_instances | wc -w | awk '{$1=$1};1') PIDs...\n";
