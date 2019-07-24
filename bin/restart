@@ -33,6 +33,7 @@ start_script() {
   
   # Start script. Capture started ID and print it to the user
   # for debugging purposes.
+  echo "Executing script: $node_script"
   eval $node_script;
   NEW_PROC_PID="$!"
 
