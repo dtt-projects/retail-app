@@ -51,6 +51,10 @@ pipeline {
                 echo "\nRunning binary directory:"
                 sh "ls -la bin"
                 sh "npm run restart:server"
+                echo "Server start output log:"
+                sh "cat logs/stdout.log"
+                echo "Server start error log:"
+                sh "cat logs/stderr.log"
             }
         }
         /*

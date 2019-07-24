@@ -132,8 +132,9 @@ const setupLoggingFiles = () => {
       if (err.code === 'EEXIST') {
         console.error('Log directory already exists!');
       }
-
-      console.log(err);
+      else {
+        console.error('Error caught while trying to make log dir: ', err.message);
+      }
     }
 
     LOG_FILES.forEach((filePath) => {
