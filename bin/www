@@ -128,6 +128,7 @@ const onListening = () => {
 const setupLoggingFiles = () => {
   // Make the directory.
   fs.mkdir(LOG_DIR, 0o777, (err) => {
+    console.log('Making the log directory');
     if (err) {
       if (err.code === 'EEXIST') {
         console.error('Log directory already exists!');
@@ -136,6 +137,8 @@ const setupLoggingFiles = () => {
         console.error('Error caught while trying to make log dir: ', err.message);
       }
     }
+
+    console.log('Generating log files...');
 
     LOG_FILES.forEach((filePath) => {
       fs.writeFile(filePath, '', (logErr) => {
@@ -181,11 +184,13 @@ const setupRedirectPipes = () => {
 port = normalizePort(process.env.NODE_PORT) || normalizePort(DEFAULT_PORT_NUMBER);
 app.set('port', port);
 
+console.log('Port set to ', port);
 /**
  * Create HTTP server.
  */
 server = http.createServer(app);
 
+console.log('Server instance created');
 
 /**
  * Listen on provided port, on all network interfaces.
