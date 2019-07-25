@@ -1,4 +1,4 @@
-
+#!/usr/bin/env groovy
 
 pipeline {
     agent {
@@ -46,6 +46,12 @@ pipeline {
             environment {
                 NODE_ENV = "production"
             }
+            when {
+                // Only deploy if 'master' branch triggers Jenkins pipeline.
+                expression {
+                   env.BRANCH_NAME.toString().equals('master')
+                }
+            }
             steps {
                 sh 'npm prune --production'
                 echo "\nRunning parameters:"
@@ -79,7 +85,7 @@ pipeline {
     post {
         /*
             always {
-
+                echo "Pipeline execution has finished"
             }
             success {
 
