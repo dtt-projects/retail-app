@@ -48,9 +48,12 @@ pipeline {
             }
             when {
                 // Only deploy if 'master' branch triggers Jenkins pipeline.
+                /*
                 expression {
                    env.BRANCH_NAME.toString().equals('master')
                 }
+                */
+                branch 'master'
             }
             steps {
                 sh 'npm prune --production'
