@@ -43,11 +43,6 @@ pipeline {
             }
         }
         stage('Deploy') {
-            when {
-                // Access the currentBuild.result to determine if we should
-                // deploy the current build.
-                currentBuild.result == null || currentBuild.result == 'SUCCESS'
-            }
             environment {
                 NODE_ENV = "production"
             }
@@ -92,15 +87,15 @@ pipeline {
             fixed {
 
             }
+            cleanup {
+
+            }
         */
             failure {
                 echo "Build failed!"
             }
             unstable {
                 echo "Build unstable; check tests for failures."
-            }
-            cleanup {
-
             }
         }
 }
