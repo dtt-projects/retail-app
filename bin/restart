@@ -19,7 +19,11 @@ kill_node_instances() {
     echo "$(ps -ef | grep node)";
     printf "Existing node processes found.\n"
     printf "Killing $(echo $node_instances | wc -w | awk '{$1=$1};1') PIDs...\n";
-    for pid in $node_instances; do kill -15 $pid || true; done
+
+    # Kill all existing Node PIDs.
+    for pid in $node_instances;
+      do kill -15 $pid || true;
+    done
   fi
 }
 

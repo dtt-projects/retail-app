@@ -1,11 +1,19 @@
+
+
 pipeline {
     agent {
         node { label 'zOS_Share' } 
     }
-
+    options {
+        // Set the build pipeline to time out after 1 hour.
+        // If the pipeline gets held up, it will automatically get terminated
+        // after this time value.
+        timeout(time: 1, unit: 'HOURS') 
+    }
     stages {
         stage('Checkout') {
             steps {
+                echo "Running build ID: ${env.BUILD_ID} on URL: ${env.JENKINS_URL}"
                 echo "Checking out source code from Git..."
                 checkout scm
                 echo "Done checking out source code."
@@ -18,10 +26,8 @@ pipeline {
             steps {
                 echo "Begin setup..."
                 echo "Node environment is: ${env.NODE_ENV}"
-                // sh 'export PATH=$PATH:/usr/lpp/IBM/cnj/IBM/node-v6.11.2-os390-s390x/bin/'
-                // sh 'echo $PATH'
-                // sh 'type node'
                 sh 'node --version'
+                sh 'npm prune --production'
                 sh 'npm install'
                 echo "End setup."
             }
@@ -37,6 +43,11 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                // Access the currentBuild.result to determine if we should
+                // deploy the current build.
+                currentBuild.result == null || currentBuild.result == 'SUCCESS'
+            }
             environment {
                 NODE_ENV = "production"
             }
@@ -71,11 +82,25 @@ pipeline {
     }
 
     post {
+        /*
+            always {
+
+            }
+            success {
+
+            }
+            fixed {
+
+            }
+        */
             failure {
                 echo "Build failed!"
             }
             unstable {
                 echo "Build unstable; check tests for failures."
+            }
+            cleanup {
+
             }
         }
 }

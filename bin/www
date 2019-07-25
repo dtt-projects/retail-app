@@ -178,6 +178,11 @@ const setupRedirectPipes = () => {
 };
 
 
+// Set up stdout, stderr redirects.
+setupLoggingFiles();
+setupRedirectPipes();
+
+
 /**
  * Set up port number for the server.
  */
@@ -200,7 +205,3 @@ server.on('error', onError);
 server.on('listening', onListening.bind(this, server));
 
 console.log('Server started on port ', port);
-
-// Set up stdout, stderr redirects.
-setupLoggingFiles();
-setupRedirectPipes();
