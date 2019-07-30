@@ -68,6 +68,8 @@ pipeline {
                 sh "bash ./bin/restart"
                 echo "Starting server with `nohup` as BG process..."
                 sh "nohup node ./bin/www &"
+                echo "Running Node processes:"
+                sh "ps -ef | grep 'node' | grep -v 'grep'"
                 echo "Server start output log:"
                 sh "cat logs/stdout.log"
                 echo "Server start error log:"
