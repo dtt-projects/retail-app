@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -o pipefail
+set +e
+
+# File-global variables.
+THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )";
+NEW_PROC_PID="";
+
+
+# Kill all existing Node.js instances if there are any. We don't want to flood
+# the system with Node instances!
+kill_node_instances() {
+  node_instances="$(ps -ef | grep 'bin/www' | awk '{print $2}')";
+
+  if [[ -z "$node_instances" ]]; then
+    printf "No running Node instances found. No Node instances killed.\n"
+  else
+    echo "$(ps -ef | grep node)";
+    printf "Existing node processes found.\n"
+    printf "Killing $(echo $node_instances | wc -w | awk '{$1=$1};1') PIDs...\n";
+
+    # Kill all existing Node PIDs.
+    for pid in $node_instances;
+      do kill -15 $pid || true;
+    done
+
+    echo "Killed node instances."
+  fi
+}
+
+
+main () {
+  # Get all active node instances
+  kill_node_instances;
+  exit 0;
+}
+
+
+
+main "$@"

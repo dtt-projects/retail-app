@@ -45,7 +45,6 @@ pipeline {
         stage('Deploy') {
             environment {
                 NODE_ENV = "production"
-                NODE_PORT = '9520'
             }
             when {
                 // Only deploy if 'master' branch triggers Jenkins pipeline.
@@ -65,9 +64,10 @@ pipeline {
                 sh "ls -la"
                 echo "\nRunning binary directory:"
                 sh "ls -la bin"
-                sh "bash ./bin/restart"
-                echo "Starting server with `nohup` as BG process..."
-                sh "nohup node ./bin/www &"
+                echo "Killing existing Node process..."
+                sh "npm run killserver"
+                echo "Starting server as BG process..."
+                sh "npm run prod"
                 echo "Running Node processes:"
                 sh "ps -ef | grep 'node' | grep -v 'grep'"
                 echo "Server start output log:"

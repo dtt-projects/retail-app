@@ -3,11 +3,13 @@
  * @fileoverview Routes for user-related tasks
  * @requires Express
  * @requires routes/controllers/users
+ * @exports {Express#Router} The user path router.
  */
 
 /**
  * @description Express module
  * @constant
+ * @memberof routes/users
  */
 const express = require('express');
 
@@ -15,7 +17,6 @@ const express = require('express');
  * @description Express router to mount user related functions on.
  * @type {Object}
  * @constant
- * @namespace router~userRouter
  */
 const userRouter = express.Router();
 

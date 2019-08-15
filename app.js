@@ -3,28 +3,59 @@
  * @fileoverview Server configuration that exports the Express object itself,
  *    which can be used in a different module (i.e. [www](bin/www) in the `bin`
  *    directory).
+ * @exports {Express} An `Express` app instance.
  */
 
-// External Dependencies
+/**
+ * From the `http-errors` module. Handle HTTP Errors with the `createError` module.
+ */
 const createError = require('http-errors');
+
+/**
+ * From the `exress module`. The Express library used to create an Express
+ * object singleton.
+ */
 const express = require('express');
+
+/** From the `path` module. Built-in path module to manipulate system paths. */
 const path = require('path');
+
+/** From the `cookie-parser` module. Parse incoming / outgoing cookies. */
 const cookieParser = require('cookie-parser');
+
+/** From the `morgan` module. Logging utility. */
 const logger = require('morgan');
+
+/**
+ * From the `helmet` module. Security module used to protect against common
+ * exploits listed on OWASP.
+ */
 const helmet = require('helmet');
 
-// Internal Dependencies
-const rootRouter = require('./routes/root');
-const usersRouter = require('./routes/users');
-const errorHandler = require('./routes/error');
+/** The root path router defined in `./routes/root`. */
+const rootRouter = require('./routes/root.router');
 
-// Base application.
+/** The user path router defined in `./routes/users`. */
+const usersRouter = require('./routes/users.router');
+
+/**
+ * The error path router (which contains a single function as an error handler)
+ * defined in `./routes/error`.
+ */
+const errorHandler = require('./routes/error.router');
+
+/**
+ * Express application instance.
+ * @constant
+ * @public
+ * @memberof app.js
+ */
 const app = express();
 
-// Security setup
+/** Security setup */
 app.use(helmet());
 
-// view engine setup
+/** view engine setup */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 

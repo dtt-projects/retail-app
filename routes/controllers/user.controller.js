@@ -2,6 +2,7 @@
  * @module routes/controllers/user
  * @fileoverview User route's controller. Handle all business logic relative to
  *    a particular user or a set of users.
+ * @exports {Object} Functions to attach to the `users` router.
  */
 
 
@@ -24,9 +25,9 @@ const login = (req, res, next) => {
 
   // Redirect to another route or maybe render a different page?
   res.render('userpage');
-}
+};
 
 
 module.exports = {
   login,
-}
+};

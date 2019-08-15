@@ -161,4 +161,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/node,linux,macos,windows
+# Remove auto-generated code docs
+code-docs
+config

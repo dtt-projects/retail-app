@@ -1,7 +1,7 @@
 /**
  * @module routes/error.js
  * @fileoverview Error handler function
- * @exports Function
+ * @exports {Function} An error handler function to be used as an error catch-all.
  */
 
 /**
@@ -20,4 +20,4 @@ module.exports = (err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render('error', { error: res.locals.error });
-}
+};

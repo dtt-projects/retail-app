@@ -1,3 +1,11 @@
 {
-    "editor.rulers": [80]
+    "editor.rulers": [80],
+    "eslint.enable": true,
+    "eslint.alwaysShowStatus": true,
+    "eslint.run": "onSave",
+    "javascript.autoClosingTags": true,
+    "javascript.format.enable": true,
+    "javascript.preferences.quoteStyle": "single",
+    "javascript.updateImportsOnFileMove.enabled": "prompt",
+    "javascript.validate.enable": true
 }

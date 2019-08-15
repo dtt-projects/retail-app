@@ -20,34 +20,96 @@ const path = require('path');
 const app = require('../app');
 
 // Global variables.
-const DEFAULT_PORT_NUMBER = 9520;
+
+/**
+ * @type {Number}
+ * @access @private
+ * @constant
+ * @default
+ * The first usuable port. A random port between this value (inclusive) and the
+ * value from `URL_PORT_RANGE_END` will be selected and used.
+ */
+const URL_PORT_RANGE_START = 9500;
+
+/**
+ * @type {Number}
+ * @private
+ * @constant
+ * @default
+ * The last usable port in the range `URL_PORT_RANGE_START` to `URL_PORT_RANGE_END`.
+ * A random port will be used (up to but not including this value) for the server.
+ */
+const URL_PORT_RANGE_END = 9525;
+
+/**
+ * @type {String}
+ * @private
+ * @constant
+ * @default
+ * The log directory path.
+ * NOTE: in the future, we should have stdout/stderr log files in `/var`. For
+ * the scope of a super small project, we can have the log files in this directory.
+ */
 const LOG_DIR = path.join(__dirname, '../logs');
+
+/**
+ * @type {Array<String>}
+ * @private
+ * @constant
+ * @default
+ * The log files to create/use, which will reside in the log directory.
+ */
 const LOG_FILES = [
   path.join(LOG_DIR, 'stdout.log'),
   path.join(LOG_DIR, 'stderr.log'),
 ];
 
 /**
+ * @type {Boolean}
+ * @private
+ * @constant
+ * @default
+ */
+const isProduction = process.env.NODE_ENV && process.env.NODE_ENV.indexOf('prod') > -1;
+
+/**
  * @type {String}
- * @public @var
+ * @private
  * Pipe server setup values into string.
  */
 let pipe;
 
 /**
  * @type {Number}
- * @public @var
- * Get port from environment and store in Express.
+ * @private
+ * Get port from random generator (done below) and store in Express object
+ * singleton.
  */
 let port;
 
 
 /**
  * @type {Object}
- * @public @var
- * Establish an Express server object.
+ * @access @private
+ * Create a server using the Express server object created in `app`.
  */
 let server;
+
+
+// BEGIN NODE.JS DEPLOYMENT SCRIPT.
+
+
+// Only do production steps if we're running in production. If we're just trying
+// to test this application, there's no reason to do all the steps below.
+if (!isProduction) {
+  const runningEngine = process.env.NODE_RUNNER || 'node';
+
+  if (runningEngine !== 'nodemon') {
+    console.warn('Detected development/testing run of this script without using '
+      + 'the command `npm run start:dev`. Please consider using this command '
+      + 'instead of directly invoking this script!');
+  }
+}
 
 
 console.log('Begin server deployment Node.js script...');
@@ -59,21 +121,21 @@ console.log('Begin server deployment Node.js script...');
  * @param {Number} val The value of the port to use.
  * @returns {Boolean|Number} False if we cannot normalize the port, or the number
  *    if we can.
+ * @throws {Error} If `val` is not a `String` or a `Number`.
  */
 const normalizePort = (val) => {
   const parsedPortVal = parseInt(val, 10);
 
+  // If it's a string, it's a named pipe, so return it immediately. Otherwise,
+  // return the `parsedPortVal` since it's a number.
   if (isNaN(parsedPortVal)) {
-    // named pipe
     return val;
   }
-
   if (parsedPortVal >= 0) {
-    // port number
     return parsedPortVal;
   }
 
-  return false;
+  throw Error('Normalize port accepts either a string or a number, not ', typeof val);
 };
 
 /**
@@ -107,6 +169,7 @@ const onError = (error) => {
   }
 };
 
+
 /**
  * @function onListening
  * @description Server listening event handler. Called automatically after the
@@ -131,20 +194,24 @@ const setupLoggingFiles = () => {
     console.log('Making the log directory');
     if (err) {
       if (err.code === 'EEXIST') {
-        console.error('Log directory already exists!');
+        console.error('Log directory already exists!\n'
+          + 'No log directory will be (re)created.');
       }
       else {
         console.error('Error caught while trying to make log dir: ', err.message);
       }
     }
 
+    // Generate log files by looping through the contents of `LOG_FILES` using
+    // the Array#forEach method. We can optionally switch this to a more direct
+    // for...of loop or a regular for loop if desired.
     console.log('Generating log files...');
 
     LOG_FILES.forEach((filePath) => {
       fs.writeFile(filePath, '', (logErr) => {
         if (logErr) {
           console.error('Error trying to create ', filePath);
-          console.error('Perhaps it already exists?', err.message);
+          console.error('Perhaps it already exists?', logErr.message);
         }
       });
     });
@@ -160,12 +227,12 @@ const setupLoggingFiles = () => {
 const setupRedirectPipes = () => {
   // Set up stdout, stderr redirects via WriteStream pipe.
 
-  LOG_FILES.forEach((filePath, index) => {
+  LOG_FILES.forEach((filePath) => {
     // Redirect pipe. Bind `this` to the respective write stream.
 
     const outputPipe = fs.createWriteStream(filePath);
 
-    if (index === 0) {
+    if (filePath.indexOf('stdout') > -1) {
       process.stdout.write = outputPipe.write.bind(outputPipe);
     } else {
       process.stderr.write = outputPipe.write.bind(outputPipe);
@@ -178,24 +245,34 @@ const setupRedirectPipes = () => {
 };
 
 
-// Set up stdout, stderr redirects.
-setupLoggingFiles();
-setupRedirectPipes();
+// Set up stdout, stderr redirects if running in production.
+if (isProduction) {
+  setupLoggingFiles();
+  setupRedirectPipes();
+  console.log('All log statements should have been piped to `stdout.log`.');
+}
 
 
 /**
  * Set up port number for the server.
  */
-port = normalizePort(process.env.NODE_PORT) || normalizePort(DEFAULT_PORT_NUMBER);
-app.set('port', port);
+port = Math.floor(Math.random()
+  * (URL_PORT_RANGE_END - URL_PORT_RANGE_START))
+  + (URL_PORT_RANGE_START);
 
-console.log('Port set to ', port);
+console.log(`Free port captured: ${port}. Normalizing for 'Express' object use.`);
+port = normalizePort(port);
+
+app.set('port', port);
+console.log('Port successfully set to ', port);
+
 /**
  * Create HTTP server.
  */
 server = http.createServer(app);
 
-console.log('Server instance created');
+console.log('Server instance created.');
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -204,4 +281,8 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening.bind(this, server));
 
-console.log('Server started on port ', port);
+console.log('Server successfully started on port ', port);
+
+if (!isProduction) {
+  console.log(`Website active on: http://localhost:${port}`);
+}

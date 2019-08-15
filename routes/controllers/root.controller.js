@@ -2,6 +2,7 @@
  * @module routes/controllers/root
  * @fileoverview Root route's controller. Exports functions to be used by each
  *    route handler.
+ * @exports {Object} Functions to attach to the `root` router.
  */
 
 
@@ -16,9 +17,9 @@
  */
 const sendHomepage = (req, res, next) => {
   res.render('homepage', { title: 'Sample Web Page' });
-}
+};
 
 
 module.exports = {
   sendHomepage,
-}
+};

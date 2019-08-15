@@ -2,6 +2,7 @@
  * @module public/javascripts/client.js
  * @fileoverview Front-end code in case interactivity or any JavaScript-related
  *    functionalities are required.
+ * @exports {null} No front-end code exported to back-end.
  */
 
 
