@@ -13,6 +13,6 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "braces": ["stroustrup"]
+    "brace-style": [1, "stroustrup", { "allowSingleLine": true }]
   },
 };

@@ -25,7 +25,7 @@ const userRouter = express.Router();
  * @type {Object}
  * @constant
  */
-const userController = require('./controllers/user');
+const userController = require('./controllers/user.controller');
 
 
 /* GET users listing. */

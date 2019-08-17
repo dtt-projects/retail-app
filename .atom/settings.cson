@@ -1,0 +1,14 @@
+'*':
+  'core':
+    'excludeVcsIgnoredPaths': false
+  'editor':
+    'autoIndent': true
+    'fontSize': 14
+    'showLineNumbers': true
+    'tabLength': 4
+  'wrap-guide':
+    'columns': [80]
+
+'.source.js':
+    'editor':
+      'tabLength': 2
