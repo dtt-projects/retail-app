@@ -40,7 +40,7 @@ pipeline {
               echo "Begin setup..."
               echo "Node environment is: ${env.NODE_ENV}"
               sh 'echo "Using Node version: $(node --version). Installing packages..."'
-              sh 'npm install --quiet'
+              sh 'npm install --quiet --cache "$npm_config_cache"'
               echo "End setup."
           }
       }
