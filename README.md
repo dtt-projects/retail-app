@@ -100,16 +100,24 @@ To actually see a live demo of this server running, run the following command in
 [nodemon] watching: *.*
 [nodemon] starting `node ./bin/www`
 Begin server deployment Node.js script...
-Free port captured: 9511. Normalizing for 'Express' object use.
-Port successfully set to  9511
+Free port captured: 3000. Normalizing for 'Express' object use.
+Port successfully set to  3000
 Server instance created.
-Server successfully started on port  9511
-Website active on: http://localhost:9511
+Server successfully started on port  3000
+Website active on: http://localhost:3000
 ```
 
-From here, you can copy and paste the website link to your browser to view the website! In this particular example, you'd navigate to `http://localhost:9511`.
+From here, you can copy and paste the website link to your browser to view the website! In this particular example, you'd navigate to `http://localhost:3000`. When running in development mode, the port is __always__ 3000.
 
 To run the server in production mode, type in `npm run prod`. All your `console.log` statements will be piped to log files in an automatically created directory called `logs`.
+
+When running in production mode, the default server launch script behavior is to select a random port between 9500 to 9524, inclusive, and to run the server on that specified port. You will be able to see the selected port in the console log files (in the `logs/` directory) or in the Jenkins pipeline run console (if you are using Jenkins). If you wish to override this behavior and pick a static port number of your own, you can set the following environment variable in your terminal to a value greater than or equal to 3000. An invalid number (a number below 3000 or greater than 9999) will automatically be converted to port 3000. See below for an example of doing this:
+
+```bash
+export NODE_STATIC_PORT=3456; npm run prod;
+```
+
+This will run your production server on port `3456`.
 
 **NOTE**:
 * If you run this server in production mode, it will spawn a Node.js process in the background. You'll need the following command to kill this process from the terminal: ```npm run killserver```

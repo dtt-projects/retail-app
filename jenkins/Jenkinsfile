@@ -1,114 +1,143 @@
 #!/usr/bin/env groovy
 
+// Variable definitions for `echo` statements later in the pipeline. Do not edit.
+def PORT_START='9500';
+def PORT_END='9525';
+
+// Begin pipeline definition.
 pipeline {
-    agent {
-        node { label 'zOS_Share' } 
-    }
-    options {
-        // Set the build pipeline to time out after 1 hour.
-        // If the pipeline gets held up, it will automatically get terminated
-        // after this time value.
-        timeout(time: 1, unit: 'HOURS') 
-    }
-    stages {
-        stage('Checkout') {
-            steps {
-                echo "Running build ID: ${env.BUILD_ID} on URL: ${env.JENKINS_URL}"
-                echo "Checking out source code from Git..."
-                checkout scm
-                echo "Done checking out source code."
-            }
-        }
-        stage('Setup Environment') {
-            environment {
-                NODE_ENV = "test"
-            }
-            steps {
-                echo "Begin setup..."
-                echo "Node environment is: ${env.NODE_ENV}"
-                sh 'node --version'
-                sh 'npm prune --production'
-                sh 'npm install'
-                echo "End setup."
-            }
-        }
-        stage('Testing') {
-            environment {
-                NODE_ENV = "test"
-            }
-            steps {
-                echo "Begin testing..."
-                sh 'npm test'
-                echo "testing complete."
-            }
-        }
-        stage('Deploy') {
-            environment {
-                NODE_ENV = "production"
-            }
-            when {
-                // Only deploy if 'master' branch triggers Jenkins pipeline.
-                /*
-                expression {
-                   env.BRANCH_NAME.toString().equals('master')
-                }
-                */
-                branch 'master'
-            }
-            steps {
-                sh 'npm prune --production'
-                echo "\nRunning parameters:"
-                echo env.PATH
-                sh "pwd"
-                echo "\nDirectory contents:"
-                sh "ls -la"
-                echo "\nRunning binary directory:"
-                sh "ls -la bin"
-                echo "Killing existing Node process..."
-                sh "npm run killserver"
-                echo "Starting server as BG process..."
-                sh "npm run prod"
-                echo "Running Node processes:"
-                sh "ps -ef | grep 'node' | grep -v 'grep'"
-                echo "Server start output log:"
-                sh "cat logs/stdout.log"
-                echo "Server start error log:"
-                sh "cat logs/stderr.log"
-            }
-        }
-        /*
-        stage('Prune and Cleanup') {
-            steps {
-                echo "Skipping building stage. "
-                // Clean up remaining node_modules and extra files
-                // to prevent filespace pollution and running out
-                // of disk space.
-                sh 'rm -rf node_modules/'
-            }
-        }
-        */
-    }
 
-    post {
-        /*
-            always {
-                echo "Pipeline execution has finished"
-            }
-            success {
+  // Use any available agent. Do not specify the label if possible!
+  agent any
 
-            }
-            fixed {
+  options {
+      /**
+       * Set the build pipeline to time out after a specified time. This value
+       * may need to be decreased in the future if potential snags are hit
+       * often/early. The pipeline gets terminated after this time value.
+       */
+      timeout(time: 1, unit: 'HOURS')
+  }
 
-            }
-            cleanup {
+  // Begin stages definition. You may choose to add/remove/edit stages as necessary.
+  stages {
+      stage('Checkout') {
+          steps {
+              echo "Running build ID: ${env.BUILD_ID} on URL: ${env.JENKINS_URL}."
+              echo "Checking out source code..."
+              checkout scm
+              echo "Source code checked out."
+          }
+      }
+      stage('Set Up Environment') {
+          environment {
+              NODE_ENV = "test"
+          }
+          steps {
+              // Set up the environment by installing all packages. Non-production
+              // related packages (i.e. devDependencies) will be removed later via
+              // the `npm prune --production` command.
+              echo "Begin setup..."
+              echo "Node environment is: ${env.NODE_ENV}"
+              sh 'echo "Using Node version: $(node --version). Installing packages..."'
+              sh 'npm install --verbose'
+              echo "End setup."
+          }
+      }
+      stage('Testing') {
+          environment {
+              NODE_ENV = "test"
+          }
+          steps {
+              // Testing done via the `mocha` library. See the `tests/` folder
+              // for the specific tests that are run.
+              echo "Begin testing..."
+              sh 'npm run test'
+              echo "Testing complete."
+          }
+      }
+      stage('Deploy') {
+          // Production deployments require this `NODE_ENV` variable to be equal
+          // to the value, "production".
+          environment {
+              NODE_ENV = "production"
+          }
+          when {
+              // Only deploy if 'master' branch triggers Jenkins pipeline.
+              branch 'master'
+          }
+          steps {
+              // Prune all non-critcal packages from this project. Only keep the
+              // ones needed for production deployment. See the link below for more info.
+              // https://docs.npmjs.com/cli/prune.html
+              sh 'npm prune --production'
+              echo "\nRunning at path ${env.PATH}"
+              echo "\nDirectory contents:"
+              sh "ls -la"
+              echo "\nRunning binary directory:"
+              sh "ls -la bin"
 
-            }
-        */
-            failure {
-                echo "Build failed!"
-            }
-            unstable {
-                echo "Build unstable; check tests for failures."
-            }
-        }
+              // Automatically kills any Node server processes that were started by
+              // Jenkins via the `bin/www` script. Any Node servers manually started
+              // _without_ the `bin/www` script are ignored.
+              echo "Killing existing Node process..."
+              sh "npm run killserver"
+              echo "Starting server as BG process..."
+
+              /**
+               * By default, the server start script located in `bin/www` will
+               * select a random port between 9500 - 9524, inclusive, to run the
+               * server on. The port number is displayed in the console. If you
+               * want to deploy the server with a static port, set an environment
+               * variable named `NODE_STATIC_PORT` to a value between 3000 and 9999,
+               * inclusive. This will force the deployment script to use that specified
+               * port. You can set it here in this `Jenkinsfile` by adding this
+               * variable to the `environment` block above.
+               * A warning is shown in the console denoting this behavior.
+               */
+              echo "\n\nNOTE!: Server is set to use a random port between ${PORT_START} and ${PORT_END}."
+              echo "To use a static port, set an environment variable `NODE_STATIC_PORT` to a value between "
+              echo "3000 and 9999, inclusive. See the project template`README` for more info."
+
+              // Start the server.
+              sh "npm run prod"
+
+              // Show running processes in the console.
+              echo "Running Node processes:"
+              sh "ps -ef | grep 'node' | grep -v 'grep'"
+
+              // All log statements should have been piped to their respective
+              // files. The contents are also displayed in the console.
+              echo "Server start output log:"
+              sh "cat logs/stdout.log"
+              echo "Server start error log:"
+              sh "cat logs/stderr.log"
+          }
+      }
+      stage('Prune and Cleanup') {
+          steps {
+              // Clean up remaining node_modules and extra files to prevent
+              // filespace pollution and running out of disk space.
+              sh 'rm -rf node_modules/'
+          }
+      }
+  }
+
+  // Any specific "post-stages" actions that need to be taken should be done here.
+  // Typically, plugins or post-build scripts are run here to complete the Jenkins
+  // run.
+  post {
+          always {
+              echo "Pipeline execution has completed."
+          }
+          success {
+              echo "Build successful!"
+          }
+          failure {
+              echo "Build failed!"
+          }
+          unstable {
+              echo "Build unstable; check tests for failures."
+          }
+      }
 }
