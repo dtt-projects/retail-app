@@ -40,7 +40,7 @@ pipeline {
               echo "Begin setup..."
               echo "Node environment is: ${env.NODE_ENV}"
               sh 'echo "Using Node version: $(node --version). Installing packages..."'
-              sh 'npm install --verbose'
+              sh 'npm install --quiet'
               echo "End setup."
           }
       }
@@ -72,10 +72,6 @@ pipeline {
               // https://docs.npmjs.com/cli/prune.html
               sh 'npm prune --production'
               echo "\nRunning at path ${env.PATH}"
-              echo "\nDirectory contents:"
-              sh "ls -la"
-              echo "\nRunning binary directory:"
-              sh "ls -la bin"
 
               // Automatically kills any Node server processes that were started by
               // Jenkins via the `bin/www` script. Any Node servers manually started
@@ -118,7 +114,7 @@ pipeline {
           steps {
               // Clean up remaining node_modules and extra files to prevent
               // filespace pollution and running out of disk space.
-              sh 'rm -rf node_modules/'
+              echo 'Pruning if necessary...'
           }
       }
   }
