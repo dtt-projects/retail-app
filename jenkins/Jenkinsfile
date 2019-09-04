@@ -7,7 +7,8 @@ def PORT_END='9525';
 // Begin pipeline definition.
 pipeline {
 
-  // ONLY use the agent, 'JenkinsAgent'. Do not specify the label if possible!
+  // DO NOT TOUCH THIS SECTION.
+  // ONLY use the agent, 'JenkinsAgent'.
   agent {
     node {
       label 'JenkinsAgent'
@@ -23,7 +24,8 @@ pipeline {
       timeout(time: 1, unit: 'HOURS')
   }
 
-  // Begin stages definition. You may choose to add/remove/edit stages as necessary.
+  // Begin stages definition. You may choose to add/remove/edit stages as
+  // necessary.
   stages {
       stage('Checkout') {
           steps {

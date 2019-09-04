@@ -297,7 +297,9 @@ if (!isProduction) {
 }
 // Set up stdout, stderr redirects if running in production.
 else {
+  /*
   console.log('All log statements will be piped to `stdout.log` or `stderr.log`.');
   setupLoggingFiles();
   setupRedirectPipes();
+  */
 }
