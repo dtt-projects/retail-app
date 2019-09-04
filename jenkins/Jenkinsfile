@@ -7,8 +7,12 @@ def PORT_END='9525';
 // Begin pipeline definition.
 pipeline {
 
-  // Use any available agent. Do not specify the label if possible!
-  agent any
+  // ONLY use the agent, 'JenkinsAgent'. Do not specify the label if possible!
+  agent {
+    node {
+      label 'JenkinsAgent'
+    }
+  }
 
   options {
       /**
