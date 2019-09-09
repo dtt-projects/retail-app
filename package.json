@@ -38,7 +38,7 @@
     "lint": "./node_modules/.bin/eslint --color --fix config/* routes/* services/*",
     "start": "npm run dev",
     "dev": "export NODE_STATIC_PORT=3000; export NODE_ENV=development; export NODE_RUNNER=nodemon; ./node_modules/.bin/nodemon ./bin/www",
-    "prod": "export NODE_ENV=production; node ./bin/www &",
+    "prod": "export NODE_ENV=production; export NODE_STATIC_PORT=9520; node ./bin/www &",
     "killserver": "bash ./bin/killserver",
     "profile": "bash ./scripts/profile.sh"
   },
@@ -51,11 +51,6 @@
     "retail",
     "app"
   ],
-  "husky": {
-    "pre-commit": "npm run lint;",
-    "pre-push": "npm run test;",
-    "commit-msg": "./node_modules/.bin/commitlint -E HUSKY_GIT_PARAMS"
-  },
   "author": "",
   "license": "Apache-2.0"
 }

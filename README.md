@@ -111,13 +111,8 @@ From here, you can copy and paste the website link to your browser to view the w
 
 To run the server in production mode, type in `npm run prod`. All your `console.log` statements will be piped to log files in an automatically created directory called `logs`.
 
-When running in production mode, the default server launch script behavior is to select a random port between 9500 to 9524, inclusive, and to run the server on that specified port. You will be able to see the selected port in the console log files (in the `logs/` directory) or in the Jenkins pipeline run console (if you are using Jenkins). If you wish to override this behavior and pick a static port number of your own, you can set the following environment variable in your terminal to a value greater than or equal to 3000. An invalid number (a number below 3000 or greater than 9999) will automatically be converted to port 3000. See below for an example of doing this:
+When running in production mode, the default server launch script behavior is to run the server on port `9520`. You will be able to see the selected port in the console log files (in the `logs/` directory) or in the Jenkins pipeline run console (if you are using Jenkins). If you wish to override this behavior and let the server pick a random port number between 9500 and 9524 inclusive, you can unset the exported environment variable, `NODE_STATIC_PORT` on the `prod` script within the `package.json` file.
 
-```bash
-export NODE_STATIC_PORT=3456; npm run prod;
-```
-
-This will run your production server on port `3456`.
 
 **NOTE**:
 * If you run this server in production mode, it will spawn a Node.js process in the background. You'll need the following command to kill this process from the terminal: ```npm run killserver```
