@@ -3,6 +3,7 @@
 // Variable definitions for `echo` statements later in the pipeline. Do not edit.
 def PORT_START='9500';
 def PORT_END='9525';
+def PORT_STATIC_PROD='9520';
 
 // Begin pipeline definition.
 pipeline {
@@ -88,18 +89,21 @@ pipeline {
 
               /**
                * By default, the server start script located in `bin/www` will
-               * select a random port between 9500 - 9524, inclusive, to run the
-               * server on. The port number is displayed in the console. If you
-               * want to deploy the server with a static port, set an environment
-               * variable named `NODE_STATIC_PORT` to a value between 3000 and 9999,
-               * inclusive. This will force the deployment script to use that specified
-               * port. You can set it here in this `Jenkinsfile` by adding this
-               * variable to the `environment` block above.
+               * select the static port 9520 to run the server on. The port number
+               * is displayed in the console. If you want to deploy the server
+               * with a random port, remove the environment variable named
+               * `NODE_STATIC_PORT` in the `package.json`'s `prod` script command.
+               * This will force the deployment script to select a random port
+               * between 9500 and 9524, inclusive. You can find the specific
+               * port it's using in the build console for Jenkins.
+               *
                * A warning is shown in the console denoting this behavior.
                */
-              echo "\n\nNOTE!: Server is set to use a random port between ${PORT_START} and ${PORT_END}."
-              echo "To use a static port, set an environment variable `NODE_STATIC_PORT` to a value between "
-              echo "3000 and 9999, inclusive. See the project template`README` for more info."
+              echo "\n\nNOTE!: Server is set to use a static port, port ${PORT_STATIC_PROD}"
+              echo "To allow the server to randomly select a port between 9500 and 9524, inclusive,"
+              echo "please remove the `NODE_STATIC_PORT` environment variable in the"
+              echo "`package.json`'s `prod` script command."
+              echo "See the project template`README` for more info."
 
               // Start the server.
               sh "npm run prod"
