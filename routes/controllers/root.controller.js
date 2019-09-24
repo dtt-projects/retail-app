@@ -16,7 +16,7 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendHomepage = (req, res, next) => {
-  res.render('homepage', { title: 'Sample Web Page' });
+  res.render('homepage', { title: 'Sprout Creek Farm Homepage' });
 };
 
 
