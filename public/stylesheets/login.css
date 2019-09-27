@@ -1,0 +1,15 @@
+/* Login Page CSS Module. */
+
+.login-div {
+  margin: auto;
+  width: 50%;
+  background-color: red;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.center-table {
+  margin: auto;
+}
