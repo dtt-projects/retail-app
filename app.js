@@ -38,6 +38,9 @@ const rootRouter = require('./routes/root.router');
 /** The user path router defined in `./routes/users`. */
 const usersRouter = require('./routes/users.router');
 
+/** The login path router defined in './routes/login'. */
+const loginRouter = require('./routes/login.router');
+
 /**
  * The error path router (which contains a single function as an error handler)
  * defined in `./routes/error`.
@@ -68,6 +71,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set up routes.
 app.use('/', rootRouter);
 app.use('/users', usersRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
