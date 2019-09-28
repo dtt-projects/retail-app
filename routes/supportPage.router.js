@@ -22,7 +22,7 @@ const supportPageRouter = express.Router();
 
 
 /**
- * @description Controller for login route.
+ * @description Controller for support route.
  * @type {Object}
  * @constant
  */
@@ -30,11 +30,11 @@ const supportPageController = require('./controllers/supportPage.controller');
 
 
 /**
- * Route serving login page.
+ * Route serving support page.
  * @name get /
- * @description Register the loginController's `sendLoginPage` function on the
- *    loginRouter.
- *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
+ * @description Register the supportController's `sendSupportPage` function on the
+ *    supportRouter.
+ *    Send the supportPage rendered by HBS from `supportController#sendSupportpage`.
  */
 supportPageRouter.get('/', supportPageController.sendSupportPage);
 
