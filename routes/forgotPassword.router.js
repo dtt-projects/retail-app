@@ -18,7 +18,7 @@ const express = require('express');
  * @type {Object}
  * @constant
  */
-const loginRouter = express.Router();
+const forgotPasswordRouter = express.Router();
 
 
 /**
@@ -26,7 +26,7 @@ const loginRouter = express.Router();
  * @type {Object}
  * @constant
  */
-const loginController = require('./controllers/login.controller');
+const forgotPasswordController = require('./controllers/forgotPassword.controller');
 
 
 /**
@@ -36,6 +36,6 @@ const loginController = require('./controllers/login.controller');
  *    loginRouter.
  *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
  */
-loginRouter.get('/', loginController.sendLoginPage);
+forgotPasswordRouter.get('/', forgotPasswordController.sendForgotPasswordPage);
 
-module.exports = loginRouter;
+module.exports = forgotPasswordRouter;
