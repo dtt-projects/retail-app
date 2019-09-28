@@ -44,6 +44,9 @@ const loginRouter = require('./routes/login.router');
 /** The login path router defined in './routes/login'. */
 const forgotPasswordRouter = require('./routes/forgotPassword.router');
 
+/** The login path router defined in './routes/login'. */
+const eatAtTheFarmRouter = require('./routes/eatAtTheFarm.router');
+
 /**
  * The error path router (which contains a single function as an error handler)
  * defined in `./routes/error`.
@@ -76,6 +79,7 @@ app.use('/', rootRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/forgot_password', forgotPasswordRouter);
+app.use('/eat_at_the_farm', eatAtTheFarmRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
