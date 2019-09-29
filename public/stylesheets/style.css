@@ -1,7 +1,6 @@
 /* Standard CSS Module for website. */
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -16,6 +15,7 @@ body {
 
 .header {
   font-size: 2rem;
+  background-image: url('/images/farm_header.png');
 }
 
 .header__lg {
@@ -37,3 +37,33 @@ body {
   margin: 0 auto;
   text-align: center;
 }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+.active {
+  background-color: #4CAF50;
