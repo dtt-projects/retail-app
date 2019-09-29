@@ -50,6 +50,21 @@ const eatAtTheFarmRouter = require('./routes/eatAtTheFarm.router');
 /** The supportPage path router defined in './routes/supportPage'. */
 const supportPageRouter = require('./routes/supportPage.router');
 
+/** The supportPage path router defined in './routes/supportPage'. */
+const adminDashboardRouter = require('./routes/adminDashboard.router');
+
+/** The supportPage path router defined in './routes/supportPage'. */
+const cartPageRouter = require('./routes/cartPage.router');
+
+/** The supportPage path router defined in './routes/supportPage'. */
+const checkOutRouter = require('./routes/checkOutPage.router');
+
+/** The supportPage path router defined in './routes/supportPage'. */
+const marketPageRouter = require('./routes/marketPage.router');
+
+/** The supportPage path router defined in './routes/supportPage'. */
+const userDashboardRouter = require('./routes/userDashboard.router');
+
 
 /**
  * The error path router (which contains a single function as an error handler)
@@ -85,6 +100,12 @@ app.use('/login', loginRouter);
 app.use('/forgot_password', forgotPasswordRouter);
 app.use('/eat_at_the_farm', eatAtTheFarmRouter);
 app.use('/support', supportPageRouter);
+app.use('/admin_dashboard', adminDashboardRouter);
+app.use('/cart', cartPageRouter);
+app.use('/check_out', checkOutRouter);
+app.use('/market', marketPageRouter);
+app.use('/user_dashboard', userDashboardRouter);
+
 
 
 // catch 404 and forward to error handler
