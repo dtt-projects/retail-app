@@ -14,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description Express router to mount user related functions on.
+ * @description userDashboarrdRouter to mount user related functions on.
  * @type {Object}
  * @constant
  */
@@ -22,7 +22,7 @@ const userDashboardRouter = express.Router();
 
 
 /**
- * @description Controller for login route.
+ * @description Controller for userDashboardController route.
  * @type {Object}
  * @constant
  */
@@ -30,11 +30,11 @@ const userDashboardController = require('./controllers/userDashboard.controller'
 
 
 /**
- * Route serving login page.
+ * Route serving usesrDashboardRouter page.
  * @name get /
- * @description Register the loginController's `sendLoginPage` function on the
- *    loginRouter.
- *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
+ * @description Register the userDashboardRouter `senduserDashboardRouter` function on the
+ *    userDashboardRouter.
+ *    Send the userDashboardRouter rendered by HBS from `userDashboardRouter#senduserDashboardRouterpage`.
  */
 userDashboardRouter.get('/', userDashboardController.sendUserDashboardPage);
 

@@ -14,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description Express router to mount user related functions on.
+ * @description cartPageRouter Express router to mount user related functions on.
  * @type {Object}
  * @constant
  */
@@ -22,7 +22,7 @@ const cartPageRouter = express.Router();
 
 
 /**
- * @description Controller for login route.
+ * @description Controller for cartPageController route.
  * @type {Object}
  * @constant
  */
@@ -30,9 +30,9 @@ const cartPageController = require('./controllers/cartPage.controller');
 
 
 /**
- * Route serving login page.
+ * Route serving cartPageRouter page.
  * @name get /
- * @description Register the loginController's `sendLoginPage` function on the
+ * @description Register the cartPageRouter `cartPageController` function on the
  *    loginRouter.
  *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
  */

@@ -14,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description Express router to mount user related functions on.
+ * @description adminDashboardRouter router to mount user related functions on.
  * @type {Object}
  * @constant
  */
@@ -22,7 +22,7 @@ const adminDashboardRouter = express.Router();
 
 
 /**
- * @description Controller for login route.
+ * @description Controller for adminDashboardController route.
  * @type {Object}
  * @constant
  */
@@ -30,9 +30,9 @@ const adminDashboardController = require('./controllers/adminDashboard.controlle
 
 
 /**
- * Route serving login page.
+ * Route serving adminDashboardRouter page.
  * @name get /
- * @description Register the loginController's `sendLoginPage` function on the
+ * @description Register the adminDashboardRouter Controller's `sendAdminDashboardPage` function on the
  *    loginRouter.
  *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
  */

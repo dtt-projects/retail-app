@@ -14,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description Express router to mount user related functions on.
+ * @description eatAtTheFarmRouter to mount user related functions on.
  * @type {Object}
  * @constant
  */
@@ -22,7 +22,7 @@ const eatAtTheFarmRouter = express.Router();
 
 
 /**
- * @description Controller for login route.
+ * @description Controller for eatAtTheFarmController route.
  * @type {Object}
  * @constant
  */
@@ -30,11 +30,11 @@ const eatAtTheFarmController = require('./controllers/eatAtTheFarm.controller');
 
 
 /**
- * Route serving login page.
+ * Route serving eatAtTheFarmRouter page.
  * @name get /
- * @description Register the loginController's `sendLoginPage` function on the
- *    loginRouter.
- *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
+ * @description Register the eatAtTheFarmRouter Controller's `sendeatAtTheFarmRouterPage` function on the
+ *    eatAtTheFarmRouter Router.
+ *    Send the eatAtTheFarmRouter Page rendered by HBS from `eatAtTheFarmRouter Controller#sendeatAtTheFarmRouter page`.
  */
 eatAtTheFarmRouter.get('/', eatAtTheFarmController.sendeatAtTheFarmPage);
 

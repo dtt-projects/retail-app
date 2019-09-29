@@ -14,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description Express router to mount user related functions on.
+ * @description supportPageRouter to mount user related functions on.
  * @type {Object}
  * @constant
  */
@@ -22,7 +22,7 @@ const supportPageRouter = express.Router();
 
 
 /**
- * @description Controller for support route.
+ * @description supportPageController for supportPageController route.
  * @type {Object}
  * @constant
  */
@@ -30,11 +30,11 @@ const supportPageController = require('./controllers/supportPage.controller');
 
 
 /**
- * Route serving support page.
+ * Route serving supportPageRouter page.
  * @name get /
- * @description Register the supportController's `sendSupportPage` function on the
- *    supportRouter.
- *    Send the supportPage rendered by HBS from `supportController#sendSupportpage`.
+ * @description Register the supportPageRouter  `sendsupportPageRouter` function on the
+ *    supportPageRouter.
+ *    Send the supportPage rendered by HBS from `supportPageRouter#sendsupportPageRouter page`.
  */
 supportPageRouter.get('/', supportPageController.sendSupportPage);
 

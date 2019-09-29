@@ -14,14 +14,14 @@
 const express = require('express');
 
 /**
- * @description Express router to mount user related functions on.
+ * @description userRouter to mount user related functions on.
  * @type {Object}
  * @constant
  */
 const userRouter = express.Router();
 
 /**
- * @description Controller for user routes.
+ * @description userController for user routes.
  * @type {Object}
  * @constant
  */

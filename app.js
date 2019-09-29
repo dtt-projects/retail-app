@@ -44,25 +44,25 @@ const loginRouter = require('./routes/login.router');
 /** The forgot password path router defined in './routes/forgot password'. */
 const forgotPasswordRouter = require('./routes/forgotPassword.router');
 
-/** The login path router defined in './routes/login'. */
+/** The eat at the farm router defined in './routes/login'. */
 const eatAtTheFarmRouter = require('./routes/eatAtTheFarm.router');
 
-/** The supportPage path router defined in './routes/supportPage'. */
+/** The supportPageRouter path router defined in './routes/supportPage'. */
 const supportPageRouter = require('./routes/supportPage.router');
 
-/** The supportPage path router defined in './routes/supportPage'. */
+/** The adminDashboardRouter path router defined in './routes/supportPage'. */
 const adminDashboardRouter = require('./routes/adminDashboard.router');
 
-/** The supportPage path router defined in './routes/supportPage'. */
+/** The cartPageRouter path router defined in './routes/supportPage'. */
 const cartPageRouter = require('./routes/cartPage.router');
 
-/** The supportPage path router defined in './routes/supportPage'. */
+/** The checkOutRouter path router defined in './routes/supportPage'. */
 const checkOutRouter = require('./routes/checkOutPage.router');
 
-/** The supportPage path router defined in './routes/supportPage'. */
+/** The marketPageRouter path router defined in './routes/supportPage'. */
 const marketPageRouter = require('./routes/marketPage.router');
 
-/** The supportPage path router defined in './routes/supportPage'. */
+/** The userDashboardRouter path router defined in './routes/supportPage'. */
 const userDashboardRouter = require('./routes/userDashboard.router');
 
 

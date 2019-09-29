@@ -14,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description Express router to mount user related functions on.
+ * @description checkOutPageRouter to mount user related functions on.
  * @type {Object}
  * @constant
  */
@@ -22,7 +22,7 @@ const checkOutPageRouter = express.Router();
 
 
 /**
- * @description Controller for login route.
+ * @description Controller for checkOutPageController route.
  * @type {Object}
  * @constant
  */
@@ -30,11 +30,11 @@ const checkOutPageController = require('./controllers/checkOutPage.controller');
 
 
 /**
- * Route serving login page.
+ * Route serving checkOutPageRouter page.
  * @name get /
- * @description Register the loginController's `sendLoginPage` function on the
- *    loginRouter.
- *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
+ * @description Register the loginController's `checkOutPageRouter` function on the
+ *    checkOutPage Router.
+ *    Send the checkOutPageRouter rendered by HBS from `checkOutPageRouterController#sendcheckOutPage`.
  */
 checkOutPageRouter.get('/', checkOutPageController.sendCheckOutPage);
 

@@ -14,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description Express router to mount user related functions on.
+ * @description marketPageRouter to mount user related functions on.
  * @type {Object}
  * @constant
  */
@@ -22,7 +22,7 @@ const marketPageRouter = express.Router();
 
 
 /**
- * @description Controller for login route.
+ * @description marketPageController for marketPageController route.
  * @type {Object}
  * @constant
  */
@@ -30,11 +30,11 @@ const marketPageController = require('./controllers/marketPage.controller');
 
 
 /**
- * Route serving login page.
+ * Route serving marketPageRouter page.
  * @name get /
- * @description Register the loginController's `sendLoginPage` function on the
- *    loginRouter.
- *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
+ * @description Register the marketPageRouter Controller's `sendmarketPageRouterPage` function on the
+ *    marketPageRouter.
+ *    Send the marketPageRouter rendered by HBS from `marketPageRouterController#sendmarketPageRouterControllerpage`.
  */
 marketPageRouter.get('/', marketPageController.sendMarketPage);
 
