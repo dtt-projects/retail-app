@@ -14,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description Express router to mount user related functions on.
+ * @description loginRouter to mount user related functions on.
  * @type {Object}
  * @constant
  */
@@ -22,7 +22,7 @@ const loginRouter = express.Router();
 
 
 /**
- * @description Controller for login route.
+ * @description Controller for loginController route.
  * @type {Object}
  * @constant
  */
@@ -30,11 +30,11 @@ const loginController = require('./controllers/login.controller');
 
 
 /**
- * Route serving login page.
+ * Route serving loginRouter page.
  * @name get /
- * @description Register the loginController's `sendLoginPage` function on the
+ * @description Register the loginRouter's `sendloginRouter` function on the
  *    loginRouter.
- *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
+ *    Send the loginRouter rendered by HBS from `loginController#sendloginRouter page`.
  */
 loginRouter.get('/', loginController.sendLoginPage);
 
