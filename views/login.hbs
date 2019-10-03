@@ -1,4 +1,5 @@
 <link rel='stylesheet' href='/stylesheets/login.css' />
+<script src="javascripts/login.js" async></script>
 
 <div class="login-div">
   <h2 class="center-text"> Login </h2>
@@ -11,10 +12,10 @@
       </tr>
       <tr>
         <td>
-          Email
+          Username
         </td>
         <td>
-          <input type="textbox"/>
+          <input id="username" type="textbox"/>
         </td>
       </tr>
       <tr>
@@ -22,12 +23,12 @@
           Password
         </td>
         <td>
-          <input type="password"/>
+          <input id="password" type="password"/>
         </td>
       </tr>
       <tr>
         <td colspan="2">
-          <input type="button" value="Login"/>
+          <input type="button" value="Login" onClick="login()"/>
     </table>
   </form>
 </div>

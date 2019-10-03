@@ -65,6 +65,9 @@ const marketPageRouter = require('./routes/marketPage.router');
 /** The userDashboardRouter path router defined in './routes/supportPage'. */
 const userDashboardRouter = require('./routes/userDashboard.router');
 
+/** The userDashboardRouter path router defined in './routes/supportPage'. */
+const API_loginRouter = require('./routes/API_login.router');
+
 
 /**
  * The error path router (which contains a single function as an error handler)
@@ -105,6 +108,7 @@ app.use('/cart', cartPageRouter);
 app.use('/check_out', checkOutRouter);
 app.use('/market', marketPageRouter);
 app.use('/user_dashboard', userDashboardRouter);
+app.use('/api/login', API_loginRouter);
 
 
 
