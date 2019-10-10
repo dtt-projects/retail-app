@@ -41,9 +41,6 @@ const usersRouter = require('./routes/users.router');
 /** The login path router defined in './routes/login'. */
 const loginRouter = require('./routes/login.router');
 
-/** The forgot password path router defined in './routes/forgot password'. */
-const forgotPasswordRouter = require('./routes/forgotPassword.router');
-
 /** The eat at the farm router defined in './routes/login'. */
 const eatAtTheFarmRouter = require('./routes/eatAtTheFarm.router');
 
@@ -65,7 +62,21 @@ const marketPageRouter = require('./routes/marketPage.router');
 /** The userDashboardRouter path router defined in './routes/supportPage'. */
 const userDashboardRouter = require('./routes/userDashboard.router');
 
-/** The userDashboardRouter path router defined in './routes/supportPage'. */
+/** The forgotPasswordRouter path router defined in './routes/forgotPassword'. */
+const forgotPasswordRouter = require('./routes/forgotPassword.router');
+
+/** The createAccountRouter path router defined in './routes/createAccount'. */
+const createAccountRouter = require('./routes/createAccount.router');
+
+// API ROUTES
+
+/** The API_forgotPasswordRouter path router defined in './routes/API_forgotPassword'. */
+const API_forgotPasswordRouter = require('./routes/API_forgotPassword.router');
+
+/** The API_createAcoountRouter path router defined in './routes/API_createAcoount'. */
+const API_createAccountRouter = require('./routes/API_createAccount.router');
+
+/** The API_loginRouter path router defined in './routes/API_login'. */
 const API_loginRouter = require('./routes/API_login.router');
 
 
@@ -100,7 +111,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', rootRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
-app.use('/forgot_password', forgotPasswordRouter);
 app.use('/eat_at_the_farm', eatAtTheFarmRouter);
 app.use('/support', supportPageRouter);
 app.use('/admin_dashboard', adminDashboardRouter);
@@ -108,8 +118,13 @@ app.use('/cart', cartPageRouter);
 app.use('/check_out', checkOutRouter);
 app.use('/market', marketPageRouter);
 app.use('/user_dashboard', userDashboardRouter);
-app.use('/api/login', API_loginRouter);
+app.use('/forgot_password', forgotPasswordRouter);
+app.use('/create_account', createAccountRouter);
 
+// API routes
+app.use('/api/login', API_loginRouter);
+app.use('/api/forgot_password', API_forgotPasswordRouter);
+app.use('/api/create_account', API_createAccountRouter);
 
 
 // catch 404 and forward to error handler

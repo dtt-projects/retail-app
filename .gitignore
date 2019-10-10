@@ -164,3 +164,6 @@ $RECYCLE.BIN/
 # Remove auto-generated code docs
 code-docs
 config
+
+# File that has credentials
+.hiddenCreds

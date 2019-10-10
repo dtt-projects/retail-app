@@ -1,17 +1,19 @@
-function login() {
-  user = document.getElementById("username").value;
-  pass = document.getElementById("password").value;
+function forgotPassword() {
+  var email = document.getElementById("email").value;
 
-  if (user == "" || password == "") {
-    alert("YOU MUST ENTER A USERNAME OR PASSWORD");
+  if (email == "") {
+    alert("YOU MUST ENTER AN Email");
     return;
   }
+
+  document.getElementById("response").innerHTML = "If that email exists in our"
+      + " system a reset password email has been sent."
+
   var json = JSON.stringify({
-    "username" : user,
-    "password" : pass
+    "email" : email
   });
 
-  fetch("/api/login",
+  fetch("/api/forgot_password",
     {method: "post",
       headers: {
         "Accept": "application/json",

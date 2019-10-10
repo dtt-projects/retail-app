@@ -18,17 +18,17 @@ const express = require('express');
  * @type {Object}
  * @constant
  */
-const API_loginRouter = express.Router();
+const API_createAccountRouter = express.Router();
 
 /**
  * @description userController for user routes.
  * @type {Object}
  * @constant
  */
-const API_loginController = require('./controllers/API_login.controller');
+const API_createAccountController = require('./controllers/API_createAccount.controller');
 
 
 /* GET users listing. */
-API_loginRouter.post('/', API_loginController.login);
+API_createAccountRouter.post('/', API_createAccountController.createAccount);
 
-module.exports = API_loginRouter;
+module.exports = API_createAccountRouter;

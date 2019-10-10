@@ -14,7 +14,7 @@
  * @param {Function} next The function to call when this method is done executing
  *    and does not return or render anything (no `res` methods called).
  */
-const login = (req, res, next) => {
+const forgotPassword = (req, res, next) => {
   // Capture user-submitted form from client.
   //console.log(req);
   console.log(req.body);
@@ -24,12 +24,10 @@ const login = (req, res, next) => {
         throw err;
       } else {
         json = JSON.parse(data.toString());
+        console.log(json);
+        var email = req.body["email"];
 
-        var username = req.body["username"];
-        var password = req.body["password"];
-
-        console.log("API USERNAME: " + username);
-        console.log("API PASSWORD: " + password);
+        console.log("API email: " + email);
 
         var mysql = require("mysql");
 
@@ -43,7 +41,7 @@ const login = (req, res, next) => {
           if (err) throw err;
           console.log("Connected!");
         });
-        statement = ("select * from account where username = '" + username + "'");
+        statement = ("select * from account where email = '" + email + "'");
         var response = "";
         con.query(statement, function(err, result) {
           if (err) {
@@ -51,26 +49,41 @@ const login = (req, res, next) => {
           } else {
             console.log(result);
             response = result;
-            console.log(response[0]["username"]);
-            console.log(response[0]["password"]);
-            var db_username = response[0]["username"];
-            var db_password = response[0]["password"];
-            if (username == db_username && password == db_password) {
-              var isAdmin = response[0]["isadmin"];
-              console.log("isAdmin: " + isAdmin);
-              if (isAdmin == 1) {
-                console.log(":)");
-                res.setHeader('Content-Type', 'plain/text');
-                res.send("admin");
-              } else {
-                console.log(":|");
-                res.setHeader('Content-Type', 'plain/text');
-                res.send("user");
-              }
-            }  else {
-              console.log(">:(");
+            if (response.length > 0) {
+              var nodemailer = require('nodemailer');
+
+              var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                  auth: {
+                    user: json[1]["email"],
+                    pass: json[1]["password"]
+                  }
+              });
+              console.log("EMAIL JSON: " + json[1]["email"]);
+              console.log("PASSWORD JSON: " + json[1]["password"]);
+              var mailOptions = {
+                from: 'compscigoat@gmail.com',
+                to:   'aantaki316@gmail.com',
+                subject: 'Sending Email using Node.js',
+                text: 'GOATS!!!'
+              };
+
+              transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log('Email sent: ' + info.response);
+                }
+              });
+
+              var db_email = response[0]["email"];
+              console.log("Sending email to... " + db_email);
               res.setHeader('Content-Type', 'plain/text');
-              res.send("none");
+              res.send("email sent!");
+            } else {
+              console.log("bad email to: " + db_email);
+              res.setHeader('Content-Type', 'plain/text');
+              res.send("email failed!");
             }
           }
         });
@@ -79,5 +92,5 @@ const login = (req, res, next) => {
 };
 
 module.exports = {
-  login,
+  forgotPassword,
 };

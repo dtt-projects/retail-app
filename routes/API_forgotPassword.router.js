@@ -18,17 +18,17 @@ const express = require('express');
  * @type {Object}
  * @constant
  */
-const API_loginRouter = express.Router();
+const API_forgotPasswordRouter = express.Router();
 
 /**
  * @description userController for user routes.
  * @type {Object}
  * @constant
  */
-const API_loginController = require('./controllers/API_login.controller');
+const API_forgotPasswordController = require('./controllers/API_forgotPassword.controller');
 
 
 /* GET users listing. */
-API_loginRouter.post('/', API_loginController.login);
+API_forgotPasswordRouter.post('/', API_forgotPasswordController.forgotPassword);
 
-module.exports = API_loginRouter;
+module.exports = API_forgotPasswordRouter;
