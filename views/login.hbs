@@ -1,4 +1,5 @@
 <link rel='stylesheet' href='/stylesheets/login.css' />
+<script src="javascripts/login.js" async></script>
 
 <div class="login-div">
   <h2 class="center-text"> Login </h2>
@@ -6,15 +7,20 @@
     <table class="center-table">
       <tr>
         <td colspan="2">
-          <a href="__!!Forgot Passowrd Page!!__">Forgot Password?</a>
+          <a href="/create_account">Create An Account</a>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <a href="/forgot_password">Forgot Password?</a>
         </td>
       </tr>
       <tr>
         <td>
-          Email
+          Username
         </td>
         <td>
-          <input type="textbox"/>
+          <input id="username" type="textbox"/>
         </td>
       </tr>
       <tr>
@@ -22,12 +28,12 @@
           Password
         </td>
         <td>
-          <input type="password"/>
+          <input id="password" type="password"/>
         </td>
       </tr>
       <tr>
         <td colspan="2">
-          <input type="button" value="Login"/>
+          <input type="button" value="Login" onClick="login()"/>
     </table>
   </form>
 </div>
