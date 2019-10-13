@@ -73,7 +73,7 @@ const createAccountRouter = require('./routes/createAccount.router');
 /** The API_forgotPasswordRouter path router defined in './routes/API_forgotPassword'. */
 const API_forgotPasswordRouter = require('./routes/API_forgotPassword.router');
 
-/** The API_createAcoountRouter path router defined in './routes/API_createAcoount'. */
+/** The API_createAcoountRouter path router defined in './routes/API_createAccount'. */
 const API_createAccountRouter = require('./routes/API_createAccount.router');
 
 /** The API_loginRouter path router defined in './routes/API_login'. */

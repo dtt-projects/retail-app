@@ -1,8 +1,8 @@
 /**
- * @module routes/root
+ * @module routes/createAccount
  * @fileoverview Root router for `/` based paths.
  * @requires Express
- * @requires routes/controllers/root
+ * @requires routes/controllers/createAccount
  * @exports {Express#Router} An Express router instance for the root server path.
  */
 
@@ -14,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description forgotPasswordRouter to mount user related functions on.
+ * @description createAccountRouter for createAccount page
  * @type {Object}
  * @constant
  */
@@ -22,7 +22,7 @@ const createAccountRouter = express.Router();
 
 
 /**
- * @description Controller for forgotPasswordController route.
+ * @description Controller for createAccountController route.
  * @type {Object}
  * @constant
  */
@@ -30,11 +30,13 @@ const createAccountController = require('./controllers/createAccount.controller'
 
 
 /**
- * Route serving forgotPasswordRouter page.
+ * Route serving createAccountRouter page.
  * @name get /
- * @description Register the forgotPasswordRouter Controller's `sendforgotPasswordRouter Page` function on the
- *    forgotPasswordRouter router.
- *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
+ * @description Register the createAccountRouter Controller's
+ *    `sendCreateAccountPage Page` function on the
+ *    createAccountRouter router.
+ *    Send the sendCreateAccountPage rendered by HBS from
+ *    `createAccountController#sendCreateAccountPage`.
  */
 createAccountRouter.get('/', createAccountController.sendCreateAccountPage);
 

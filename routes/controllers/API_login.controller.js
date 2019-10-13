@@ -1,7 +1,7 @@
 /**
- * @module routes/controllers/user
- * @fileoverview User route's controller. Handle all business logic relative to
- *    a particular user or a set of users.
+ * @module routes/controllers/API_login
+ * @fileoverview API_login route's controller. Handle all business logic
+ * relative to login for the users.
  * @exports {Object} Functions to attach to the `users` router.
  */
 
@@ -16,23 +16,19 @@
  */
 const login = (req, res, next) => {
   // Capture user-submitted form from client.
-  //console.log(req);
-  console.log(req.body);
+  var username = req.body["username"];
+  var password = req.body["password"];
+
+  //  read creds from the secret file
   const fs = require("fs");
   fs.readFile('.hiddenCreds', (err, data) => {
       if (err) {
         throw err;
       } else {
         json = JSON.parse(data.toString());
-
-        var username = req.body["username"];
-        var password = req.body["password"];
-
-        console.log("API USERNAME: " + username);
-        console.log("API PASSWORD: " + password);
-
         var mysql = require("mysql");
 
+        // connect to the database
         var con = mysql.createConnection({
           host: json[0]["host"],
           user: json[0]["user"],
@@ -40,35 +36,33 @@ const login = (req, res, next) => {
           database: json[0]["database"]
         });
         con.connect(function(err) {
-          if (err) throw err;
-          console.log("Connected!");
-        });
-        statement = ("select * from account where username = '" + username + "'");
-        var response = "";
-        con.query(statement, function(err, result) {
           if (err) {
             throw err;
+          }
+        });
+
+        // get username and password to comprare to
+        statement = ("select username, password, isadmin from account where username = '"
+            + username + "'");
+        con.query(statement, function(err, result) {
+          if (err) {
+            res.setHeader('Content-Type', 'plain/text');
+            res.send("none");
+            throw err;
           } else {
-            console.log(result);
-            response = result;
-            console.log(response[0]["username"]);
-            console.log(response[0]["password"]);
-            var db_username = response[0]["username"];
-            var db_password = response[0]["password"];
+            var db_username = result[0]["username"];
+            var db_password = result[0]["password"];
+            // if valid creds send to proper dashboard if admin or not
             if (username == db_username && password == db_password) {
-              var isAdmin = response[0]["isadmin"];
-              console.log("isAdmin: " + isAdmin);
+              var isAdmin = result[0]["isadmin"];
               if (isAdmin == 1) {
-                console.log(":)");
                 res.setHeader('Content-Type', 'plain/text');
                 res.send("admin");
               } else {
-                console.log(":|");
                 res.setHeader('Content-Type', 'plain/text');
                 res.send("user");
               }
             }  else {
-              console.log(">:(");
               res.setHeader('Content-Type', 'plain/text');
               res.send("none");
             }
@@ -78,6 +72,7 @@ const login = (req, res, next) => {
   });
 };
 
+// so other files can call this function
 module.exports = {
   login,
 };

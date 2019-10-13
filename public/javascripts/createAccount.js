@@ -1,4 +1,5 @@
 function createAccount() {
+  // Read the form data and set its values
   var first_name = document.getElementById("first_name").value;
   var last_name = document.getElementById("last_name").value;
   var address = document.getElementById("address").value;
@@ -9,14 +10,35 @@ function createAccount() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
 
-  /*
-  if (email == "") {
-    alert("YOU MUST ENTER AN Email");
+  // This will check for any empty inputs
+  var empty_inputs = false;
+  if (first_name == "") {
+    empty_inputs = true;
+  } else if (last_name == "") {
+    empty_inputs = true;
+  } else if (address == "") {
+    empty_inputs = true;
+  } else if (city == "") {
+    empty_inputs = true;
+  } else if (zip == "") {
+    empty_inputs = true;
+  } else if (email == "") {
+    empty_inputs = true;
+  } else if (phone_number == "") {
+    empty_inputs = true;
+  } else if (username == "") {
+    empty_inputs = true;
+  } else if (password == "") {
+    empty_inputs = true;
+  }
+
+  // if any input is empty then don't continue and alert
+  if (empty_inputs) {
+    alert("One or more fields are blank");
     return;
   }
-  */
 
-
+  // convert into json for api
   var json = JSON.stringify({
     "first_name": first_name,
     "last_name": last_name,
@@ -28,7 +50,8 @@ function createAccount() {
     "username": username,
     "password": password
   });
-  console.log(json);
+
+  // send to the create account api
   fetch("/api/create_account",
     {method: "post",
       headers: {
@@ -43,8 +66,9 @@ function createAccount() {
             + " msg: " + response.value);
         return
       }
+      // send to login page
       response.text().then(function(data) {
-        console.log(data);
+        window.location.href(data)
       });
     });
 }
