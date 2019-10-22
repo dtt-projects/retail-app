@@ -15,33 +15,14 @@
  * @param {Function} next The function to call when this method is done executing
  *    and does not return or render anything (no `res` methods called).
  */
-const sendLoginPage = (req, res, next) => {
-  console.log("login page render");
-  // doesnt have a cookie for their account
-
-  page = ""
-  if (req.cookies["CID"] == undefined || req.cookies["CID"] == null) {
-    console.log("no cookies");
-    page = "login";
-  // check if the cookie is valid
-  } else {
-    console.log("has cookies");
-    console.log("does cookie things (update/verify)");
-    if (req.cookies["CID"]["isAdmin"] == 1) {
-      page = "admin_dashboard";
-    } else {
-      page = "user_dashboard";
-    }
-  }
-  if (page == "login") {
-    res.render(page, { title: 'Sprout Creek Farm Login', page: 'login' });
-  } else {
-    res.redirect(page);
-
-  }
+const printDaCookies = (req, res, next) => {
+  console.log(req.cookies);
+  console.log(req.cookies["CID"]);
+  console.log("Cookies^");
+  res.send(req.cookies);
 };
 
 
 module.exports = {
-  sendLoginPage,
+  printDaCookies,
 };

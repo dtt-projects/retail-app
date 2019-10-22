@@ -23,6 +23,9 @@ const path = require('path');
 /** From the `cookie-parser` module. Parse incoming / outgoing cookies. */
 const cookieParser = require('cookie-parser');
 
+/** From the 'express-session' module. Used to handle user sessions. */
+//const sessions = require('express-session');
+
 /** From the `morgan` module. Logging utility. */
 const logger = require('morgan');
 
@@ -80,6 +83,9 @@ const API_createAccountRouter = require('./routes/API_createAccount.router');
 const API_loginRouter = require('./routes/API_login.router');
 
 
+// cookies testing
+const print_cookiesRouter = require('./routes/print_cookies.router');
+
 /**
  * The error path router (which contains a single function as an error handler)
  * defined in `./routes/error`.
@@ -126,6 +132,8 @@ app.use('/api/login', API_loginRouter);
 app.use('/api/forgot_password', API_forgotPasswordRouter);
 app.use('/api/create_account', API_createAccountRouter);
 
+// testing
+app.use('/print_cookies', print_cookiesRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

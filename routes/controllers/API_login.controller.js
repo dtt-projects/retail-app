@@ -5,6 +5,9 @@
  * @exports {Object} Functions to attach to the `users` router.
  */
 
+ var hidden = require('../../scripts/read-hidden.js');
+ const cookies = require('../../scripts/cookie-helper.js');
+
 
 /**
  * @function login
@@ -20,56 +23,81 @@ const login = (req, res, next) => {
   var password = req.body["password"];
 
   //  read creds from the secret file
-  const fs = require("fs");
-  fs.readFile('.hiddenCreds', (err, data) => {
-      if (err) {
-        throw err;
-      } else {
-        json = JSON.parse(data.toString());
-        var mysql = require("mysql");
+  hidden.readHidden()
+    .then(json => {
+      console.log("JSON");
+      console.log(json);
 
-        // connect to the database
-        var con = mysql.createConnection({
-          host: json[0]["host"],
-          user: json[0]["user"],
-          password: json[0]["password"],
-          database: json[0]["database"]
-        });
-        con.connect(function(err) {
-          if (err) {
-            throw err;
-          }
-        });
+      var mysql = require("mysql");
 
-        // get username and password to comprare to
-        statement = ("select username, password, isadmin from account where username = '"
-            + username + "'");
-        con.query(statement, function(err, result) {
-          if (err) {
-            res.setHeader('Content-Type', 'plain/text');
-            res.send("none");
-            throw err;
-          } else {
-            var db_username = result[0]["username"];
-            var db_password = result[0]["password"];
-            // if valid creds send to proper dashboard if admin or not
-            if (username == db_username && password == db_password) {
-              var isAdmin = result[0]["isadmin"];
-              if (isAdmin == 1) {
-                res.setHeader('Content-Type', 'plain/text');
-                res.send("admin");
-              } else {
-                res.setHeader('Content-Type', 'plain/text');
-                res.send("user");
-              }
-            }  else {
-              res.setHeader('Content-Type', 'plain/text');
-              res.send("none");
+      // connect to the database
+      var con = mysql.createConnection({
+        host: json[0]["host"],
+        user: json[0]["user"],
+        password: json[0]["password"],
+        database: json[0]["database"]
+      });
+      con.connect(function(err) {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+      });
+      console.log("connected");
+      // get username and password to comprare to
+      statement = ("select username, password, isadmin, email "
+          + "from account where username = '"
+          + username + "'");
+      con.query(statement, function(err, result) {
+        if (err) {
+          res.setHeader('Content-Type', 'plain/text');
+          res.send("/login");
+          throw err;
+        } else if (result.length > 0) {
+          var db_username = result[0]["username"];
+          var db_password = result[0]["password"];
+          // if valid creds send to proper dashboard if admin or not
+          if (username == db_username && password == db_password) {
+            var isAdmin = result[0]["isadmin"];
+            data = {
+              "username": db_username,
+              "password": db_password,
+              "isAdmin": isAdmin,
+              "email": result[0]["email"]
             }
+            console.log(data);
+            if (isAdmin == 1) {
+              console.log("cookies call");
+              cookies.handleCookie(null, data)
+                .then(cookie => {
+                  res.cookie("CID", cookie);
+                  res.setHeader('Content-Type', 'plain/text');
+                  res.send("/admin_dashboard");
+                });
+              console.log("post cookies call");
+            } else {
+              cookies.handleCookie(null, data)
+                .then(cookie => {
+                  res.cookie("CID", cookie);
+                  res.setHeader('Content-Type', 'plain/text');
+                  res.send("/user_dashboard");
+                });
+            }
+          }  else {
+            res.setHeader('Content-Type', 'plain/text');
+            res.send("/login");
           }
-        });
-      }
-  });
+        } else {
+          res.setHeader('Content-Type', 'plain/text');
+          res.send("/login");
+        }
+      });
+    });
+
+
+
+
+
 };
 
 // so other files can call this function
