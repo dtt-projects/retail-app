@@ -16,9 +16,6 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const printDaCookies = (req, res, next) => {
-  console.log(req.cookies);
-  console.log(req.cookies["CID"]);
-  console.log("Cookies^");
   res.send(req.cookies);
 };
 

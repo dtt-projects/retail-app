@@ -20,19 +20,19 @@ const sendLoginPage = (req, res, next) => {
   // doesnt have a cookie for their account
 
   page = ""
-  if (req.cookies["CID"] == undefined || req.cookies["CID"] == null) {
+  //if (req.cookies["CID"] == undefined || req.cookies["CID"] == null) {
     console.log("no cookies");
     page = "login";
   // check if the cookie is valid
-  } else {
-    console.log("has cookies");
-    console.log("does cookie things (update/verify)");
-    if (req.cookies["CID"]["isAdmin"] == 1) {
-      page = "admin_dashboard";
-    } else {
-      page = "user_dashboard";
-    }
-  }
+  //} else {
+    //console.log("has cookies");
+    //console.log("does cookie things (update/verify)");
+    //if (req.cookies["CID"]["isAdmin"] == 1) {
+      //page = "admin_dashboard";
+    //} else {
+    //  page = "user_dashboard";
+    //}
+  //}
   if (page == "login") {
     res.render(page, { title: 'Sprout Creek Farm Login', page: 'login' });
   } else {

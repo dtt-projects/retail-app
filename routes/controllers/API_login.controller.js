@@ -68,7 +68,7 @@ const login = (req, res, next) => {
             console.log(data);
             if (isAdmin == 1) {
               console.log("cookies call");
-              cookies.handleCookie(null, data)
+              cookies.handleLoginCookie(null, data)
                 .then(cookie => {
                   res.cookie("CID", cookie);
                   res.setHeader('Content-Type', 'plain/text');
@@ -76,7 +76,7 @@ const login = (req, res, next) => {
                 });
               console.log("post cookies call");
             } else {
-              cookies.handleCookie(null, data)
+              cookies.handleLoginCookie(null, data)
                 .then(cookie => {
                   res.cookie("CID", cookie);
                   res.setHeader('Content-Type', 'plain/text');
