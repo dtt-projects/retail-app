@@ -4,6 +4,7 @@
  *    route handler.
  * @exports {Object} Functions to attach to the `login` router.
  */
+ const cookies = require('../../scripts/cookie-helper.js');
 
 
 /**
@@ -16,7 +17,32 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendForgotPasswordPage = (req, res, next) => {
-  res.render('forgot_password', { title: 'Sprout Creek Farm Forgot Password', page: 'login' });
+  cookies.handleNormalPageCookie(req.cookies)
+    .then(res_cookie => {
+      if (res_cookie == null || res_cookie == "undefined") {
+        res.clearCookie("CID");
+      } else {
+        res.cookie("CID", res_cookie);
+      }
+      page = "";
+      if (req.cookies["CID"] == null || req.cookies["CID"] == "undefined") {
+        page = "forgot_password";
+      // check if the cookie is valid
+      } else {
+        if (req.cookies["CID"]["isAdmin"] == 1) {
+          page = "admin_dashboard";
+        } else {
+          page = "user_dashboard";
+        }
+      }
+      if (page == "forgot_password") {
+        res.render('forgot_password', { title: 'Sprout Creek Farm Forgot Password',
+                                        page: 'login' });
+      } else {
+        res.redirect(page);
+
+      }
+    });
 };
 
 

@@ -17,20 +17,15 @@ const cookies = require('../../scripts/cookie-helper.js');
  *    and does not return or render anything (no `res` methods called).
  */
 const sendMarketPage = (req, res, next) => {
-  console.log("HERE");
-  console.log(req.cookies);
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
-      console.log("C00kies: ")
-      console.log(res_cookie);
       if (res_cookie == "undefined" || res_cookie == null) {
         res.clearCookie("CID");
       } else {
         res.cookie("CID", res_cookie);
       }
-      console.log(res.cookies);
       res.render('market', { title: 'Sprout Creek Farm Market',
-                                      page: 'market' });
+                             page: 'market' });
     });
 };
 

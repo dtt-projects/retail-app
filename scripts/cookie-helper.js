@@ -280,13 +280,18 @@ exports.handleCreateAccountCookie = function(user_info) {
 exports.handleNormalPageCookie = function(cookie) {
   return new Promise(function(resolve, reject) {
     // no cookie present so no need to make one
-    if (cookie == "undefined" || cookie == null) {
+    try {
+      console.log(cookie);
+      if (cookie == null || cookie == "undefined") {
+        resolve(null);
+      } else if (cookie["CID"] == null || cookie["CID"] == "undefined") {
+        resolve(null);
+      // check to see if cookie is valid
+      } else {
+        resolve(checkCookie(cookie["CID"]));
+      }
+    } catch (e) {
       resolve(null);
-    } else if (cookie["CID"] == "undefined" || cookie["CID"] == null) {
-      resolve(null);
-    // check to see if cookie is valid
-    } else {
-      resolve(checkCookie(cookie["CID"]));
     }
   });
 }
