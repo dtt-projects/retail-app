@@ -5,6 +5,7 @@
  * @exports {Object} Functions to attach to the `login` router.
  */
 
+ const cookies = require('../../scripts/cookie-helper.js');
 
 /**
  * @function sendLoginPage
@@ -16,8 +17,16 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendeatAtTheFarmPage = (req, res, next) => {
-  res.render('eat_at_the_farm', { title: 'Sprout Creek Farm Eat At The Farm',
-                               page: 'Eat At The Farm' });
+  cookies.handleNormalPageCookie(req.cookies)
+    .then(res_cookie => {
+      if (res_cookie == "undefined" || res_cookie == null) {
+        res.clearCookie("CID");
+      } else {
+        res.cookie("CID", res_cookie);
+      }
+      res.render('eat_at_the_farm', { title: 'Sprout Creek Farm Eat At The Farm',
+                                      page: 'Eat At The Farm' });
+    });
 };
 
 

@@ -5,6 +5,7 @@
  * @exports {Object} Functions to attach to the `API_createAccounts` router.
  */
 
+const cookies = require('../../scripts/cookie-helper.js');
 
 /**
  * @function createAccount
@@ -83,7 +84,7 @@ const createAccount = (req, res, next) => {
             // email from, to, subject, text
             var mailOptions = {
               from: 'compscigoat@gmail.com',
-              to:   'aantaki316@gmail.com',
+              to:   req.body["email"],
               subject: 'Welcoe to Sprout Creek Farm',
               text: 'Your account for Sprout Creek Farm has been created'
             };
@@ -95,9 +96,21 @@ const createAccount = (req, res, next) => {
               }
             });
 
-            // send success back to client
-            res.setHeader('Content-Type', 'plain/text');
-            res.send("Account created!");
+            data = {
+              "username": req.body["username"],
+              "password": req.body["password"],
+              "isAdmin": 0,
+              "email": req.body["email"]
+            }
+
+            cookies.handleCreateAccountCookie(data)
+              .then(res_cookie => {
+                res.cookie("CID", res_cookie);
+                // send success back to client
+                console.log("COOKIE DONE");
+                res.setHeader('Content-Type', 'plain/text');
+                res.send("Account created!");
+              });
           }
         });
       }

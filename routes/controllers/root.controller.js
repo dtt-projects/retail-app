@@ -5,6 +5,7 @@
  * @exports {Object} Functions to attach to the `root` router.
  */
 
+ const cookies = require('../../scripts/cookie-helper.js');
 
 /**
  * @function sendHomepage
@@ -16,7 +17,15 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendHomepage = (req, res, next) => {
-  res.render('homepage', { title: 'Sprout Creek Farm Homepage' });
+  cookies.handleNormalPageCookie(req.cookies)
+    .then(res_cookie => {
+      if (res_cookie == "undefined" || res_cookie == null) {
+        res.clearCookie("CID");
+      } else {
+        res.cookie("CID", res_cookie);
+      }
+      res.render('homepage', { title: 'Sprout Creek Farm Homepage' });
+    });
 };
 
 

@@ -4,6 +4,7 @@
  * account page
  * @exports {Object} Functions to attach to the `createAccount` router.
  */
+ const cookies = require('../../scripts/cookie-helper.js');
 
 
 /**
@@ -16,7 +17,31 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendCreateAccountPage = (req, res, next) => {
-  res.render('create_account', { title: 'Sprout Creek Farm Create Account', page: 'login' });
+  cookies.handleNormalPageCookie(req.cookies)
+    .then(res_cookie => {
+      if (res_cookie == null || res_cookie == "undefined") {
+        res.clearCookie("CID");
+      } else {
+        res.cookie("CID", res_cookie);
+      }
+      page = "";
+      if (req.cookies["CID"] == null || req.cookies["CID"] == "undefined") {
+        page = "create_account";
+      // check if the cookie is valid
+      } else {
+        if (req.cookies["CID"]["isAdmin"] == 1) {
+          page = "admin_dashboard";
+        } else {
+          page = "user_dashboard";
+        }
+      }
+      if (page == "create_account") {
+        res.render('create_account', { title: 'Sprout Creek Farm Create Account',
+                                       page: 'login' });
+      } else {
+        res.redirect(page);
+      }
+    });
 };
 
 

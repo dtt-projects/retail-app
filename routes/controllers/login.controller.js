@@ -4,6 +4,7 @@
  *    route handler.
  * @exports {Object} Functions to attach to the `login` router.
  */
+ const cookies = require('../../scripts/cookie-helper.js');
 
 
 /**
@@ -16,7 +17,35 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendLoginPage = (req, res, next) => {
-  res.render('login', { title: 'Sprout Creek Farm Login', page: 'login' });
+  console.log("login page render");
+  // doesnt have a cookie for their account
+
+  cookies.handleNormalPageCookie(req.cookies)
+    .then(res_cookie => {
+      if (res_cookie == null || res_cookie == "undefined") {
+        res.clearCookie("CID");
+      } else {
+        res.cookie("CID", res_cookie);
+      }
+      page = "";
+      if (req.cookies["CID"] == null || req.cookies["CID"] == "undefined") {
+        page = "login";
+      // check if the cookie is valid
+      } else {
+        if (req.cookies["CID"]["isAdmin"] == 1) {
+          page = "admin_dashboard";
+        } else {
+          page = "user_dashboard";
+        }
+      }
+      if (page == "login") {
+        res.render(page, { title: 'Sprout Creek Farm Login',
+                           page: 'login' });
+      } else {
+        res.redirect(page);
+
+      }
+    });
 };
 
 
