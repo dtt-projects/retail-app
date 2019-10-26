@@ -79,8 +79,6 @@ function checkCookie(cookie) {
   })
 }
 
-
-
 function createCookie(user_info) {
   return new Promise(function(resolve, reject) {
     // get the creds from the hidden file

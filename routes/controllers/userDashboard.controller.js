@@ -5,6 +5,8 @@
  * @exports {Object} Functions to attach to the `login` router.
  */
 
+ const cookies = require('../../scripts/cookie-helper.js');
+
 
 /**
  * @function sendLoginPage
@@ -16,8 +18,22 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendUserDashboardPage = (req, res, next) => {
-  res.render('user_dashboard', { title: 'Sprout Creek Farm User Dashboard',
-                                  page: 'login' });
+  cookies.handleNormalPageCookie(req.cookies)
+    .then(res_cookie => {
+      if (res_cookie == "undefined" || res_cookie == null) {
+        res.clearCookie("CID");
+        res.redirect("login");
+      } else {
+        res.cookie("CID", res_cookie);
+        if (res_cookie["isAdmin"] == 1) {
+          res.redirect("admin_dashboard");
+        } else {
+          res.render('user_dashboard', { title: 'Sprout Creek Farm User Dashboard',
+                                          page: 'login' });
+        }
+      }
+
+    });
 };
 
 
