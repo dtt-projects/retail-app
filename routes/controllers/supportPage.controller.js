@@ -5,6 +5,7 @@
  * @exports {Object} Functions to attach to the `support` router.
  */
 
+ const cookies = require('../../scripts/cookie-helper.js');
 
 /**
  * @function sendSupportPage
@@ -16,7 +17,16 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendSupportPage = (req, res, next) => {
-  res.render('support', { title: 'Sprout Creek Farm Support', page: 'Support' });
+  cookies.handleNormalPageCookie(req.cookies)
+    .then(res_cookie => {
+      if (res_cookie == "undefined" || res_cookie == null) {
+        res.clearCookie("CID");
+      } else {
+        res.cookie("CID", res_cookie);
+      }
+      res.render('support', { title: 'Sprout Creek Farm Support',
+                              page: 'Support' });
+    });
 };
 
 

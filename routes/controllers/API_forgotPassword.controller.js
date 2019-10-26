@@ -91,7 +91,7 @@ const forgotPassword = (req, res, next) => {
                   // setup to and from
                   var mailOptions = {
                     from: 'compscigoat@gmail.com',
-                    to:   'aantaki316@gmail.com',
+                    to:   email,
                     subject: 'Sending Email using Node.js',
                     text: email_text
                   };

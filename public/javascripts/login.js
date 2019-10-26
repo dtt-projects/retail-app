@@ -31,7 +31,7 @@ function login() {
       }
       // send to a webpage
       response.text().then(function(data) {
-        window.location.href(data);
+        window.location.href = window.location.origin + data;
       });
     });
 }
