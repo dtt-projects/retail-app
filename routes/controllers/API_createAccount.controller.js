@@ -84,7 +84,7 @@ const createAccount = (req, res, next) => {
             // email from, to, subject, text
             var mailOptions = {
               from: 'compscigoat@gmail.com',
-              to:   'aantaki316@gmail.com',
+              to:   req.body["email"],
               subject: 'Welcoe to Sprout Creek Farm',
               text: 'Your account for Sprout Creek Farm has been created'
             };
@@ -102,7 +102,7 @@ const createAccount = (req, res, next) => {
               "isAdmin": 0,
               "email": req.body["email"]
             }
-            
+
             cookies.handleCreateAccountCookie(data)
               .then(res_cookie => {
                 res.cookie("CID", res_cookie);

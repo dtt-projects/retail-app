@@ -62,6 +62,9 @@ const checkOutRouter = require('./routes/checkOutPage.router');
 /** The marketPageRouter path router defined in './routes/supportPage'. */
 const marketPageRouter = require('./routes/marketPage.router');
 
+/** The marketItemPageRouter path router defined in './routes/marketItemPage'. */
+//const marketItemPageRouter = require('./routes/marketIt')
+
 /** The userDashboardRouter path router defined in './routes/supportPage'. */
 const userDashboardRouter = require('./routes/userDashboard.router');
 
