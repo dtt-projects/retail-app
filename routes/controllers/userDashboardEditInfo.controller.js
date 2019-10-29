@@ -4,6 +4,7 @@
  *    route handler.
  * @exports {Object} Functions to attach to the `login` router.
  */
+
  const cookies = require('../../scripts/cookie-helper.js');
 
 
@@ -16,7 +17,7 @@
  * @param {Function} next The function to call when this method is done executing
  *    and does not return or render anything (no `res` methods called).
  */
-const sendAdminDashboardManageEventsPage = (req, res, next) => {
+const sendUserDashboardEditInfoPage = (req, res, next) => {
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
       if (res_cookie == "undefined" || res_cookie == null) {
@@ -25,11 +26,10 @@ const sendAdminDashboardManageEventsPage = (req, res, next) => {
       } else {
         res.cookie("CID", res_cookie);
         if (res_cookie["isAdmin"] == 1) {
-          res.render('admin_dashboard-manage_events', { title: 'Sprout Creek Farm Admin Dashboard | Events',
-                                          page: 'login',
-                                          email: res_cookie["email"]});
+          res.redirect("admin_dashboard");
         } else {
-          res.redirect('user_dashboard')
+          res.render('user_dashboard', { title: 'Sprout Creek Farm User Dashboard',
+                                          page: 'login' });
         }
       }
 
@@ -38,5 +38,5 @@ const sendAdminDashboardManageEventsPage = (req, res, next) => {
 
 
 module.exports = {
-  sendAdminDashboardManageEventsPage,
+  sendUserDashboardEditInfoPage,
 };

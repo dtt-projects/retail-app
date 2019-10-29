@@ -1,10 +1,5 @@
 var hidden = require('./read-hidden.js');
 
-/*
-1.8m
-1,800,000
-*/
-
 // checks to see if a cookie is valid
 function checkCookie(cookie) {
   return new Promise(function(resolve, reject) {
@@ -12,7 +7,6 @@ function checkCookie(cookie) {
     hidden.readHidden()
       .then(json => {
         var mysql = require("mysql");
-
         // connect to the database
         var con = mysql.createConnection({
           host: json[0]["host"],
@@ -31,14 +25,14 @@ function checkCookie(cookie) {
         statement_0 = ("SELECT CURRENT_TIMESTAMP");
         con.query(statement_0, function(err_0, result_0) {
           if (err_0) {
-            con.close();
+            con.end();
             console.log(err_0);
             resolve(null);
           } else if (result_0.length > 0) {
             // cookie has been inactive for 30 mins
             if (new Date(result_0[0]["CURRENT_TIMESTAMP"]) - new Date(cookie["last_seen"]) > 1800000) {
               console.log("INVALID");
-              con.close();
+              con.end();
               resolve(null);
             }
 
@@ -50,7 +44,7 @@ function checkCookie(cookie) {
             // run the statement on the db
             con.query(statement, function(err, result) {
               if (err) {
-                con.close();
+                con.end();
                 console.log(err);
                 resolve(null);
               } else if (result.length > 0) {
@@ -64,25 +58,25 @@ function checkCookie(cookie) {
                 con.query(statement, function(err_1, result_1) {
                   if (err_1) {
                     console.log(err_1);
-                    con.close();
+                    con.end();
                     resolve(null);
                   } else if (result_1.length > 0) {
                     // validate creds from cookie
-                    con.close();
+                    con.end();
                     resolve(updateCookie(cookie, aid));
                   } else {
-                    con.close();
+                    con.end();
                     resolve(null);
                   }
                 });
               // invalid cookie
               } else {
-                con.close();
+                con.end();
                 resolve(null);
               }
             });
           } else {
-            con.close();
+            con.end();
             resolve(null);
           }
 
@@ -108,7 +102,8 @@ function createCookie(user_info) {
         });
         con.connect(function(err) {
           if (err) {
-            throw err;
+            console.log(err);
+            resolve(null);
           }
         });
         // prepare to link account and cookie tables
@@ -117,7 +112,9 @@ function createCookie(user_info) {
             + "AND email='" + user_info["email"] + "'");
         con.query(statement, function(err, result) {
           if (err) {
-            throw err;
+            console.log(err);
+            con.end();
+            resolve(null);
           } else if (result.length > 0) {
             // setting a cookie in the database
             var aid = result[0]["aid"];
@@ -242,7 +239,17 @@ function updateCookie(cookie, aid) {
 // handles everything to do with a cookie
 exports.handleLoginCookie = function(cookie, user_info) {
   return new Promise(function(resolve, reject) {
+    // while server is down
+    var new_cookie = {"cookieId": 1,
+                      "email": "tempemail",
+                      "username": "nan",
+                      "isAdmin": 1,
+                      "last_seen": "yes!"
+                };
+    resolve(new_cookie);
+
     // get the creds from the hidden file
+    // TODO: LOOK INTO
     hidden.readHidden()
       .then(json => {
         var mysql = require("mysql");
@@ -283,12 +290,30 @@ exports.handleLoginCookie = function(cookie, user_info) {
 
 exports.handleCreateAccountCookie = function(user_info) {
   return new Promise(function(resolve, reject) {
+    // while server is down
+    var new_cookie = {"cookieId": 1,
+                      "email": "tempemail",
+                      "username": "nan",
+                      "isAdmin": 1,
+                      "last_seen": "yes!"
+                };
+    resolve(new_cookie);
     resolve(createCookie(user_info));
   });
 }
 
 exports.handleNormalPageCookie = function(cookie) {
   return new Promise(function(resolve, reject) {
+
+    // while server is down
+    var new_cookie = {"cookieId": 1,
+                      "email": "tempemail",
+                      "username": "nan",
+                      "isAdmin": 1,
+                      "last_seen": "yes!"
+                };
+    resolve(new_cookie);
+
     // no cookie present so no need to make one
     try {
       console.log(cookie);

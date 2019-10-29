@@ -44,23 +44,20 @@ const rootRouter = require('./routes/root.router');
 /** The login path router defined in './routes/login'. */
 const loginRouter = require('./routes/login.router');
 
-/** The eat at the farm router defined in './routes/login'. */
+/** The eat at the farm router defined in './routes/eatAtTheFarm'. */
 const eatAtTheFarmRouter = require('./routes/eatAtTheFarm.router');
 
 /** The supportPageRouter path router defined in './routes/supportPage'. */
 const supportPageRouter = require('./routes/supportPage.router');
 
-/** The cartPageRouter path router defined in './routes/supportPage'. */
+/** The cartPageRouter path router defined in './routes/cartPage'. */
 const cartPageRouter = require('./routes/cartPage.router');
 
-/** The checkOutRouter path router defined in './routes/supportPage'. */
+/** The checkOutRouter path router defined in './routes/checkOutPage'. */
 const checkOutRouter = require('./routes/checkOutPage.router');
 
-/** The marketPageRouter path router defined in './routes/supportPage'. */
+/** The marketPageRouter path router defined in './routes/marketPage'. */
 const marketPageRouter = require('./routes/marketPage.router');
-
-/** The userDashboardRouter path router defined in './routes/supportPage'. */
-const userDashboardRouter = require('./routes/userDashboard.router');
 
 /** The forgotPasswordRouter path router defined in './routes/forgotPassword'. */
 const forgotPasswordRouter = require('./routes/forgotPassword.router');
@@ -68,6 +65,18 @@ const forgotPasswordRouter = require('./routes/forgotPassword.router');
 /** The createAccountRouter path router defined in './routes/createAccount'. */
 const createAccountRouter = require('./routes/createAccount.router');
 
+// User routes
+/** The userDashboardRouter path router defined in './routes/userDashboard'. */
+const userDashboardRouter = require('./routes/userDashboard.router');
+
+/** The userDashboardViewOrdersRouter path router defined in './routes/userDashboardViewOrders'. */
+const userDashboardViewOrdersRouter = require('./routes/userDashboardViewOrders.router');
+
+/** The userDashboardEditInfoRouter path router defined in './routes/userDashboardEditInfo'. */
+const userDashboardEditInfoRouter = require('./routes/userDashboardEditInfo.router');
+
+
+// Admin Routes
 /** The adminDashboardRouter path router defined in './routes/adminDashboard'. */
 const adminDashboardRouter = require('./routes/adminDashboard.router');
 
@@ -80,12 +89,8 @@ const adminDashboardManageOrdersRouter = require('./routes/adminDashboardManageO
 /** The adminDashboardManageAccountsRouter path router defined in './routes/adminDashboardManageAccounts'. */
 const adminDashboardManageAccountsRouter = require('./routes/adminDashboardManageAccounts.router');
 
-/** The adminDashboardManageEventsRouter path router defined in './routes/adminDashboardManageEvents'. */
-const adminDashboardManageEventsRouter = require('./routes/adminDashboardManageEvents.router');
-
 
 // Special routes
-
 /** The marketItemPageRouter path router defined in './routes/marketItemPage'. */
 const marketItemPageRouter = require('./routes/marketItemPage.router');
 
@@ -139,26 +144,29 @@ app.use('/support', supportPageRouter);
 app.use('/cart', cartPageRouter);
 app.use('/check_out', checkOutRouter);
 app.use('/market', marketPageRouter);
-app.use('/user_dashboard', userDashboardRouter);
 app.use('/forgot_password', forgotPasswordRouter);
 app.use('/create_account', createAccountRouter);
 
-// admin
+// User Dashboard
+app.use('/user_dashboard', userDashboardRouter);
+app.use('/user_dashboard/view_orders', userDashboardViewOrdersRouter);
+app.use('/user_dashboard/edit_information', userDashboardEditInfoRouter);
+
+// Admin Dashboard
 app.use('/admin_dashboard', adminDashboardRouter);
 app.use('/admin_dashboard/manage_inventory', adminDashboardManageInventoryRouter);
 app.use('/admin_dashboard/manage_orders', adminDashboardManageOrdersRouter);
 app.use('/admin_dashboard/manage_accounts', adminDashboardManageAccountsRouter);
-app.use('/admin_dashboard/manage_events', adminDashboardManageEventsRouter);
 
-// Special routes
+// Special Routes
 app.use('/marketItem/:itemId', marketItemPageRouter);
 
-// API routes
+// API Routes
 app.use('/api/login', API_loginRouter);
 app.use('/api/forgot_password', API_forgotPasswordRouter);
 app.use('/api/create_account', API_createAccountRouter);
 
-// testing
+// TESTING
 app.use('/print_cookies', print_cookiesRouter);
 
 // catch 404 and forward to error handler
