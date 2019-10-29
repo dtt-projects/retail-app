@@ -50,9 +50,6 @@ const eatAtTheFarmRouter = require('./routes/eatAtTheFarm.router');
 /** The supportPageRouter path router defined in './routes/supportPage'. */
 const supportPageRouter = require('./routes/supportPage.router');
 
-/** The adminDashboardRouter path router defined in './routes/supportPage'. */
-const adminDashboardRouter = require('./routes/adminDashboard.router');
-
 /** The cartPageRouter path router defined in './routes/supportPage'. */
 const cartPageRouter = require('./routes/cartPage.router');
 
@@ -70,6 +67,21 @@ const forgotPasswordRouter = require('./routes/forgotPassword.router');
 
 /** The createAccountRouter path router defined in './routes/createAccount'. */
 const createAccountRouter = require('./routes/createAccount.router');
+
+/** The adminDashboardRouter path router defined in './routes/adminDashboard'. */
+const adminDashboardRouter = require('./routes/adminDashboard.router');
+
+/** The adminDashboardManageInvertoryRouter path router defined in './routes/adminDashboardManageInvertory'. */
+const adminDashboardManageInventoryRouter = require('./routes/adminDashboardManageInventory.router');
+
+/** The adminDashboardManageOrdersRouter path router defined in './routes/adminDashboardManageOrders'. */
+const adminDashboardManageOrdersRouter = require('./routes/adminDashboardManageOrders.router');
+
+/** The adminDashboardManageAccountsRouter path router defined in './routes/adminDashboardManageAccounts'. */
+const adminDashboardManageAccountsRouter = require('./routes/adminDashboardManageAccounts.router');
+
+/** The adminDashboardManageEventsRouter path router defined in './routes/adminDashboardManageEvents'. */
+const adminDashboardManageEventsRouter = require('./routes/adminDashboardManageEvents.router');
 
 
 // Special routes
@@ -124,13 +136,19 @@ app.use('/', rootRouter);
 app.use('/login', loginRouter);
 app.use('/eat_at_the_farm', eatAtTheFarmRouter);
 app.use('/support', supportPageRouter);
-app.use('/admin_dashboard', adminDashboardRouter);
 app.use('/cart', cartPageRouter);
 app.use('/check_out', checkOutRouter);
 app.use('/market', marketPageRouter);
 app.use('/user_dashboard', userDashboardRouter);
 app.use('/forgot_password', forgotPasswordRouter);
 app.use('/create_account', createAccountRouter);
+
+// admin
+app.use('/admin_dashboard', adminDashboardRouter);
+app.use('/admin_dashboard/manage_inventory', adminDashboardManageInventoryRouter);
+app.use('/admin_dashboard/manage_orders', adminDashboardManageOrdersRouter);
+app.use('/admin_dashboard/manage_accounts', adminDashboardManageAccountsRouter);
+app.use('/admin_dashboard/manage_events', adminDashboardManageEventsRouter);
 
 // Special routes
 app.use('/marketItem/:itemId', marketItemPageRouter);

@@ -23,18 +23,22 @@ function checkCookie(cookie) {
         });
         con.connect(function(err) {
           if (err) {
-            throw err;
+            console.log(err);
+            resolve(null);
           }
         });
 
         statement_0 = ("SELECT CURRENT_TIMESTAMP");
         con.query(statement_0, function(err_0, result_0) {
           if (err_0) {
-            throw err_0;
+            con.close();
+            console.log(err_0);
+            resolve(null);
           } else if (result_0.length > 0) {
             // cookie has been inactive for 30 mins
             if (new Date(result_0[0]["CURRENT_TIMESTAMP"]) - new Date(cookie["last_seen"]) > 1800000) {
               console.log("INVALID");
+              con.close();
               resolve(null);
             }
 
@@ -46,7 +50,9 @@ function checkCookie(cookie) {
             // run the statement on the db
             con.query(statement, function(err, result) {
               if (err) {
-                throw err;
+                con.close();
+                console.log(err);
+                resolve(null);
               } else if (result.length > 0) {
                 var aid = result[0]["accountID"];
                 // validate the data of the cookie
@@ -57,20 +63,26 @@ function checkCookie(cookie) {
                 // run the statement on the db
                 con.query(statement, function(err_1, result_1) {
                   if (err_1) {
-                    throw err_1;
+                    console.log(err_1);
+                    con.close();
+                    resolve(null);
                   } else if (result_1.length > 0) {
                     // validate creds from cookie
+                    con.close();
                     resolve(updateCookie(cookie, aid));
                   } else {
+                    con.close();
                     resolve(null);
                   }
                 });
               // invalid cookie
               } else {
+                con.close();
                 resolve(null);
               }
             });
           } else {
+            con.close();
             resolve(null);
           }
 
