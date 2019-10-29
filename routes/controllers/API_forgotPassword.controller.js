@@ -22,8 +22,8 @@ const forgotPassword = (req, res, next) => {
   fs.readFile('.hiddenCreds', (err, data) => {
       if (err) {
         res.setHeader('Content-Type', 'plain/text');
-        res.send("email failed!");
-        throw err;
+        res.send("forgot password failed!");
+        console.log(err);
       } else {
         json = JSON.parse(data.toString());
         var email = req.body["email"];
@@ -42,7 +42,7 @@ const forgotPassword = (req, res, next) => {
           if (err) {
             res.setHeader('Content-Type', 'plain/text');
             res.send("email failed!");
-            throw err;
+            console.log(err);
           }
         });
 
@@ -52,7 +52,7 @@ const forgotPassword = (req, res, next) => {
           if (err) {
             res.setHeader('Content-Type', 'plain/text');
             res.send("email failed!");
-            throw err;
+            console.log("err");
           } else {
             if (result.length > 0) {
               var nodemailer = require('nodemailer');
@@ -73,7 +73,7 @@ const forgotPassword = (req, res, next) => {
                 if (err) {
                   res.setHeader('Content-Type', 'plain/text');
                   res.send("email failed!");
-                  throw err;
+                  console.log(err);
                 } else {
                   //console.log(result);
                   // setup email by connecting
@@ -99,10 +99,9 @@ const forgotPassword = (req, res, next) => {
                   // send the email with the new password
                   transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
-                      throw error;
+                      console.log(error);
                     }
                   });
-
                   // send success to client
                   res.setHeader('Content-Type', 'plain/text');
                   res.send("email sent!");
