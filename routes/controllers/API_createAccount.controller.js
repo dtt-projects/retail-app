@@ -22,7 +22,9 @@ const createAccount = (req, res, next) => {
   const fs = require("fs");
   fs.readFile('.hiddenCreds', (err, data) => {
       if (err) {
-        throw err;
+        console.log(err);
+        res.setHeader('Content-Type', 'plain/text');
+        res.send("Account creation failed!");
       } else {
         // get file data and convert to json
         json = JSON.parse(data.toString());
@@ -37,9 +39,10 @@ const createAccount = (req, res, next) => {
           database: json[0]["database"]
         });
         con.connect(function(err) {
-          if (err)
-          {
-            throw err;
+          if (err) {
+            console.log(err);
+            res.setHeader('Content-Type', 'plain/text');
+            res.send("Account creation failed!");
           }
         });
 
@@ -67,7 +70,7 @@ const createAccount = (req, res, next) => {
           if (err) {
             res.setHeader('Content-Type', 'plain/text');
             res.send("Account creation failed!");
-            throw err;
+            console.log(err);
           } else {
             // statement was successful
             var nodemailer = require('nodemailer');
@@ -92,7 +95,7 @@ const createAccount = (req, res, next) => {
             // send the email out
             transporter.sendMail(mailOptions, function(error, info){
               if (error) {
-                throw error;
+                console.log(error);
               }
             });
 
