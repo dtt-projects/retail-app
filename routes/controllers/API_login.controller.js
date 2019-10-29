@@ -39,8 +39,9 @@ const login = (req, res, next) => {
       });
       con.connect(function(err) {
         if (err) {
+          res.setHeader('Content-Type', 'plain/text');
+          res.send("/login");
           console.log(err);
-          throw err;
         }
       });
       console.log("connected");
@@ -52,7 +53,7 @@ const login = (req, res, next) => {
         if (err) {
           res.setHeader('Content-Type', 'plain/text');
           res.send("/login");
-          throw err;
+          console.log(err);
         } else if (result.length > 0) {
           var db_username = result[0]["username"];
           var db_password = result[0]["password"];

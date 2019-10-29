@@ -35,11 +35,11 @@ const logger = require('morgan');
  */
 const helmet = require('helmet');
 
+
+// Basic GET routes
+
 /** The root path router defined in `./routes/root`. */
 const rootRouter = require('./routes/root.router');
-
-/** The user path router defined in `./routes/users`. */
-const usersRouter = require('./routes/users.router');
 
 /** The login path router defined in './routes/login'. */
 const loginRouter = require('./routes/login.router');
@@ -62,9 +62,6 @@ const checkOutRouter = require('./routes/checkOutPage.router');
 /** The marketPageRouter path router defined in './routes/supportPage'. */
 const marketPageRouter = require('./routes/marketPage.router');
 
-/** The marketItemPageRouter path router defined in './routes/marketItemPage'. */
-//const marketItemPageRouter = require('./routes/marketIt')
-
 /** The userDashboardRouter path router defined in './routes/supportPage'. */
 const userDashboardRouter = require('./routes/userDashboard.router');
 
@@ -74,7 +71,13 @@ const forgotPasswordRouter = require('./routes/forgotPassword.router');
 /** The createAccountRouter path router defined in './routes/createAccount'. */
 const createAccountRouter = require('./routes/createAccount.router');
 
-// API ROUTES
+
+// Special routes
+
+/** The marketItemPageRouter path router defined in './routes/marketItemPage'. */
+const marketItemPageRouter = require('./routes/marketItemPage.router');
+
+// API routes
 
 /** The API_forgotPasswordRouter path router defined in './routes/API_forgotPassword'. */
 const API_forgotPasswordRouter = require('./routes/API_forgotPassword.router');
@@ -86,7 +89,7 @@ const API_createAccountRouter = require('./routes/API_createAccount.router');
 const API_loginRouter = require('./routes/API_login.router');
 
 
-// cookies testing
+// Testing routes
 const print_cookiesRouter = require('./routes/print_cookies.router');
 
 /**
@@ -118,7 +121,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up routes.
 app.use('/', rootRouter);
-app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/eat_at_the_farm', eatAtTheFarmRouter);
 app.use('/support', supportPageRouter);
@@ -129,6 +131,9 @@ app.use('/market', marketPageRouter);
 app.use('/user_dashboard', userDashboardRouter);
 app.use('/forgot_password', forgotPasswordRouter);
 app.use('/create_account', createAccountRouter);
+
+// Special routes
+app.use('/marketItem/:itemId', marketItemPageRouter);
 
 // API routes
 app.use('/api/login', API_loginRouter);
