@@ -21,7 +21,7 @@ const sendAdminDashboardManageOrdersPage = (req, res, next) => {
     .then(res_cookie => {
       if (res_cookie == "undefined" || res_cookie == null) {
         res.clearCookie("CID");
-        res.redirect("login");
+        res.redirect("../login");
       } else {
         res.cookie("CID", res_cookie);
         if (res_cookie["isAdmin"] == 1) {

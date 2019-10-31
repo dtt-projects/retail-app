@@ -37,50 +37,48 @@ function checkCookie(cookie) {
               console.log("INVALID");
               con.end();
               resolve(null);
+            } else {
+
+              // this is to see if cookieID is real and get corrresponding aid
+              statement = ("SELECT accountID FROM cookies WHERE cookieID='"
+                  + cookie["cookieId"] + "' AND last_seen='"
+                  + cookie["last_seen"] + "'");
+
+              // run the statement on the db
+              con.query(statement, function(err, result) {
+                if (err) {
+                  con.end();
+                  console.log(err);
+                  resolve(null);
+                } else if (result.length > 0) {
+                  var aid = result[0]["accountID"];
+                  // validate the data of the cookie
+                  statement_1 = ("SELECT isAdmin FROM accounts "
+                      + "where aid='" + aid + "' AND "
+                      + "username='" + cookie["username"] + "' AND "
+                      + "email='" + cookie["email"] + "'");
+                  // run the statement on the db
+                  con.query(statement, function(err_1, result_1) {
+                    if (err_1) {
+                      console.log(err_1);
+                      con.end();
+                      resolve(null);
+                    } else if (result_1.length > 0) {
+                      // validate creds from cookie
+                      con.end();
+                      resolve(updateCookie(cookie, aid));
+                    } else {
+                      con.end();
+                      resolve(null);
+                    }
+                  });
+                // invalid cookie
+                } else {
+                  con.end();
+                  resolve(null);
+                }
+              });
             }
-
-            // this is to see if cookieID is real and get corrresponding aid
-            statement = ("SELECT accountID FROM cookies WHERE cookieID='"
-                + cookie["cookieId"] + "' AND last_seen='"
-                + cookie["last_seen"] + "'");
-
-            // run the statement on the db
-            con.query(statement, function(err, result) {
-              if (err) {
-                con.end();
-                console.log(err);
-                resolve(null);
-              } else if (result.length > 0) {
-                var aid = result[0]["accountID"];
-                // validate the data of the cookie
-                statement_1 = ("SELECT isAdmin FROM accounts "
-                    + "where aid='" + aid + "' AND "
-                    + "username='" + cookie["username"] + "' AND "
-                    + "email='" + cookie["email"] + "'");
-                // run the statement on the db
-                con.query(statement, function(err_1, result_1) {
-                  if (err_1) {
-                    console.log(err_1);
-                    con.end();
-                    resolve(null);
-                  } else if (result_1.length > 0) {
-                    // validate creds from cookie
-                    con.end();
-                    resolve(updateCookie(cookie, aid));
-                  } else {
-                    con.end();
-                    resolve(null);
-                  }
-                });
-              // invalid cookie
-              } else {
-                con.end();
-                resolve(null);
-              }
-            });
-          } else {
-            con.end();
-            resolve(null);
           }
         })
       });
@@ -260,16 +258,6 @@ function updateCookie(cookie, aid) {
 // handles everything to do with a cookie
 exports.handleLoginCookie = function(cookie, user_info) {
   return new Promise(function(resolve, reject) {
-    // while server is down
-    /*
-    var new_cookie = {"cookieId": 1,
-                      "email": "tempemail",
-                      "username": "nan",
-                      "isAdmin": 1,
-                      "last_seen": "yes!"
-                };
-    resolve(new_cookie);
-    */
     if (cookie == "undefined" || cookie == null) {
       cookie = null;
     } else if (cookie["CID"] == "undefined" || cookie["CID"] == null) {
@@ -289,16 +277,6 @@ exports.handleLoginCookie = function(cookie, user_info) {
 
 exports.handleCreateAccountCookie = function(user_info) {
   return new Promise(function(resolve, reject) {
-    // while server is down
-    /*
-    var new_cookie = {"cookieId": 1,
-                      "email": "tempemail",
-                      "username": "nan",
-                      "isAdmin": 1,
-                      "last_seen": "yes!"
-                };
-    resolve(new_cookie);
-    */
     resolve(createCookie(user_info));
   });
 }
@@ -311,20 +289,6 @@ exports.handleCreateAccountCookie = function(user_info) {
  */
 exports.handleNormalPageCookie = function(cookie) {
   return new Promise(function(resolve, reject) {
-
-// TEMP
-/*
-    // while server is down for testing
-    var new_cookie = {"cookieId": 1,
-                      "email": "tempemail",
-                      "username": "nan",
-                      "isAdmin": 1,
-                      "last_seen": "yes!"
-                };
-    resolve(new_cookie);
-    */
-// END TEMP
-
     // check if a cokie is present
     try {
       // no cookies exist at all
