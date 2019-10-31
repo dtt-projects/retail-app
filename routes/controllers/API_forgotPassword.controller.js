@@ -47,7 +47,7 @@ const forgotPassword = (req, res, next) => {
         });
 
         // statement to check if the email exists in the system
-        statement = ("select * from account where email = '" + email + "'");
+        statement = ("select * from accounts where email = '" + email + "'");
         con.query(statement, function(err, result) {
           if (err) {
             res.setHeader('Content-Type', 'plain/text');
@@ -66,7 +66,7 @@ const forgotPassword = (req, res, next) => {
               newpw = newpw.toString('hex');
               //console.log("newpw2: " + newpw);
               // update the database with the new password
-              statement = ("update account set password ='"
+              statement = ("update accounts set password ='"
                   + newpw.toString() + "' where email ='" + email + "'");
 
               con.query(statement, function(err, result) {

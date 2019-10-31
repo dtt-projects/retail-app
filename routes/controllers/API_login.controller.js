@@ -47,7 +47,7 @@ const login = (req, res, next) => {
       console.log("connected");
       // get username and password to comprare to
       statement = ("select username, password, isadmin, email "
-          + "from account where username = '"
+          + "from accounts where username = '"
           + username + "'");
       con.query(statement, function(err, result) {
         if (err) {

@@ -47,7 +47,7 @@ const createAccount = (req, res, next) => {
         });
 
         // current insert statement for database
-        statement = ("INSERT INTO account(FIRSTNAME, LASTNAME, ADDRESS," +
+        statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, ADDRESS," +
                      " CITY, ZIP, EMAIL, PHONENUMBER, USERNAME, PASSWORD, " +
                      "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN)" +
                      "VALUES('" + req.body["first_name"] + "' ," +
