@@ -53,7 +53,7 @@ function checkCookie(cookie) {
               } else if (result.length > 0) {
                 var aid = result[0]["accountID"];
                 // validate the data of the cookie
-                statement_1 = ("SELECT isAdmin FROM account "
+                statement_1 = ("SELECT isAdmin FROM accounts "
                     + "where aid='" + aid + "' AND "
                     + "username='" + cookie["username"] + "' AND "
                     + "email='" + cookie["email"] + "'");
@@ -109,7 +109,7 @@ function createCookie(user_info) {
           }
         });
         // prepare to link account and cookie tables
-        statement = ("SELECT aid FROM account WHERE "
+        statement = ("SELECT aid FROM accounts WHERE "
             + "username='" + user_info["username"] + "'"
             + "AND email='" + user_info["email"] + "'");
         con.query(statement, function(err, result) {
@@ -261,6 +261,7 @@ function updateCookie(cookie, aid) {
 exports.handleLoginCookie = function(cookie, user_info) {
   return new Promise(function(resolve, reject) {
     // while server is down
+    /*
     var new_cookie = {"cookieId": 1,
                       "email": "tempemail",
                       "username": "nan",
@@ -268,6 +269,7 @@ exports.handleLoginCookie = function(cookie, user_info) {
                       "last_seen": "yes!"
                 };
     resolve(new_cookie);
+    */
     if (cookie == "undefined" || cookie == null) {
       cookie = null;
     } else if (cookie["CID"] == "undefined" || cookie["CID"] == null) {
@@ -288,6 +290,7 @@ exports.handleLoginCookie = function(cookie, user_info) {
 exports.handleCreateAccountCookie = function(user_info) {
   return new Promise(function(resolve, reject) {
     // while server is down
+    /*
     var new_cookie = {"cookieId": 1,
                       "email": "tempemail",
                       "username": "nan",
@@ -295,6 +298,7 @@ exports.handleCreateAccountCookie = function(user_info) {
                       "last_seen": "yes!"
                 };
     resolve(new_cookie);
+    */
     resolve(createCookie(user_info));
   });
 }
@@ -309,6 +313,7 @@ exports.handleNormalPageCookie = function(cookie) {
   return new Promise(function(resolve, reject) {
 
 // TEMP
+/*
     // while server is down for testing
     var new_cookie = {"cookieId": 1,
                       "email": "tempemail",
@@ -317,6 +322,7 @@ exports.handleNormalPageCookie = function(cookie) {
                       "last_seen": "yes!"
                 };
     resolve(new_cookie);
+    */
 // END TEMP
 
     // check if a cokie is present
