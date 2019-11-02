@@ -17,6 +17,8 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendAdminDashboardManageInventoryPage = (req, res, next) => {
+  //console.log("request")
+  //console.log(req);
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
       if (res_cookie == "undefined" || res_cookie == null) {
@@ -25,9 +27,29 @@ const sendAdminDashboardManageInventoryPage = (req, res, next) => {
       } else {
         res.cookie("CID", res_cookie);
         if (res_cookie["isAdmin"] == 1) {
-          res.render('admin_dashboard-manage_inventory', { title: 'Sprout Creek Farm Admin Dashboard | Inventory',
-                                          page: 'login',
-                                          email: res_cookie["email"]});
+          var request = require("request");
+
+          baseUrl = req["headers"]["host"]
+          //  baseUrl +
+          var options ={
+            method: 'GET',
+            url: 'http://localhost:3000/api/getItems',
+          };
+          console.log(options);
+
+          request(options, function (error, response, body) {
+            if (error) {
+              console.log(error.message);
+              res.redirect('../admin_dashboard');
+            } else {
+              //itemsList = JSON.parse(body.toString())
+              itemsList = JSON.parse(body.toString());
+              res.render('admin_dashboard-manage_inventory', { title: 'Sprout Creek Farm Admin Dashboard | Inventory',
+                                                          page: 'login',
+                                                          email: res_cookie["email"],
+                                                          items: itemsList});
+            }
+          });
         } else {
           res.redirect('user_dashboard')
         }

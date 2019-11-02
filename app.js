@@ -95,7 +95,6 @@ const adminDashboardManageAccountsRouter = require('./routes/adminDashboardManag
 const marketItemPageRouter = require('./routes/marketItemPage.router');
 
 // API routes
-
 /** The API_forgotPasswordRouter path router defined in './routes/API_forgotPassword'. */
 const API_forgotPasswordRouter = require('./routes/API_forgotPassword.router');
 
@@ -104,6 +103,15 @@ const API_createAccountRouter = require('./routes/API_createAccount.router');
 
 /** The API_loginRouter path router defined in './routes/API_login'. */
 const API_loginRouter = require('./routes/API_login.router');
+
+/** The API_addItemRouter path router defined in './routes/API_addItem'. */
+const API_addItemRouter = require('./routes/API_addItem.router');
+
+/** The API_getItemsrouter path router defined in './routes/API_getItems'. */
+const API_getItemsRouter = require('./routes/API_getItems.router');
+
+/** The API_updateItemRouter path router defined in './routes/API_updateItem'. */
+const API_updateItemRouter = require('./routes/API_updateItem.router');
 
 
 // Testing routes
@@ -129,7 +137,6 @@ app.use(helmet());
 /** view engine setup */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -165,6 +172,9 @@ app.use('/marketItem/:itemId', marketItemPageRouter);
 app.use('/api/login', API_loginRouter);
 app.use('/api/forgot_password', API_forgotPasswordRouter);
 app.use('/api/create_account', API_createAccountRouter);
+app.use('/api/addItem', API_addItemRouter);
+app.use('/api/getItems', API_getItemsRouter);
+app.use('/api/updateItem', API_updateItemRouter);
 
 // TESTING
 app.use('/print_cookies', print_cookiesRouter);
