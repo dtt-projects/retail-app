@@ -80,9 +80,14 @@ const updateItem = (req, res, next) => {
 
       request(options, function (error, response, body) {
         if (error) {
-          return console.error('Failed: %s', error.message);
+          console.error('Failed: %s', error.message);
+          res.status(400);
+          res.send();
+        } else {
+          res.status(200);
+          res.send();
+          console.log('Success: ', body);
         }
-        console.log('Success: ', body);
       });
 
     });

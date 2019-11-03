@@ -26,7 +26,7 @@ function addItem() {
     });
     // make the api call
     fetch("/api/updateItem",
-      {method: "post",
+      {method: "PUT",
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
@@ -38,11 +38,13 @@ function addItem() {
           console.log("Problem with ajax call! " + response.status
               + " msg: " + response.value);
           return
+        } else {
+          // send to a webpage
+          response.text().then(function(data) {
+            location.reload();
+          });
         }
-        // send to a webpage
-        response.text().then(function(data) {
-          alert(data);
-        });
+
       });
 
   // update an existing item
@@ -73,7 +75,7 @@ function addItem() {
         }
         // send to a webpage
         response.text().then(function(data) {
-          alert(data);
+          location.reload();
         });
       });
   }

@@ -80,9 +80,12 @@ const addItem = (req, res, next) => {
 
       request(options, function (error, response, body) {
         if (error) {
-          return console.error('Failed: %s', error.message);
+          res.status(401);
+          res.send('Failed:');
+        } else {
+          res.status(200);
+          res.send('Success:');
         }
-        console.log('Success: ', body);
       });
 
     });
