@@ -25,9 +25,6 @@ const login = (req, res, next) => {
   //  read creds from the secret file
   hidden.readHidden()
     .then(json => {
-      console.log("JSON");
-      console.log(json);
-
       var mysql = require("mysql");
 
       // connect to the database
@@ -40,6 +37,7 @@ const login = (req, res, next) => {
       con.connect(function(err) {
         if (err) {
           res.setHeader('Content-Type', 'plain/text');
+          res.status(401);
           res.send("/login");
           console.log(err);
         }
@@ -52,6 +50,7 @@ const login = (req, res, next) => {
       con.query(statement, function(err, result) {
         if (err) {
           res.setHeader('Content-Type', 'plain/text');
+          res.status(401);
           res.send("/login");
           console.log(err);
         } else if (result.length > 0) {
@@ -68,28 +67,30 @@ const login = (req, res, next) => {
             }
             console.log(data);
             if (isAdmin == 1) {
-              console.log("cookies call");
               cookies.handleLoginCookie(null, data)
                 .then(cookie => {
                   res.cookie("CID", cookie);
                   res.setHeader('Content-Type', 'plain/text');
+                  res.status(200);
                   res.send("/admin_dashboard");
                 });
-              console.log("post cookies call");
             } else {
               cookies.handleLoginCookie(null, data)
                 .then(cookie => {
                   res.cookie("CID", cookie);
                   res.setHeader('Content-Type', 'plain/text');
+                  res.status(200);
                   res.send("/user_dashboard");
                 });
             }
           }  else {
             res.setHeader('Content-Type', 'plain/text');
+            res.status(401);
             res.send("/login");
           }
         } else {
           res.setHeader('Content-Type', 'plain/text');
+          res.status(401);
           res.send("/login");
         }
       });
