@@ -17,8 +17,11 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendAdminDashboardPage = (req, res, next) => {
+  console.log("qwerty");
+  console.log(req.cookies);
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
+      console.log(res_cookie);
       if (res_cookie == "undefined" || res_cookie == null) {
         res.clearCookie("CID");
         res.redirect("login");

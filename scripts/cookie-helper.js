@@ -163,6 +163,7 @@ function createCookie(user_info) {
                 resolve(null);
               // cookie has been made in the past and must update timestamp
               } else if (result_1.length > 0) {
+                console.log("here1")
                 statement_2 = ("UPDATE cookies SET last_seen=CURRENT_TIMESTAMP"
                     + " WHERE accountID='" + aid + "'");
                 con.query(statement_2, function(err_2, result_2) {
@@ -172,6 +173,7 @@ function createCookie(user_info) {
                     resolve(null);
                   // ge updated cookie and send it to the user
                   } else {
+                    console.log("qqqq");
                     // getting the cookieId so it can be referenced in the future
                     statement_3 = ("SELECT cookieID, last_seen FROM cookies "
                         + "WHERE accountID='" + aid + "'");
@@ -181,12 +183,14 @@ function createCookie(user_info) {
                         con.end();
                         resolve(null);
                       } else {
+
                         var cookie = {"cookieId": result_3[0]["cookieID"],
                                       "email": user_info["email"],
                                       "username": user_info["username"],
                                       "isAdmin": user_info["isAdmin"],
                                       "last_seen": result_3[0]["last_seen"]
                                     };
+                        console.log(cookie);
                         con.end();
                         resolve(cookie);
                       }
@@ -317,11 +321,23 @@ function updateCookie(cookie, aid) {
 exports.handleLoginCookie = function(cookie, userInfo) {
   return new Promise(function(resolve, reject) {
     // check if the cookie passed in is valid or not
+    console.log("loginCookies");
+    console.log(cookie);
     try {
       if (cookie == "undefined" || cookie == null) {
         cookie = null;
       } else if (cookie["CID"] == "undefined" || cookie["CID"] == null) {
         cookie = null;
+      }
+
+      if (cookie != null) {
+        // check if it is a valid cookie
+        console.log("check?");
+        resolve(checkCookie(cookie["CID"], userInfo));
+      // create a cookie
+      } else {
+        console.log("create?");
+        resolve(createCookie(userInfo));
       }
     } catch(e) {
       console.log("Error with handleLoginCookie: " + e);
@@ -330,12 +346,15 @@ exports.handleLoginCookie = function(cookie, userInfo) {
       // cookie exists check if valid
       if (cookie != null) {
         // check if it is a valid cookie
+        console.log("check?");
         resolve(checkCookie(cookie["CID"], userInfo));
       // create a cookie
       } else {
+        console.log("create?");
         resolve(createCookie(userInfo));
       }
     }
+
   });
 }
 

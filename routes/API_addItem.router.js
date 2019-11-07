@@ -1,5 +1,5 @@
 /**
- * @module routes/API_login
+ * @module routes/API_addItem
  * @fileoverview Routes for the login
  * @requires Express
  * @requires routes/controllers/API_login

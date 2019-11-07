@@ -51,13 +51,17 @@ const login = (req, res, next) => {
         if (err) {
           res.setHeader('Content-Type', 'plain/text');
           res.status(401);
+          console.log("user doesnt exist");
           res.send("/login");
           console.log(err);
         } else if (result.length > 0) {
           var db_username = result[0]["username"];
           var db_password = result[0]["password"];
           // if valid creds send to proper dashboard if admin or not
+          console.log(username);
+          console.log(password);
           if (username == db_username && password == db_password) {
+            console.log("valid");
             var isAdmin = result[0]["isadmin"];
             data = {
               "username": db_username,
@@ -65,10 +69,12 @@ const login = (req, res, next) => {
               "isAdmin": isAdmin,
               "email": result[0]["email"]
             }
+            console.log("data")
             console.log(data);
             if (isAdmin == 1) {
               cookies.handleLoginCookie(null, data)
                 .then(cookie => {
+                  console.log(cookie);
                   res.cookie("CID", cookie);
                   res.setHeader('Content-Type', 'plain/text');
                   res.status(200);
@@ -84,11 +90,15 @@ const login = (req, res, next) => {
                 });
             }
           }  else {
+            console.log("q");
+            console.log(result);
             res.setHeader('Content-Type', 'plain/text');
             res.status(401);
             res.send("/login");
           }
         } else {
+          console.log(result);
+          console.log("user doesnt exist");
           res.setHeader('Content-Type', 'plain/text');
           res.status(401);
           res.send("/login");

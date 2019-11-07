@@ -39,7 +39,7 @@ const helmet = require('helmet');
 // Basic GET routes
 
 /** The root path router defined in `./routes/root`. */
-const rootRouter = require('./routes/root.router');
+const rootPageRouter = require('./routes/rootPage.router');
 
 /** The login path router defined in './routes/login'. */
 const loginRouter = require('./routes/login.router');
@@ -67,13 +67,13 @@ const createAccountRouter = require('./routes/createAccount.router');
 
 // User routes
 /** The userDashboardRouter path router defined in './routes/userDashboard'. */
-const userDashboardRouter = require('./routes/userDashboard.router');
+const userDashboardPageRouter = require('./routes/userDashboardPage.router');
 
 /** The userDashboardViewOrdersRouter path router defined in './routes/userDashboardViewOrders'. */
-const userDashboardViewOrdersRouter = require('./routes/userDashboardViewOrders.router');
+const userDashboardViewOrdersPageRouter = require('./routes/userDashboardViewOrdersPage.router');
 
 /** The userDashboardEditInfoRouter path router defined in './routes/userDashboardEditInfo'. */
-const userDashboardEditInfoRouter = require('./routes/userDashboardEditInfo.router');
+const userDashboardEditInfoPageRouter = require('./routes/userDashboardEditInfoPage.router');
 
 
 // Admin Routes
@@ -113,6 +113,8 @@ const API_getItemsRouter = require('./routes/API_getItems.router');
 /** The API_updateItemRouter path router defined in './routes/API_updateItem'. */
 const API_updateItemRouter = require('./routes/API_updateItem.router');
 
+/** The API_getItemRouter path router defined in './routes/API_getItem'. */
+const API_getItemRouter = require('./routes/API_getItem.router');
 
 // Testing routes
 const print_cookiesRouter = require('./routes/print_cookies.router');
@@ -144,7 +146,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up routes.
-app.use('/', rootRouter);
+app.use('/', rootPageRouter);
 app.use('/login', loginRouter);
 app.use('/eat_at_the_farm', eatAtTheFarmRouter);
 app.use('/support', supportPageRouter);
@@ -160,10 +162,10 @@ app.use('/user_dashboard/view_orders', userDashboardViewOrdersRouter);
 app.use('/user_dashboard/edit_information', userDashboardEditInfoRouter);
 
 // Admin Dashboard
-app.use('/admin_dashboard', adminDashboardRouter);
-app.use('/admin_dashboard/manage_inventory', adminDashboardManageInventoryRouter);
-app.use('/admin_dashboard/manage_orders', adminDashboardManageOrdersRouter);
-app.use('/admin_dashboard/manage_accounts', adminDashboardManageAccountsRouter);
+app.use('/admin_dashboard', adminDashboardPageRouter);
+app.use('/admin_dashboard/manage_inventory', adminDashboardManageInventoryPageRouter);
+app.use('/admin_dashboard/manage_orders', adminDashboardManageOrdersPageRouter);
+app.use('/admin_dashboard/manage_accounts', adminDashboardManageAccountsPageRouter);
 
 // Special Routes
 app.use('/marketItem/:itemId', marketItemPageRouter);
@@ -173,8 +175,10 @@ app.use('/api/login', API_loginRouter);
 app.use('/api/forgot_password', API_forgotPasswordRouter);
 app.use('/api/create_account', API_createAccountRouter);
 app.use('/api/addItem', API_addItemRouter);
+app.use('/api/getItem/:itemId', API_getItemRouter);
 app.use('/api/getItems', API_getItemsRouter);
 app.use('/api/updateItem', API_updateItemRouter);
+
 
 // TESTING
 app.use('/print_cookies', print_cookiesRouter);

@@ -28,7 +28,7 @@ const API_updateItemRouter = express.Router();
 const API_updateItemController = require('./controllers/API_updateItem.controller');
 
 
-// Put the information to the controller for login
+// Put the information to the controller for updating items
 API_updateItemRouter.put('/', API_updateItemController.updateItem);
 
 module.exports = API_updateItemRouter;

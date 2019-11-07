@@ -17,6 +17,8 @@ const cookies = require('../../scripts/cookie-helper.js');
  *    and does not return or render anything (no `res` methods called).
  */
 const sendMarketPage = (req, res, next) => {
+  var request = require("request");
+
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
       if (res_cookie == "undefined" || res_cookie == null) {
@@ -24,8 +26,26 @@ const sendMarketPage = (req, res, next) => {
       } else {
         res.cookie("CID", res_cookie);
       }
-      res.render('market', { title: 'Sprout Creek Farm Market',
-                             page: 'market' });
+
+      var options ={
+        method: 'GET',
+        url: 'http://localhost:3000/api/getItems',
+      };
+      console.log(options);
+
+      request(options, function (error, response, body) {
+        if (error) {
+          console.log(error.message);
+          res.redirect('../admin_dashboard');
+        } else {
+          //itemsList = JSON.parse(body.toString())
+          itemsList = JSON.parse(body.toString());
+          res.render('market', {
+            title: 'Sprout Creek Farm Market',
+            page: 'market',
+            items: itemsList});
+        }
+      });
     });
 };
 

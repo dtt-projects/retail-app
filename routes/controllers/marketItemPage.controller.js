@@ -23,14 +23,33 @@ const sendMarketItemPage = (req, res, next) => {
   console.log(itemNum);
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
+      var request = require("request");
       if (res_cookie == "undefined" || res_cookie == null) {
         res.clearCookie("CID");
       } else {
         res.cookie("CID", res_cookie);
       }
-      res.render('marketItem', { title: 'Sprout Creek Farm Market',
-                                 page: 'market',
-                                 itemId: itemNum});
+      var options ={
+        method: 'GET',
+        url: 'http://localhost:3000/api/getItem/' + itemNum,
+      };
+
+      console.log(options);
+
+      request(options, function (error, response, body) {
+        if (error) {
+          console.log(error.message);
+          res.redirect('../market');
+        } else {
+          //itemsList = JSON.parse(body.toString())
+          var data = JSON.parse(body.toString());
+          //console.log(data);
+          res.render('marketItem', {
+            title: 'Sprout Creek Farm Market | ' + data[0]["itemname"],
+            page: 'market',
+            item: data});
+        }
+      });
     });
 };
 
