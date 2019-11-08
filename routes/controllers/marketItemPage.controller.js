@@ -1,11 +1,20 @@
 /**
- * @module routes/controllers/login
- * @fileoverview Login route's controller. Exports functions to be used by each
- *    route handler.
- * @exports {Object} Functions to attach to the `login` router.
+ * @module routes/controllers/marketItemPage
+ * @fileoverview marketItemPage route's controller. Exports functions
+ *    to be used by each route handler.
+ * @exports {Object} Functions to attach to the `marketItemPage` router.
+ * @require cookie-helper
  */
 
+ /* cookies
+  * This is to help with handle cookies for user validation
+  */
 const cookies = require('../../scripts/cookie-helper.js');
+
+/* request
+ * This is for calling a request from the web server
+ */
+const request = require("request");
 
 /**
  * @function sendLoginPage
@@ -20,26 +29,28 @@ const sendMarketItemPage = (req, res, next) => {
   // will get the item id
   // will be used to call api and use the system
   var itemNum = req.baseUrl.split("/")[2];
-  console.log(itemNum);
+  // update user cookies first
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
-      var request = require("request");
       if (res_cookie == "undefined" || res_cookie == null) {
         res.clearCookie("CID");
       } else {
         res.cookie("CID", res_cookie);
       }
+
+      // setup url for api call
       var options ={
         method: 'GET',
         url: 'http://localhost:3000/api/getItem/' + itemNum,
       };
 
-      console.log(options);
-
+      // make the request to get a single item from IBM DB
+      // if error send user back to root page
+      // if sucess populate an item page
       request(options, function (error, response, body) {
         if (error) {
           console.log(error.message);
-          res.redirect('../market');
+          res.redirect('/');
         } else {
           //itemsList = JSON.parse(body.toString())
           var data = JSON.parse(body.toString());

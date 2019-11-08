@@ -1,11 +1,20 @@
 /**
- * @module routes/controllers/API_login
- * @fileoverview API_login route's controller. Handle all business logic
- * relative to login for the users.
- * @exports {Object} Functions to attach to the `users` router.
+ * @module routes/controllers/API_getItems
+ * @fileoverview API_getItems route's controller. Handle all business logic
+ * relative to API_getItems for the users.
+ * @exports {Object} Functions to attach to the `API_getItems` router.
+ * @require read-hidden
+ * @require cookie-helper
  */
 
+ /* hidden
+  * This is to read the hidden credentials file
+  */
  var hidden = require('../../scripts/read-hidden.js');
+
+ /* cookies
+  * This is to help with handle cookies for user validation
+  */
  const cookies = require('../../scripts/cookie-helper.js');
 
 
@@ -24,6 +33,7 @@ const getItems = (req, res, next) => {
       console.log("JSON");
       console.log(json);
 
+      // required for db connection and api call
       var mysql = require("mysql");
       var request = require("request");
 
@@ -37,12 +47,15 @@ const getItems = (req, res, next) => {
       con.connect(function(err) {
         if (err) {
           res.setHeader('Content-Type', 'plain/text');
+          res.status(400);
           console.log(err);
+          res.send();
         }
       });
       console.log("connected");
 
-      var options ={
+      // setup the call for the api
+      var options = {
         method: 'GET',
         url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Inventory',
         headers:
@@ -51,12 +64,15 @@ const getItems = (req, res, next) => {
             'x-ibm-client-id': json[2]["ClientId"] }
       };
 
+      // make the request and on failure log the error and send back 400
+      // on success send back the data
       request(options, function (error, response, body) {
         if (error) {
-          res.send(error.message);
+          console.error("Failed getItems:" + error.message);
+          res.status(400);
+          res.send();
         } else {
           data = JSON.parse(body.toString())
-          console.log(data);
           res.send(data["data"]["inventoryList"]);
         }
       });

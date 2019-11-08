@@ -26,7 +26,7 @@ const routerPage = express.Router();
  * @type {Object}
  * @constant
  */
-const rootPageController = require('./controllers/rootPage.controller');
+const rootPageController = require('./controllers/root.controller');
 
 
 /**
@@ -36,6 +36,6 @@ const rootPageController = require('./controllers/rootPage.controller');
  *    on the rootPageRouter. Send the homepage rendered by HBS
  *    from `rootPageController#sendHomepage`.
  */
-router.get('/', rootPageController.sendHomePage);
+routerPage.get('/', rootPageController.sendHomePage);
 
 module.exports = routerPage;

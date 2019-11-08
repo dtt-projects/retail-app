@@ -39,13 +39,13 @@ const helmet = require('helmet');
 // Basic GET routes
 
 /** The root path router defined in `./routes/root`. */
-const rootPageRouter = require('./routes/rootPage.router');
+const rootPageRouter = require('./routes/root.router');
 
 /** The login path router defined in './routes/login'. */
-const loginRouter = require('./routes/login.router');
+const loginPageRouter = require('./routes/loginPage.router');
 
 /** The eat at the farm router defined in './routes/eatAtTheFarm'. */
-const eatAtTheFarmRouter = require('./routes/eatAtTheFarm.router');
+const eatAtTheFarmPageRouter = require('./routes/eatAtTheFarmPage.router');
 
 /** The supportPageRouter path router defined in './routes/supportPage'. */
 const supportPageRouter = require('./routes/supportPage.router');
@@ -54,16 +54,16 @@ const supportPageRouter = require('./routes/supportPage.router');
 const cartPageRouter = require('./routes/cartPage.router');
 
 /** The checkOutRouter path router defined in './routes/checkOutPage'. */
-const checkOutRouter = require('./routes/checkOutPage.router');
+const checkOutPageRouter = require('./routes/checkOutPage.router');
 
 /** The marketPageRouter path router defined in './routes/marketPage'. */
 const marketPageRouter = require('./routes/marketPage.router');
 
 /** The forgotPasswordRouter path router defined in './routes/forgotPassword'. */
-const forgotPasswordRouter = require('./routes/forgotPassword.router');
+const forgotPasswordPageRouter = require('./routes/forgotPasswordPage.router');
 
 /** The createAccountRouter path router defined in './routes/createAccount'. */
-const createAccountRouter = require('./routes/createAccount.router');
+const createAccountPageRouter = require('./routes/createAccountPage.router');
 
 // User routes
 /** The userDashboardRouter path router defined in './routes/userDashboard'. */
@@ -78,16 +78,16 @@ const userDashboardEditInfoPageRouter = require('./routes/userDashboardEditInfoP
 
 // Admin Routes
 /** The adminDashboardRouter path router defined in './routes/adminDashboard'. */
-const adminDashboardRouter = require('./routes/adminDashboard.router');
+const adminDashboardPageRouter = require('./routes/adminDashboardPage.router');
 
 /** The adminDashboardManageInvertoryRouter path router defined in './routes/adminDashboardManageInvertory'. */
-const adminDashboardManageInventoryRouter = require('./routes/adminDashboardManageInventory.router');
+const adminDashboardManageInventoryPageRouter = require('./routes/adminDashboardManageInventoryPage.router');
 
 /** The adminDashboardManageOrdersRouter path router defined in './routes/adminDashboardManageOrders'. */
-const adminDashboardManageOrdersRouter = require('./routes/adminDashboardManageOrders.router');
+const adminDashboardManageOrdersPageRouter = require('./routes/adminDashboardManageOrdersPage.router');
 
 /** The adminDashboardManageAccountsRouter path router defined in './routes/adminDashboardManageAccounts'. */
-const adminDashboardManageAccountsRouter = require('./routes/adminDashboardManageAccounts.router');
+const adminDashboardManageAccountsPageRouter = require('./routes/adminDashboardManageAccountsPage.router');
 
 
 // Special routes
@@ -147,19 +147,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up routes.
 app.use('/', rootPageRouter);
-app.use('/login', loginRouter);
-app.use('/eat_at_the_farm', eatAtTheFarmRouter);
+app.use('/login', loginPageRouter);
+app.use('/eat_at_the_farm', eatAtTheFarmPageRouter);
 app.use('/support', supportPageRouter);
 app.use('/cart', cartPageRouter);
-app.use('/check_out', checkOutRouter);
+app.use('/check_out', checkOutPageRouter);
 app.use('/market', marketPageRouter);
-app.use('/forgot_password', forgotPasswordRouter);
-app.use('/create_account', createAccountRouter);
+app.use('/forgot_password', forgotPasswordPageRouter);
+app.use('/create_account', createAccountPageRouter);
 
 // User Dashboard
-app.use('/user_dashboard', userDashboardRouter);
-app.use('/user_dashboard/view_orders', userDashboardViewOrdersRouter);
-app.use('/user_dashboard/edit_information', userDashboardEditInfoRouter);
+app.use('/user_dashboard', userDashboardPageRouter);
+app.use('/user_dashboard/view_orders', userDashboardViewOrdersPageRouter);
+app.use('/user_dashboard/edit_information', userDashboardEditInfoPageRouter);
 
 // Admin Dashboard
 app.use('/admin_dashboard', adminDashboardPageRouter);

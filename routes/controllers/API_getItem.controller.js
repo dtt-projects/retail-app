@@ -1,11 +1,20 @@
 /**
- * @module routes/controllers/API_login
- * @fileoverview API_login route's controller. Handle all business logic
- * relative to login for the users.
- * @exports {Object} Functions to attach to the `users` router.
+ * @module routes/controllers/API_getItem
+ * @fileoverview API_getItem route's controller. Handle all business logic
+ * relative to API_getItem for the users.
+ * @exports {Object} Functions to attach to the `API_getItem` router.
+ * @require read-hidden
+ * @require cookie-helper
  */
 
+ /* hidden
+  * This is to read the hidden credentials file
+  */
  var hidden = require('../../scripts/read-hidden.js');
+
+ /* cookies
+  * This is to help with handle cookies for user validation
+  */
  const cookies = require('../../scripts/cookie-helper.js');
 
 
@@ -18,16 +27,15 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const getItem = (req, res, next) => {
-  //  read creds from the secret file
+  // get the item num from the url
   var itemNum = req.baseUrl.split("/")[3];
-  console.log(req.baseUrl);
-  console.log("itemNum api: ");
-  console.log(itemNum);
+  //  read creds from the secret file
   hidden.readHidden()
     .then(json => {
       //console.log("JSON");
       //console.log(json);
 
+      // required packages for db connection and api call
       var mysql = require("mysql");
       var request = require("request");
 
@@ -40,13 +48,15 @@ const getItem = (req, res, next) => {
       });
       con.connect(function(err) {
         if (err) {
-          res.setHeader('Content-Type', 'plain/text');
           console.log(err);
+          res.setHeader('Content-Type', 'plain/text');
+          res.status(400);
+          res.send();
         }
       });
-      //console.log("connected");
-      //console.log('https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Inventory/' + itemNum);
-      var options ={
+
+      // setup the api call and point it towards a single item
+      var options = {
         method: 'GET',
         url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Inventory/' + itemNum,
         headers:
@@ -55,13 +65,15 @@ const getItem = (req, res, next) => {
             'x-ibm-client-id': json[2]["ClientId"] }
       };
 
+      // if call fails log error and send back 400
+      // if call successful send back the single item's data
       request(options, function (error, response, body) {
         if (error) {
-          console.log('error');
-          console.log(error.message);
-          res.send(error.message);
+          console.log("Failed getItem: " + error.message);
+          res.status(400);
+          res.setHeader('Content-Type', 'plain/text');
+          res.send();
         } else {
-          //console.log(body);
           data = JSON.parse(body.toString())
           res.send(data["data"]["inventoryList"]);
         }
