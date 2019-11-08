@@ -3,7 +3,12 @@
  * @fileoverview Login route's controller. Exports functions to be used by each
  *    route handler.
  * @exports {Object} Functions to attach to the `login` router.
+ * @require cookie-helper
  */
+
+ /* cookies
+  * This is to help with handle cookies for user validation
+  */
  const cookies = require('../../scripts/cookie-helper.js');
 
 
@@ -16,27 +21,37 @@
  * @param {Function} next The function to call when this method is done executing
  *    and does not return or render anything (no `res` methods called).
  */
-const sendAdminDashboardManageInventoryPage = (req, res, next) => {
+const sendLoginPage = (req, res, next) => {
+  // check their system and update cookies
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
+      if (res_cookie == null || res_cookie == "undefined") {
         res.clearCookie("CID");
-        res.redirect("../login");
       } else {
         res.cookie("CID", res_cookie);
-        if (res_cookie["isAdmin"] == 1) {
-          res.render('admin_dashboard-manage_inventory', { title: 'Sprout Creek Farm Admin Dashboard | Inventory',
-                                          page: 'login',
-                                          email: res_cookie["email"]});
+      }
+      var page = "";
+      if (req.cookies["CID"] == null || req.cookies["CID"] == "undefined") {
+        page = "login";
+      // check if the cookie is valid
+      } else {
+        if (req.cookies["CID"]["isAdmin"] == 1) {
+          page = "admin_dashboard";
         } else {
-          res.redirect('user_dashboard')
+          page = "user_dashboard";
         }
       }
+      if (page == "login") {
+        res.render(page, { title: 'Sprout Creek Farm Login',
+                           page: 'login' });
+      } else {
+        res.redirect(page);
 
+      }
     });
 };
 
 
 module.exports = {
-  sendAdminDashboardManageInventoryPage,
+  sendLoginPage,
 };

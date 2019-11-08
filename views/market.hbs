@@ -1,1 +1,27 @@
 <h2> MARKET PAGE!!!! </h2>
+<h1> Items </h1>
+  <table>
+    <tr>
+      <td> itemid </td>
+      <td> itemcat </td>
+      <td> itemdesc </td>
+      <td> quantity </td>
+      <td> merchantid </td>
+      <td> itemname </td>
+      <td> price </td>
+      <td> itemimagelink </td>
+    </tr>
+    {{#each items}}
+      <tr>
+        <td> <a href="/marketItem/{{itemid}}">{{itemid}} </a></td>
+        <td> {{itemcat}} </td>
+        <td> {{itemdesc}} </td>
+        <td> {{quantity}} </td>
+        <td> {{merchantid}} </td>
+        <td> {{itemname}} </td>
+        <td> {{price}} </td>
+        <td> <img src="{{itemimagelink}}"> </td>
+      </tr>
+    {{/each}}
+  </table>
+<h1> END ITEMS </h1>

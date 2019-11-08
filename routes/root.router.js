@@ -1,9 +1,9 @@
 /**
- * @module routes/root
+ * @module routes/rootPage
  * @fileoverview Root router for `/` based paths.
  * @requires Express
- * @requires routes/controllers/root
- * @exports {Express#Router} An Express router instance for the root server path.
+ * @requires routes/controllers/rootPage
+ * @exports {Express#Router} An Express router instance for the rootPage server path.
  */
 
 /**
@@ -14,27 +14,28 @@
 const express = require('express');
 
 /**
- * @description Router to mount user related functions on.
+ * @description Router to mount root related functions on.
  * @type {Object}
  * @constant
  */
-const router = express.Router();
+const routerPage = express.Router();
 
 
 /**
- * @description rootController for root route.
+ * @description rootPageController for root route.
  * @type {Object}
  * @constant
  */
-const rootController = require('./controllers/root.controller');
+const rootPageController = require('./controllers/root.controller');
 
 
 /**
  * Route serving homepage.
  * @name get /
- * @description Register the routerController's `sendHomepage` function on the rootRouter.
- *    Send the homepage rendered by HBS from `rootController#sendHomepage`.
+ * @description Register the routerController's `sendHomepage` function
+ *    on the rootPageRouter. Send the homepage rendered by HBS
+ *    from `rootPageController#sendHomepage`.
  */
-router.get('/', rootController.sendHomepage);
+routerPage.get('/', rootPageController.sendHomePage);
 
-module.exports = router;
+module.exports = routerPage;

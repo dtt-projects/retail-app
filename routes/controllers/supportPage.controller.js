@@ -1,10 +1,14 @@
 /**
- * @module routes/controllers/forgotPassword
- * @fileoverview forgot Password route's controller. Exports functions to be used by each
- *    route handler.
- * @exports {Object} Functions to attach to the `support` router.
+ * @module routes/controllers/supportPage
+ * @fileoverview supportPage route's controller. Exports
+ *    functions to be used by each route handler.
+ * @exports {Object} Functions to attach to the `supportPage` router.
+ * @require cookie-helper
  */
 
+ /* cookies
+  * This is to help with handle cookies for user validation
+  */
  const cookies = require('../../scripts/cookie-helper.js');
 
 /**
@@ -17,6 +21,7 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendSupportPage = (req, res, next) => {
+  // handle the cookies of a user and update them
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
       if (res_cookie == "undefined" || res_cookie == null) {

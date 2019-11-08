@@ -3,9 +3,18 @@
  * @fileoverview API_login route's controller. Handle all business logic
  * relative to login for the users.
  * @exports {Object} Functions to attach to the `users` router.
+ * @require read-hidden
+ * @require cookie-helper
  */
 
+ /* hidden
+  * This is to read the hidden credentials file
+  */
  var hidden = require('../../scripts/read-hidden.js');
+
+ /* cookies
+  * This is to help with handle cookies for user validation
+  */
  const cookies = require('../../scripts/cookie-helper.js');
 
 
@@ -25,9 +34,6 @@ const login = (req, res, next) => {
   //  read creds from the secret file
   hidden.readHidden()
     .then(json => {
-      console.log("JSON");
-      console.log(json);
-
       var mysql = require("mysql");
 
       // connect to the database
@@ -40,6 +46,7 @@ const login = (req, res, next) => {
       con.connect(function(err) {
         if (err) {
           res.setHeader('Content-Type', 'plain/text');
+          res.status(401);
           res.send("/login");
           console.log(err);
         }
@@ -50,10 +57,14 @@ const login = (req, res, next) => {
           + "from accounts where username = '"
           + username + "'");
       con.query(statement, function(err, result) {
+        // send error back and 401
         if (err) {
           res.setHeader('Content-Type', 'plain/text');
+          res.status(401);
+          console.log("user doesnt exist");
           res.send("/login");
           console.log(err);
+        // got data back from server so user exists
         } else if (result.length > 0) {
           var db_username = result[0]["username"];
           var db_password = result[0]["password"];
@@ -66,30 +77,38 @@ const login = (req, res, next) => {
               "isAdmin": isAdmin,
               "email": result[0]["email"]
             }
-            console.log(data);
             if (isAdmin == 1) {
-              console.log("cookies call");
+              // log the user in and send to dashboard
               cookies.handleLoginCookie(null, data)
                 .then(cookie => {
+                  console.log(cookie);
                   res.cookie("CID", cookie);
                   res.setHeader('Content-Type', 'plain/text');
+                  res.status(200);
                   res.send("/admin_dashboard");
                 });
-              console.log("post cookies call");
             } else {
+              // log the user in and send to dashboard
               cookies.handleLoginCookie(null, data)
                 .then(cookie => {
                   res.cookie("CID", cookie);
                   res.setHeader('Content-Type', 'plain/text');
+                  res.status(200);
                   res.send("/user_dashboard");
                 });
             }
+          // invalid creds
           }  else {
+            console.log("Invalid creds")
             res.setHeader('Content-Type', 'plain/text');
+            res.status(401);
             res.send("/login");
           }
+        // user doesnt exist
         } else {
+          console.log("user doesnt exist");
           res.setHeader('Content-Type', 'plain/text');
+          res.status(401);
           res.send("/login");
         }
       });

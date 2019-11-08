@@ -1,9 +1,10 @@
 /**
- * @module routes/root
+ * @module routes/supportPage
  * @fileoverview Root router for `/` based paths.
  * @requires Express
- * @requires routes/controllers/root
- * @exports {Express#Router} An Express router instance for the root server path.
+ * @requires routes/controllers/supportPage
+ * @exports {Express#Router} An Express router instance for the
+ *    supportPage server path.
  */
 
 /**
@@ -14,7 +15,7 @@
 const express = require('express');
 
 /**
- * @description supportPageRouter to mount user related functions on.
+ * @description supportPageRouter to mount support related functions on.
  * @type {Object}
  * @constant
  */
@@ -22,7 +23,7 @@ const supportPageRouter = express.Router();
 
 
 /**
- * @description supportPageController for supportPageController route.
+ * @description Controller for supportPage route.
  * @type {Object}
  * @constant
  */
@@ -32,9 +33,9 @@ const supportPageController = require('./controllers/supportPage.controller');
 /**
  * Route serving supportPageRouter page.
  * @name get /
- * @description Register the supportPageRouter  `sendsupportPageRouter` function on the
- *    supportPageRouter.
- *    Send the supportPage rendered by HBS from `supportPageRouter#sendsupportPageRouter page`.
+ * @description Register the supportPageRouter  `sendSupportPage` function
+ *    on the supportPageRouter.
+ *    Send the supportPage rendered by HBS from `supportPageRouter#sendSupportPage`.
  */
 supportPageRouter.get('/', supportPageController.sendSupportPage);
 
