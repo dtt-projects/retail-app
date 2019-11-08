@@ -2,9 +2,13 @@
  * @module routes/controllers/API_createAccount
  * @fileoverview API_createAccount route's controller. Handle all business
  * logic relative to creating an account.
- * @exports {Object} Functions to attach to the `API_createAccounts` router.
+ * @exports {Object} Functions to attach to the `API_createAccount` router.
+ * @require cookie-helper
  */
 
+ /* cookies
+  * This is to help with handle cookies for user validation
+  */
 const cookies = require('../../scripts/cookie-helper.js');
 
 /**
@@ -16,13 +20,12 @@ const cookies = require('../../scripts/cookie-helper.js');
  *    and does not return or render anything (no `res` methods called).
  */
 const createAccount = (req, res, next) => {
-  // Capture user-submitted form from client.
-
   // read database creds from secret file
   const fs = require("fs");
   fs.readFile('.hiddenCreds', (err, data) => {
       if (err) {
         console.log(err);
+        res.status(400);
         res.setHeader('Content-Type', 'plain/text');
         res.send("Account creation failed!");
       } else {
@@ -41,13 +44,14 @@ const createAccount = (req, res, next) => {
         con.connect(function(err) {
           if (err) {
             console.log(err);
+            res.status(400);
             res.setHeader('Content-Type', 'plain/text');
             res.send("Account creation failed!");
           }
         });
 
         // current insert statement for database
-        statement = ("INSERT INTO account(FIRSTNAME, LASTNAME, ADDRESS," +
+        statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, ADDRESS," +
                      " CITY, ZIP, EMAIL, PHONENUMBER, USERNAME, PASSWORD, " +
                      "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN)" +
                      "VALUES('" + req.body["first_name"] + "' ," +
@@ -68,9 +72,10 @@ const createAccount = (req, res, next) => {
         // run statement on the database
         con.query(statement, function(err, result) {
           if (err) {
+            console.log(err);
+            res.status(400);
             res.setHeader('Content-Type', 'plain/text');
             res.send("Account creation failed!");
-            console.log(err);
           } else {
             // statement was successful
             var nodemailer = require('nodemailer');
@@ -110,8 +115,9 @@ const createAccount = (req, res, next) => {
               .then(res_cookie => {
                 res.cookie("CID", res_cookie);
                 // send success back to client
-                console.log("COOKIE DONE");
+                //console.log("COOKIE DONE");
                 res.setHeader('Content-Type', 'plain/text');
+                res.status(200);
                 res.send("Account created!");
               });
           }

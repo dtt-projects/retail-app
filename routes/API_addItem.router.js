@@ -1,5 +1,5 @@
 /**
- * @module routes/API_login
+ * @module routes/API_addItem
  * @fileoverview Routes for the login
  * @requires Express
  * @requires routes/controllers/API_login
@@ -18,17 +18,17 @@ const express = require('express');
  * @type {Object}
  * @constant
  */
-const API_loginRouter = express.Router();
+const API_addItemRouter = express.Router();
 
 /**
- * @description API_loginController to handle the login data and validate
+ * @description API_loginController to handle to login data and validate
  * @type {Object}
  * @constant
  */
-const API_loginController = require('./controllers/API_login.controller');
+const API_addItemController = require('./controllers/API_addItem.controller');
 
 
 // Post the information to the controller for login
-API_loginRouter.post('/', API_loginController.login);
+API_addItemRouter.post('/', API_addItemController.addItem);
 
-module.exports = API_loginRouter;
+module.exports = API_addItemRouter;

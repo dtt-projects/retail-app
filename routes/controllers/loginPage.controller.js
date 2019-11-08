@@ -3,7 +3,12 @@
  * @fileoverview Login route's controller. Exports functions to be used by each
  *    route handler.
  * @exports {Object} Functions to attach to the `login` router.
+ * @require cookie-helper
  */
+
+ /* cookies
+  * This is to help with handle cookies for user validation
+  */
  const cookies = require('../../scripts/cookie-helper.js');
 
 
@@ -17,9 +22,7 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendLoginPage = (req, res, next) => {
-  console.log("login page render");
-  // doesnt have a cookie for their account
-
+  // check their system and update cookies
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
       if (res_cookie == null || res_cookie == "undefined") {
@@ -27,7 +30,7 @@ const sendLoginPage = (req, res, next) => {
       } else {
         res.cookie("CID", res_cookie);
       }
-      page = "";
+      var page = "";
       if (req.cookies["CID"] == null || req.cookies["CID"] == "undefined") {
         page = "login";
       // check if the cookie is valid
