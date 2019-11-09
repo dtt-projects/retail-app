@@ -35,8 +35,9 @@ const sendUserDashboardViewOrdersPage = (req, res, next) => {
         if (res_cookie["isAdmin"] == 1) {
           res.redirect("admin_dashboard");
         } else {
-          res.render('user_dashboard', { title: 'Sprout Creek Farm User Dashboard',
-                                          page: 'login' });
+          res.render('user_dashboard-view_orders', { 
+            title: 'Sprout Creek Farm User Dashboard',
+            page: 'login' });
         }
       }
 

@@ -21,6 +21,7 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendHomePage = (req, res, next) => {
+  console.log(req.headers["host"]);
   // handle the cookies of a user and update them
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
