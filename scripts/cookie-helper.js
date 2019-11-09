@@ -321,8 +321,6 @@ function updateCookie(cookie, aid) {
 exports.handleLoginCookie = function(cookie, userInfo) {
   return new Promise(function(resolve, reject) {
     // check if the cookie passed in is valid or not
-    console.log("loginCookies");
-    console.log(cookie);
     try {
       if (cookie == "undefined" || cookie == null) {
         cookie = null;
@@ -332,11 +330,9 @@ exports.handleLoginCookie = function(cookie, userInfo) {
 
       if (cookie != null) {
         // check if it is a valid cookie
-        console.log("check?");
         resolve(checkCookie(cookie["CID"], userInfo));
       // create a cookie
       } else {
-        console.log("create?");
         resolve(createCookie(userInfo));
       }
     } catch(e) {
@@ -346,11 +342,9 @@ exports.handleLoginCookie = function(cookie, userInfo) {
       // cookie exists check if valid
       if (cookie != null) {
         // check if it is a valid cookie
-        console.log("check?");
         resolve(checkCookie(cookie["CID"], userInfo));
       // create a cookie
       } else {
-        console.log("create?");
         resolve(createCookie(userInfo));
       }
     }

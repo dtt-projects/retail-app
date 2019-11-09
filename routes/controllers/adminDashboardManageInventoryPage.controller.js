@@ -41,7 +41,7 @@ const sendAdminDashboardManageInventoryPage = (req, res, next) => {
           //  testing of base url
           var options ={
             method: 'GET',
-            url: 'http://localhost:3000/api/getItems',
+            url: 'http://' + req.headers["host"] + '/api/getItems',
           };
 
           // the request on failure log and redirect back

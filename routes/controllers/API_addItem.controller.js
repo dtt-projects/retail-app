@@ -30,25 +30,9 @@ const addItem = (req, res, next) => {
   //  read creds from the secret file
   hidden.readHidden()
     .then(json => {
-      console.log("JSON");
-      console.log(json);
 
-      var mysql = require("mysql");
+      // required package for request data from DB
       var request = require("request");
-
-      // connect to the database
-      var con = mysql.createConnection({
-        host: json[0]["host"],
-        user: json[0]["user"],
-        password: json[0]["password"],
-        database: json[0]["database"]
-      });
-      con.connect(function(err) {
-        if (err) {
-          console.log(err);
-        }
-      });
-      console.log("connected");
 
       // build the data that will be sent
       var data = {

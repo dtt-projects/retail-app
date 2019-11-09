@@ -30,29 +30,9 @@ const getItems = (req, res, next) => {
   //  read creds from the secret file
   hidden.readHidden()
     .then(json => {
-      console.log("JSON");
-      console.log(json);
 
       // required for db connection and api call
-      var mysql = require("mysql");
       var request = require("request");
-
-      // connect to the database
-      var con = mysql.createConnection({
-        host: json[0]["host"],
-        user: json[0]["user"],
-        password: json[0]["password"],
-        database: json[0]["database"]
-      });
-      con.connect(function(err) {
-        if (err) {
-          res.setHeader('Content-Type', 'plain/text');
-          res.status(400);
-          console.log(err);
-          res.send();
-        }
-      });
-      console.log("connected");
 
       // setup the call for the api
       var options = {

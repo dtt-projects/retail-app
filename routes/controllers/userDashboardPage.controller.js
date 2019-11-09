@@ -11,6 +11,11 @@
   */
  const cookies = require('../../scripts/cookie-helper.js');
 
+ /* request
+  * This is for calling a request from the web server
+  */
+ const request = require("request");
+
 
 /**
  * @function sendUserDashboardPage
@@ -34,12 +39,35 @@ const sendUserDashboardPage = (req, res, next) => {
         if (res_cookie["isAdmin"] == 1) {
           res.redirect("admin_dashboard");
         } else {
-          res.render('user_dashboard', { title: 'Sprout Creek Farm User Dashboard',
-                                          page: 'login' });
+          // setup call for internal api call
+          var options ={
+            method: 'GET',
+            url: 'http://' + req.headers["host"] + '/api/getGoatPoints',
+            body: res_cookie,
+            json: true
+          };
+
+          // this sends out the request and either getGoatPoints or
+          // will get nothing and return -1
+          var goatPoints = 0;
+          console.log("send request");
+          request(options, function (error, response, body) {
+            if (error) {
+              console.log(error.message);
+            } else {
+              //console.log(response);
+              goatPoints = response["body"];
+              res.render('user_dashboard', {
+                title: 'Sprout Creek Farm User Dashboard',
+                page: 'login',
+                "goatPoints": goatPoints});
+            }
+          });
         }
       }
-
     });
+
+
 };
 
 

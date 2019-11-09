@@ -39,7 +39,7 @@ const sendMarketPage = (req, res, next) => {
       // setup call for internal api call
       var options ={
         method: 'GET',
-        url: 'http://localhost:3000/api/getItems',
+        url: 'http://' + req.headers["host"] + '/api/getItems',
       };
 
       // this sends out the request and either redirects to root(fail) or

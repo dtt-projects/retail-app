@@ -17,6 +17,10 @@ const createError = require('http-errors');
  */
 const express = require('express');
 
+const url = require('url');
+//var q = url.parse(url, true);
+console.log(url.Url.Url);
+
 /** From the `path` module. Built-in path module to manipulate system paths. */
 const path = require('path');
 
@@ -116,6 +120,9 @@ const API_updateItemRouter = require('./routes/API_updateItem.router');
 /** The API_getItemRouter path router defined in './routes/API_getItem'. */
 const API_getItemRouter = require('./routes/API_getItem.router');
 
+/** The API_getGoatPoints path router defined in './routes/API_getGoatPoints'. */
+const API_getGoatPointsRouter = require('./routes/API_getGoatPoints.router');
+
 // Testing routes
 const print_cookiesRouter = require('./routes/print_cookies.router');
 
@@ -178,6 +185,7 @@ app.use('/api/addItem', API_addItemRouter);
 app.use('/api/getItem/:itemId', API_getItemRouter);
 app.use('/api/getItems', API_getItemsRouter);
 app.use('/api/updateItem', API_updateItemRouter);
+app.use('/api/getGoatPoints', API_getGoatPointsRouter);
 
 
 // TESTING
