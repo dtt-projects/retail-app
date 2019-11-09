@@ -89,12 +89,48 @@ const createAccount = (req, res, next) => {
                 }
             });
 
+            var emailContent = ('<!DOCTYPE html><html><head>' +
+            '<title>Welcome to Sprout Creek Farm!</title></head>' +
+            '<body><h1 style="text-align:center;">Welcome to Sprout Creek Farm!</h1>' +
+            '<p>Hello ' + req.body["first_name"] + ',</p>' +
+            '<p>Welcome to Sprout Creek Farm. Thank you for ' +
+            'signing up and joining our community. Now that ' +
+            'you are a member, here is a list of the benefits ' +
+            'that are available to you:</p><ul><li>Goat points - When ' +
+            'purchasing cheese from us, you will receive goat points. If you' +
+            ' collect enough goat points, you will be able to use your goat' +
+            ' points to get special items.</li><li>Promotions - You will ' +
+            'receive emails when there are special promotions going on with ' +
+            'our selection of cheeses.</li><li>Events - You will be updated ' +
+            'on upcoming events and the times and dates of those events.</li>' +
+            '<li>Blog - As a member, you will have the ability to blog and ' +
+            'communicate not only with us, but with other members of our ' +
+            'community.</li></ul><p>Please follow us on any of our social ' +
+            'media sites by clicking the links below:</p><ul><li> ' +
+            '<a href="https://www.facebook.com/sproutcreekfarm#">Facebook</a>' +
+            '</li><li><a href="https://twitter.com/SproutCreekFarm">Twitter</a>' +
+            '</li><li><a href="https://sproutcreekfarm.org">Flickr</a></li><li>' +
+            '<a href="https://www.youtube.com/user/SproutCreekFarm">Youtube</a>' +
+            '</li><li><a href="https://www.pinterest.com/search/pins/?q=sproutcreek' +
+            'farm%20or%20%22Sprout%20Creek%20Farm%22&term_meta%5B%5D=sproutcreekfarm+o'+
+            'r+%22Sprout+Creek+Farm%22%7Ctyped">Pinterest</a></li><li>' +
+            '<a href="https://www.instagram.com/sproutcreekfarm/">Instagram</a>' +
+            '</li><li><a href="https://sproutcreekfarm.org/email">Email</a></li>' +
+            '</ul><p>Thank you again for joining our community and we hope you ' +
+            'enjoy what we have to offer.</p><footer><img src="https://sproutcreek' +
+            'farm.org/sites/all/themes/sproutcreek/logo.png" alt="Logo" ' +
+            'style="float:left" width="6%" height="6%"><p style="float:left">' +
+            'Address: 34 Lauer Road | Poughkeepsie, NY 12603<br></br>Contact ' +
+            'Information: 845-485-8438 office | 845-485-9885 market<br></br>' +
+            'Email: <a href="mailto:info@sproutcreekfarm.org">' +
+            'info@sproutcreekfarm.org</a></p></footer></body></html>');
+
             // email from, to, subject, text
             var mailOptions = {
               from: 'compscigoat@gmail.com',
               to:   req.body["email"],
-              subject: 'Welcoe to Sprout Creek Farm',
-              text: 'Your account for Sprout Creek Farm has been created'
+              subject: 'Welcome to Sprout Creek Farm',
+              html: emailContent
             };
 
             // send the email out
@@ -110,7 +146,43 @@ const createAccount = (req, res, next) => {
               "isAdmin": 0,
               "email": req.body["email"]
             }
+            // setup rewards id
+            var statement2 = ("SELECT aid FROM accounts WHERE email='"
+                + req.body["email"] + "'");
+            con.query(statement2, function(err2, result2) {
+              // error with getting aid
+              if (err2) {
+                console.error(err2);
+                con.end();
+                res.status(400);
+                res.send();
+              // got aid now we gotta build out the rewards
+              } else if (result2.length > 0) {
+                var aid = result2[0]["aid"];
+                var statement3 = ("INSERT INTO "
+                    + "rewards(aid, goatpoints, lastpurchase, changeInGoatPoints, updateddate) "
+                    + "VALUES('" + aid + "', 0, CURRENT_TIMESTAMP, 0, CURRENT_TIMESTAMP)");
+                console.log(statement3);
+                con.query(statement3,function(err3, result3) {
+                  // if error inserting into DB
+                  if (err3) {
+                    console.error(err3);
+                    con.end();
+                    res.status(400);
+                    res.send();
+                  } else {
+                    con.end();
+                  }
+                });
+              // user's aid doesnt exist
+              } else {
+                console.log("API_creatAccount: aid doesn't exist");
+              }
+            });
 
+            // setup ibm customer
+
+            // build the user a cookie
             cookies.handleCreateAccountCookie(data)
               .then(res_cookie => {
                 res.cookie("CID", res_cookie);

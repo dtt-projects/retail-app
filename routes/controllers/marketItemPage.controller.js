@@ -41,7 +41,7 @@ const sendMarketItemPage = (req, res, next) => {
       // setup url for api call
       var options ={
         method: 'GET',
-        url: 'http://localhost:3000/api/getItem/' + itemNum,
+        url: 'http://' + req.headers["host"] + '/api/getItem/' + itemNum,
       };
 
       // make the request to get a single item from IBM DB

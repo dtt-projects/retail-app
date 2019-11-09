@@ -27,7 +27,7 @@ const sendAdminDashboardPage = (req, res, next) => {
       // if cookie is invalid send to login page
       if (res_cookie == "undefined" || res_cookie == null) {
         res.clearCookie("CID");
-        res.redirect("login");
+        res.redirect("../login");
       // valid cookie if they are an admin send to Dashboard
       // if they are a user send to userdashboard
       } else {
