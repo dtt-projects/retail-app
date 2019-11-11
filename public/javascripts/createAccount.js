@@ -73,6 +73,7 @@ function createAccount() {
       if (response.status !== 200) {
         console.log("Problem with ajax call! " + response.status
             + " msg: " + response.value);
+        alert(response.text())
         return
       }
       // send to login page
