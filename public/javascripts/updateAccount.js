@@ -1,5 +1,6 @@
 function updateAccount() {
   // Read the form data and set its values
+  var aid = document.getElementById("aid").value;
   var first_name = document.getElementById("first_name").value;
   var last_name = document.getElementById("last_name").value;
   var address = document.getElementById("address").value;
@@ -8,56 +9,20 @@ function updateAccount() {
   var phone_number = document.getElementById("phone_number").value;
   var password = document.getElementById("password").value;
 
-  var newPassword = false;
-  if (password != "") {
-    newPassword = true;
-  }
-  // This will check for any empty inputs
-  var empty_inputs = false;
-  if (first_name == "") {
-    empty_inputs = true;
-  } else if (last_name == "") {
-    empty_inputs = true;
-  } else if (address == "") {
-    empty_inputs = true;
-  } else if (city == "") {
-    empty_inputs = true;
-  } else if (zip == "") {
-    empty_inputs = true;
-  } else if (phone_number == "") {
-    empty_inputs = true;
-  }
-
-  // if any input is empty then don't continue and alert
-  if (empty_inputs) {
-    alert("One or more fields are blank");
-    return;
-  }
-
   // convert into json for api
-  if (newPassword) {
-    var json = JSON.stringify({
-      "first_name": first_name,
-      "last_name": last_name,
-      "address": address,
-      "city": city,
-      "zip": zip,
-      "phone_number": phone_number,
-      "password": password
-    });
-  } else {
-    var json = JSON.stringify({
-      "first_name": first_name,
-      "last_name": last_name,
-      "address": address,
-      "city": city,
-      "zip": zip,
-      "phone_number": phone_number
-    });
-  }
+  var json = JSON.stringify({
+    "aid": aid,
+    "first_name": first_name,
+    "last_name": last_name,
+    "address": address,
+    "city": city,
+    "zip": zip,
+    "phone_number": phone_number,
+    "password": password
+  });
 
   // send to the update account api
-  fetch("/api/update_account",
+  fetch("/api/updateAccount",
     {method: "PUT",
       headers: {
         "Accept": "application/json",

@@ -78,9 +78,10 @@ const getAccount = (req, res, next) => {
                 res.setHeader('Content-Type', 'plain/text');
                 con.end();
                 res.send("getting account info failed!");
+              // got account data
               } else if (result.length > 0) {
                 res.status(200);
-                res.setHeader('Content-Type', 'text/html');
+                res.setHeader('Content-Type', 'plain/text');
                 con.end();
                 var data = result[0]
                 res.send(data);

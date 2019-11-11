@@ -49,17 +49,29 @@ const updateAccount = (req, res, next) => {
             res.send("Account creation failed!");
           }
         });
-
+        var statement = ""
         // current insert statement for database
-        statement = ("UPDATE accounts SET FIRSTNAME='" + req.body["first_name"]
-            + "', LASTNAME='" + req.body["last_name"]
-            + "', ADDRESS='" + req.body["address"]
-            + "', CITY='" + req.body["city"]
-            + "', ZIP='" + req.body["zip"]
-            + "', PHONENUMBER='" + req.body["phone_number"]
-            + "', PASSWORD='" + req.body["password"]
-            + "', UPDATEDDATE='CURRENT_TIMESTAMP'"
-            + "WHERE username='" + req.body["username"] + "'");
+        if (req.body["password"] == "") {
+          statement = ("UPDATE accounts SET FIRSTNAME='" + req.body["first_name"]
+              + "', LASTNAME='" + req.body["last_name"]
+              + "', ADDRESS='" + req.body["address"]
+              + "', CITY='" + req.body["city"]
+              + "', ZIP='" + req.body["zip"]
+              + "', PHONENUMBER='" + req.body["phone_number"]
+              + "', UPDATEDDATE='CURRENT_TIMESTAMP'"
+              + "WHERE aid='" + req.body["aid"] + "'");
+        } else {
+          statement = ("UPDATE accounts SET FIRSTNAME='" + req.body["first_name"]
+              + "', LASTNAME='" + req.body["last_name"]
+              + "', ADDRESS='" + req.body["address"]
+              + "', CITY='" + req.body["city"]
+              + "', ZIP='" + req.body["zip"]
+              + "', PHONENUMBER='" + req.body["phone_number"]
+              + "', PASSWORD='" + req.body["password"]
+              + "', UPDATEDDATE='CURRENT_TIMESTAMP'"
+              + "WHERE aid='" + req.body["aid"] + "'");
+        }
+
 
         // run statement on the database
         con.query(statement, function(err, result) {
