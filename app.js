@@ -77,7 +77,6 @@ const userDashboardViewOrdersPageRouter = require('./routes/userDashboardViewOrd
 /** The userDashboardEditInfoRouter path router defined in './routes/userDashboardEditInfo'. */
 const userDashboardEditInfoPageRouter = require('./routes/userDashboardEditInfoPage.router');
 
-
 // Admin Routes
 /** The adminDashboardRouter path router defined in './routes/adminDashboard'. */
 const adminDashboardPageRouter = require('./routes/adminDashboardPage.router');
@@ -85,11 +84,24 @@ const adminDashboardPageRouter = require('./routes/adminDashboardPage.router');
 /** The adminDashboardManageInvertoryRouter path router defined in './routes/adminDashboardManageInvertory'. */
 const adminDashboardManageInventoryPageRouter = require('./routes/adminDashboardManageInventoryPage.router');
 
+/** adminDashboardManageInventrorySubInventoryPageRouter path router defined in './routes/adminDashboardManageInventrorySubInventoryPage'. */
+const adminDashboardManageInventrorySubInventoryPageRouter = require('./routes/adminDashboardManageInventrorySubInventoryPage.router');
+
+/** adminDashboardManageInventroryCreateInventoryPageRouter path router defined in './routes/adminDashboardManageInventroryCreateInventoryPage'. */
+const adminDashboardManageInventroryCreateInventoryPageRouter = require('./routes/adminDashboardManageInventroryCreateInventoryPage.router');
+
 /** The adminDashboardManageOrdersRouter path router defined in './routes/adminDashboardManageOrders'. */
 const adminDashboardManageOrdersPageRouter = require('./routes/adminDashboardManageOrdersPage.router');
 
 /** The adminDashboardManageAccountsRouter path router defined in './routes/adminDashboardManageAccounts'. */
 const adminDashboardManageAccountsPageRouter = require('./routes/adminDashboardManageAccountsPage.router');
+
+/** adminDashboardManageAccountsSubAccountPageRouter path router defined in './routes/adminDashboardManageAccountsSubAccountPage'. */
+const adminDashboardManageAccountsSubAccountPageRouter = require('./routes/adminDashboardManageAccountsSubAccountPage.router');
+
+/** adminDashboardManageAccountsCreateAccountPageRouter path router defined in './routes/adminDashboardManageAccountsCreateAccountPage'. */
+const adminDashboardManageAccountsCreateAccountPageRouter = require('./routes/adminDashboardManageAccountsCreateAccountPage.router');
+
 
 
 // Special routes
@@ -177,10 +189,22 @@ app.use('/user_dashboard/view_orders', userDashboardViewOrdersPageRouter);
 app.use('/user_dashboard/edit_information', userDashboardEditInfoPageRouter);
 
 // Admin Dashboard
-app.use('/admin_dashboard', adminDashboardPageRouter);
-app.use('/admin_dashboard/manage_inventory', adminDashboardManageInventoryPageRouter);
-app.use('/admin_dashboard/manage_orders', adminDashboardManageOrdersPageRouter);
-app.use('/admin_dashboard/manage_accounts', adminDashboardManageAccountsPageRouter);
+app.use('/admin_dashboard',
+  adminDashboardPageRouter);
+app.use('/admin_dashboard/manage_inventory',
+  adminDashboardManageInventoryPageRouter);
+app.use('/admin_dashboard/manage_inventory/sub_inventory',
+  adminDashboardManageInventrorySubInventoryPageRouter);
+app.use('/admin_dashboard/manage_inventory/create_inventory',
+  adminDashboardManageInventroryCreateInventoryPageRouter);
+app.use('/admin_dashboard/manage_orders',
+  adminDashboardManageOrdersPageRouter);
+app.use('/admin_dashboard/manage_accounts',
+  adminDashboardManageAccountsPageRouter);
+app.use('/admin_dashboard/manage_accounts/sub_account',
+  adminDashboardManageAccountsSubAccountPageRouter);
+app.use('/admin_dashboard/manage_accounts/create_account',
+  adminDashboardManageAccountsCreateAccountPageRouter);
 
 // Special Routes
 app.use('/marketItem/:itemId', marketItemPageRouter);
