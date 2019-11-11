@@ -67,7 +67,7 @@ function createAccount() {
         response.text().then(function(data) {
           alert(data);
           return
-        }
+        });
       }
       // send to login page
       response.text().then(function(data) {
