@@ -91,6 +91,18 @@ const adminDashboardManageOrdersPageRouter = require('./routes/adminDashboardMan
 /** The adminDashboardManageAccountsRouter path router defined in './routes/adminDashboardManageAccounts'. */
 const adminDashboardManageAccountsPageRouter = require('./routes/adminDashboardManageAccountsPage.router');
 
+/** The adminDashboardManageInvertoryRouter path router defined in './routes/adminDashboardManageInvertory'. */
+const adminDashboardManageAccountsCreateAccountPageRouter = require('./routes/adminDashboardManageAccountsCreateAccountPage.router');
+
+/** The adminDashboardManageInvertoryRouter path router defined in './routes/adminDashboardManageInvertory'. */
+const adminDashboardManageAccountsCreateInventoryPageRouter = require('./routes/adminDashboardManageAccountsCreateInventoryPage.router');
+
+/** The adminDashboardManageInvertoryRouter path router defined in './routes/adminDashboardManageInvertory'. */
+const adminDashboardManageAccountsSubAccountPageRouter = require('./routes/adminDashboardManageAccountsSubAccountPage.router');
+
+/** The adminDashboardManageInvertoryRouter path router defined in './routes/adminDashboardManageInvertory'. */
+const adminDashboardManageAccountsSubInventoryPageRouter = require('./routes/adminDashboardManageAccountsSubInventoryPage.router');
+
 
 // Special routes
 /** The marketItemPageRouter path router defined in './routes/marketItemPage'. */
@@ -178,6 +190,10 @@ app.use('/admin_dashboard', adminDashboardPageRouter);
 app.use('/admin_dashboard/manage_inventory', adminDashboardManageInventoryPageRouter);
 app.use('/admin_dashboard/manage_orders', adminDashboardManageOrdersPageRouter);
 app.use('/admin_dashboard/manage_accounts', adminDashboardManageAccountsPageRouter);
+app.use('/admin_dashboard/manage_accounts/sub_account', adminDashboardManageAccountsSubAccountRouter);
+app.use('/admin_dashboard/manage_accounts/create_account', adminDashboardManageAccountsCreateAccountRouter);
+app.use('/admin_dashboard/manage_accounts/sub_inventory', adminDashboardManageAccountsCreateSubInventoryRouter);
+app.use('/admin_dashboard/manage_accounts/create_inventory', adminDashboardManageAccountsCreateInventoryRouter);
 
 // Special Routes
 app.use('/marketItem/:itemId', marketItemPageRouter);
