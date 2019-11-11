@@ -8,6 +8,10 @@ function updateAccount() {
   var phone_number = document.getElementById("phone_number").value;
   var password = document.getElementById("password").value;
 
+  var newPassword = false;
+  if (password != "") {
+    newPassword = true;
+  }
   // This will check for any empty inputs
   var empty_inputs = false;
   if (first_name == "") {
@@ -22,8 +26,6 @@ function updateAccount() {
     empty_inputs = true;
   } else if (phone_number == "") {
     empty_inputs = true;
-  } else if (password == "") {
-    empty_inputs = true;
   }
 
   // if any input is empty then don't continue and alert
@@ -33,17 +35,28 @@ function updateAccount() {
   }
 
   // convert into json for api
-  var json = JSON.stringify({
-    "first_name": first_name,
-    "last_name": last_name,
-    "address": address,
-    "city": city,
-    "zip": zip,
-    "phone_number": phone_number,
-    "password": password
-  });
+  if (newPassword) {
+    var json = JSON.stringify({
+      "first_name": first_name,
+      "last_name": last_name,
+      "address": address,
+      "city": city,
+      "zip": zip,
+      "phone_number": phone_number,
+      "password": password
+    });
+  } else {
+    var json = JSON.stringify({
+      "first_name": first_name,
+      "last_name": last_name,
+      "address": address,
+      "city": city,
+      "zip": zip,
+      "phone_number": phone_number
+    });
+  }
 
-  // send to the create account api
+  // send to the update account api
   fetch("/api/update_account",
     {method: "PUT",
       headers: {
@@ -58,9 +71,9 @@ function updateAccount() {
             + " msg: " + response.value);
         return
       }
-      // send to login page
+      // reload the page after new input
       response.text().then(function(data) {
-        window.location.href(data)
+        location.reload(true);
       });
     });
 }

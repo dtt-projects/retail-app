@@ -18,8 +18,6 @@ const createError = require('http-errors');
 const express = require('express');
 
 const url = require('url');
-//var q = url.parse(url, true);
-console.log(url.Url.Url);
 
 /** From the `path` module. Built-in path module to manipulate system paths. */
 const path = require('path');
@@ -108,6 +106,9 @@ const API_createAccountRouter = require('./routes/API_createAccount.router');
 /** The API_updateAccountRouter path router defined in './routes/API_updateAccount'. */
 const API_updateAccountRouter = require('./routes/API_updateAccount.router');
 
+/** The API_getAccountRouter path router defined in './routes/API_getAccount'. */
+const API_getAccountRouter = require('./routes/API_getAccount.router');
+
 /** The API_loginRouter path router defined in './routes/API_login'. */
 const API_loginRouter = require('./routes/API_login.router');
 
@@ -186,6 +187,7 @@ app.use('/api/login', API_loginRouter);
 app.use('/api/forgot_password', API_forgotPasswordRouter);
 app.use('/api/create_account', API_createAccountRouter);
 app.use('/api/updateAccount', API_updateAccountRouter);
+app.use('/api/getAccount', API_getAccountRouter);
 app.use('/api/addItem', API_addItemRouter);
 app.use('/api/getItem/:itemId', API_getItemRouter);
 app.use('/api/getItems', API_getItemsRouter);

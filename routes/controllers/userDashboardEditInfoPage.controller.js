@@ -12,6 +12,10 @@
   */
  const cookies = require('../../scripts/cookie-helper.js');
 
+ /* request
+  * This is for calling a request from the web server
+  */
+ const request = require("request");
 
 /**
  * @function sendUserDashboardEditInfoPage
@@ -28,19 +32,54 @@ const sendUserDashboardEditInfoPage = (req, res, next) => {
     .then(res_cookie => {
       if (res_cookie == "undefined" || res_cookie == null) {
         res.clearCookie("CID");
-        res.redirect("login");
+        res.redirect("../login");
       } else {
         res.cookie("CID", res_cookie);
         // user is an admin or not direct correctly
         if (res_cookie["isAdmin"] == 1) {
-          res.redirect("admin_dashboard");
+          res.redirect("../admin_dashboard");
         } else {
-          res.render('user_dashboard-edit_info', {
-            title: 'Sprout Creek Farm User Dashboard',
-            page: 'login' });
+          // setup call for internal api call
+          var options ={
+            method: 'GET',
+            url: 'http://' + req.headers["host"] + '/api/getAccount',
+            body: res_cookie,
+            json: true
+          };
+
+          // this sends out the request and either getGoatPoints or
+          // will get nothing and return -1
+          //console.log("send request");
+          request(options, function (error, response, body) {
+            if (error) {
+              console.log(error.message);
+            } else {
+              //console.log(response);
+              var aid = response["body"]["aid"];
+              var firstname = response["body"]["firstname"];
+              var lastname = response["body"]["lastname"];
+              var address = response["body"]["address"];
+              var city = response["body"]["city"];
+              var zip = response["body"]["zip"];
+              var email = response["body"]["email"];
+              var phonenumber = response["body"]["phonenumber"];
+              var username = response["body"]["username"];
+              res.render('user_dashboard-edit_info', {
+                "title": 'Sprout Creek Farm User Dashboard',
+                "page": 'login',
+                "aid": aid,
+                "firstname": firstname,
+                "lastname": lastname,
+                "address": address,
+                "city": city,
+                "zip": zip,
+                "email": email,
+                "phonenumber": phonenumber,
+                "username": username});
+            }
+          });
         }
       }
-
     });
 };
 
