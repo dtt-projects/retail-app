@@ -109,6 +109,9 @@ const API_updateAccountRouter = require('./routes/API_updateAccount.router');
 /** The API_getAccountRouter path router defined in './routes/API_getAccount'. */
 const API_getAccountRouter = require('./routes/API_getAccount.router');
 
+/** The API_getAllAccountsRouter path router defined in './routes/API_getAllAccounts'. */
+const API_getAllAccountsRouter = require('./routes/API_getAllAccounts.router');
+
 /** The API_loginRouter path router defined in './routes/API_login'. */
 const API_loginRouter = require('./routes/API_login.router');
 
@@ -188,6 +191,7 @@ app.use('/api/forgot_password', API_forgotPasswordRouter);
 app.use('/api/create_account', API_createAccountRouter);
 app.use('/api/updateAccount', API_updateAccountRouter);
 app.use('/api/getAccount', API_getAccountRouter);
+app.use('/api/getAllAccounts', API_getAllAccountsRouter);
 app.use('/api/addItem', API_addItemRouter);
 app.use('/api/getItem/:itemId', API_getItemRouter);
 app.use('/api/getItems', API_getItemsRouter);
