@@ -18,8 +18,6 @@ const createError = require('http-errors');
 const express = require('express');
 
 const url = require('url');
-//var q = url.parse(url, true);
-console.log(url.Url.Url);
 
 /** From the `path` module. Built-in path module to manipulate system paths. */
 const path = require('path');
@@ -102,8 +100,14 @@ const marketItemPageRouter = require('./routes/marketItemPage.router');
 /** The API_forgotPasswordRouter path router defined in './routes/API_forgotPassword'. */
 const API_forgotPasswordRouter = require('./routes/API_forgotPassword.router');
 
-/** The API_createAcoountRouter path router defined in './routes/API_createAccount'. */
+/** The API_createAccountRouter path router defined in './routes/API_createAccount'. */
 const API_createAccountRouter = require('./routes/API_createAccount.router');
+
+/** The API_updateAccountRouter path router defined in './routes/API_updateAccount'. */
+const API_updateAccountRouter = require('./routes/API_updateAccount.router');
+
+/** The API_getAccountRouter path router defined in './routes/API_getAccount'. */
+const API_getAccountRouter = require('./routes/API_getAccount.router');
 
 /** The API_loginRouter path router defined in './routes/API_login'. */
 const API_loginRouter = require('./routes/API_login.router');
@@ -122,6 +126,7 @@ const API_getItemRouter = require('./routes/API_getItem.router');
 
 /** The API_getGoatPoints path router defined in './routes/API_getGoatPoints'. */
 const API_getGoatPointsRouter = require('./routes/API_getGoatPoints.router');
+
 
 // Testing routes
 const print_cookiesRouter = require('./routes/print_cookies.router');
@@ -181,11 +186,15 @@ app.use('/marketItem/:itemId', marketItemPageRouter);
 app.use('/api/login', API_loginRouter);
 app.use('/api/forgot_password', API_forgotPasswordRouter);
 app.use('/api/create_account', API_createAccountRouter);
+app.use('/api/updateAccount', API_updateAccountRouter);
+app.use('/api/getAccount', API_getAccountRouter);
 app.use('/api/addItem', API_addItemRouter);
 app.use('/api/getItem/:itemId', API_getItemRouter);
 app.use('/api/getItems', API_getItemsRouter);
 app.use('/api/updateItem', API_updateItemRouter);
 app.use('/api/getGoatPoints', API_getGoatPointsRouter);
+
+
 
 
 // TESTING

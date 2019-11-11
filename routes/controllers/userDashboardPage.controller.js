@@ -28,6 +28,7 @@
  */
 const sendUserDashboardPage = (req, res, next) => {
   // handle the cookies of a user and update them
+  //var cookie = {"CID" : req.cookies}
   cookies.handleNormalPageCookie(req.cookies)
     .then(res_cookie => {
       if (res_cookie == "undefined" || res_cookie == null) {
