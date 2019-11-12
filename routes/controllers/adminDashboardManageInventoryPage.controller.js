@@ -37,7 +37,6 @@ const sendAdminDashboardManageInventoryPage = (req, res, next) => {
           // for the api call
           var request = require("request");
 
-          baseUrl = req["headers"]["host"]
           //  testing of base url
           var options ={
             method: 'GET',

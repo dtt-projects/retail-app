@@ -103,6 +103,7 @@ function checkCookie(cookie) {
                 // send back null because of invalid cookie
                 } else {
                   con.end();
+                  console.log(cookie);
                   console.log("INVALID Cookie: cid and last_seen invalid!")
                   resolve(null);
                 }
@@ -173,7 +174,7 @@ function createCookie(user_info) {
                     resolve(null);
                   // ge updated cookie and send it to the user
                   } else {
-                    console.log("qqqq");
+                    //console.log("qqqq");
                     // getting the cookieId so it can be referenced in the future
                     statement_3 = ("SELECT cookieID, last_seen FROM cookies "
                         + "WHERE accountID='" + aid + "'");
@@ -190,7 +191,7 @@ function createCookie(user_info) {
                                       "isAdmin": user_info["isAdmin"],
                                       "last_seen": result_3[0]["last_seen"]
                                     };
-                        console.log(cookie);
+                        //console.log(cookie);
                         con.end();
                         resolve(cookie);
                       }
@@ -375,9 +376,11 @@ exports.handleNormalPageCookie = function(cookie) {
     try {
       // no cookies exist at all
       if (cookie == "undefined" || cookie == null) {
+        console.log("null");
         resolve(null);
       // cookie for CID doesnt exists but other may exist
       } else if (cookie["CID"] == "undefined"|| cookie["CID"] == null) {
+        console.log("null2");
         resolve(null);
       // check to see if cookie is valid
       } else {

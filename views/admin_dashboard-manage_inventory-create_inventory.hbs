@@ -1,7 +1,7 @@
 <input type=button value="logout" onClick="eraseCookie()"/>
-<script src="../javascripts/addItem.js" async></script>
+<script src="../../javascripts/addItem.js" async></script>
 <script src="../javascripts/client.js" async></script>
-<h2> ADMIN ACCOUNT INVENTORY PAGE!!!! </h2>
+<h2> ADMIN ACCOUNT CREATE INVENTORY PAGE!!!! </h2>
 <h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
 <h2> {{email}} </h2>
 
@@ -11,9 +11,7 @@
   <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
   <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
 </ul>
-<ul>
-  <li> <a href="/admin_dashboard/manage_inventory/create_inventory"> Create INVENTORY </a> </li>
-</ul>
+
 
 <h1> Create/Update item </h1>
   <table>
@@ -67,7 +65,7 @@
     </tr>
     {{#each items}}
       <tr>
-        <td> <a href="/admin_dashboard/manage_inventory/sub_inventory/{{itemid}}"> {{itemid}} </a></td>
+        <td> {{itemid}} </td>
         <td> {{itemcat}} </td>
         <td> {{itemdesc}} </td>
         <td> {{quantity}} </td>
