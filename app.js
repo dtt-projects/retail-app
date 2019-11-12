@@ -84,11 +84,11 @@ const adminDashboardPageRouter = require('./routes/adminDashboardPage.router');
 /** The adminDashboardManageInvertoryRouter path router defined in './routes/adminDashboardManageInvertory'. */
 const adminDashboardManageInventoryPageRouter = require('./routes/adminDashboardManageInventoryPage.router');
 
-/** adminDashboardManageInventrorySubInventoryPageRouter path router defined in './routes/adminDashboardManageInventrorySubInventoryPage'. */
-const adminDashboardManageInventrorySubInventoryPageRouter = require('./routes/adminDashboardManageInventrorySubInventoryPage.router');
+/** adminDashboardManageInventorySubInventoryPageRouter path router defined in './routes/adminDashboardManageInventorySubInventoryPage'. */
+const adminDashboardManageInventorySubInventoryPageRouter = require('./routes/adminDashboardManageInventorySubInventoryPage.router');
 
-/** adminDashboardManageInventroryCreateInventoryPageRouter path router defined in './routes/adminDashboardManageInventroryCreateInventoryPage'. */
-const adminDashboardManageInventroryCreateInventoryPageRouter = require('./routes/adminDashboardManageInventroryCreateInventoryPage.router');
+/** adminDashboardManageInventoryCreateInventoryPageRouter path router defined in './routes/adminDashboardManageInventoryCreateInventoryPage'. */
+const adminDashboardManageInventoryCreateInventoryPageRouter = require('./routes/adminDashboardManageInventoryCreateInventoryPage.router');
 
 /** The adminDashboardManageOrdersRouter path router defined in './routes/adminDashboardManageOrders'. */
 const adminDashboardManageOrdersPageRouter = require('./routes/adminDashboardManageOrdersPage.router');
@@ -194,9 +194,9 @@ app.use('/admin_dashboard',
 app.use('/admin_dashboard/manage_inventory',
   adminDashboardManageInventoryPageRouter);
 app.use('/admin_dashboard/manage_inventory/sub_inventory',
-  adminDashboardManageInventrorySubInventoryPageRouter);
+  adminDashboardManageInventorySubInventoryPageRouter);
 app.use('/admin_dashboard/manage_inventory/create_inventory',
-  adminDashboardManageInventroryCreateInventoryPageRouter);
+  adminDashboardManageInventoryCreateInventoryPageRouter);
 app.use('/admin_dashboard/manage_orders',
   adminDashboardManageOrdersPageRouter);
 app.use('/admin_dashboard/manage_accounts',
