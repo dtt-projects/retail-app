@@ -103,6 +103,7 @@ function checkCookie(cookie) {
                 // send back null because of invalid cookie
                 } else {
                   con.end();
+                  console.log(cookie);
                   console.log("INVALID Cookie: cid and last_seen invalid!")
                   resolve(null);
                 }

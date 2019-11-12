@@ -49,26 +49,45 @@ const createAccount = (req, res, next) => {
             res.send("Account creation failed!");
           }
         });
-
-        // current insert statement for database
-        statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, ADDRESS," +
-                     " CITY, ZIP, EMAIL, PHONENUMBER, USERNAME, PASSWORD, " +
-                     "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN)" +
-                     "VALUES('" + req.body["first_name"] + "' ," +
-                            "'" + req.body["last_name"] + "' ," +
-                            "'" + req.body["address"] + "' ," +
-                            "'" + req.body["city"] + "' ," +
-                            "'" + req.body["zip"] + "' ," +
-                            "'" + req.body["email"] + "' ," +
-                            "'" + req.body["phone_number"] + "' ," +
-                            "'" + req.body["username"] + "' ," +
-                            "'" + req.body["password"] + "' ," +
-                            "CURRENT_TIMESTAMP, " +
-                            "CURRENT_TIMESTAMP, " +
-                            "True, " +
-                            "False)");
-
-
+        var statement = "";
+        // if request came from admin dashboard
+        if (req.headers.referer.includes("/admin_dashboard/manage_accounts/create_account")) {
+          // current insert statement for database
+          statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, ADDRESS," +
+                       " CITY, ZIP, EMAIL, PHONENUMBER, USERNAME, PASSWORD, " +
+                       "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN)" +
+                       "VALUES('" + req.body["first_name"] + "' ," +
+                              "'" + req.body["last_name"] + "' ," +
+                              "'" + req.body["address"] + "' ," +
+                              "'" + req.body["city"] + "' ," +
+                              "'" + req.body["zip"] + "' ," +
+                              "'" + req.body["email"] + "' ," +
+                              "'" + req.body["phone_number"] + "' ," +
+                              "'" + req.body["username"] + "' ," +
+                              "'" + req.body["password"] + "' ," +
+                              "CURRENT_TIMESTAMP, " +
+                              "CURRENT_TIMESTAMP, " +
+                              "True, " +
+                              req.body["isAdmin"] + ")");
+        } else {
+          // current insert statement for database
+          statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, ADDRESS," +
+                       " CITY, ZIP, EMAIL, PHONENUMBER, USERNAME, PASSWORD, " +
+                       "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN)" +
+                       "VALUES('" + req.body["first_name"] + "' ," +
+                              "'" + req.body["last_name"] + "' ," +
+                              "'" + req.body["address"] + "' ," +
+                              "'" + req.body["city"] + "' ," +
+                              "'" + req.body["zip"] + "' ," +
+                              "'" + req.body["email"] + "' ," +
+                              "'" + req.body["phone_number"] + "' ," +
+                              "'" + req.body["username"] + "' ," +
+                              "'" + req.body["password"] + "' ," +
+                              "CURRENT_TIMESTAMP, " +
+                              "CURRENT_TIMESTAMP, " +
+                              "True, " +
+                              "False)");
+        }
         // run statement on the database
         con.query(statement, function(err, result) {
           if (err) {

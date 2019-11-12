@@ -193,7 +193,7 @@ app.use('/admin_dashboard',
   adminDashboardPageRouter);
 app.use('/admin_dashboard/manage_inventory',
   adminDashboardManageInventoryPageRouter);
-app.use('/admin_dashboard/manage_inventory/sub_inventory',
+app.use('/admin_dashboard/manage_inventory/sub_inventory/:iid',
   adminDashboardManageInventorySubInventoryPageRouter);
 app.use('/admin_dashboard/manage_inventory/create_inventory',
   adminDashboardManageInventoryCreateInventoryPageRouter);
@@ -201,7 +201,7 @@ app.use('/admin_dashboard/manage_orders',
   adminDashboardManageOrdersPageRouter);
 app.use('/admin_dashboard/manage_accounts',
   adminDashboardManageAccountsPageRouter);
-app.use('/admin_dashboard/manage_accounts/sub_account',
+app.use('/admin_dashboard/manage_accounts/sub_account/:aid',
   adminDashboardManageAccountsSubAccountPageRouter);
 app.use('/admin_dashboard/manage_accounts/create_account',
   adminDashboardManageAccountsCreateAccountPageRouter);

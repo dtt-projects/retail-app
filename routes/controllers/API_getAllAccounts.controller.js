@@ -52,7 +52,8 @@ const getAllAccounts = (req, res, next) => {
               host: json[0]["host"],
               user: json[0]["user"],
               password: json[0]["password"],
-              database: json[0]["database"]
+              database: json[0]["database"],
+              dateStrings: true
             });
             con.connect(function(err) {
               if (err) {

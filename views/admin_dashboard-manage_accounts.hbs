@@ -31,7 +31,7 @@
 </tr>
 {{#each accounts}}
 <tr>
-  <td>{{aid}}</td>
+  <td> <a href="/admin_dashboard/manage_accounts/sub_account/{{aid}}">{{aid}}</a></td>
   <td>{{firstname}}</td>
   <td>{{lastname}}</td>
   <td>{{address}}</td>
@@ -48,7 +48,15 @@
 </table>
 <h1> END ACCOUNTS </h1>
 
-<script> function eraseCookie() {
+<script>
+function modifyUser(id) {
+  // setup json for get call
+  var json = JSON.stringify({"aid": id});
+
+  fetch("/")
+}
+
+function eraseCookie() {
   document.cookie = "CID=";
   window.location.href = "/login";
 }
