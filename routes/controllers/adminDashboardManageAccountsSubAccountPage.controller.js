@@ -38,59 +38,64 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
 
       } else {
         res.cookie("CID", res_cookie);
-        hidden.readHidden()
-          .then(json => {
-            // required packages for db connection
-            var mysql = require("mysql");
 
-            // connect to the database
-            var con = mysql.createConnection({
-              host: json[0]["host"],
-              user: json[0]["user"],
-              password: json[0]["password"],
-              database: json[0]["database"],
-              dateStrings: true
-            });
-            con.connect(function(err) {
-              if (err) {
-                console.log(err);
-                //res.setHeader('Content-Type', 'plain/text');
-                res.status(400);
-                res.send();
-              }
-            });
+        if (res_cookie["isAdmin"] == 1) {
+          hidden.readHidden()
+            .then(json => {
+              // required packages for db connection
+              var mysql = require("mysql");
 
-            // get all the account info for a user
-            var statement = ("SELECT * from accounts "
-                + "where aid=" + aid);
-            con.query(statement, function(err, result) {
-              if (err) {
-                console.log(err);
-                res.status(400);
-                //res.setHeader('Content-Type', 'plain/text');
-                con.end();
-                //res.send("getting account info failed!");
-              // got account data
-              } else if (result.length > 0) {
-                res.status(200);
-                //res.setHeader('Content-Type', 'text/html');
-                con.end();
-                var account = result
-                res.render('admin_dashboard-manage_accounts-sub_account', {
-                  title: 'Sprout Creek Farm Admin Dashboard | Sub Account',
-                  page: 'login',
-                  "account": account});
-              // aid doesnt exist
-              } else {
-                console.log(err);
-                res.status(400);
-                //res.setHeader('Content-Type', 'plain/text');
-                con.end();
-                //res.send("user doesnt exist failed!");
-              }
+              // connect to the database
+              var con = mysql.createConnection({
+                host: json[0]["host"],
+                user: json[0]["user"],
+                password: json[0]["password"],
+                database: json[0]["database"],
+                dateStrings: true
+              });
+              con.connect(function(err) {
+                if (err) {
+                  console.log(err);
+                  //res.setHeader('Content-Type', 'plain/text');
+                  res.status(400);
+                  res.send();
+                }
+              });
+
+              // get all the account info for a user
+              var statement = ("SELECT * from accounts "
+                  + "where aid=" + aid);
+              con.query(statement, function(err, result) {
+                if (err) {
+                  console.log(err);
+                  res.status(400);
+                  //res.setHeader('Content-Type', 'plain/text');
+                  con.end();
+                  //res.send("getting account info failed!");
+                // got account data
+                } else if (result.length > 0) {
+                  res.status(200);
+                  //res.setHeader('Content-Type', 'text/html');
+                  con.end();
+                  var account = result
+                  res.render('admin_dashboard-manage_accounts-sub_account', {
+                    title: 'Sprout Creek Farm Admin Dashboard | Sub Account',
+                    page: 'login',
+                    "account": account});
+                // aid doesnt exist
+                } else {
+                  console.log(err);
+                  res.status(400);
+                  //res.setHeader('Content-Type', 'plain/text');
+                  con.end();
+                  //res.send("user doesnt exist failed!");
+                }
+              });
             });
-          });
+        } else {
+          res.redirect("user_dashboard");
         }
+      }
     });
 };
 

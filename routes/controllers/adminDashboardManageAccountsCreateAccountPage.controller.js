@@ -28,10 +28,15 @@ const sendAdminDashboardManageAccountsCreateAccountPage = (req, res, next) => {
         res.clearCookie("CID");
       } else {
         res.cookie("CID", res_cookie);
+
+        if (res_cookie["isAdmin"] == 1) {
+          res.render('admin_dashboard-manage_accounts-create_account', {
+            title: 'Sprout Creek Farm Admin Dashboard | Create Account',
+            page: 'login' });
+        } else {
+          res.redirect("user_dashboard");
+        }
       }
-      res.render('admin_dashboard-manage_accounts-create_account', {
-        title: 'Sprout Creek Farm Admin Dashboard | Create Account',
-        page: 'login' });
     });
 };
 

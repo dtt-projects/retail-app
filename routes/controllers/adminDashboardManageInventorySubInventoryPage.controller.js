@@ -28,32 +28,35 @@ const sendAdminDashboardManageInventorySubInventoryPage = (req, res, next) => {
         res.clearCookie("CID");
       } else {
         res.cookie("CID", res_cookie);
+        if (res_cookie["isAdmin"] == 1) {
+          const request = require('request');
 
-        const request = require('request');
-
-        var itemNum = req.baseUrl.split("/")[4];
-        // setup url for api call
-        var options ={
-          method: 'GET',
-          url: 'http://' + req.headers["host"] + '/api/getItem/' + itemNum,
-        };
-        // make the request to get a single item from IBM DB
-        // if error send user back to root admin Inventory page
-        // if sucess populate the item page
-        request(options, function (error, response, body) {
-          if (error) {
-            console.log(error.message);
-            res.redirect('/admin_dashboard/manage_inventory');
-          } else {
-            //itemsList = JSON.parse(body.toString())
-            var data = JSON.parse(body.toString());
-            console.log(data);
-            res.render('admin_dashboard-manage_inventory-sub_inventory', {
-              title: 'Sprout Creek Farm Admin Dashboard | Sub Inventory',
-              page: 'login',
-              "item": data});
-          }
-        });
+          var itemNum = req.baseUrl.split("/")[4];
+          // setup url for api call
+          var options ={
+            method: 'GET',
+            url: 'http://' + req.headers["host"] + '/api/getItem/' + itemNum,
+          };
+          // make the request to get a single item from IBM DB
+          // if error send user back to root admin Inventory page
+          // if sucess populate the item page
+          request(options, function (error, response, body) {
+            if (error) {
+              console.log(error.message);
+              res.redirect('/admin_dashboard/manage_inventory');
+            } else {
+              //itemsList = JSON.parse(body.toString())
+              var data = JSON.parse(body.toString());
+              console.log(data);
+              res.render('admin_dashboard-manage_inventory-sub_inventory', {
+                title: 'Sprout Creek Farm Admin Dashboard | Sub Inventory',
+                page: 'login',
+                "item": data});
+            }
+          });
+        } else {
+          res.redirect("user_dashboard");
+        }
       }
     });
 };

@@ -33,10 +33,38 @@ const sendAdminDashboardManageOrdersPage = (req, res, next) => {
       } else {
         res.cookie("CID", res_cookie);
         if (res_cookie["isAdmin"] == 1) {
-          res.render('admin_dashboard-manage_orders', {
-            title: 'Sprout Creek Farm Admin Dashboard | Orders',
-            page: 'login',
-            email: res_cookie["email"]});
+
+          // required package for request to DB
+          var request = require("request");
+
+          // setup the api call and point it towards a single item
+          var options = {
+            method: 'GET',
+            url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Order',
+            headers:
+              { accept: 'application/json',
+                'x-ibm-client-secret': json[2]["ClientSecret"],
+                'x-ibm-client-id': json[2]["ClientId"] }
+          };
+
+          // if call fails log error and send back 400
+          // if call successful send back the single item's data
+          request(options, function (error, response, body) {
+            if (error) {
+              console.log("Failed getItem: " + error.message);
+              res.status(400);
+              res.setHeader('Content-Type', 'plain/text');
+              res.send();
+            } else {
+              orders = JSON.parse(body.toString())["data"]["orderList"];
+              console.log(orders);
+              res.render('admin_dashboard-manage_orders', {
+                title: 'Sprout Creek Farm Admin Dashboard | Orders',
+                page: 'login',
+                email: res_cookie["email"],
+                "orders": orders});
+            }
+          });
         } else {
           res.redirect('user_dashboard')
         }

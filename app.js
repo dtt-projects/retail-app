@@ -17,8 +17,6 @@ const createError = require('http-errors');
  */
 const express = require('express');
 
-const url = require('url');
-
 /** From the `path` module. Built-in path module to manipulate system paths. */
 const path = require('path');
 
@@ -39,7 +37,6 @@ const helmet = require('helmet');
 
 
 // Basic GET routes
-
 /** The root path router defined in `./routes/root`. */
 const rootPageRouter = require('./routes/root.router');
 
@@ -77,6 +74,8 @@ const userDashboardViewOrdersPageRouter = require('./routes/userDashboardViewOrd
 /** The userDashboardEditInfoRouter path router defined in './routes/userDashboardEditInfo'. */
 const userDashboardEditInfoPageRouter = require('./routes/userDashboardEditInfoPage.router');
 
+
+
 // Admin Routes
 /** The adminDashboardRouter path router defined in './routes/adminDashboard'. */
 const adminDashboardPageRouter = require('./routes/adminDashboardPage.router');
@@ -93,6 +92,9 @@ const adminDashboardManageInventoryCreateInventoryPageRouter = require('./routes
 /** The adminDashboardManageOrdersRouter path router defined in './routes/adminDashboardManageOrders'. */
 const adminDashboardManageOrdersPageRouter = require('./routes/adminDashboardManageOrdersPage.router');
 
+/** adminDashboardManageOrdersSubOrderPageRouter path router defined in './routes/adminDashboardManageOrdersSubOrderPage'. */
+const adminDashboardManageOrdersSubOrderPageRouter = require('./routes/adminDashboardManageOrdersSubOrderPage.router');
+
 /** The adminDashboardManageAccountsRouter path router defined in './routes/adminDashboardManageAccounts'. */
 const adminDashboardManageAccountsPageRouter = require('./routes/adminDashboardManageAccountsPage.router');
 
@@ -107,6 +109,8 @@ const adminDashboardManageAccountsCreateAccountPageRouter = require('./routes/ad
 // Special routes
 /** The marketItemPageRouter path router defined in './routes/marketItemPage'. */
 const marketItemPageRouter = require('./routes/marketItemPage.router');
+
+
 
 // API routes
 /** The API_forgotPasswordRouter path router defined in './routes/API_forgotPassword'. */
@@ -141,6 +145,7 @@ const API_getItemRouter = require('./routes/API_getItem.router');
 
 /** The API_getGoatPoints path router defined in './routes/API_getGoatPoints'. */
 const API_getGoatPointsRouter = require('./routes/API_getGoatPoints.router');
+
 
 
 // Testing routes
@@ -199,6 +204,8 @@ app.use('/admin_dashboard/manage_inventory/create_inventory',
   adminDashboardManageInventoryCreateInventoryPageRouter);
 app.use('/admin_dashboard/manage_orders',
   adminDashboardManageOrdersPageRouter);
+app.use('/admin_dashboard/manage_orders/sub_order/:oid',
+  adminDashboardManageOrdersSubOrderPageRouter);
 app.use('/admin_dashboard/manage_accounts',
   adminDashboardManageAccountsPageRouter);
 app.use('/admin_dashboard/manage_accounts/sub_account/:aid',

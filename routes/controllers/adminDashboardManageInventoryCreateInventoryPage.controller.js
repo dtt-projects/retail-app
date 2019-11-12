@@ -28,10 +28,15 @@ const sendAdminDashboardManageInventoryCreateInventoryPage = (req, res, next) =>
         res.clearCookie("CID");
       } else {
         res.cookie("CID", res_cookie);
+
+        if (res_cookie["isAdmin"] == 1) {
+          res.render('admin_dashboard-manage_inventory-create_inventory', {
+            title: 'Sprout Creek Farm Admin Dashboard | Create Inventory',
+            page: 'login' });
+        } else {
+          res.redirect("user_dashboard");
+        }
       }
-      res.render('admin_dashboard-manage_inventory-create_inventory', {
-        title: 'Sprout Creek Farm Admin Dashboard | Create Inventory',
-        page: 'login' });
     });
 };
 
