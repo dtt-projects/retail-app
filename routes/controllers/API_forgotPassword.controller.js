@@ -63,12 +63,11 @@ const forgotPassword = (req, res, next) => {
               // make new temp password
               // from bytes and convert to string
               var newpw = crypto.randomBytes(50);
-              //console.log("newpw: " + newpw);
               newpw = newpw.toString('hex');
-              //console.log("newpw2: " + newpw);
-              // update the database with the new password
-              statement = ("update accounts set password ='"
-                  + newpw.toString() + "' where email ='" + email + "'");
+              statement = ("UPDATE accounts SET "
+                  + "UPDATEDDATE='CURRENT_TIMESTAMP', "
+                  + "password ='" + newpw.toString()
+                  + "' WHERE email ='" + email + "'");
 
               con.query(statement, function(err, result) {
                 if (err) {

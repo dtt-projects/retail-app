@@ -1,5 +1,5 @@
 <input type=button value="logout" onClick="eraseCookie()"/>
-<h2> ADMIN ACCOUNT ACCOUNTS PAGE!!!! </h2>
+<h2> ADMIN ACCOUNT SUB ACCOUNTS PAGE!!!! </h2>
 <h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
 <h2> {{email}} </h2>
 
@@ -8,9 +8,6 @@
   <li> <a href="/admin_dashboard/manage_inventory"> Manage Inventory </a> </li>
   <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
   <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
-</ul>
-<ul>
-  <li> <a href="/admin_dashboard/manage_accounts/create_account"> Create Accounts </a> </li>
 </ul>
 <h1> START ACCOUNTS </h1>
 <table>
@@ -29,9 +26,9 @@
   <td> isadmin </td>
 
 </tr>
-{{#each accounts}}
+{{#each account}}
 <tr>
-  <td> <a href="/admin_dashboard/manage_accounts/sub_account/{{aid}}">{{aid}}</a></td>
+  <td>{{aid}}</td>
   <td>{{firstname}}</td>
   <td>{{lastname}}</td>
   <td>{{address}}</td>
@@ -48,15 +45,7 @@
 </table>
 <h1> END ACCOUNTS </h1>
 
-<script>
-function modifyUser(id) {
-  // setup json for get call
-  var json = JSON.stringify({"aid": id});
-
-  fetch("/")
-}
-
-function eraseCookie() {
+<script> function eraseCookie() {
   document.cookie = "CID=";
   window.location.href = "/login";
 }

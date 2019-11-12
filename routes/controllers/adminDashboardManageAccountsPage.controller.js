@@ -34,10 +34,34 @@ const sendAdminDashboardManageAccountsPage = (req, res, next) => {
       } else {
         res.cookie("CID", res_cookie);
         if (res_cookie["isAdmin"] == 1) {
-          res.render('admin_dashboard-manage_accounts', {
-            title: 'Sprout Creek Farm Admin Dashboard | Accounts',
-            page: 'login',
-            email: res_cookie["email"]});
+
+          const request = require("request");
+
+          //  testing of base url
+          var options ={
+            method: 'GET',
+            url: 'http://' + req.headers["host"] + '/api/getAllAccounts',
+            body: res_cookie,
+            json: true
+          };
+
+          // the request on failure log and redirect back
+          // on success send to page and populate it
+          request(options, function (error, response, body) {
+            if (error) {
+              console.log(error.message);
+              res.status(400);
+              res.redirect('../admin_dashboard');
+            } else {
+              console.log(body);
+              var accounts = body;//JSON.parse(body.toString());
+              res.render('admin_dashboard-manage_accounts', {
+                title: 'Sprout Creek Farm Admin Dashboard | Accounts',
+                page: 'login',
+                email: res_cookie["email"],
+                "accounts": accounts});
+            }
+          });
         } else {
           res.redirect('user_dashboard')
         }

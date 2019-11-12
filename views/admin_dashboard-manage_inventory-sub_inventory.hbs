@@ -1,7 +1,7 @@
 <input type=button value="logout" onClick="eraseCookie()"/>
 <script src="../javascripts/addItem.js" async></script>
 <script src="../javascripts/client.js" async></script>
-<h2> ADMIN ACCOUNT INVENTORY PAGE!!!! </h2>
+<h2> ADMIN ACCOUNT SUB INVENTORY PAGE!!!! </h2>
 <h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
 <h2> {{email}} </h2>
 
@@ -11,48 +11,8 @@
   <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
   <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
 </ul>
-<ul>
-  <li> <a href="/admin_dashboard/manage_inventory/create_inventory"> Create INVENTORY </a> </li>
-</ul>
 
-<h1> Create/Update item </h1>
-  <table>
-    <tr>
-      <td>Item Id</td>
-      <td> <input type="textbox" id="itemId"></td>
-    </tr>
-    <tr>
-      <td>Merchant Id</td>
-      <td> <input type="textbox" id="merchantId"></td>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td> <input type="textbox" id="name"></td>
-    </tr>
-    <tr>
-      <td>Category</td>
-      <td> <input type="textbox" id="cat"></td>
-    </tr>
-    <tr>
-      <td>Description</td>
-      <td> <input type="textbox" id="desc"></td>
-    </tr>
-    <tr>
-      <td>Image Link</td>
-      <td> <input type="textbox" id="imageLink"></td>
-    </tr>
-    <tr>
-      <td>Price</td>
-      <td> <input type="textbox" id="price"></td>
-    </tr>
-    <tr>
-      <td>Quantity</td>
-      <td> <input type="textbox" id="quantity"></td>
-    </tr>
-    <tr>
-      <td colspan="2"> <input type="button" value="submit" onclick="addItem();">
-    </tr>
-  </table>
+
 <h1> Items </h1>
   <table>
     <tr>
@@ -65,9 +25,9 @@
       <td> price </td>
       <td> itemimagelink </td>
     </tr>
-    {{#each items}}
+    {{#each item}}
       <tr>
-        <td> <a href="/admin_dashboard/manage_inventory/sub_inventory/{{itemid}}"> {{itemid}} </a></td>
+        <td> {{itemid}} </td>
         <td> {{itemcat}} </td>
         <td> {{itemdesc}} </td>
         <td> {{quantity}} </td>
