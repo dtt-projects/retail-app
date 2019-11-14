@@ -4,14 +4,12 @@
  *    Exports functions to be used by each route handler.
  * @exports {Object} Functions to attach to the
  *    `adminDashboardManageAccountsPage` router.
- * @require cookie-helper
+ * @require session-helper
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
- const cookies = require('../../scripts/cookie-helper.js');
-
  const sessions = require('../../scripts/session-helper.js');
 
 /**

@@ -3,13 +3,13 @@
  * @fileoverview API_createAccount route's controller. Handle all business
  * logic relative to creating an account.
  * @exports {Object} Functions to attach to the `API_createAccount` router.
- * @require cookie-helper
+ * @require session-helper
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
-const cookies = require('../../scripts/cookie-helper.js');
+ const sessions = require('../../scripts/session-helper.js');
 
 /**
  * @function createAccount

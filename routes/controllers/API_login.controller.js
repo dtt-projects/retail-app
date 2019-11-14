@@ -4,7 +4,7 @@
  * relative to login for the users.
  * @exports {Object} Functions to attach to the `users` router.
  * @require read-hidden
- * @require cookie-helper
+ * @require session-helper
  */
 
  /* hidden
@@ -12,13 +12,8 @@
   */
  var hidden = require('../../scripts/read-hidden.js');
 
- /* cookies
-  * This is to help with handle cookies for user validation
-  */
- const cookies = require('../../scripts/cookie-helper.js');
-
  /* sessions
-  * This is to help with handle cookies for user validation through sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
  const sessions = require('../../scripts/session-helper.js');
 

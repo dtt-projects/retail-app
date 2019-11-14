@@ -70,6 +70,8 @@ exports.handleSessionIsAdmin = function(sessionId) {
     for(var i = 0; i < sessions["sessions"].length; i++) {
       if (sessions["sessions"][i]["uuid"] == sessionId) {
         resolve(sessions["sessions"][i]["isAdmin"] == "1");
+      } else if (sessions["sessions"].length - 1 == i) {
+        resolve(false);
       }
     }
   });

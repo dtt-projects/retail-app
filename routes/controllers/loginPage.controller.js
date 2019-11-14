@@ -7,14 +7,9 @@
  */
 
  /* sessions
-  * This is to help with handle cookies for user validation through sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
  const sessions = require('../../scripts/session-helper.js');
-
- /* cookies
-  * This is to help with handle cookies for user validation
-  */
- const cookies = require('../../scripts/cookie-helper.js');
 
 
 /**

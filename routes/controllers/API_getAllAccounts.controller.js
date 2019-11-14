@@ -4,7 +4,8 @@
  * relative to API_getAllAccounts for the users.
  * @exports {Object} Functions to attach to the `API_getAllAccounts` router.
  * @require read-hidden
- * @require cookie-helper
+ * @require sessions-helper
+ * @require mysql
  */
 
  /* hidden
@@ -12,11 +13,9 @@
   */
  var hidden = require('../../scripts/read-hidden.js');
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
- const cookies = require('../../scripts/cookie-helper.js');
-
  const sessions = require('../../scripts/session-helper.js');
 
  const mysql = require('mysql');

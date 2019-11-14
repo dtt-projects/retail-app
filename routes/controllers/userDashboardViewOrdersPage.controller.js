@@ -4,18 +4,13 @@
  *    Exports functions to be used by each route handler.
  * @exports {Object} Functions to attach to the
  *    `userDashboardViewOrdersPage` router.
- * @require cookie-helper
+ * @require session-helper
  */
 
-/* cookies
- * This is to help with handle cookies for user validation
- */
-const cookies = require('../../scripts/cookie-helper.js');
-
-/* sessions
- * This is to help with handle cookies for user validation through sessions
- */
-const sessions = require('../../scripts/session-helper.js');
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
+  */
+ const sessions = require('../../scripts/session-helper.js');
 
 /**
  * @function sendUserDashboardViewOrdersPage
