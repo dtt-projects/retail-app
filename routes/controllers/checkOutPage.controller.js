@@ -11,6 +11,8 @@
   */
 const cookies = require('../../scripts/cookie-helper.js');
 
+const sessions = require('../../scripts/session-helper.js');
+
 /**
  * @function sendCheckOutPage
  * @description Send the base page rendered by `Handlebars.js`. Compilation
@@ -22,16 +24,13 @@ const cookies = require('../../scripts/cookie-helper.js');
  */
 const sendCheckOutPage = (req, res, next) => {
   // updates and validates user's cookies
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-      }
-      res.render('check_out', { title: 'Sprout Creek Farm Check Out',
-                                 page: 'cart' });
-    });
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      res.render('check_out', {
+        title: 'Sprout Creek Farm Check Out',
+        page: 'cart' });
+  });
 };
 
 

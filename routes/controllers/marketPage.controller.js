@@ -17,6 +17,11 @@ const cookies = require('../../scripts/cookie-helper.js');
  */
 const request = require("request");
 
+/* sessions
+ * This is to help with handle cookies for user validation through sessions
+ */
+const sessions = require('../../scripts/session-helper.js');
+
 /**
  * @function sendMarketPage
  * @description Send the base page rendered by `Handlebars.js`. Compilation
@@ -28,14 +33,9 @@ const request = require("request");
  */
 const sendMarketPage = (req, res, next) => {
   // handle the cookies of a user and update them
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-      }
-
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
       // setup call for internal api call
       var options ={
         method: 'GET',

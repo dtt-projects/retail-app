@@ -11,6 +11,10 @@
   */
  const cookies = require('../../scripts/cookie-helper.js');
 
+ const sessions = require('../../scripts/session-helper.js');
+
+ const request = require('request');
+
 /**
  * @function sendAdminDashboardManageInventorySubInventoryPage
  * @description Send the base page rendered by `Handlebars.js`. Compilation
@@ -21,43 +25,51 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendAdminDashboardManageInventorySubInventoryPage = (req, res, next) => {
-  // handle the cookies of a user and update them
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-        if (res_cookie["isAdmin"] == 1) {
-          const request = require('request');
-
-          var itemNum = req.baseUrl.split("/")[4];
-          // setup url for api call
-          var options ={
-            method: 'GET',
-            url: 'http://' + req.headers["host"] + '/api/getItem/' + itemNum,
-          };
-          // make the request to get a single item from IBM DB
-          // if error send user back to root admin Inventory page
-          // if sucess populate the item page
-          request(options, function (error, response, body) {
-            if (error) {
-              console.log(error.message);
-              res.redirect('/admin_dashboard/manage_inventory');
-            } else {
-              //itemsList = JSON.parse(body.toString())
-              var data = JSON.parse(body.toString());
-              console.log(data);
-              res.render('admin_dashboard-manage_inventory-sub_inventory', {
-                title: 'Sprout Creek Farm Admin Dashboard | Sub Inventory',
-                page: 'login',
-                "item": data});
-            }
-          });
-        } else {
-          res.redirect("user_dashboard");
-        }
-      }
+  // check their session and update it
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          // user is logged in check if admin or normal user
+          if (isLoggedIn) {
+            sessions.handleSessionIsAdmin(sessionId)
+              .then(isAdmin => {
+                // user is an admin
+                if (isAdmin) {
+                  var itemNum = req.baseUrl.split("/")[4];
+                  // setup url for api call
+                  var options ={
+                    method: 'GET',
+                    url: 'http://' + req.headers["host"] + '/api/getItem/' + itemNum,
+                  };
+                  // make the request to get a single item from IBM DB
+                  // if error send user back to root admin Inventory page
+                  // if sucess populate the item page
+                  request(options, function (error, response, body) {
+                    if (error) {
+                      console.log(error.message);
+                      res.redirect('/admin_dashboard/manage_inventory');
+                    } else {
+                      //itemsList = JSON.parse(body.toString())
+                      var data = JSON.parse(body.toString());
+                      console.log(data);
+                      res.render('admin_dashboard-manage_inventory-sub_inventory', {
+                        title: 'Sprout Creek Farm Admin Dashboard | Sub Inventory',
+                        page: 'login',
+                        "item": data});
+                    }
+                  });
+                // user is not an admin
+                } else {
+                  res.redirect("/user_dashboard");
+                }
+              })
+          // user isnt logged in render login page
+          } else {
+            res.redirect("/login");
+          }
+        })
     });
 };
 

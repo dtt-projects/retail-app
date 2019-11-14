@@ -11,8 +11,8 @@
   */
  const cookies = require('../../scripts/cookie-helper.js');
 
- /* sessions
-  * This is to help with handle cookies for user validation through sessions
+ /* cookies
+  * This is to help with handle cookies for user validation
   */
  const sessions = require('../../scripts/session-helper.js');
 
@@ -31,6 +31,7 @@ const sendHomePage = (req, res, next) => {
       res.cookie("sessionId", sessionId);
       res.render('homepage', { title: 'Sprout Creek Farm Homepage' });
     });
+
 };
 
 

@@ -11,6 +11,11 @@
   */
 const cookies = require('../../scripts/cookie-helper.js');
 
+/* sessions
+ * This is to help with handle cookies for user validation through sessions
+ */
+const sessions = require('../../scripts/session-helper.js');
+
 /**
  * @function sendEatAtTheFarmPage
  * @description Send the base page rendered by `Handlebars.js`. Compilation
@@ -22,15 +27,12 @@ const cookies = require('../../scripts/cookie-helper.js');
  */
 const sendEatAtTheFarmPage = (req, res, next) => {
   // updates the user's cookies and validates them
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-      }
-      res.render('eat_at_the_farm', { title: 'Sprout Creek Farm Eat At The Farm',
-                                      page: 'Eat At The Farm' });
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      res.render('eat_at_the_farm', {
+        title: 'Sprout Creek Farm Eat At The Farm',
+        page: 'Eat At The Farm' });
     });
 };
 

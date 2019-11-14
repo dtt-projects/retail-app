@@ -5,6 +5,11 @@
  * @exports {Object} Functions to attach to the `login` router.
  */
 
+ /* sessions
+  * This is to help with handle cookies for user validation through sessions
+  */
+ const sessions = require('../../scripts/session-helper.js');
+
 
 /**
  * @function sendLoginPage
@@ -17,6 +22,7 @@
  */
 const printDaCookies = (req, res, next) => {
   res.send(req.cookies);
+  sessions.printSessions();
 };
 
 

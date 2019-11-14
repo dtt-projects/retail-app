@@ -12,6 +12,10 @@
  */
 const cookies = require('../../scripts/cookie-helper.js');
 
+/* sessions
+ * This is to help with handle cookies for user validation through sessions
+ */
+const sessions = require('../../scripts/session-helper.js');
 
 /**
  * @function sendUserDashboardViewOrdersPage
@@ -23,24 +27,32 @@ const cookies = require('../../scripts/cookie-helper.js');
  *    and does not return or render anything (no `res` methods called).
  */
 const sendUserDashboardViewOrdersPage = (req, res, next) => {
-  // handle the cookies of a user and update them
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-        res.redirect("../login");
-      } else {
-        res.cookie("CID", res_cookie);
-        // user is an admin or not direct correctly
-        if (res_cookie["isAdmin"] == 1) {
-          res.redirect("../admin_dashboard");
-        } else {
-          res.render('user_dashboard-view_orders', {
-            title: 'Sprout Creek Farm User Dashboard',
-            page: 'login' });
-        }
-      }
-
+  // check their session and update it
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          // user is logged in check if admin or normal user
+          if (isLoggedIn) {
+            sessions.handleSessionIsAdmin(sessionId)
+              .then(isAdmin => {
+                // user is an admin
+                if (isAdmin) {
+                  res.redirect('/admin_dashboard')
+                // user is not an admin
+                } else {
+                  // setup call for internal api call
+                  res.render('user_dashboard-view_orders', {
+                    title: 'Sprout Creek Farm User Dashboard',
+                    page: 'login' });
+                }
+              })
+          // user isnt logged in render login page
+          } else {
+            res.redirect("/login");
+          }
+        })
     });
 };
 

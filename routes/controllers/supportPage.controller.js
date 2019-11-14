@@ -11,6 +11,11 @@
   */
  const cookies = require('../../scripts/cookie-helper.js');
 
+ /* sessions
+  * This is to help with handle cookies for user validation through sessions
+  */
+ const sessions = require('../../scripts/session-helper.js');
+
 /**
  * @function sendSupportPage
  * @description Send the base page rendered by `Handlebars.js`. Compilation
@@ -22,15 +27,12 @@
  */
 const sendSupportPage = (req, res, next) => {
   // handle the cookies of a user and update them
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-      }
-      res.render('support', { title: 'Sprout Creek Farm Support',
-                              page: 'Support' });
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      res.render('support', {
+        title: 'Sprout Creek Farm Support',
+        page: 'Support' });
     });
 };
 

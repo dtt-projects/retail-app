@@ -17,6 +17,14 @@
   */
  const cookies = require('../../scripts/cookie-helper.js');
 
+ /* sessions
+  * This is to help with handle cookies for user validation through sessions
+  */
+ const sessions = require('../../scripts/session-helper.js');
+
+ const mysql = require('mysql');
+
+
 
 /**
  * @function getAccount
@@ -31,26 +39,21 @@ const getAccount = (req, res, next) => {
   hidden.readHidden()
     .then(json => {
       // updates and validates the user's cookies
-      var cookie = {"CID" : req.body}
-      cookies.handleNormalPageCookie(cookie)
-        .then(res_cookie => {
-          if (res_cookie == null || res_cookie == "undefined") {
-            res.clearCookie("CID");
+      var sessionId = req.body["sessionId"];
+
+      sessions.handleSessionGetSessionInfo(sessionId)
+        .then(aid => {
+          // didnt get aid from sessions
+          if (aid == null) {
             res.status(401);
             res.send();
           } else {
-            res.cookie("CID", res_cookie);
-            // required packages for db connection and api call
-            var mysql = require("mysql");
-            var request = require("request");
-
             // connect to the database
             var con = mysql.createConnection({
               host: json[0]["host"],
               user: json[0]["user"],
               password: json[0]["password"],
-              database: json[0]["database"],
-              dateStrings: true
+              database: json[0]["database"]
             });
             con.connect(function(err) {
               if (err) {
@@ -60,38 +63,30 @@ const getAccount = (req, res, next) => {
                 res.send();
               }
             });
-            // get username from cookie
-            try {
-              var username = req.body["username"];
-            } catch (e) {
-              console.error(e);
-              con.end();
-              res.status(200);
-              res.send();
-            }
-            // get all the account info for a user
-            var statement = ("SELECT * from accounts "
-                + "where username='" + username + "'");
+
+            var statement = ("SELECT * FROM accounts WHERE "
+                + "aid=" + aid)
+            console.log(statement);
             con.query(statement, function(err, result) {
               if (err) {
                 console.log(err);
                 res.status(400);
                 res.setHeader('Content-Type', 'plain/text');
                 con.end();
-                res.send("getting account info failed!");
-              // got account data
+                res.send("getting account failed!");
               } else if (result.length > 0) {
+                var accounts = result[0];
+                console.log(accounts)
                 res.status(200);
-                res.setHeader('Content-Type', 'plain/text');
+                res.setHeader('Content-Type', 'application/json');
                 con.end();
-                var data = result[0]
-                res.send(data);
+                res.send(accounts);
               } else {
                 console.log(err);
                 res.status(400);
                 res.setHeader('Content-Type', 'plain/text');
                 con.end();
-                res.send("user doesnt exist failed!");
+                res.send("account doesnt exist failed!");
               }
             });
           }
