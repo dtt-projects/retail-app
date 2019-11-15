@@ -11,7 +11,7 @@
  /* hidden
   * This is to read the hidden credentials file
   */
- var hidden = require('../../scripts/read-hidden.js');
+ const hidden = require('../../scripts/read-hidden.js');
 
  /* sessions
   * This is to help with handling sessions to maintain cart and auth
@@ -21,7 +21,7 @@
  /* request
   * required package for request data from DB
   */
- var request = require("request");
+ const request = require("request");
 
 /**
  * @function addItem
@@ -32,56 +32,56 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const addItem = (req, res, next) => {
-  //  read creds from the secret file
-  hidden.readHidden()
-    .then(json => {
-      var sessionId = req.cookies["sessionId"];
-      sessions.handleSessionIsAdmin(sessionId)
-        .then(isAdmin => {
-          if (isAdmin) {
-            // build the data that will be sent
-            var data = {
-              "merchantId" : req.body["merchantId"],
-              "name" : req.body["name"],
-              "cat": req.body["cat"],
-              "desc": req.body["desc"],
-              "imageLink": req.body["imageLink"],
-              "price": req.body["price"],
-              "quantity": req.body["quantity"]
-            };
+  // make sure an admin is making the call
+  var sessionId = req.cookies["sessionId"];
+  sessions.handleSessionIsAdmin(sessionId)
+    .then(isAdmin => {
+      if (isAdmin) {
+        //  read creds from the secret file
+        hidden.readHidden()
+          .then(json => {
+              // build the data that will be sent
+              var data = {
+                "merchantId" : req.body["merchantId"],
+                "name" : req.body["name"],
+                "cat": req.body["cat"],
+                "desc": req.body["desc"],
+                "imageLink": req.body["imageLink"],
+                "price": req.body["price"],
+                "quantity": req.body["quantity"]
+              };
 
-            // prepare the request and the ibm api
-            var options = {
-              method: 'POST',
-              url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Inventory',
-              headers: {
-                accept: 'application/json',
-                'content-type': 'application/json',
-                'x-ibm-client-secret': json[2]["ClientSecret"],
-                'x-ibm-client-id': json[2]["ClientId"]
-              },
-              body: data,
-              json: true
-            };
-
-            // if request fails send 401, log it, and send back failed
-            // if success send back 200
-            request(options, function (error, response, body) {
-              if (error) {
-                console.error("Failed addItem: " + error.message)
-                res.status(401);
-                res.send('Failed:');
-              } else {
-                res.status(200);
-                res.send('Success:');
-              }
+              // prepare the request and the ibm api
+              var options = {
+                method: 'POST',
+                url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Inventory',
+                headers: {
+                  accept: 'application/json',
+                    'content-type': 'application/json',
+                    'x-ibm-client-secret': json[2]["ClientSecret"],
+                    'x-ibm-client-id': json[2]["ClientId"]
+                  },
+                  body: data,
+                  json: true
+                };
+              // if request fails send 401, log it, and send back failed
+              // if success send back 200
+              request(options, function (error, response, body) {
+                if (error) {
+                  console.error("Failed addItem: " + error.message)
+                  res.status(401);
+                  res.send('Failed:');
+                } else {
+                  res.status(200);
+                  res.send('Success:');
+                }
+              });
             });
           } else {
             res.status(401);
             res.send();
           }
         });
-    });
 };
 
 // so other files can call this function

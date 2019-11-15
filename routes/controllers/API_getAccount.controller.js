@@ -18,6 +18,9 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+/* mysql
+ * This is for connecting to our internal DB
+ */
  const mysql = require('mysql');
 
 
