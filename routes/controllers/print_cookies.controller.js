@@ -10,6 +10,8 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+ const request = require('request');
+
 
 /**
  * @function sendLoginPage

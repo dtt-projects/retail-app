@@ -1,9 +1,14 @@
 /**
  * @module scripts/session-helper.js
- * @fileoverview A helper file for handling sessions
- * @exports handleLoginCookie handles cookies for logging in
- * @exports handleCreateAccountCookie handles cookies for new accounts
- * @exports handleNormalPageCookie handles cookies for all other pages
+ * @fileoverview A helper file for handling sessions on the webserver
+ * @exports handleSessionIsAdmin
+ * @exports handleSessionIsLoggedIn
+ * @exports handleSessionUpdateCart
+ * @exports handleSessionUpdateValues
+ * @exports handleSessionGetSessionInfo
+ * @require read-hidden
+ * @require www
+ * @require uuid/v4
  */
 
 // This helper file makes a cleaner reading of a credientials file for
@@ -13,7 +18,13 @@ const sessions = require('../bin/www');
 const uuidv4 = require('uuid/v4');
 const TIMEOUT = 1800000;
 
-
+/**
+ * @function handleSessionUpdateValues
+ * @description This will update an existing sesison with user creds
+ * @param sessionId the session that will be modified
+ * @param aid the account id from our database
+ * @param adminStatus which is from our database
+ */
 exports.handleSessionUpdateValues = function(sessionId, aid, adminStatus) {
   return new Promise(function(resolve, reject) {
     for(var i = 0; i <sessions["sessions"].length; i++) {
@@ -30,6 +41,11 @@ exports.handleSessionUpdateValues = function(sessionId, aid, adminStatus) {
   })
 }
 
+/**
+ * @function handleSessionGetSessionInfo
+ * @description This will get the session info like the corresponding account ID
+ * @param sessionId the session that will be used
+ */
 exports.handleSessionGetSessionInfo = function(sessionId) {
   return new Promise(function(resolve, reject) {
     for(var i = 0; i < sessions["sessions"].length; i++) {
@@ -65,6 +81,11 @@ exports.handleSessionUpdateCart = function(sessionId, itemId, amount, isAdding) 
 }
 */
 
+/**
+ * @function handleSessionIsAdmin
+ * @description This will check if the session is an admin's session
+ * @param sessionId the session that will be checked
+ */
 exports.handleSessionIsAdmin = function(sessionId) {
   return new Promise(function(resolve, reject) {
     for(var i = 0; i < sessions["sessions"].length; i++) {
@@ -78,7 +99,11 @@ exports.handleSessionIsAdmin = function(sessionId) {
 }
 
 
-
+/**
+ * @function handleSessionIsLoggedIn
+ * @description This will check if the session is an admin's session
+ * @param sessionId the session that will be checked
+ */
 exports.handleSessionIsLoggedIn = function(sessionId) {
   return new Promise(function(resolve, reject) {
     try {
@@ -94,10 +119,21 @@ exports.handleSessionIsLoggedIn = function(sessionId) {
   });
 }
 
+
+/**
+ * @function printSessions
+ * @description This is used to debug sessions
+ */
 exports.printSessions = function() {
   console.log(sessions);
 }
 
+/**
+ * @function handleSession
+ * @description This will check if the session is valid for if the session is
+ *    invalid it will delete it and make a new one
+ * @param userCookie the cookie from the user
+ */
 exports.handleSession = function(userCookie) {
   return new Promise(function(resolve, reject) {
     try {

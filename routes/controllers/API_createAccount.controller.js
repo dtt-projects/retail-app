@@ -55,7 +55,7 @@ const createAccount = (req, res, next) => {
           // current insert statement for database
           statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, ADDRESS," +
                        " CITY, ZIP, EMAIL, PHONENUMBER, USERNAME, PASSWORD, " +
-                       "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN)" +
+                       "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN, STATE)" +
                        "VALUES('" + req.body["first_name"] + "' ," +
                               "'" + req.body["last_name"] + "' ," +
                               "'" + req.body["address"] + "' ," +
@@ -68,12 +68,13 @@ const createAccount = (req, res, next) => {
                               "CURRENT_TIMESTAMP, " +
                               "CURRENT_TIMESTAMP, " +
                               "True, " +
-                              req.body["isAdmin"] + ")");
+                              req.body["isAdmin"] + ", "
+                              + req.body["state"] + "')");
         } else {
           // current insert statement for database
           statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, ADDRESS," +
                        " CITY, ZIP, EMAIL, PHONENUMBER, USERNAME, PASSWORD, " +
-                       "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN)" +
+                       "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN, STATE)" +
                        "VALUES('" + req.body["first_name"] + "' ," +
                               "'" + req.body["last_name"] + "' ," +
                               "'" + req.body["address"] + "' ," +
@@ -86,7 +87,8 @@ const createAccount = (req, res, next) => {
                               "CURRENT_TIMESTAMP, " +
                               "CURRENT_TIMESTAMP, " +
                               "True, " +
-                              "False)");
+                              "False, '"
+                              + req.body["state"] + "')");
         }
         // run statement on the database
         con.query(statement, function(err, result) {
@@ -159,12 +161,6 @@ const createAccount = (req, res, next) => {
               }
             });
 
-            data = {
-              "username": req.body["username"],
-              "password": req.body["password"],
-              "isAdmin": 0,
-              "email": req.body["email"]
-            }
             // setup rewards id
             var statement2 = ("SELECT aid FROM accounts WHERE email='"
                 + req.body["email"] + "'");
@@ -181,7 +177,6 @@ const createAccount = (req, res, next) => {
                 var statement3 = ("INSERT INTO "
                     + "rewards(aid, goatpoints, lastpurchase, changeInGoatPoints, updateddate) "
                     + "VALUES('" + aid + "', 0, CURRENT_TIMESTAMP, 0, CURRENT_TIMESTAMP)");
-                console.log(statement3);
                 con.query(statement3,function(err3, result3) {
                   // if error inserting into DB
                   if (err3) {
@@ -190,7 +185,57 @@ const createAccount = (req, res, next) => {
                     res.status(400);
                     res.send();
                   } else {
-                    con.end();
+                    // setup ibm customer
+                    // Install request by running "npm install --save request"
+                    var request = require("request");
+
+                    var options = { method: 'POST',
+                      url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Customer',
+                      headers:
+                       { accept: 'application/json',
+                         'content-type': 'application/json',
+                         'x-ibm-client-secret': json[2]["ClientSecret"],
+                         'x-ibm-client-id': json[2]["ClientId"] },
+                      body:
+                       { "firstName": req.body["first_name"],
+                         "lastName": req.body["last_name"],
+                         "address1": req.body["address"],
+                         "city": req.body["city"],
+                         "state": req.body["state"],
+                         "zip": req.body["zip"],
+                         "phoneHome": req.body["phone_number"],
+                         "emailAddress": req.body["email"] },
+                      json: true };
+
+                    request(options, function (error, response, body) {
+                      if (error) {
+                        console.error('Failed: %s', error.message);
+                        con.end();
+                        res.status(401);
+                        res.send();
+                      } else {
+                        console.log('Success: ', body);
+                        var ibmId = body["data"]["customerId"];
+                        console.log(ibmId);
+                        var statement4 = ("INSERT INTO ibm(ibmid, aid) "
+                            + "VALUES(" + ibmId + ", " + aid +")");
+                        console.log(statement4);
+                        con.query(statement4, function(err4, result4) {
+                          // error from ibm insert
+                          if (err4) {
+                            console.log(err4);
+                            con.end();
+                            res.status(401);
+                            res.send();
+                          } else {
+                            console.log(result4);
+                            con.end();
+                            res.status(200);
+                            res.send();
+                          }
+                        })
+                      }
+                    });
                   }
                 });
               // user's aid doesnt exist
@@ -198,19 +243,6 @@ const createAccount = (req, res, next) => {
                 console.log("API_creatAccount: aid doesn't exist");
               }
             });
-
-            // setup ibm customer
-
-            // build the user a cookie
-            cookies.handleCreateAccountCookie(data)
-              .then(res_cookie => {
-                res.cookie("CID", res_cookie);
-                // send success back to client
-                //console.log("COOKIE DONE");
-                res.setHeader('Content-Type', 'plain/text');
-                res.status(200);
-                res.send("Account created!");
-              });
           }
         });
       }
