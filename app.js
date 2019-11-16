@@ -23,8 +23,7 @@ const path = require('path');
 /** From the `cookie-parser` module. Parse incoming / outgoing cookies. */
 const cookieParser = require('cookie-parser');
 
-/** From the 'express-session' module. Used to handle user sessions. */
-//const sessions = require('express-session');
+//var sessions = require('./bin/www');
 
 /** From the `morgan` module. Logging utility. */
 const logger = require('morgan');

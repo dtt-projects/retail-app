@@ -4,7 +4,8 @@
  * relative to API_getAllAccounts for the users.
  * @exports {Object} Functions to attach to the `API_getAllAccounts` router.
  * @require read-hidden
- * @require cookie-helper
+ * @require sessions-helper
+ * @require mysql
  */
 
  /* hidden
@@ -12,10 +13,12 @@
   */
  var hidden = require('../../scripts/read-hidden.js');
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
- const cookies = require('../../scripts/cookie-helper.js');
+ const sessions = require('../../scripts/session-helper.js');
+
+ const mysql = require('mysql');
 
 
 /**
@@ -27,33 +30,26 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const getAllAccounts = (req, res, next) => {
+
   //  read creds from the secret file
   hidden.readHidden()
     .then(json => {
       // updates and validates the user's cookies
-      var cookie = {"CID" : req.body}
-      console.log("here1");
-      //console.log(req.cookies);
-      cookies.handleNormalPageCookie(cookie)
-        .then(res_cookie => {
-          if (res_cookie == null || res_cookie == "undefined") {
-            res.clearCookie("CID");
+      var sessionId = req.body["sessionId"];
+
+      sessions.handleSessionGetSessionInfo(sessionId)
+        .then(aid => {
+          // didnt get aid from sessions
+          if (aid == null) {
             res.status(401);
             res.send();
           } else {
-            console.log("here2");
-            res.cookie("CID", res_cookie);
-            // required packages for db connection and api call
-            var mysql = require("mysql");
-            var request = require("request");
-
             // connect to the database
             var con = mysql.createConnection({
               host: json[0]["host"],
               user: json[0]["user"],
               password: json[0]["password"],
-              database: json[0]["database"],
-              dateStrings: true
+              database: json[0]["database"]
             });
             con.connect(function(err) {
               if (err) {
@@ -63,31 +59,29 @@ const getAllAccounts = (req, res, next) => {
                 res.send();
               }
             });
-            // get all the account info for a user
-            console.log("here3");
-            var statement = ("SELECT * from accounts");
+
+            var statement = ("SELECT * FROM accounts");
+            console.log(statement);
             con.query(statement, function(err, result) {
               if (err) {
                 console.log(err);
                 res.status(400);
                 res.setHeader('Content-Type', 'plain/text');
                 con.end();
-                res.send("getting account info failed!");
-              // got account data
+                res.send("getting account failed!");
               } else if (result.length > 0) {
-                console.log("here4");
+                var accounts = result;
+                console.log(accounts)
                 res.status(200);
-                res.setHeader('Content-Type', 'plain/text');
+                res.setHeader('Content-Type', 'application/json');
                 con.end();
-                console.log(result);
-                var data = result
-                res.send(data);
+                res.send(accounts);
               } else {
                 console.log(err);
                 res.status(400);
                 res.setHeader('Content-Type', 'plain/text');
                 con.end();
-                res.send("no accounts exist failed!");
+                res.send("account doesnt exist failed!");
               }
             });
           }

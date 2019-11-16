@@ -3,18 +3,21 @@
  * @fileoverview marketItemPage route's controller. Exports functions
  *    to be used by each route handler.
  * @exports {Object} Functions to attach to the `marketItemPage` router.
- * @require cookie-helper
+ * @require session-helper
+ * @require request
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
-  */
-const cookies = require('../../scripts/cookie-helper.js');
+
 
 /* request
  * This is for calling a request from the web server
  */
 const request = require("request");
+
+/* sessions
+ * This is to help with handling sessions to maintain cart and auth
+ */
+const sessions = require('../../scripts/session-helper.js');
 
 /**
  * @function sendMarketItemPage
@@ -30,14 +33,9 @@ const sendMarketItemPage = (req, res, next) => {
   // will be used to call api and use the system
   var itemNum = req.baseUrl.split("/")[2];
   // update user cookies first
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-      }
-
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
       // setup url for api call
       var options ={
         method: 'GET',

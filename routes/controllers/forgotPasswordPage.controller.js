@@ -3,13 +3,14 @@
  * @fileoverview forgotPasswordPage route's controller. Exports functions
  *    to be used by each route handler.
  * @exports {Object} Functions to attach to the `forgotPasswordPage` router.
- * @require cookie-helper
+ * @require session-helper
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
- const cookies = require('../../scripts/cookie-helper.js');
+ const sessions = require('../../scripts/session-helper.js');
+
 
 
 /**
@@ -22,36 +23,31 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendForgotPasswordPage = (req, res, next) => {
-  // update user cookie if they visit this page
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == null || res_cookie == "undefined") {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-      }
-      // if user is logged in redirect
-      var age = "";
-      if (req.cookies["CID"] == null || req.cookies["CID"] == "undefined") {
-        page = "forgot_password";
-      // check if the cookie is valid
-      } else {
-        if (req.cookies["CID"]["isAdmin"] == 1) {
-          page = "admin_dashboard";
-        } else {
-          page = "user_dashboard";
-        }
-      }
-
-      // user is not logged in
-      if (page == "forgot_password") {
-        res.render('forgot_password', {
-          title: 'Sprout Creek Farm Forgot Password',
-          page: 'login' });
-      } else {
-        res.redirect(page);
-
-      }
+  // check their session and update it
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          // user is logged in check if admin or normal user
+          if (isLoggedIn) {
+            sessions.handleSessionIsAdmin(sessionId)
+              .then(isAdmin => {
+                // user is an admin
+                if (isAdmin) {
+                  res.redirect("/admin_dashboard");
+                // user is not an admin
+                } else {
+                  res.redirect("/user_dashboard");
+                }
+              })
+          // user isnt logged in render forgot password page
+          } else {
+            res.render('forgot_password', {
+              title: 'Sprout Creek Farm Forgot Password',
+              page: 'login' });
+          }
+        })
     });
 };
 

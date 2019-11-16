@@ -3,13 +3,19 @@
  * @fileoverview API_updateAccount route's controller. Handle all business
  * logic relative to updating an account.
  * @exports {Object} Functions to attach to the `API_updateAccount` router.
- * @require cookie-helper
+ * @require session-helper
+ * @require request
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
-const cookies = require('../../scripts/cookie-helper.js');
+ const sessions = require('../../scripts/session-helper.js');
+
+ /* request
+  * required package for request data from DB
+  */
+ const request = require("request");
 
 /**
  * @function updateAccount
@@ -52,16 +58,19 @@ const updateAccount = (req, res, next) => {
         var statement = ""
         // current insert statement for database
         if (req.body["password"] == "") {
-          statement = ("UPDATE accounts SET FIRSTNAME='" + req.body["first_name"]
+          statement = ("UPDATE accounts SET FIRSTNAME='"
+              + req.body["first_name"]
               + "', LASTNAME='" + req.body["last_name"]
               + "', ADDRESS='" + req.body["address"]
               + "', CITY='" + req.body["city"]
               + "', ZIP='" + req.body["zip"]
               + "', PHONENUMBER='" + req.body["phone_number"]
               + "', UPDATEDDATE='CURRENT_TIMESTAMP'"
+              + "', STATE='" + req.body["state"] + "'"
               + "WHERE aid='" + req.body["aid"] + "'");
         } else {
-          statement = ("UPDATE accounts SET FIRSTNAME='" + req.body["first_name"]
+          statement = ("UPDATE accounts SET FIRSTNAME='"
+              + req.body["first_name"]
               + "', LASTNAME='" + req.body["last_name"]
               + "', ADDRESS='" + req.body["address"]
               + "', CITY='" + req.body["city"]
@@ -69,6 +78,7 @@ const updateAccount = (req, res, next) => {
               + "', PHONENUMBER='" + req.body["phone_number"]
               + "', PASSWORD='" + req.body["password"]
               + "', UPDATEDDATE='CURRENT_TIMESTAMP'"
+              + "', STATE='" + req.body["state"] + "'"
               + "WHERE aid='" + req.body["aid"] + "'");
         }
 
@@ -81,15 +91,52 @@ const updateAccount = (req, res, next) => {
             res.setHeader('Content-Type', 'plain/text');
             res.send("Account creation failed!");
           } else {
-            // statement was successful
-            data = {
-              "username": req.body["username"],
-              "password": req.body["password"],
-              "isAdmin": 0,
-              "email": req.body["email"]
-            }
+            // statement was successfulw3
             // update ibm customer
+            var statement2 = ("SELECT ibmid FROM ibm where aid=" + req.body["aid"]);
+            con.query(statement2, function(err2, result2) {
+              if (err2) {
+                console.log(err2);
+                res.status(400);
+                con.end();
+                res.send();
+                return;
+              } else if (result2.length > 0) {
+                // use ibm id to ref ibm account
+                var ibmId = result2[0]["ibm"];
 
+                // setup to update customer on ibm DB
+                var options = {
+                  method: 'PUT',
+                  url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Customer/' + ibmId,
+                  headers: {
+                    accept: 'application/json',
+                    'content-type': 'application/json',
+                    'x-ibm-client-secret': json[2]["ClientSecret"],
+                    'x-ibm-client-id': json[2]["ClientId"]
+                  },
+                  // the body so it matches our system
+                  body: {
+                    firstName: req.body["first_name"],
+                    lastName: req.body["last_name"],
+                    address1: req.body["address"],
+                    city: req.body["city"],
+                    state: req.body["state"],
+                    zip: req.body["zip"],
+                    phoneHome: req.body["phone_number"],
+                  },
+                  json: true
+                };mm
+
+
+              } else {
+                console.log("That aid doesn't exist");
+                res.status(400);
+                con.end();
+                res.sent();
+                return;
+              }
+            })
             }
           });
       }

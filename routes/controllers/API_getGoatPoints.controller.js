@@ -4,7 +4,9 @@
  * relative to API_getGoatPoints for the users.
  * @exports {Object} Functions to attach to the `API_getGoatPoints` router.
  * @require read-hidden
- * @require cookie-helper
+ * @require session-helper
+ * @require mysql
+ * @require request
  */
 
  /* hidden
@@ -12,10 +14,14 @@
   */
  var hidden = require('../../scripts/read-hidden.js');
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
- const cookies = require('../../scripts/cookie-helper.js');
+ const sessions = require('../../scripts/session-helper.js');
+
+ const mysql = require("mysql");
+ const request = require("request");
+
 
 
 /**
@@ -31,21 +37,14 @@ const getGoatPoints = (req, res, next) => {
   hidden.readHidden()
     .then(json => {
       // updates and validates the user's cookies
-      var cookie = {"CID" : req.body}
-      //console.log("HERE")
-      //console.log(cookie);
-      cookies.handleNormalPageCookie(cookie)
-        .then(res_cookie => {
-          if (res_cookie == "undefined" || res_cookie == null) {
-            res.clearCookie("CID");
+      var sessionId = req.body["sessionId"];
+      sessions.handleSessionGetSessionInfo(sessionId)
+        .then(aid => {
+          // didnt get aid from session
+          if (aid == null) {
             res.status(401);
             res.send();
           } else {
-            res.cookie("CID", res_cookie);
-            // required packages for db connection and api call
-            var mysql = require("mysql");
-            var request = require("request");
-
             // connect to the database
             var con = mysql.createConnection({
               host: json[0]["host"],
@@ -58,52 +57,25 @@ const getGoatPoints = (req, res, next) => {
                 console.log(err);
                 res.setHeader('Content-Type', 'plain/text');
                 res.status(400);
-                res.send();
+                res.redirect("/");
               }
             });
-            // get username from cookie
-            try {
-              var username = req.body["username"];
-            } catch (e) {
-              console.error(e);
-              con.end();
-              res.status(200);
-              res.send();
-            }
-            var statement = ("SELECT aid from accounts "
-                + "where username='" + username + "'");
+
+            var statement = ("SELECT goatPoints FROM rewards WHERE "
+                + "aid=" + aid)
             con.query(statement, function(err, result) {
               if (err) {
                 console.log(err);
                 res.status(400);
                 res.setHeader('Content-Type', 'plain/text');
                 con.end();
-                res.send("getting aid failed!");
+                res.send("getting goatPoints failed!");
               } else if (result.length > 0) {
-                var aid = result[0]["aid"];
-                var statement2 = ("SELECT goatpoints from rewards "
-                    + "where aid='" + aid + "'");
-                con.query(statement2, function(err, result2) {
-                  if (err) {
-                    console.log(err);
-                    res.status(400);
-                    res.setHeader('Content-Type', 'plain/text');
-                    con.end();
-                    res.send("getting points failed!");
-                  } else if (result2.length > 0) {
-                    res.status(200);
-                    res.setHeader('Content-Type', 'text/html');
-                    con.end();
-                    var data = JSON.parse(result2[0]["goatpoints"].toString());
-                    res.send(data.toString());
-                  } else {
-                    console.log("No user exists with goat points history");
-                    res.status(400);
-                    res.setHeader('Content-Type', 'plain/text');
-                    con.end();
-                    res.send("Error");
-                  }
-                });
+                var goatPoints = result[0];
+                res.status(200);
+                res.setHeader('Content-Type', 'application/json');
+                con.end();
+                res.send(goatPoints);
               } else {
                 console.log(err);
                 res.status(400);

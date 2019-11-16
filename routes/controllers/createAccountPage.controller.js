@@ -3,13 +3,14 @@
  * @fileoverview createAccountPage route's controller. Used for
  *    the createAccountPage
  * @exports {Object} Functions to attach to the `createAccountPage` router.
- * @require cookie-helper
+ * @require session-helper
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
-const cookies = require('../../scripts/cookie-helper.js');
+ const sessions = require('../../scripts/session-helper.js');
+
 
 
 /**
@@ -22,33 +23,31 @@ const cookies = require('../../scripts/cookie-helper.js');
  *    and does not return or render anything (no `res` methods called).
  */
 const sendCreateAccountPage = (req, res, next) => {
-  // updates and validates user cookie
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == null || res_cookie == "undefined") {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-      }
-      var page = "";
-      // if user isnt logged in
-      if (req.cookies["CID"] == null || req.cookies["CID"] == "undefined") {
-        page = "create_account";
-      // if user is logged in redirect them
-      } else {
-        if (req.cookies["CID"]["isAdmin"] == 1) {
-          page = "admin_dashboard";
-        } else {
-          page = "user_dashboard";
-        }
-      }
-      // handles to redirection
-      if (page == "create_account") {
-        res.render('create_account', { title: 'Sprout Creek Farm Create Account',
-                                       page: 'login' });
-      } else {
-        res.redirect(page);
-      }
+  // check their session and update it
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          // user is logged in check if admin or normal user
+          if (isLoggedIn) {
+            sessions.handleSessionIsAdmin(sessionId)
+              .then(isAdmin => {
+                // user is an admin
+                if (isAdmin) {
+                  res.redirect("/admin_dashboard");
+                // user is not an admin
+                } else {
+                  res.redirect("/user_dashboard");
+                }
+              })
+          // user isnt logged in render login page
+          } else {
+            res.render('create_account', {
+              title: 'Sprout Creek Farm Create Account',
+              page: 'login' });
+          }
+        })
     });
 };
 
