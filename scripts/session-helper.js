@@ -70,17 +70,40 @@ exports.handleSessionGetSessionInfo = function(sessionId) {
  */
 exports.handleSessionUpdateCart = function(sessionId, itemId, amount, isAdding) {
   return new Promise(function(resolve, reject) {
-    for(var i = 0; i <sessions["sessions"].length; i++) {
+    var sessionList = sessions["sessions"];
+    for (var i = 0; i < sessionList.length; i++) {
       // found the user's session and updated it
-      if (sessions["sessions"][i]["uuid"] == sessionId) {
+      if (sessionList[i]["uuid"] == sessionId) {
         if (isAdding) {
-          sessions["sessions"][i]["cart"].push(itemId {amount});
+          // adding more
+          if (sessionList[i]["cart"][str(itemId)] != null) {
+            sessionList[i]["cart"][str(itemId)] += amount;
+            resolve(true);
+            return;
+          // first time adding
+          } else {
+            sessionList[i]["cart"][str(itemId)] = amount;
+            resolve(true);
+            return;
+          }
         } else {
-
+          // removing
+          if (sessionList[i]["cart"][str(itemId)] != null) {
+            if (sessionList[i]["cart"][str(itemId)] > amount) {
+              sessionList[i]["cart"][str(itemId)] -= amount;
+              resolve(true);
+              return;
+            } else {
+              delete sessionList[i]["cart"][str(itemId)]
+              resolve(true);
+              return;
+            }
+        } else {
+          resolve(false);
+          return;
         }
-        resolve(true);
       // reached end of sessions
-      } else if (sessions["sessions"].length - 1 == i) {
+      } else if (sessionList.length - 1 == i) {
       resolve(false);
       }
     }
@@ -154,7 +177,7 @@ exports.handleSession = function(userCookie) {
           "currentTime": currentTime,
           "isAdmin": null,
           "aid": "",
-          "cart": []
+          "cart": {}
         }
         sessions["sessions"].push(sessionData);
         resolve(uuid);
