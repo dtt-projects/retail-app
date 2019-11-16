@@ -40,13 +40,13 @@ const forgotPassword = (req, res, next) => {
         con.connect(function(err) {
           if (err) {
             res.setHeader('Content-Type', 'plain/text');
-            res.send("email failed!");
+            res.redirect("/forgot_password");
             console.log(err);
           }
         });
 
         // statement to check if the email exists in the system
-        statement = ("select * from accounts where email = '" + email + "'");
+        statement = ("SELECT * FROM accounts WHERE email = '" + email + "'");
         con.query(statement, function(err, result) {
           if (err) {
             console.log("err");
@@ -106,13 +106,13 @@ const forgotPassword = (req, res, next) => {
                   // send success to client
                   res.setHeader('Content-Type', 'plain/text');
                   res.status(200);
-                  res.send("email sent!");
+                  res.redirect("/login");
               }
             });
           } else {
             res.setHeader('Content-Type', 'plain/text');
             res.status(400);
-            res.send("email failed!");
+            res.redirect("/forgot_password");
           }
         }
       });

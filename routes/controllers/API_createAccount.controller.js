@@ -234,7 +234,7 @@ const createAccount = (req, res, next) => {
                               //console.log(result4);
                               con.end();
                               res.status(200);
-                              res.send();
+                              res.redirect("/login");
                             }
                           })
                         }
