@@ -60,7 +60,14 @@ exports.handleSessionGetSessionInfo = function(sessionId) {
   })
 }
 
-/* This will be used for the cart
+/**
+ * @function handleSessionUpdateCart
+ * @description This will add/remove items to/from the session's cart
+ * @param sessionId the session that will have the items added
+ * @param itemId the corresponding item id from the ibm db
+ * @param amount the amount of that item being added
+ * @param isAdding if the item is being added or removed from the cart
+ */
 exports.handleSessionUpdateCart = function(sessionId, itemId, amount, isAdding) {
   return new Promise(function(resolve, reject) {
     for(var i = 0; i <sessions["sessions"].length; i++) {
@@ -79,7 +86,7 @@ exports.handleSessionUpdateCart = function(sessionId, itemId, amount, isAdding) 
     }
   })
 }
-*/
+
 
 /**
  * @function handleSessionIsAdmin
