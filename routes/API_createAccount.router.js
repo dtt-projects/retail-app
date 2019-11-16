@@ -28,7 +28,7 @@ const API_createAccountRouter = express.Router();
 const API_createAccountController = require('./controllers/API_createAccount.controller');
 
 
-// To send the information to the controller as a post for account creation
+// To send the information to the controller as a post
 API_createAccountRouter.post('/', API_createAccountController.createAccount);
 
 module.exports = API_createAccountRouter;

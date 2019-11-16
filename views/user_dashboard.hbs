@@ -1,14 +1,27 @@
+<script>// Install request by running "npm install --save request"
+var request = require("request");
+
+var options = { method: 'GET',
+  url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Credit',
+  qs:
+   { CustomerId: '1',
+     Prefered: 'false' },
+  headers:
+   { accept: 'application/json',
+     'x-ibm-client-secret': 'K3pY3nI3vH1cX4eD6cC8tN4fO4iB0yO6rV3xX2nW8bL4sW1iL0',
+     'x-ibm-client-id': '767b3ca1-dc8a-41f5-b640-ddebba44eb26' } };
+
+request(options, function (error, response, body) {
+  if (error) return console.error('Failed: %s', error.message);
+
+  console.log('Success: ', body);
+  res.send(body);
+});
+</script>
+
 <h2> USER ACCOUNT DASHBOARD PAGE!!!! </h2>
 <h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
 
-
-<ul>
-  <li> <a href="/user_dashboard"> Main </a> </li>
-  <li> <a href="/user_dashboard/view_orders"> View Orders </a> </li>
-  <li> <a href="/user_dashboard/edit_information"> Edit Information </a> </li>
-</ul>
-<h1> Your goat points </h1>
-<h1> {{goatPoints}} </h1>
 <input type=button value="logout" onClick="eraseCookie()"/>
 
 <script> function eraseCookie() {

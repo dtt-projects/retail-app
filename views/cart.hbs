@@ -1,2 +1,100 @@
-<h2> CART PAGE!!!! </h2>
-<h2> DO EMOJIS WORK??? 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
+<!--File: cart.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 11/09/2019-->
+<!--Description: This is the body of the cart page-->
+
+<!--Our main holds the shopping cart information-->
+<main class="page shopping-cart-page">
+      <section class="clean-block clean-cart dark" style="margin-top: 100px;margin-bottom: 125px;">
+          <div class="container border rounded-0" style="background-color: #ffffff;">
+              <!--This div holds the text in the upper left that says ready to checkout-->
+              <div class="block-heading" style="margin-bottom: 0px;padding-top: 15px;color: rgb(133,135,150);">
+                  <h2 class="text-left" style="padding-top: 0px;font-size: 38px;">Shopping Cart</h2>
+                  <p style="font-size: 18px;">Ready To Checkout?<br>Review What's In Your Cart And Continue To Checkout!</p>
+              </div>
+              <!--This div the information that is in the user's cart-->
+              <div class="content">
+                  <div class="row no-gutters" style="padding-top: 16px;padding-bottom: 20px;">
+                      <div class="col-md-12 col-lg-8">
+                          <!--This div holds the items that you see along the left side of of the system-->
+                          <div class="items">
+                            <!--This is the bogart part of the page-->
+                              <div class="product">
+                                  <div class="row justify-content-center align-items-center" style="margin-bottom: 15px;">
+                                      <!--Use the correct images for bogart-->
+                                      <div class="col-md-3">
+                                          <div class="product-image"><img class="img-fluid d-block mx-auto image" src="images/batch35.jpg?h=3228dc9d8a5e17d2246c29dfb556fb50"></div>
+                                      </div>
+                                      <!--This is the text next to it that say the name, category, and price-->
+                                      <div class="col-md-5 col-xl-3 product-info"><a class="product-name" href="#">Bogart</a>
+                                          <div class="product-specs">
+                                              <div><span>Category:&nbsp;</span><span class="value">Cheese</span></div>
+                                              <div><span>Price Per Unit:&nbsp;</span><span class="value">$12.00</span></div>
+                                              <div></div>
+                                          </div>
+                                      </div>
+                                      <!--These divs hold the quantity, item price, and the remove button-->
+                                      <div class="col-6 col-md-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input type="number" id="number" class="form-control quantity-input" value="1"></div>
+                                      <div class="col-6 col-md-2 col-xl-2 price" style="margin-top: 5px;"><span style="margin-top: 5px;">$12.00</span></div>
+                                      <div class="col-xl-2"><button class="btn btn-primary" type="button" style="background-color: rgb(105,108,119);padding-top: 6px;margin-top: 5px;">Remove</button></div>
+                                  </div>
+                              </div>
+                              <!--This is the batch 35 part of the page-->
+                              <div class="product">
+                                  <div class="row justify-content-center align-items-center" style="margin-bottom: 15px;">
+                                      <!--Use the proper images for batch 35-->
+                                      <div class="col-md-3">
+                                          <div class="product-image"><img class="img-fluid d-block mx-auto image" src="images/bogart.jpg?h=e60673f3dcbecae44bc43ea5761f59d0"></div>
+                                      </div>
+                                      <!--This is the text that is next to it that say the name, category, and price-->
+                                      <div class="col-md-5 col-xl-3 product-info"><a class="product-name" href="#">Batch 35</a>
+                                          <div class="product-specs">
+                                              <div><span>Category:&nbsp;</span><span class="value">Cheese</span></div>
+                                              <div><span>Price Per Unit:&nbsp;</span><span class="value">$9.00</span></div>
+                                              <div></div>
+                                          </div>
+                                      </div>
+                                      <!--These divs will hold the quantity, item price, and the remove button-->
+                                      <div class="col-6 col-md-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input type="number" id="number" class="form-control quantity-input" value="1"></div>
+                                      <div class="col-6 col-md-2 col-xl-2 price" style="margin-top: 5px;"><span>$9.00</span></div>
+                                      <div class="col-xl-2"><button class="btn btn-primary" type="button" style="background-color: rgb(105,108,119);padding-top: 6px;margin-top: 5px;">Remove</button></div>
+                                  </div>
+                              </div>
+                              <!--This is the cupcake part of the page-->
+                              <div class="product">
+                                  <div class="row justify-content-center align-items-center" style="margin-bottom: 15px;">
+                                      <!--Use the proper images for cupcake-->
+                                      <div class="col-md-3">
+                                          <div class="product-image"><img class="img-fluid d-block mx-auto image" src="images/Ultimate-Vanilla-Cupcakes-01.jpg?h=a85b89dc674aeb8cc149921cd89dcba8"></div>
+                                      </div>
+                                      <!--This is the text that is next to it that say the name, category, and price-->
+                                      <div class="col-md-5 col-xl-3 product-info"><a class="product-name" href="#">Cupcake</a>
+                                          <div class="product-specs">
+                                              <div><span>Category:&nbsp;</span><span class="value">Dessert</span></div>
+                                              <div><span>Price Per Unit:&nbsp;</span><span class="value">$4.00</span></div>
+                                          </div>
+                                      </div>
+                                      <!--These divs will hold the quantity, item price, and the remove button-->
+                                      <div class="col-6 col-md-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input type="number" id="number" class="form-control quantity-input" value="1"></div>
+                                      <div class="col-6 col-md-2 col-xl-2 price" style="margin-top: 5px;"><span>$4.00</span></div>
+                                      <div class="col-xl-2"><button class="btn btn-primary" type="button" style="background-color: rgb(105,108,119);padding-top: 6px;margin-top: 5px;">Remove</button></div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!--This is the section to the right that has the summary of your order-->
+                      <div class="col-md-12 col-lg-4 text-center" style="background-color: #fbf9f9;">
+                          <div class="summary">
+                              <h2 style="padding-bottom: 15px;background-color: rgb(251,249,249);color: rgb(133,135,150);padding-top: 15px;font-size: 25px;"><strong>Summary</strong></h2>
+                              <h4 class="text-center" style="padding-bottom: 5px;padding-top: 5px;"><span class="text" style="font-size: 22px;">Subtotal: &nbsp;</span><span class="price" style="font-size: 22px;">$25.00</span></h4>
+                              <h4 style="padding-bottom: 17px;padding-top: 5px;"><span class="text" style="font-size: 22px;">Shipping: &nbsp;</span><span class="price" style="font-size: 22px;">$5.99</span></h4>
+                              <h4 style="padding-bottom: 10px;padding-top: 26px;margin-bottom: 45px;"><span class="text" style="font-size: 25px;"><strong>Total: &nbsp;</strong></span><span class="price" style="font-size: 25px;"><strong>$30.99</strong></span></h4><button class="btn btn-primary btn-block btn-lg" type="button"
+                                  style="background-color: rgb(79,121,96);">Checkout</button></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </main>
+  <br/>
+</body>

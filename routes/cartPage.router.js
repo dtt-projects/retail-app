@@ -1,10 +1,9 @@
 /**
- * @module routes/cartPage
+ * @module routes/root
  * @fileoverview Root router for `/` based paths.
  * @requires Express
- * @requires routes/controllers/cartPage
- * @exports {Express#Router} An Express router instance for the
- *    cartPage server path.
+ * @requires routes/controllers/root
+ * @exports {Express#Router} An Express router instance for the root server path.
  */
 
 /**
@@ -15,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description cartPageRouter Express router to mount the related functions on.
+ * @description cartPageRouter Express router to mount user related functions on.
  * @type {Object}
  * @constant
  */
@@ -33,9 +32,9 @@ const cartPageController = require('./controllers/cartPage.controller');
 /**
  * Route serving cartPageRouter page.
  * @name get /
- * @description Register the cartPageRouter `sendCartPage` function on the
- *    cartPageRouter.
- *    Send the cartPage rendered by HBS from `cartPageController#sendCartPage`.
+ * @description Register the cartPageRouter `cartPageController` function on the
+ *    loginRouter.
+ *    Send the loginPage rendered by HBS from `loginController#sendLoginpage`.
  */
 cartPageRouter.get('/', cartPageController.sendCartPage);
 

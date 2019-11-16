@@ -1,10 +1,9 @@
 /**
- * @module routes/marketPage
+ * @module routes/root
  * @fileoverview Root router for `/` based paths.
  * @requires Express
- * @requires routes/controllers/marketPage
- * @exports {Express#Router} An Express router instance for the
- *    marketPage server path.
+ * @requires routes/controllers/root
+ * @exports {Express#Router} An Express router instance for the root server path.
  */
 
 /**
@@ -33,10 +32,9 @@ const marketPageController = require('./controllers/marketPage.controller');
 /**
  * Route serving marketPageRouter page.
  * @name get /
- * @description Register the marketPageRouter Controller's `sendmarketPagePage`
- *    function on the marketPageRouter.
- *    Send the marketPageRouter rendered by HBS from
- *    `marketPageRouterr#sendMarketPage`.
+ * @description Register the marketPageRouter Controller's `sendmarketPageRouterPage` function on the
+ *    marketPageRouter.
+ *    Send the marketPageRouter rendered by HBS from `marketPageRouterController#sendmarketPageRouterControllerpage`.
  */
 marketPageRouter.get('/', marketPageController.sendMarketPage);
 

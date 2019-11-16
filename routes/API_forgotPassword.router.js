@@ -21,8 +21,7 @@ const express = require('express');
 const API_forgotPasswordRouter = express.Router();
 
 /**
- * @description API_forgotPasswordController for the
- *    API_forgotPasswordController route
+ * @description API_forgotPasswordController for the forgotPassword function
  * @type {Object}
  * @constant
  */

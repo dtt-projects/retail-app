@@ -1,16 +1,3 @@
-/**
- * @module public/javascripts/login.js
- * @fileoverview Front-end code in case interactivity or any JavaScript-related
- *    functionalities are required.
- * @exports {null} No front-end code exported to back-end.
- */
-
- /**
-  * @function login
-  * @description Takes in a cookie and compares it to database values to
-  *    determine if it is valid or not.
-  * @param None
-  */
 function login() {
 
   // get username and password and make sure its filled in
@@ -29,7 +16,7 @@ function login() {
 
   // make the api call
   fetch("/api/login",
-    {method: "POST",
+    {method: "post",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
@@ -38,14 +25,13 @@ function login() {
     })
     .then(function(response) {
       if (response.status !== 200) {
-        alert("Login failed. Try again.");
+        console.log("Problem with ajax call! " + response.status
+            + " msg: " + response.value);
         return
-      } else {
-        // send to a webpage
-        response.text().then(function(data) {
-          window.location.href = window.location.origin + data;
-        });
-        return;
       }
+      // send to a webpage
+      response.text().then(function(data) {
+        window.location.href = window.location.origin + data;
+      });
     });
 }

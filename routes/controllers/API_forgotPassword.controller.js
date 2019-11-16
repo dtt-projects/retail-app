@@ -15,14 +15,15 @@
  * executing and does not return or render anything (no `res` methods called).
  */
 const forgotPassword = (req, res, next) => {
+  // Capture user-submitted form from client.
+
   // Get the secret creds from the file
   const fs = require("fs");
   fs.readFile('.hiddenCreds', (err, data) => {
       if (err) {
-        console.log(err);
         res.setHeader('Content-Type', 'plain/text');
-        res.status(400);
         res.send("forgot password failed!");
+        console.log(err);
       } else {
         json = JSON.parse(data.toString());
         var email = req.body["email"];
@@ -46,33 +47,31 @@ const forgotPassword = (req, res, next) => {
         });
 
         // statement to check if the email exists in the system
-        statement = ("select * from accounts where email = '" + email + "'");
+        statement = ("select * from account where email = '" + email + "'");
         con.query(statement, function(err, result) {
           if (err) {
-            console.log("err");
             res.setHeader('Content-Type', 'plain/text');
-            res.status(400);
             res.send("email failed!");
+            console.log("err");
           } else {
             if (result.length > 0) {
-
-              // required for building email and new password
               var nodemailer = require('nodemailer');
+
               var crypto = require('crypto');
 
               // make new temp password
               // from bytes and convert to string
               var newpw = crypto.randomBytes(50);
+              //console.log("newpw: " + newpw);
               newpw = newpw.toString('hex');
-              statement = ("UPDATE accounts SET "
-                  + "UPDATEDDATE='CURRENT_TIMESTAMP', "
-                  + "password ='" + newpw.toString()
-                  + "' WHERE email ='" + email + "'");
+              //console.log("newpw2: " + newpw);
+              // update the database with the new password
+              statement = ("update account set password ='"
+                  + newpw.toString() + "' where email ='" + email + "'");
 
               con.query(statement, function(err, result) {
                 if (err) {
                   res.setHeader('Content-Type', 'plain/text');
-                  res.status(400);
                   res.send("email failed!");
                   console.log(err);
                 } else {
@@ -105,13 +104,11 @@ const forgotPassword = (req, res, next) => {
                   });
                   // send success to client
                   res.setHeader('Content-Type', 'plain/text');
-                  res.status(200);
                   res.send("email sent!");
               }
             });
           } else {
             res.setHeader('Content-Type', 'plain/text');
-            res.status(400);
             res.send("email failed!");
           }
         }

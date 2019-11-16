@@ -21,7 +21,7 @@ const express = require('express');
 const API_loginRouter = express.Router();
 
 /**
- * @description API_loginController to handle the login data and validate
+ * @description API_loginController to handle to login data and validate
  * @type {Object}
  * @constant
  */
