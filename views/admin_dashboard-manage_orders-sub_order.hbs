@@ -1,0 +1,49 @@
+<input type=button value="logout" onClick="eraseCookie()"/>
+<h2> ADMIN ACCOUNT ORDERS PAGE!!!! </h2>
+<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
+<h2> {{email}} </h2>
+
+<ul>
+  <li> <a href="/admin_dashboard"> Main </a> </li>
+  <li> <a href="/admin_dashboard/manage_inventory"> Manage Inventory </a> </li>
+  <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
+  <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
+</ul>
+<table>
+  <tr>
+    <td> orderNum </td>
+    <td> itemId </td>
+    <td> creditId </td>
+    <td> trackingNum </td>
+    <td> quantity </td>
+    <td> shipperId </td>
+    <td> merchantId </td>
+    <td> customerNum </td>
+    <td> orderDate </td>
+    <td> orderTime </td>
+    <td> orderTotal </td>
+    <td> trackingId </td>
+  </tr>
+  {{#each orders}}
+    <tr>
+      <td> {{ordernum}} </td>
+      <td> {{itemid}} </td>
+      <td> {{creditid}} </td>
+      <td> {{trackingnum}} </td>
+      <td> {{quantity}} </td>
+      <td> {{shipperid}} </td>
+      <td> {{merchantid}} </td>
+      <td> {{customernum}} </td>
+      <td> {{orderdate}} </td>
+      <td> {{ordertime}} </td>
+      <td> {{ordertotal}} </td>
+      <td> {{trackingid}} </td>
+    </tr>
+  {{/each}}
+</table>
+<script> function eraseCookie() {
+  document.cookie = "CID=";
+  window.location.href = "/login";
+}
+
+</script>

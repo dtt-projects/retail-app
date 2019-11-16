@@ -1,0 +1,110 @@
+<input type=button value="logout" onClick="eraseCookie()"/>
+<h2> ADMIN ACCOUNT Create ACCOUNTS PAGE!!!! </h2>
+<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
+<h2> {{email}} </h2>
+<script src="../../javascripts/createAccount.js" async></script>
+
+<ul>
+  <li> <a href="/admin_dashboard"> Main </a> </li>
+  <li> <a href="/admin_dashboard/manage_inventory"> Manage Inventory </a> </li>
+  <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
+  <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
+</ul>
+<form>
+  <table>
+    <tr>
+      <td>
+        First Name
+      </td>
+      <td>
+        <input id="first_name" type="textbox"> </input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Last Name
+      </td>
+      <td>
+        <input id="last_name" type="textbox"> </input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Address
+      </td>
+      <td>
+        <input id="address" type="textbox"> </input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        City
+      </td>
+      <td>
+        <input id="city" type="textbox"> </input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        ZIP
+      </td>
+      <td>
+        <input id="zip" type="textbox"> </input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Email
+      </td>
+      <td>
+        <input id="email" type="textbox"> </input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Phone Number
+      </td>
+      <td>
+        <input id="phone_number" type="textbox"> </input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Username
+      </td>
+      <td>
+        <input id="username" type="textbox"> </input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Password
+      </td>
+      <td>
+        <input id="password" type="password"> </input>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Type
+      </td>
+      <td>
+        <select id="isAdmin">
+          <option value="True"> Admin </option>
+          <option value="False"> User </option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="button" value="Submit" onclick="createAccount()"/>
+      </td>
+    </tr>
+</form>
+
+<script> function eraseCookie() {
+  document.cookie = "CID=";
+  window.location.href = "/login";
+}
+
+</script>

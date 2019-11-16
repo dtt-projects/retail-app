@@ -281,7 +281,7 @@ console.log('Port successfully set to ', port);
 server = http.createServer(app);
 
 console.log('Server instance created.');
-
+exports.sessions = [];
 
 /**
  * Listen on provided port, on all network interfaces.

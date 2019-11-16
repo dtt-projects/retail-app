@@ -1,44 +1,39 @@
-<!--File: login.hbs-->
-<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
-<!--Date: 11/09/2019-->
-<!--Description: This is the login page
--->
-<body style="background-color: #fffdfa;">
-  <!--This is where the body of the page is located for the login-->
-  <div class="container" style="height: 663px;padding: -1px;width: 100%;">
-      <div class="card shadow-lg o-hidden border-0 my-5" style="height: 524px;">
-          <div class="card-body p-0">
-              <div class="row">
-                  <!--The image is used here-->
-                  <div class="col-lg-6 d-none d-lg-flex">
-                      <div class="flex-grow-1 bg-login-image" style="background-image: url(&quot;images/Screen%20Shot%202019-10-17%20at%2012.45.40%20PM.png?h=ad61056d996fd9c621711ba11e9c57b4&quot;);height: 525px;background-position: center;background-repeat: no-repeat;background-size: cover;"></div>
-                  </div>
-                  <div class="col-lg-6">
-                      <div class="p-5" style="margin-top: 20px;">
-                          <div class="text-center">
-                              <!--This is where the welcome back statement is on the right side-->
-                              <h4 class="text-dark mb-4" style="font-size: 39px;margin-bottom: 4px;">Welcome Back!</h4>
-                          </div>
+<link rel='stylesheet' href='/stylesheets/login.css' />
+<script src="javascripts/login.js" async></script>
 
-                          <!--This form is where the user will input the credentials to log in-->
-                          <form class="user" style="margin-top: 0px;">
-                              <div class="form-group"><input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email" style="font-size: 18px;"></div>
-                              <div class="form-group"><input class="form-control form-control-user" type="password" id="exampleInputPassword" placeholder="Password" name="password" style="font-size: 18px;"></div>
-                              <div class="form-group">
-                                  <div class="custom-control custom-checkbox small">
-                                      <div class="form-check"><input class="form-check-input custom-control-input" type="checkbox" id="formCheck-1"><label class="form-check-label custom-control-label" for="formCheck-1" style="font-size: 14px;">Remember Me</label></div>
-                                  </div>
-                              </div><button class="btn btn-primary btn-block text-white btn-user" type="submit" style="font-size: 18px;background-color: rgb(79,121,96);">Login</button>
-                              <hr>
-                              <hr>
-                          </form>
-                          <!--On the bottom of the page are two links for forgot password and to create an account if you need them-->
-                          <div class="text-center"><a class="small" href="forgot_password" style="font-size: 16px;">Forgot Password?</a></div>
-                          <div class="text-center"><a class="small" href="create_account" style="font-size: 16px;">Create an Account!</a></div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</body>
+<div class="login-div">
+  <h2 class="center-text"> Login </h2>
+  <form>
+    <table class="center-table">
+      <tr>
+        <td colspan="2">
+          <a href="/create_account">Create An Account</a>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <a href="/forgot_password">Forgot Password?</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Username
+        </td>
+        <td>
+          <input id="username" type="textbox"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Password
+        </td>
+        <td>
+          <input id="password" type="password"/>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="button" value="Login" onClick="login()"/>
+    </table>
+  </form>
+</div>

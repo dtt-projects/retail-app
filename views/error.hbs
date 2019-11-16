@@ -1,13 +1,3 @@
-<!--Our error page is contained in one div that has the picture, the message, and the button to go home-->
-<div class="container text-center" style="margin-top: 70px;margin-bottom: 70px;width: 50%;height: 800px;">
-        <div class="card-group">
-            <!--This is the part that alerts the user that there is no page and that an error has occured-->
-            <div class="card">
-                <h4 style="font-size: 42px;margin-top: 30px;margin-bottom: 15px;color: rgb(133,135,150);"><strong>404: Page Not Found</strong></h4><img class="card-img w-100 d-block" src="images/June%20%20Bug.jpg?h=67baae218b948484ab3f1c07181faa2d">
-                <div class="card-body">
-                    <!--This is the error message we display to the user-->
-                    <p class="card-text" style="font-size: 24px;">Opps.. Looks Like You Have Wandered Off The Farm<br>You May Have Not Found The Page, But You Found June Bug The Goat!<br><br>Click On The "Go Home" Button To Take You Back</p><a class="btn btn-primary" role="button" style="background-color: rgb(79,121,96);height: 50px;width: 200px;font-size: 20px;"
-                        href="/">Go Home</a></div>
-            </div>
-        </div>
-</div>
+<h1>{{message}}</h1>
+<h2>{{error.status}}</h2>
+<pre>{{error.stack}}</pre>
