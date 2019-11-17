@@ -17,7 +17,7 @@
 const forgotPassword = (req, res, next) => {
   // Get the secret creds from the file
   const fs = require("fs");
-  fs.readFile('.hiddenCreds', (err, data) => {
+  fs.readFile('hiddenCreds', (err, data) => {
       if (err) {
         console.log(err);
         res.setHeader('Content-Type', 'plain/text');

@@ -1,1 +1,88 @@
-<h2> CHECK OUT!!!! </h2>
+<!--This is the body of the check out page-->
+<header></header><a href="/cart" style="font-size: 20px;margin-left: 40px;margin-top: 0px;">Back To Cart</a>
+  <!--This main is content of the page-->
+  <main class="page payment-page">
+      <section class="clean-block payment-form dark">
+          <!--This div holds entire text and input fields-->
+          <div class="container border-light shadow-sm" style="margin-top: 50px;padding-top: 20px;padding-bottom: 20px;">
+              <!--This is the top portion that is the checkout -->
+              <div class="text-center block-heading" style="margin-top: 0px;">
+                  <h3 style="color: rgb(125,130,133);font-size: 30px;">Checkout</h3>
+                  <p style="margin-bottom: 30px;">You Have Made A Great Selection!<br>Please Enter The Following Information To Complete Your Order</p>
+              </div>
+              <!--This is the cart content form that lists price-->
+              <form>
+                  <div class="products" style="margin-top: 0px;background-color: rgb(255,248,237);">
+                      <h3 class="text-center title" style="margin-top: 0px;padding-bottom: 10px;padding-top: 10px;">Cart Content</h3>
+                      <!--This is price section-->
+                      <div class="text-center item"><span class="price">$200</span>
+                          <p class="item-name">Product 1</p>
+                          <p class="item-description">Lorem ipsum dolor sit amet</p>
+                      </div>
+                      <!--This is the price of the next items-->
+                      <div class="text-center item"><span class="price">$120</span>
+                          <p class="item-name">Product 2</p>
+                          <p class="item-description">Lorem ipsum dolor sit amet</p>
+                      </div>
+                      <div class="text-center total" style="padding-bottom: 10px;"><span>Total</span><span class="price">$320</span></div>
+                  </div>
+                  <!--This is the credit card credentials area of the page-->
+                  <div class="card-details" style="margin-top: 30px;">
+                      <h3 class="title">Credit Card Details</h3>
+                      <div class="form-row">
+                          <!--This is the card holder -->
+                          <div class="col-sm-7">
+                              <div class="form-group"><label for="card-holder">Card Holder</label><input class="form-control" type="text" placeholder="Card Holder"></div>
+                          </div>
+                          <!--This is the expiration date-->
+                          <div class="col-sm-5">
+                              <div class="form-group"><label>Expiration date</label>
+                                  <div class="input-group expiration-date"><input class="form-control" type="text" placeholder="MM"><input class="form-control" type="text" placeholder="YY"></div>
+                              </div>
+                          </div>
+                          <!--This is the card number box-->
+                          <div class="col-sm-8">
+                              <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" type="text" id="card-number" placeholder="Card Number"></div>
+                          </div>
+                          <!--This is the cvc field-->
+                          <div class="col-sm-4">
+                              <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text" id="cvc" placeholder="CVC"></div>
+                          </div>
+                          <!--This is the submit button part-->
+                          <div class="col-sm-12">
+                              <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: rgb(79,121,96);">Proceed</button></div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--This is the shipping details area of the page-->
+                  <div class="card-details" style="margin-top: 30px;">
+                      <h3 class="title">Shipping Details</h3>
+                      <div class="form-row">
+                          <!--This is where the card holder name goes-->
+                          <div class="col-sm-7">
+                              <div class="form-group"><label for="card-holder">Card Holder</label><input class="form-control" type="text" placeholder="Card Holder"></div>
+                          </div>
+                          <!--This is the expiration date field-->
+                          <div class="col-sm-5">
+                              <div class="form-group"><label>Expiration date</label>
+                                  <div class="input-group expiration-date"><input class="form-control" type="text" placeholder="MM"><input class="form-control" type="text" placeholder="YY"></div>
+                              </div>
+                          </div>
+                          <div class="col-sm-8">
+                              <!--This is the card number field-->
+                              <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" type="text" id="card-number" placeholder="Card Number"></div>
+                          </div>
+                          <div class="col-sm-4">
+                              <!--This is the cvc field-->
+                              <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text" id="cvc" placeholder="CVC"></div>
+                          </div>
+                          <div class="col-sm-12">
+                              <!--This is the submit button-->
+                              <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: rgb(79,121,96);">Proceed</button></div>
+                          </div>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </section>
+  </main>
