@@ -3,13 +3,13 @@
  * @fileoverview cartPage route's controller. Exports functions to be used by
  *    each route handler.
  * @exports {Object} Functions to attach to the `cartPage` router.
- * @require cookie-helper
+ * @require session-helper
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
- const cookies = require('../../scripts/cookie-helper.js');
+ const sessions = require('../../scripts/session-helper.js');
 
 
 /**
@@ -22,16 +22,14 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendCartPage = (req, res, next) => {
-  // updates and validates the user's cookies
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-      }
-      res.render('cart', { title: 'Sprout Creek Farm Cart',
-                           page: 'cart' });
+
+  // updates and validates user's cookies
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      res.render('cart', {
+        title: 'Sprout Creek Farm Cart',
+        page: 'cart' });
   });
 };
 

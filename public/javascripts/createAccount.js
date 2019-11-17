@@ -10,6 +10,7 @@ function createAccount() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
   var isAdmin = "";
+  var state = document.getElementById("state").value;
   try {
     isAdmin = document.getElementById("isAdmin").value;
   } catch (e) {
@@ -55,7 +56,8 @@ function createAccount() {
     "phone_number": phone_number,
     "username": username,
     "password": password,
-    "isAdmin": isAdmin
+    "isAdmin": isAdmin,
+    "state": state
   });
 
   // send to the create account api

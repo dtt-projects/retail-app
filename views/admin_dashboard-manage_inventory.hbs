@@ -15,44 +15,6 @@
   <li> <a href="/admin_dashboard/manage_inventory/create_inventory"> Create INVENTORY </a> </li>
 </ul>
 
-<h1> Create/Update item </h1>
-  <table>
-    <tr>
-      <td>Item Id</td>
-      <td> <input type="textbox" id="itemId"></td>
-    </tr>
-    <tr>
-      <td>Merchant Id</td>
-      <td> <input type="textbox" id="merchantId"></td>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td> <input type="textbox" id="name"></td>
-    </tr>
-    <tr>
-      <td>Category</td>
-      <td> <input type="textbox" id="cat"></td>
-    </tr>
-    <tr>
-      <td>Description</td>
-      <td> <input type="textbox" id="desc"></td>
-    </tr>
-    <tr>
-      <td>Image Link</td>
-      <td> <input type="textbox" id="imageLink"></td>
-    </tr>
-    <tr>
-      <td>Price</td>
-      <td> <input type="textbox" id="price"></td>
-    </tr>
-    <tr>
-      <td>Quantity</td>
-      <td> <input type="textbox" id="quantity"></td>
-    </tr>
-    <tr>
-      <td colspan="2"> <input type="button" value="submit" onclick="addItem();">
-    </tr>
-  </table>
 <h1> Items </h1>
   <table>
     <tr>
@@ -81,8 +43,25 @@
 <h1> END ITEMS </h1>
 
 <script> function eraseCookie() {
-  document.cookie = "CID=";
-  window.location.href = "/login";
+  // make the api call
+  fetch("/api/logout",
+    {method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+    .then(function(response) {
+      if (response.status !== 200) {
+        alert("Logout failed. Try again.");
+        location.reload(true);
+        return
+      } else {
+        // send to a webpage
+        location.reload(true);
+        return;
+      }
+    });
 }
 
 </script>

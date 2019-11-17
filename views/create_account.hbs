@@ -1,86 +1,53 @@
-<h2> USER ACCOUNT DASHBOARD PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-<script src="javascripts/createAccount.js" async></script>
+<!--File: create_account.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 11/09/2019-->
+<!--Description: This is the body of the create acocunt page-->
+
+<body style="background-color: #fffdfa;">
+<div class="container" style="height: 675px;padding: -1px;width: 100%;">
+    <div class="card shadow-lg o-hidden border-0 my-5" style="height: 524px;">
+        <div class="card-body p-0" style="height: 602px;">
+            <div class="row" style="height: 596px;">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <!--This is the image we see next to create account form box-->
+                    <div class="flex-grow-1 bg-register-image" style="background-image: url(&quot;images/IMG_3123_0.JPG?h=0d30782d6f67ca96ae30d666dd15cb1f&quot;);"></div>
+                </div>
+                <!-- This div contains the text boxes for the create account page here-->
+                <div class="col-lg-7" style="height: 650px;">
+                    <div class="p-5" style="height: 650px;min-height: 0px;">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4" style="height: 56px;font-size: 33px;margin-bottom: 9px;">Create an Account!</h4>
+                        </div>
+                        <!-- This is where the form begins-->
+                        <form class="user" style="height: 343px;">
+                            <div class="form-group row">
+                                <!-- This is the first name field-->
+                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="First Name" name="first_name" style="font-size: 18px;"></div>
+                                <!-- This is the last name field-->
+                                <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Last Name" name="last_name" style="font-size: 18px;"></div>
+                            </div>
+                            <!-- This is the user name field-->
+                            <div class="form-group"><input class="form-control form-control-user" type="text" id="username"  placeholder="Username" name="username" style="font-size: 18px;"></div>
+                            <!-- This is the email address field-->
+                            <div class="form-group"><input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email Address" name="email" style="font-size: 18px;"></div>
+                            <!-- This is password fields-->
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="examplePasswordInput" placeholder="Password" name="password" style="font-size: 18px;"></div>
+                                <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="exampleRepeatPasswordInput" placeholder="Repeat Password" name="password_repeat" style="font-size: 18px;"></div>
+                            </div><button class="btn btn-primary btn-block text-white btn-user" type="submit" style="font-size: 18px;background-color: rgb(79,121,96);">Register Account</button>
+                            <hr>
+                            <hr>
+                        </form>
+                        <!-- This is the forgot password link for the user -->
+                        <div class="text-center" style="margin-top: 14px;"><a class="small" href="/forgot_password" style="font-size: 16px;margin-top: 7px;">Forgot Password?</a></div>
+                        <!-- This is the login button for the user -->
+                        <div class="text-center"><a class="small" href="/login" style="font-size: 16px;height: auto;margin: 0px;padding: 0px;">Already have an account? Login!</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-
-<form>
-  <table>
-    <tr>
-      <td>
-        First Name
-      </td>
-      <td>
-        <input id="first_name" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Last Name
-      </td>
-      <td>
-        <input id="last_name" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Address
-      </td>
-      <td>
-        <input id="address" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        City
-      </td>
-      <td>
-        <input id="city" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        ZIP
-      </td>
-      <td>
-        <input id="zip" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Email
-      </td>
-      <td>
-        <input id="email" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Phone Number
-      </td>
-      <td>
-        <input id="phone_number" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Username
-      </td>
-      <td>
-        <input id="username" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Password
-      </td>
-      <td>
-        <input id="password" type="password"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="button" value="Submit" onclick="createAccount()"/>
-      </td>
-    </tr>
-</form>
+</body>

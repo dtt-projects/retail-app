@@ -3,18 +3,22 @@
  * @fileoverview userDashboardPage route's controller.
  *    Exports functions to be used by each route handler.
  * @exports {Object} Functions to attach to the `userDashboardPage` router.
- * @require cookie-helper
+ * @require session-helper
+ * @require request
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
-  */
- const cookies = require('../../scripts/cookie-helper.js');
 
  /* request
   * This is for calling a request from the web server
   */
  const request = require("request");
+
+
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
+  */
+ const sessions = require('../../scripts/session-helper.js');
+
 
 
 /**
@@ -27,48 +31,54 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendUserDashboardPage = (req, res, next) => {
-  // handle the cookies of a user and update them
-  //var cookie = {"CID" : req.cookies}
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-        res.redirect("login");
-      } else {
-        res.cookie("CID", res_cookie);
-        // user is an admin or not direct correctly
-        if (res_cookie["isAdmin"] == 1) {
-          res.redirect("admin_dashboard");
-        } else {
-          // setup call for internal api call
-          var options ={
-            method: 'GET',
-            url: 'http://' + req.headers["host"] + '/api/getGoatPoints',
-            body: res_cookie,
-            json: true
-          };
 
-          // this sends out the request and either getGoatPoints or
-          // will get nothing and return -1
-          var goatPoints = 0;
-          console.log("send request");
-          request(options, function (error, response, body) {
-            if (error) {
-              console.log(error.message);
-            } else {
-              //console.log(response);
-              goatPoints = response["body"];
-              res.render('user_dashboard', {
-                title: 'Sprout Creek Farm User Dashboard',
-                page: 'login',
-                "goatPoints": goatPoints});
-            }
-          });
-        }
-      }
+  // check their session and update it
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          // user is logged in check if admin or normal user
+          if (isLoggedIn) {
+            sessions.handleSessionIsAdmin(sessionId)
+              .then(isAdmin => {
+                // user is an admin
+                if (isAdmin) {
+                  res.redirect('/admin_dashboard')
+                // user is not an admin
+                } else {
+                  // setup call for internal api call
+                  var options ={
+                    method: 'GET',
+                    url: 'http://' + req.headers["host"] + '/api/getGoatPoints',
+                    body: req.cookies,
+                    json: true
+                  };
+
+                  // this sends out the request and either getGoatPoints or
+                  // will get nothing and return -1
+                  var goatPoints = 0;
+                  request(options, function (error, response, body) {
+                    if (error) {
+                      console.log(error.message);
+                    } else {
+                      //console.log(response);
+                      goatPoints = response["body"];
+                      goatPoints = goatPoints["goatPoints"];
+                      res.render('user_dashboard', {
+                        title: 'Sprout Creek Farm User Dashboard',
+                        page: 'login',
+                        "goatPoints": goatPoints});
+                    }
+                  });
+                }
+              })
+          // user isnt logged in render login page
+          } else {
+            res.redirect("/login");
+          }
+        })
     });
-
-
 };
 
 
