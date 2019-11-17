@@ -12,7 +12,25 @@
 <input type=button value="logout" onClick="eraseCookie()"/>
 
 <script> function eraseCookie() {
-  document.cookie = "CID=";
-  window.location.href = "/login";
+  // make the api call
+  fetch("/api/logout",
+    {method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+    .then(function(response) {
+      if (response.status !== 200) {
+        alert("Logout failed. Try again.");
+        location.reload(true);
+        return
+      } else {
+        // send to a webpage
+        location.reload(true);
+        return;
+      }
+    });
 }
+
 </script>

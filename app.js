@@ -145,6 +145,9 @@ const API_getAllAccountsRouter = require('./routes/API_getAllAccounts.router');
 /** The API_loginRouter path router defined in './routes/API_login'. */
 const API_loginRouter = require('./routes/API_login.router');
 
+/** The API_logoutRouter path router defined in './routes/API_logout'. */
+const API_logoutRouter = require('./routes/API_logout.router');
+
 /** The API_addItemRouter path router defined in './routes/API_addItem'. */
 const API_addItemRouter = require('./routes/API_addItem.router');
 
@@ -160,6 +163,11 @@ const API_getItemRouter = require('./routes/API_getItem.router');
 /** The API_getGoatPoints path router defined in './routes/API_getGoatPoints'. */
 const API_getGoatPointsRouter = require('./routes/API_getGoatPoints.router');
 
+/** The API_addToCart path router defined in './routes/API_addToCart'. */
+const API_addToCartRouter = require('./routes/API_addToCart.router')
+
+/** The API_removeFromCart path router defined in './routes/API_removeFromCart'. */
+const API_removeFromCartRouter = require('./routes/API_removeFromCart.router')
 
 
 // Testing routes
@@ -243,6 +251,7 @@ app.use('/marketItem/:itemId', marketItemPageRouter);
 
 // API Routes
 app.use('/api/login', API_loginRouter);
+app.use('/api/logout', API_logoutRouter);
 app.use('/api/forgot_password', API_forgotPasswordRouter);
 app.use('/api/create_account', API_createAccountRouter);
 app.use('/api/updateAccount', API_updateAccountRouter);
@@ -253,6 +262,8 @@ app.use('/api/getItem/:itemId', API_getItemRouter);
 app.use('/api/getItems', API_getItemsRouter);
 app.use('/api/updateItem', API_updateItemRouter);
 app.use('/api/getGoatPoints', API_getGoatPointsRouter);
+app.use('/api/addToCart', API_addToCartRouter);
+app.use('/api/API_removeFromCart', API_removeFromCartRouter);
 
 
 

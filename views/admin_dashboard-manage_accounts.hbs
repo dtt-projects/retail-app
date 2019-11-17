@@ -48,17 +48,26 @@
 </table>
 <h1> END ACCOUNTS </h1>
 
-<script>
-function modifyUser(id) {
-  // setup json for get call
-  var json = JSON.stringify({"aid": id});
-
-  fetch("/")
-}
-
-function eraseCookie() {
-  document.cookie = "CID=";
-  window.location.href = "/login";
+<script> function eraseCookie() {
+  // make the api call
+  fetch("/api/logout",
+    {method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+    .then(function(response) {
+      if (response.status !== 200) {
+        alert("Logout failed. Try again.");
+        location.reload(true);
+        return
+      } else {
+        // send to a webpage
+        location.reload(true);
+        return;
+      }
+    });
 }
 
 </script>
