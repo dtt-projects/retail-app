@@ -63,6 +63,21 @@ const forgotPasswordPageRouter = require('./routes/forgotPasswordPage.router');
 /** The createAccountRouter path router defined in './routes/createAccount'. */
 const createAccountPageRouter = require('./routes/createAccountPage.router');
 
+/** aboutPageRouter path router defined in './routes/aboutPage'. */
+const aboutPageRouter = require('./routes/aboutPage.router');
+
+/** visitTheFarmPageRouter path router defined in './routes/visitTheFarmPage'. */
+const visitTheFarmPageRouter = require('./routes/visitTheFarmPage.router');
+
+/** summerCampPageRouter path router defined in './routes/summerCampPage'. */
+const summerCampPageRouter = require('./routes/summerCampPage.router');
+
+/** blogPageRouter path router defined in './routes/blogPage'. */
+const blogPageRouter = require('./routes/blogPage.router');
+
+/** contactPageRouter path router defined in './routes/contactPage'. */
+const contactPageRouter = require('./routes/contactPage.router');
+
 // User routes
 /** The userDashboardRouter path router defined in './routes/userDashboard'. */
 const userDashboardPageRouter = require('./routes/userDashboardPage.router');
@@ -194,6 +209,17 @@ app.use('/check_out', checkOutPageRouter);
 app.use('/market', marketPageRouter);
 app.use('/forgot_password', forgotPasswordPageRouter);
 app.use('/create_account', createAccountPageRouter);
+app.use('/admin_dashboard', adminDashboardPageRouter);
+app.use('/user_dashboard', userDashboardPageRouter);
+app.use('/about', aboutPageRouter);
+app.use('/visitTheFarm', visitTheFarmPageRouter);
+app.use('/summerCamp', summerCampPageRouter);
+app.use('/blog', blogPageRouter);
+app.use('/contact', contactPageRouter);
+
+
+
+
 
 // User Dashboard
 app.use('/user_dashboard', userDashboardPageRouter);

@@ -191,6 +191,7 @@ exports.handleSession = function(userCookie) {
   return new Promise(function(resolve, reject) {
     try {
       // no cookie
+      sessions["sessions"] = sessions["sessions"].filter(n => n);
       if (userCookie["sessionId"] == null || sessions["sessions"].length == 0) {
         //console.log('new user');
         var currentTime = Date.now();

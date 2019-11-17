@@ -47,7 +47,7 @@ const login = (req, res, next) => {
         if (err) {
           res.setHeader('Content-Type', 'plain/text');
           res.status(401);
-          res.send("/login");
+          res.redirect("/login");
           console.log(err);
         }
       });
@@ -78,26 +78,26 @@ const login = (req, res, next) => {
               // log the user in and send to dashboard
               res.setHeader('Content-Type', 'plain/text');
               res.status(200);
-              res.send("/admin_dashboard");
+              res.redirect("/admin_dashboard");
             } else {
               // log the user in and send to dashboard
               res.setHeader('Content-Type', 'plain/text');
               res.status(200);
-              res.send("/user_dashboard");
+              res.redirect("/user_dashboard");
             }
           // invalid creds
           }  else {
             console.log("Invalid creds")
             res.setHeader('Content-Type', 'plain/text');
             res.status(401);
-            res.send("/login");
+            res.redirect("/login");
           }
         // user doesnt exist
         } else {
           console.log("user doesnt exist");
           res.setHeader('Content-Type', 'plain/text');
           res.status(401);
-          res.send("/login");
+          res.redirect("/login");
         }
       });
     });
