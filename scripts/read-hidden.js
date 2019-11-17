@@ -12,7 +12,7 @@
 exports.readHidden = function() {
   return new Promise(function(resolve, reject) {
     const fs = require("fs");
-    fs.readFile('.hiddenCreds', (err, data) => {
+    fs.readFile('hiddenCreds', (err, data) => {
       if (err) {
         console.log(err);
         reject(err);
