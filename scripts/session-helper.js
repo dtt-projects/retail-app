@@ -19,6 +19,28 @@ const uuidv4 = require('uuid/v4');
 const TIMEOUT = 1800000;
 
 /**
+ * @function handleSessionDeleteSession
+ * @description This will update an existing sesison with user creds
+ * @param sessionId the session that will be modified
+ */
+exports.handleSessionDeleteSession = function(sessionId) {
+  return new Promise(function(resolve, reject) {
+    for(var i = 0; i < sessions["sessions"].length; i++) {
+      // found the user's session and updated it
+      if (sessions["sessions"][i]["uuid"] == sessionId) {
+        delete sessions["sessions"][i];
+        sessions["sessions"] = sessions["sessions"].filter(n => n);
+        resolve(true);
+        return;
+      // reached end of sessions
+      } else if (sessions["sessions"].length - 1 == i) {
+        resolve(false);
+        return;
+      }
+    }
+  })
+}
+/**
  * @function handleSessionUpdateValues
  * @description This will update an existing sesison with user creds
  * @param sessionId the session that will be modified
@@ -27,7 +49,7 @@ const TIMEOUT = 1800000;
  */
 exports.handleSessionUpdateValues = function(sessionId, aid, adminStatus) {
   return new Promise(function(resolve, reject) {
-    for(var i = 0; i <sessions["sessions"].length; i++) {
+    for(var i = 0; i < sessions["sessions"].length; i++) {
       // found the user's session and updated it
       if (sessions["sessions"][i]["uuid"] == sessionId) {
         sessions["sessions"][i]["isAdmin"] = adminStatus;
@@ -98,9 +120,10 @@ exports.handleSessionUpdateCart = function(sessionId, itemId, amount, isAdding) 
               resolve(true);
               return;
             }
-        } else {
-          resolve(false);
-          return;
+          } else {
+            resolve(false);
+            return;
+          }
         }
       // reached end of sessions
       } else if (sessionList.length - 1 == i) {

@@ -130,6 +130,9 @@ const API_getAllAccountsRouter = require('./routes/API_getAllAccounts.router');
 /** The API_loginRouter path router defined in './routes/API_login'. */
 const API_loginRouter = require('./routes/API_login.router');
 
+/** The API_logoutRouter path router defined in './routes/API_logout'. */
+const API_logoutRouter = require('./routes/API_logout.router');
+
 /** The API_addItemRouter path router defined in './routes/API_addItem'. */
 const API_addItemRouter = require('./routes/API_addItem.router');
 
@@ -222,6 +225,7 @@ app.use('/marketItem/:itemId', marketItemPageRouter);
 
 // API Routes
 app.use('/api/login', API_loginRouter);
+app.use('/api/logout', API_logoutRouter);
 app.use('/api/forgot_password', API_forgotPasswordRouter);
 app.use('/api/create_account', API_createAccountRouter);
 app.use('/api/updateAccount', API_updateAccountRouter);
