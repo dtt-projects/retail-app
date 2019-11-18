@@ -1,0 +1,18 @@
+[
+  {"host": "148.100.64.153",
+   "user": "api",
+   "password": "Password!1",
+   "database": "sprout"
+  },
+
+  {"email": "compscigoat@gmail.com",
+   "password": "Password!1GOAT"
+  },
+
+  {"ClientSecret": "tV5jM7uN5yN0tA0iU3aQ3kP6xK2tQ4rS6eM8mI2lV2fT0iX4wW",
+   "ClientId": "eb0edaff-eb4d-4582-853d-0e470772b6f8"
+  },
+
+  {"salt": "4ZhWrXwPIx"
+  }
+]
