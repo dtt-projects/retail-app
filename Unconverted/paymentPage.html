@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" sizes="290x290" href="assets/img/logo.png?h=adece2ed323b3f2ce91ddc8f52cddb21">
     <link rel="icon" type="image/png" sizes="290x290" href="assets/img/logo.png?h=adece2ed323b3f2ce91ddc8f52cddb21">
     <link rel="icon" type="image/png" sizes="290x290" href="assets/img/logo.png?h=adece2ed323b3f2ce91ddc8f52cddb21">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=38e3ab0a585d489cb7770c2e0379e26f">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=ec6a64da64c307166a1dd4c6c6003e96">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css?h=cfa788754642173dafbd830bd7969fdb">
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css?h=cfa788754642173dafbd830bd7969fdb">
     <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css?h=cfa788754642173dafbd830bd7969fdb">
     <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css?h=cfa788754642173dafbd830bd7969fdb">
-    <link rel="stylesheet" href="assets/css/Animated-Pretty-Product-List-v12.css?h=af7847de824579002526238d50d0c733">
+    <link rel="stylesheet" href="assets/css/Animated-Pretty-Product-List-v12.css?h=05002a2c3312bdb94ad95444ddc83d83">
     <link rel="stylesheet" href="assets/css/Article-List.css?h=cec575f25bba55cfaa10100750e76412">
     <link rel="stylesheet" href="assets/css/Data-Table-1.css?h=71f79ecfb6de2ac09d4f4c6f4b749319">
     <link rel="stylesheet" href="assets/css/Data-Table.css?h=71f79ecfb6de2ac09d4f4c6f4b749319">
@@ -79,81 +79,72 @@
     <header></header><a href="shopingCart.html" style="font-size: 20px;margin-left: 40px;margin-top: 0px;color: rgb(133,135,150);">Back To Cart</a>
     <main class="page payment-page">
         <section class="clean-block payment-form dark">
-            <div class="container border-light shadow-sm" style="margin-top: 50px;padding-top: 20px;padding-bottom: 20px;padding-right: 20px;background-color: #ffffff;">
-                <div class="text-center block-heading" style="margin-top: 0px;">
-                    <h3 style="color: rgb(125,130,133);font-size: 30px;">Checkout</h3>
-                    <p style="margin-bottom: 30px;">You Have Made A Great Selection!<br>Please Enter The Following Information To Complete Your Order</p>
-                </div>
+            <div class="text-center block-heading" style="margin-top: 0px;">
+                <h3 style="color: rgb(125,130,133);font-size: 38px;margin-top: 60px;"><strong>Checkout</strong></h3>
+                <p style="margin-bottom: 0px;font-size: 25px;margin-top: 20px;">You Have Made A Great Selection!<br>Please Enter The Following Information To Complete Your Order</p>
+            </div>
+            <div class="container border rounded shadow-sm" style="margin-top: 50px;padding-top: 20px;padding-bottom: 20px;padding-right: 20px;background-color: #ffffff;">
                 <form>
-                    <div id="cartContent" class="products" style="margin-top: 0px;background-color: rgb(248,247,245);">
+                    <div class="border rounded products" id="cartContent" style="margin-top: 0px;background-color: rgb(248,247,245);/*display: none;*/">
                         <h3 class="text-center title" style="margin-top: 0px;padding-bottom: 10px;padding-top: 10px;">Cart Content</h3>
-                        <div class="form-row no-gutters justify-content-center align-items-center" style="padding-top: 16px;padding-bottom: 20px;/*overflow: auto;*/">
-                            <div class="col-md-12 col-lg-8" style="overflow: auto;height: 244px;">
+                        <div class="form-row no-gutters text-left justify-content-center align-items-center" style="/*overflow: auto;*/">
+                            <div class="col-sm-auto col-md-auto col-lg-auto col-xl-7" style="overflow: auto;height: 260px;padding: 5px;">
                                 <div class="items">
                                     <div class="product">
-                                        <div class="form-row justify-content-center align-items-center" style="margin-bottom: 15px;">
-                                            <div class="col-md-3 col-xl-3">
-                                                <div class="product-image"><img class="img-fluid d-block mx-auto image" src="assets/img/batch35.jpg?h=3228dc9d8a5e17d2246c29dfb556fb50"></div>
-                                            </div>
-                                            <div class="col-md-5 col-xl-3 product-info"><a class="product-name" href="#">Bogart</a>
+                                        <div class="form-row justify-content-center align-items-center" style="margin-bottom: 5px;margin-top: 5px;padding-top: 5px;padding-right: 5px;padding-bottom: 5px;padding-left: 5px;">
+                                            <div class="col"><a class="product-name" href="#" style="font-size: 20px;">Cupcake</a></div>
+                                            <div class="col-md-5 col-xl-4 product-info">
                                                 <div class="product-specs">
-                                                    <div><span>Category:&nbsp;</span><span class="value">Cheese</span></div>
-                                                    <div><span>Price Per Unit:&nbsp;</span><span class="value">$12.00</span></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="number" value="1" readonly=""></div>
-                                            <div class="col-6 col-md-2 col-xl-2 text-right price"
-                                                style="margin-top: 5px;"><span style="margin-top: 5px;">$12.00</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="form-row justify-content-center align-items-center" style="margin-bottom: 15px;">
-                                            <div class="col-md-3">
-                                                <div class="product-image"><img class="img-fluid d-block mx-auto image" src="assets/img/bogart.jpg?h=e60673f3dcbecae44bc43ea5761f59d0"></div>
-                                            </div>
-                                            <div class="col-md-5 col-xl-3 product-info"><a class="product-name" href="#">Batch 35</a>
-                                                <div class="product-specs">
-                                                    <div><span>Category:&nbsp;</span><span class="value">Cheese</span></div>
-                                                    <div><span>Price Per Unit:&nbsp;</span><span class="value">$9.00</span></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="number" value="1" readonly=""></div>
-                                            <div class="col-6 col-md-2 col-xl-2 text-right price"
-                                                style="margin-top: 5px;"><span>$9.00</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="form-row justify-content-center align-items-center" style="margin-bottom: 15px;">
-                                            <div class="col-md-3">
-                                                <div class="product-image"><img class="img-fluid d-block mx-auto image" src="assets/img/Ultimate-Vanilla-Cupcakes-01.jpg?h=a85b89dc674aeb8cc149921cd89dcba8"></div>
-                                            </div>
-                                            <div class="col-md-5 col-xl-3 product-info"><a class="product-name" href="#">Cupcake</a>
-                                                <div class="product-specs">
-                                                    <div><span>Category:&nbsp;</span><span class="value">Dessert</span></div>
                                                     <div><span>Price Per Unit:&nbsp;</span><span class="value">$4.00</span></div>
                                                 </div>
                                             </div>
-                                            <div class="col-6 col-md-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="number" value="1" readonly=""></div>
+                                            <div class="col-6 col-md-2 col-xl-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="number" value="1" readonly=""></div>
+                                            <div class="col-6 col-md-2 col-xl-2 text-right price"
+                                                style="margin-top: 5px;"><span>$4.00</span></div>
+                                        </div>
+                                        <div class="form-row justify-content-center align-items-center" style="margin-bottom: 5px;margin-top: 5px;padding: 5px;padding-top: 5px;padding-right: 5px;">
+                                            <div class="col"><a class="product-name" href="#" style="font-size: 20px;">Cupcake</a></div>
+                                            <div class="col-md-5 col-xl-4 product-info">
+                                                <div class="product-specs">
+                                                    <div><span>Price Per Unit:&nbsp;</span><span class="value">$4.00</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-xl-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="number" value="1" readonly=""></div>
+                                            <div class="col-6 col-md-2 col-xl-2 text-right price"
+                                                style="margin-top: 5px;"><span>$4.00</span></div>
+                                        </div>
+                                        <div class="form-row justify-content-center align-items-center" style="margin-bottom: 5px;margin-top: 5px;">
+                                            <div class="col"><a class="product-name" href="#" style="font-size: 20px;">Cupcake</a></div>
+                                            <div class="col-md-5 col-xl-4 product-info">
+                                                <div class="product-specs">
+                                                    <div><span>Price Per Unit:&nbsp;</span><span class="value">$4.00</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-xl-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="number" value="1" readonly=""></div>
                                             <div class="col-6 col-md-2 col-xl-2 text-right price"
                                                 style="margin-top: 5px;"><span>$4.00</span></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-lg-4 col-xl-3 text-center" style="background-color: rgb(248,247,245);height: 241px;">
+                            <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-3 text-center" style="background-color: rgb(248,247,245);min-width: 279px;">
                                 <div class="summary">
-                                    <h2 style="padding-bottom: 15px;background-color: rgb(248,247,245);color: rgb(133,135,150);padding-top: 15px;font-size: 25px;"><strong>Summary</strong></h2>
+                                    <h2 style="padding-bottom: 15px;background-color: rgb(248,247,245);color: rgb(133,135,150);padding-top: 15px;font-size: 25px;"><strong><em>Summary</em></strong></h2>
                                     <h4 class="text-center" style="padding-bottom: 5px;padding-top: 5px;"><span class="text" style="font-size: 22px;">Subtotal: &nbsp;</span><span class="price" style="font-size: 22px;">$25.00</span></h4>
-                                    <h4 style="padding-bottom: 17px;padding-top: 5px;"><span class="text" style="font-size: 22px;">Shipping: &nbsp;</span><span class="price" style="font-size: 22px;">$5.99</span></h4>
-                                    <h4 style="padding-bottom: 10px;padding-top: 26px;margin-bottom: 45px;"><span class="text" style="font-size: 25px;"><strong>Total: &nbsp;</strong></span><span class="price" style="font-size: 25px;"><strong>$30.99</strong></span></h4>
+                                    <h4 style="padding-bottom: 17px;padding-top: 5px;height: 38px;"><span class="text" style="font-size: 22px;">Shipping: &nbsp;</span><span class="price" style="font-size: 22px;">$5.99</span></h4>
+                                    <h4 class="text-center" style="padding-bottom: 5px;padding-top: 5px;"><span class="text" style="font-size: 22px;">Tax: &nbsp;</span><span class="price" style="font-size: 22px;">$3.00</span></h4>
+                                    <h4 style="padding-bottom: 10px;padding-top: 26px;margin-bottom: 45px;margin-top: 5px;"><span class="text" style="font-size: 25px;"><strong>Total: &nbsp;</strong></span><span class="price" style="font-size: 25px;"><strong>$30.99</strong></span></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="shipping" class="card-details" style="margin-top: 30px;">
-                        <h3 class="title">Shipping Details</h3>
+                        <h3 class="title" style="font-size: 30px;"><strong>Shipping Details</strong></h3>
+                        <form>
+                            <div class="form-check" style="height: 35px;margin-top: 30px;"><input class="form-check-input" type="checkbox" id="pickUpAtStore" style="font-size: 20px;" checked=""><label class="form-check-label" for="formCheck-1" style="font-size: 20px;">Pick Up At The Farm (No Shipping Fee Incurred)</label></div>
+                            <p
+                                style="font-size: 22px;margin-top: 15px;margin-bottom: 15px;"><strong>Or</strong></p>
+                        </form>
                         <div class="form-row">
                             <div class="col-sm-7">
                                 <div class="form-group"><label for="card-holder">Recipient Name</label><input class="form-control" type="text" id="shippingRecipientName" placeholder="Recipient" required="" autofocus=""></div>
@@ -254,6 +245,7 @@
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
     <script src="assets/js/Sprout-Creek-Shopping-Cart-1.js?h=975b2635c9a06eae9f47d6cae8158a12"></script>
     <script src="assets/js/Sprout-Creek-Shopping-Cart.js?h=417b03f5f0a4f9f27f8c248f532eb5af"></script>
+    <script src="assets/js/cart.js?h=66e43e4e02fe90f22c60cb6f3009905b"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.0/owl.carousel.js"></script>
     <script src="assets/js/paymentPage.js?h=4e608b48fff1ea5dffa039eb883dac8e"></script>

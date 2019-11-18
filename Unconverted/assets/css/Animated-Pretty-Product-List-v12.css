@@ -462,3 +462,7 @@
   position: absolute;
 }
 
+.items {
+  overflow: auto;
+}
+
