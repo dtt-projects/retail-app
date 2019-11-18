@@ -1,0 +1,133 @@
+.projects-section {
+  position: relative;
+  padding-top: 90px;
+}
+
+.projects-section .outer-container {
+  position: relative;
+  padding: 0px 50px;
+}
+
+.project-block {
+  position: relative;
+  z-index: 99;
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -ms-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.project-block .inner-box {
+  position: relative;
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -ms-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.project-block:hover {
+  transform: scaleY(1.07);
+}
+
+.project-block .inner-box .image {
+  position: relative;
+}
+
+.project-block .inner-box .image img {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.project-block .inner-box .image .overlay-box {
+  position: absolute;
+  content: '';
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  z-index: 1;
+  -webkit-transition: all 900ms ease;
+  -ms-transition: all 900ms ease;
+  -o-transition: all 900ms ease;
+  transition: all 900ms ease;
+  -webkit-transform: perspective(400px) rotateY(90deg);
+  -moz-transform: perspective(400px) rotateY(90deg);
+  -ms-transform: perspective(400px) rotateY(90deg);
+  -o-transform: perspective(400px) rotateY(90deg);
+  transform: perspective(400px) rotateY(90deg);
+  -webkit-transform-origin: left;
+  -moz-transform-origin: left;
+  -ms-transform-origin: right;
+  -o-transform-origin: left;
+  transform-origin: left;
+  -ms-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+  background-color: rgba(22,26,51,0.90);
+}
+
+.project-block .inner-box:hover .image .overlay-box {
+  opacity: 1;
+  -webkit-transform: perspective(400px) rotateY(0deg);
+  -moz-transform: perspective(400px) rotateY(0deg);
+  -ms-transform: perspective(400px) rotateY(0deg);
+  -o-transform: perspective(400px) rotateY(0deg);
+  transform: perspective(400px) rotateY(0deg);
+}
+
+.project-block .inner-box .image .overlay-box .overlay-inner {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  padding: 25px 28px;
+  background-color: #f97534;
+}
+
+.project-block .inner-box .image .overlay-box .title {
+  position: relative;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 400;
+  padding-left: 40px;
+}
+
+.project-block .inner-box .image .overlay-box .title:before {
+  position: absolute;
+  content: '';
+  left: 0px;
+  top: 10px;
+  width: 30px;
+  height: 1px;
+  background-color: rgba(255,255,255,0.30);
+}
+
+.project-block .inner-box .image .overlay-box h3 {
+  position: relative;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3em;
+  margin-top: 8px;
+}
+
+.project-block .inner-box .image .overlay-box h3 a {
+  position: relative;
+  color: #ffffff;
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -ms-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.project-block .inner-box .image .overlay-box h3 a:hover {
+  color: #161a33;
+}
+
