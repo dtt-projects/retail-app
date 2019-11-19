@@ -55,42 +55,30 @@ const createAccount = (req, res, next) => {
           .then(isAdmin => {
             if (isAdmin) {
               // current insert statement for database
-              statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, ADDRESS," +
-                           " CITY, ZIP, EMAIL, PHONENUMBER, USERNAME, PASSWORD, " +
-                           "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN, STATE)" +
-                           "VALUES('" + req.body["first_name"] + "' ," +
-                                  "'" + req.body["last_name"] + "' ," +
-                                  "'" + req.body["address"] + "' ," +
-                                  "'" + req.body["city"] + "' ," +
-                                  "'" + req.body["zip"] + "' ," +
+              statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, USERNAME, "
+                            + " PASSWORD, CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN)" +
+                           "VALUES('" + req.body["firstName"] + "' ," +
+                                  "'" + req.body["lastName"] + "' ," +
                                   "'" + req.body["email"] + "' ," +
-                                  "'" + req.body["phone_number"] + "' ," +
                                   "'" + req.body["username"] + "' ," +
                                   "'" + req.body["password"] + "' ," +
                                   "CURRENT_TIMESTAMP, " +
                                   "CURRENT_TIMESTAMP, " +
-                                  "True, " +
-                                  req.body["isAdmin"] + ", "
-                                  + req.body["state"] + "')");
+                                  "True, "
+                                  + req.body["isAdmin"] + ")");
             } else {
               // current insert statement for database
-              statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, ADDRESS," +
-                           " CITY, ZIP, EMAIL, PHONENUMBER, USERNAME, PASSWORD, " +
-                           "CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN, STATE)" +
-                           "VALUES('" + req.body["first_name"] + "' ," +
-                                  "'" + req.body["last_name"] + "' ," +
-                                  "'" + req.body["address"] + "' ," +
-                                  "'" + req.body["city"] + "' ," +
-                                  "'" + req.body["zip"] + "' ," +
+              statement = ("INSERT INTO accounts(FIRSTNAME, LASTNAME, EMAIL, "
+                            + "USERNAME, PASSWORD, CREATIONDATE, UPDATEDDATE, ISACTIVE, ISADMIN)" +
+                           "VALUES('" + req.body["firstName"] + "' ," +
+                                  "'" + req.body["lastName"] + "' ," +
                                   "'" + req.body["email"] + "' ," +
-                                  "'" + req.body["phone_number"] + "' ," +
                                   "'" + req.body["username"] + "' ," +
                                   "'" + req.body["password"] + "' ," +
                                   "CURRENT_TIMESTAMP, " +
                                   "CURRENT_TIMESTAMP, " +
                                   "True, " +
-                                  "False, '"
-                                  + req.body["state"] + "')");
+                                  "False " + ")");
             }
             // run statement on the database
             con.query(statement, function(err, result) {
