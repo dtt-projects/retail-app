@@ -62,8 +62,10 @@ const login = (req, res, next) => {
           res.setHeader('Content-Type', 'plain/text');
           res.status(401);
           console.log("user doesnt exist");
-          res.send("/login");
           console.log(err);
+          con.end();
+          res.send("/login");
+          return;
         // got data back from server so user exists
         } else if (result.length > 0) {
           var db_username = result[0]["username"];
@@ -78,26 +80,34 @@ const login = (req, res, next) => {
               // log the user in and send to dashboard
               res.setHeader('Content-Type', 'plain/text');
               res.status(200);
+              con.end();
               res.redirect("/admin_dashboard");
+              return;
             } else {
               // log the user in and send to dashboard
               res.setHeader('Content-Type', 'plain/text');
               res.status(200);
+              con.end();
               res.redirect("/user_dashboard");
+              return;
             }
           // invalid creds
           }  else {
             console.log("Invalid creds")
             res.setHeader('Content-Type', 'plain/text');
             res.status(401);
+            con.end();
             res.redirect("/login");
+            return;
           }
         // user doesnt exist
         } else {
           console.log("user doesnt exist");
           res.setHeader('Content-Type', 'plain/text');
           res.status(401);
+          con.end();
           res.redirect("/login");
+          return;
         }
       });
     });
