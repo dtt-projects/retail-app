@@ -29,8 +29,21 @@ const addToCart = (req, res, next) => {
   var itemId = req.body["itemId"];
   var amount = req.body["amount"];
   var isAdding = true;
-  sessions.handleSessionUpdateCart(sessionId)
-    .then()
+
+  sessions.handleSessionUpdateCart(sessionId, itemId, amount, isAdding)
+    .then(isSuccessful => {
+      if (isSuccessful) {
+        res.status(200);
+        res.send("Great Success!");
+        console.log("Great Success!");
+        return;
+      } else {
+        res.status(400);
+        res.send("Big Failure");
+        console.log("Big Failure");
+        return;
+      }
+    })
 };
 
 
