@@ -52,9 +52,9 @@ const sendMarketItemPage = (req, res, next) => {
         } else {
           //itemsList = JSON.parse(body.toString())
           var data = JSON.parse(body.toString());
-          //console.log(data);
+          console.log(data[0]["itemname"]);
           res.render('marketItem', {
-            title: 'Sprout Creek Farm Market | ' + data[0]["itemname"],
+            title: "Sprout Creek Farm Market | " + data[0]["itemname"],
             page: 'market',
             item: data});
         }
