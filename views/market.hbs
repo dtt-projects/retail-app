@@ -29,7 +29,7 @@
                                                 <p class="text-left" id="itemDescription" style="font-size: 18px;color: rgb(98,100,112);width: 450px;height: 106px;overflow-y: auto; word-break: break-word!important;">{{itemdesc}}<br></p>
                                             </div>
                                         </div>
-                                    </div><button class="btn btn-primary btn-block border rounded shadow" id="addToCart1" type="button" style="background-color: rgb(79,121,96);margin-bottom: 0px;height: 45px;font-size: 18px;"><i class="icon-basket"></i>&nbsp;Add To Cart</button></div>
+                                    </div><button class="btn btn-primary btn-block border rounded shadow" id="addToCart" type="button" onclick="addToCart({{itemid}}, 1);"style="background-color: rgb(79,121,96);margin-bottom: 0px;height: 45px;font-size: 18px;"><i class="icon-basket"></i>&nbsp;Add To Cart</button></div>
             {{/each}}
             </div>
             </div>
@@ -39,3 +39,35 @@
             </div>
     </section>
 </main>
+
+<script>
+  function addToCart(itemId, amount) {
+    var json = JSON.stringify({
+      "itemId" : itemId,
+      "amount" : amount,
+      "isAdding": true
+    });
+    // make the api call
+    fetch("/api/addToCart",
+      {method: "POST",
+        headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body : json
+    })
+    .then(function(response) {
+      if (response.status !== 200) {
+        console.log("Problem with ajax call! " + response.status
+            + " msg: " + response.value);
+        return
+      } else {
+        // send to a webpage
+        response.text().then(function(data) {
+          location.reload();
+        });
+      }
+
+    });
+  }
+</script>
