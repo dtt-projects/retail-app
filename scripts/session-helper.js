@@ -220,7 +220,7 @@ exports.handleSession = function(userCookie) {
               "currentTime": currentTime,
               "isAdmin": null,
               "aid": "",
-              "cart": []
+              "cart": {}
             }
             // push new session into list
             sessions["sessions"].push(sessionData);
@@ -249,7 +249,7 @@ exports.handleSession = function(userCookie) {
               "currentTime": currentTime,
               "isAdmin": null,
               "aid": "",
-              "cart": []
+              "cart": {}
             }
             sessions["sessions"].push(sessionData);
             resolve(uuid);
