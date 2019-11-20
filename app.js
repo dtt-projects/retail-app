@@ -279,5 +279,8 @@ app.use((req, res, next) => {
 // error handler
 app.use(errorHandler);
 
+// setup for sessions
+exports.sessions = [];
+
 
 module.exports = app;

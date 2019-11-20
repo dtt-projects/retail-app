@@ -14,7 +14,8 @@
 // This helper file makes a cleaner reading of a credientials file for
 // hidden information like DB credientials
 const hidden = require('./read-hidden.js');
-const sessions = require('../bin/www');
+//const sessions = require('../bin/www');
+const sessions = require('../app.js');
 const uuidv4 = require('uuid/v4');
 const TIMEOUT = 1800000;
 
@@ -98,25 +99,25 @@ exports.handleSessionUpdateCart = function(sessionId, itemId, amount, isAdding) 
       if (sessionList[i]["uuid"] == sessionId) {
         if (isAdding) {
           // adding more
-          if (sessionList[i]["cart"][str(itemId)] != null) {
-            sessionList[i]["cart"][str(itemId)] += amount;
+          if (sessionList[i]["cart"][itemId.toString()] != null) {
+            sessionList[i]["cart"][itemId.toString()] += amount;
             resolve(true);
             return;
           // first time adding
           } else {
-            sessionList[i]["cart"][str(itemId)] = amount;
+            sessionList[i]["cart"][itemId.toString()] = amount;
             resolve(true);
             return;
           }
         } else {
           // removing
-          if (sessionList[i]["cart"][str(itemId)] != null) {
-            if (sessionList[i]["cart"][str(itemId)] > amount) {
-              sessionList[i]["cart"][str(itemId)] -= amount;
+          if (sessionList[i]["cart"][itemId.toString()] != null) {
+            if (sessionList[i]["cart"][itemId.toString()] > amount) {
+              sessionList[i]["cart"][itemId.toString()] -= amount;
               resolve(true);
               return;
             } else {
-              delete sessionList[i]["cart"][str(itemId)]
+              delete sessionList[i]["cart"][itemId.toString()]
               resolve(true);
               return;
             }
@@ -178,7 +179,11 @@ exports.handleSessionIsLoggedIn = function(sessionId) {
  * @description This is used to debug sessions
  */
 exports.printSessions = function() {
-  console.log(sessions);
+  //console.log(sessions);
+  for(var i = 0; i < sessions["sessions"].length; i++) {
+    console.log(sessions["sessions"][i]);
+    console.log("\t" + sessions["sessions"][i]["cart"]);
+  }
 }
 
 /**
@@ -220,7 +225,7 @@ exports.handleSession = function(userCookie) {
               "currentTime": currentTime,
               "isAdmin": null,
               "aid": "",
-              "cart": []
+              "cart": {}
             }
             // push new session into list
             sessions["sessions"].push(sessionData);
@@ -249,7 +254,7 @@ exports.handleSession = function(userCookie) {
               "currentTime": currentTime,
               "isAdmin": null,
               "aid": "",
-              "cart": []
+              "cart": {}
             }
             sessions["sessions"].push(sessionData);
             resolve(uuid);
