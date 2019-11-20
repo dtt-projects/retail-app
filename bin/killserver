@@ -21,7 +21,7 @@ kill_node_instances() {
 
     # Kill all existing Node PIDs.
     for pid in $node_instances;
-      do kill -15 $pid || true;
+      do kill -9 $pid || true;
     done
 
     echo "Killed node instances."
