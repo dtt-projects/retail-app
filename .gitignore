@@ -167,3 +167,4 @@ config
 
 # File that has credentials
 .hiddenCreds
+hiddenCreds
