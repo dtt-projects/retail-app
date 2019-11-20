@@ -114,10 +114,10 @@ pipeline {
 
               // All log statements should have been piped to their respective
               // files. The contents are also displayed in the console.
-              echo "Server start output log:"
-              sh "cat logs/stdout.log"
-              echo "Server start error log:"
-              sh "cat logs/stderr.log"
+              //echo "Server start output log:"
+              //sh "cat logs/stdout.log"
+              //echo "Server start error log:"
+              //sh "cat logs/stderr.log"
           }
       }
       stage('Prune and Cleanup') {
