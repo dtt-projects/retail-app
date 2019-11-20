@@ -25,8 +25,42 @@
             </div>
             <div><label class="d-none d-md-block" for="quantity" style="font-size: 22px;color: rgb(98,100,112);"><strong>Quantity:</strong><input type="number" id="quantity" class="form-control quantity-input" value="1" style="width: 60px;padding-right: 6px;padding-bottom: 6px;padding-left: 6px;" min="1"></label></div>
             <button
-                class="btn btn-primary btn-block" type="button" style="margin-top: 30px;background-color: rgb(79,121,96);height: 50px;font-size: 22px;"><i class="icon-basket"></i>&nbsp;Add to Cart</button>
+                class="btn btn-primary btn-block" type="button" onclick="addToCart({{itemid}})" style="margin-top: 30px;background-color: rgb(79,121,96);height: 50px;font-size: 22px;"><i class="icon-basket"></i>&nbsp;Add to Cart</button>
         </div>
     </div>
 {{/each}}
 </div>
+
+<script>
+  function addToCart(itemId) {
+    var json = JSON.stringify({
+      "itemId" : itemId,
+      "amount" : parseInt(document.getElementById("quantity").value, 10),
+      "isAdding": true
+    });
+    console.log("++++++++++++++++++++++++++++++++++++")
+    console.log(json);
+    // make the api call
+    fetch("/api/addToCart",
+      {method: "POST",
+        headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body : json
+    })
+    .then(function(response) {
+      if (response.status !== 200) {
+        console.log("Problem with ajax call! " + response.status
+            + " msg: " + response.value);
+        return
+      } else {
+        // send to a webpage
+        response.text().then(function(data) {
+          location.reload();
+        });
+      }
+
+    });
+  }
+</script>
