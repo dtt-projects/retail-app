@@ -4,13 +4,16 @@
  *    Exports functions to be used by each route handler.
  * @exports {Object} Functions to attach to the
  *    `adminDashboardManageInventoryPage` router.
- * @require cookie-helper
+ * @require session-helper
+ * @require request
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
- const cookies = require('../../scripts/cookie-helper.js');
+ const sessions = require('../../scripts/session-helper.js');;
+
+ const request = require('request');
 
 
 /**
@@ -23,48 +26,49 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendAdminDashboardManageInventoryPage = (req, res, next) => {
-  // check the user's cookie and validate it
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      // invalid cookie send to login page
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-        res.redirect("../login");
-      // valid cookie send to page and populate or send out of admindashboard
-      } else {
-        res.cookie("CID", res_cookie);
-        if (res_cookie["isAdmin"] == 1) {
-          // for the api call
-          var request = require("request");
+  // check their session and update it
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          // user is logged in check if admin or normal user
+          if (isLoggedIn) {
+            sessions.handleSessionIsAdmin(sessionId)
+              .then(isAdmin => {
+                // user is an admin
+                if (isAdmin) {
+                  // get server url
+                  var options ={
+                    method: 'GET',
+                    url: 'http://' + req.headers["host"] + '/api/getItems',
+                  };
 
-          baseUrl = req["headers"]["host"]
-          //  testing of base url
-          var options ={
-            method: 'GET',
-            url: 'http://' + req.headers["host"] + '/api/getItems',
-          };
-
-          // the request on failure log and redirect back
-          // on success send to page and populate it
-          request(options, function (error, response, body) {
-            if (error) {
-              console.log(error.message);
-              res.status(400);
-              res.redirect('../admin_dashboard');
-            } else {
-              itemsList = JSON.parse(body.toString());
-              res.render('admin_dashboard-manage_inventory', {
-                title: 'Sprout Creek Farm Admin Dashboard | Inventory',
-                page: 'login',
-                email: res_cookie["email"],
-                items: itemsList});
-            }
-          });
-        // user wasnt an admin so send back to userdashboard
-        } else {
-          res.redirect('user_dashboard')
-        }
-      }
+                  // the request on failure log and redirect back
+                  // on success send to page and populate it
+                  request(options, function (error, response, body) {
+                    if (error) {
+                      console.log(error.message);
+                      res.status(400);
+                      res.redirect('../admin_dashboard');
+                    } else {
+                      itemsList = JSON.parse(body.toString());
+                      res.render('admin_dashboard-manage_inventory', {
+                        title: 'Sprout Creek Farm Admin Dashboard | Inventory',
+                        page: 'login',
+                        items: itemsList});
+                    }
+                  });
+                  // user is not an admin
+                } else {
+                  res.redirect("/user_dashboard");
+                }
+              })
+          // user isnt logged in render login page
+          } else {
+            res.redirect("/login");
+          }
+        })
     });
 };
 

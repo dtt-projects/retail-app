@@ -3,13 +3,13 @@
  * @fileoverview Root route's controller. Exports functions to be used by each
  *    route handler.
  * @exports {Object} Functions to attach to the `root` router.
- * @require cookie-helper
+ * @require session-helper
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
- const cookies = require('../../scripts/cookie-helper.js');
+ const sessions = require('../../scripts/session-helper.js');
 
 /**
  * @function sendHomePage
@@ -21,15 +21,9 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendHomePage = (req, res, next) => {
-  console.log(req.headers["host"]);
-  // handle the cookies of a user and update them
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-      }
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
       res.render('homepage', { title: 'Sprout Creek Farm Homepage' });
     });
 };

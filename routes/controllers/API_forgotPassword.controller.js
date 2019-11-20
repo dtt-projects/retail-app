@@ -17,7 +17,7 @@
 const forgotPassword = (req, res, next) => {
   // Get the secret creds from the file
   const fs = require("fs");
-  fs.readFile('.hiddenCreds', (err, data) => {
+  fs.readFile('hiddenCreds', (err, data) => {
       if (err) {
         console.log(err);
         res.setHeader('Content-Type', 'plain/text');
@@ -40,13 +40,13 @@ const forgotPassword = (req, res, next) => {
         con.connect(function(err) {
           if (err) {
             res.setHeader('Content-Type', 'plain/text');
-            res.send("email failed!");
+            res.redirect("/forgot_password");
             console.log(err);
           }
         });
 
         // statement to check if the email exists in the system
-        statement = ("select * from accounts where email = '" + email + "'");
+        statement = ("SELECT * FROM accounts WHERE email = '" + email + "'");
         con.query(statement, function(err, result) {
           if (err) {
             console.log("err");
@@ -63,12 +63,11 @@ const forgotPassword = (req, res, next) => {
               // make new temp password
               // from bytes and convert to string
               var newpw = crypto.randomBytes(50);
-              //console.log("newpw: " + newpw);
               newpw = newpw.toString('hex');
-              //console.log("newpw2: " + newpw);
-              // update the database with the new password
-              statement = ("update accounts set password ='"
-                  + newpw.toString() + "' where email ='" + email + "'");
+              statement = ("UPDATE accounts SET "
+                  + "UPDATEDDATE='CURRENT_TIMESTAMP', "
+                  + "password ='" + newpw.toString()
+                  + "' WHERE email ='" + email + "'");
 
               con.query(statement, function(err, result) {
                 if (err) {
@@ -107,13 +106,13 @@ const forgotPassword = (req, res, next) => {
                   // send success to client
                   res.setHeader('Content-Type', 'plain/text');
                   res.status(200);
-                  res.send("email sent!");
+                  res.redirect("/login");
               }
             });
           } else {
             res.setHeader('Content-Type', 'plain/text');
             res.status(400);
-            res.send("email failed!");
+            res.redirect("/forgot_password");
           }
         }
       });

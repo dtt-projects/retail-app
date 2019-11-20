@@ -9,10 +9,65 @@
   <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
   <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
 </ul>
+<ul>
+  <li> <a href="/admin_dashboard/manage_accounts/create_account"> Create Accounts </a> </li>
+</ul>
+<h1> START ACCOUNTS </h1>
+<table>
+<tr>
+  <td> aid </td>
+  <td> firstname </td>
+  <td> lastname </td>
+  <td> address </td>
+  <td> city </td>
+  <td> zip </td>
+  <td> email </td>
+  <td> phone number </td>
+  <td> username </td>
+  <td> creationdate </td>
+  <td> updateddate </td>
+  <td> isadmin </td>
+
+</tr>
+{{#each accounts}}
+<tr>
+  <td> <a href="/admin_dashboard/manage_accounts/sub_account/{{aid}}">{{aid}}</a></td>
+  <td>{{firstname}}</td>
+  <td>{{lastname}}</td>
+  <td>{{address}}</td>
+  <td>{{city}}</td>
+  <td>{{zip}}</td>
+  <td>{{email}}</td>
+  <td>{{phonenumber}}</td>
+  <td>{{username}}</td>
+  <td>{{creationdate}}</td>
+  <td>{{updateddate}}</td>
+  <td>{{isadmin}}</td>
+</tr>
+{{/each}}
+</table>
+<h1> END ACCOUNTS </h1>
 
 <script> function eraseCookie() {
-  document.cookie = "CID=";
-  window.location.href = "/login";
+  // make the api call
+  fetch("/api/logout",
+    {method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+    .then(function(response) {
+      if (response.status !== 200) {
+        alert("Logout failed. Try again.");
+        location.reload(true);
+        return
+      } else {
+        // send to a webpage
+        location.reload(true);
+        return;
+      }
+    });
 }
 
 </script>

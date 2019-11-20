@@ -3,19 +3,21 @@
  * @fileoverview marketPage route's controller. Exports functions to be used
  *     by each route handler.
  * @exports {Object} Functions to attach to the `marketPage` router.
- * @require cookie-helper
+ * @require session-helper
  * @require request
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
-  */
-const cookies = require('../../scripts/cookie-helper.js');
+
 
 /* request
  * This is for calling a request from the web server
  */
 const request = require("request");
+
+/* sessions
+ * This is to help with handling sessions to maintain cart and auth
+ */
+const sessions = require('../../scripts/session-helper.js');
 
 /**
  * @function sendMarketPage
@@ -28,14 +30,9 @@ const request = require("request");
  */
 const sendMarketPage = (req, res, next) => {
   // handle the cookies of a user and update them
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-      } else {
-        res.cookie("CID", res_cookie);
-      }
-
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
       // setup call for internal api call
       var options ={
         method: 'GET',

@@ -9,6 +9,13 @@ function createAccount() {
   var phone_number = document.getElementById("phone_number").value;
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
+  var isAdmin = "";
+  var state = document.getElementById("state").value;
+  try {
+    isAdmin = document.getElementById("isAdmin").value;
+  } catch (e) {
+    console.log(e);
+  }
 
   // This will check for any empty inputs
   var empty_inputs = false;
@@ -33,7 +40,7 @@ function createAccount() {
   }
 
   // if any input is empty then don't continue and alert
-  if (empty_inputs) {
+  if (false) {
     alert("One or more fields are blank");
     return;
   }
@@ -48,7 +55,9 @@ function createAccount() {
     "email": email,
     "phone_number": phone_number,
     "username": username,
-    "password": password
+    "password": password,
+    "isAdmin": isAdmin,
+    "state": state
   });
 
   // send to the create account api
@@ -64,7 +73,10 @@ function createAccount() {
       if (response.status !== 200) {
         console.log("Problem with ajax call! " + response.status
             + " msg: " + response.value);
-        return
+        response.text().then(function(data) {
+          alert(data);
+          return
+        });
       }
       // send to login page
       response.text().then(function(data) {

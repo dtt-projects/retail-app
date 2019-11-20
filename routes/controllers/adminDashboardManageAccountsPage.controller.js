@@ -4,13 +4,13 @@
  *    Exports functions to be used by each route handler.
  * @exports {Object} Functions to attach to the
  *    `adminDashboardManageAccountsPage` router.
- * @require cookie-helper
+ * @require session-helper
  */
 
- /* cookies
-  * This is to help with handle cookies for user validation
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
   */
- const cookies = require('../../scripts/cookie-helper.js');
+ const sessions = require('../../scripts/session-helper.js');
 
 /**
  * @function sendAdminDashboardManageAccountsPage
@@ -22,26 +22,54 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendAdminDashboardManageAccountsPage = (req, res, next) => {
-  // checks and validates user's cookie
-  cookies.handleNormalPageCookie(req.cookies)
-    .then(res_cookie => {
-      // invalid cookie send back to login
-      if (res_cookie == "undefined" || res_cookie == null) {
-        res.clearCookie("CID");
-        res.redirect("../login");
-      // valid cookie send to admin manage accounts if admin
-      // if not admin cookie send to userdashboard
-      } else {
-        res.cookie("CID", res_cookie);
-        if (res_cookie["isAdmin"] == 1) {
-          res.render('admin_dashboard-manage_accounts', {
-            title: 'Sprout Creek Farm Admin Dashboard | Accounts',
-            page: 'login',
-            email: res_cookie["email"]});
-        } else {
-          res.redirect('user_dashboard')
-        }
-      }
+  // check their session and update it
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          // user is logged in check if admin or normal user
+          if (isLoggedIn) {
+            sessions.handleSessionIsAdmin(sessionId)
+              .then(isAdmin => {
+                // user is an admin
+                if (isAdmin) {
+                  const request = require("request");
+
+                  //  testing of base url
+                  var options ={
+                    method: 'GET',
+                    url: 'http://' + req.headers["host"] + '/api/getAllAccounts',
+                    body: req.cookies,
+                    json: true
+                  };
+
+                  // the request on failure log and redirect back
+                  // on success send to page and populate it
+                  request(options, function (error, response, body) {
+                    if (error) {
+                      console.log(error.message);
+                      res.status(400);
+                      res.redirect('../admin_dashboard');
+                    } else {
+                      console.log(body);
+                      var accounts = body;//JSON.parse(body.toString());
+                      res.render('admin_dashboard-manage_accounts', {
+                        title: 'Sprout Creek Farm Admin Dashboard | Accounts',
+                        page: 'login',
+                        "accounts": accounts});
+                    }
+                  });
+                // user is not an admin
+                } else {
+                  res.redirect("/user_dashboard");
+                }
+              })
+          // user isnt logged in render login page
+          } else {
+            res.redirect("/login");
+          }
+        })
     });
 };
 

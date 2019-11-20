@@ -7,12 +7,30 @@
   <li> <a href="/user_dashboard/view_orders"> View Orders </a> </li>
   <li> <a href="/user_dashboard/edit_information"> Edit Information </a> </li>
 </ul>
-<h1> Your goat points </h1>
-<h1> {{goatPoints}} </h1>
+<h1 style = "color: black"> Your goat points </h1>
+<h1 style = "color: black"> {{goatPoints}} </h1>
 <input type=button value="logout" onClick="eraseCookie()"/>
 
 <script> function eraseCookie() {
-  document.cookie = "CID=";
-  window.location.href = "/login";
+  // make the api call
+  fetch("/api/logout",
+    {method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+    .then(function(response) {
+      if (response.status !== 200) {
+        alert("Logout failed. Try again.");
+        location.reload(true);
+        return
+      } else {
+        // send to a webpage
+        location.reload(true);
+        return;
+      }
+    });
 }
+
 </script>
