@@ -1,93 +1,198 @@
 <!--File: check_out.hbs-->
 <!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
-<!--Date: 11/10/2019-->
-<!--Description: This is the body of the visitTheFarm page-->
+<!--Date: 11/18/2019-->
+<!--Description: This is the body of the checkout page-->
 
-<!--This is the body of the check out page-->
-<header></header><a href="/cart" style="font-size: 20px;margin-left: 40px;margin-top: 0px;">Back To Cart</a>
-  <!--This main is content of the page-->
-  <main class="page payment-page">
-      <section class="clean-block payment-form dark">
-          <!--This div holds entire text and input fields-->
-          <div class="container border-light shadow-sm" style="margin-top: 50px;padding-top: 20px;padding-bottom: 20px;">
-              <!--This is the top portion that is the checkout -->
-              <div class="text-center block-heading" style="margin-top: 0px;">
-                  <h3 style="color: rgb(125,130,133);font-size: 30px;">Checkout</h3>
-                  <p style="margin-bottom: 30px;">You Have Made A Great Selection!<br>Please Enter The Following Information To Complete Your Order</p>
-              </div>
-              <!--This is the cart content form that lists price-->
-              <form>
-                  <div class="products" style="margin-top: 0px;background-color: rgb(255,248,237);">
-                      <h3 class="text-center title" style="margin-top: 0px;padding-bottom: 10px;padding-top: 10px;">Cart Content</h3>
-                      <!--This is price section-->
-                      <div class="text-center item"><span class="price">$200</span>
-                          <p class="item-name">Product 1</p>
-                          <p class="item-description">Lorem ipsum dolor sit amet</p>
-                      </div>
-                      <!--This is the price of the next items-->
-                      <div class="text-center item"><span class="price">$120</span>
-                          <p class="item-name">Product 2</p>
-                          <p class="item-description">Lorem ipsum dolor sit amet</p>
-                      </div>
-                      <div class="text-center total" style="padding-bottom: 10px;"><span>Total</span><span class="price">$320</span></div>
-                  </div>
-                  <!--This is the credit card credentials area of the page-->
-                  <div class="card-details" style="margin-top: 30px;">
-                      <h3 class="title">Credit Card Details</h3>
-                      <div class="form-row">
-                          <!--This is the card holder -->
-                          <div class="col-sm-7">
-                              <div class="form-group"><label for="card-holder">Card Holder</label><input class="form-control" type="text" placeholder="Card Holder"></div>
-                          </div>
-                          <!--This is the expiration date-->
-                          <div class="col-sm-5">
-                              <div class="form-group"><label>Expiration date</label>
-                                  <div class="input-group expiration-date"><input class="form-control" type="text" placeholder="MM"><input class="form-control" type="text" placeholder="YY"></div>
-                              </div>
-                          </div>
-                          <!--This is the card number box-->
-                          <div class="col-sm-8">
-                              <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" type="text" id="card-number" placeholder="Card Number"></div>
-                          </div>
-                          <!--This is the cvc field-->
-                          <div class="col-sm-4">
-                              <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text" id="cvc" placeholder="CVC"></div>
-                          </div>
-                          <!--This is the submit button part-->
-                          <div class="col-sm-12">
-                              <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: rgb(79,121,96);">Proceed</button></div>
-                          </div>
-                      </div>
-                  </div>
-                  <!--This is the shipping details area of the page-->
-                  <div class="card-details" style="margin-top: 30px;">
-                      <h3 class="title">Shipping Details</h3>
-                      <div class="form-row">
-                          <!--This is where the card holder name goes-->
-                          <div class="col-sm-7">
-                              <div class="form-group"><label for="card-holder">Card Holder</label><input class="form-control" type="text" placeholder="Card Holder"></div>
-                          </div>
-                          <!--This is the expiration date field-->
-                          <div class="col-sm-5">
-                              <div class="form-group"><label>Expiration date</label>
-                                  <div class="input-group expiration-date"><input class="form-control" type="text" placeholder="MM"><input class="form-control" type="text" placeholder="YY"></div>
-                              </div>
-                          </div>
-                          <div class="col-sm-8">
-                              <!--This is the card number field-->
-                              <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" type="text" id="card-number" placeholder="Card Number"></div>
-                          </div>
-                          <div class="col-sm-4">
-                              <!--This is the cvc field-->
-                              <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text" id="cvc" placeholder="CVC"></div>
-                          </div>
-                          <div class="col-sm-12">
-                              <!--This is the submit button-->
-                              <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: rgb(79,121,96);">Proceed</button></div>
-                          </div>
-                      </div>
-                  </div>
-              </form>
-          </div>
-      </section>
-  </main>
+<!--This is the back to the cart link on the top left-->
+<header></header><a href="/cart" style="font-size: 20px;margin-left: 40px;margin-top: 0px;color: rgb(133,135,150);">Back To Cart</a>
+
+<!--This is the encompassing main tag that holds the checkout procedure for this page-->
+<main class="page payment-page">
+    <section class="clean-block payment-form dark">
+        <div class="text-center block-heading" style="margin-top: 0px;">
+            <!--This is where the checkout page is-->
+            <h3 style="color: rgb(125,130,133);font-size: 38px;margin-top: 60px;"><strong>Checkout</strong></h3>
+            <p style="margin-bottom: 0px;font-size: 25px;margin-top: 20px;">You Have Made A Great Selection!<br>Please Enter The Following Information To Complete Your Order</p>
+        </div>
+        <div class="container border rounded shadow-sm" style="margin-top: 50px;padding-top: 20px;padding-bottom: 20px;padding-right: 20px;background-color: #ffffff;"><button class="btn btn-primary" id="backToShipping" type="button" style="background-color: rgb(137,140,149);display: none;margin-top: 10px;margin-bottom: 30px;">Back To Shipping Information</button>
+            <!--This is the form we fill out for the shipping information-->
+            <form>
+                <div class="border rounded products" id="cartContent" style="margin-top: 0px;background-color: rgb(248,247,245);display: none;">
+                    <!--This is the cart summary section of the checkout page-->
+                    <h3 class="text-center title" style="margin-top: 0px;padding-bottom: 10px;padding-top: 10px;">Cart Summary</h3>
+                    <div class="form-row no-gutters text-left justify-content-center align-items-center">
+                        <div class="col-sm-auto col-md-auto col-lg-auto col-xl-7" style="overflow: auto;height: 300px;padding: 5px;">
+                            <div class="items">
+                                <div class="product">
+                                    <div class="form-row justify-content-center align-items-center" style="margin-bottom: 5px;margin-top: 5px;padding-top: 5px;padding-right: 5px;padding-bottom: 5px;padding-left: 5px;">
+                                        <div class="col" id="nameOfItem"><a class="product-name" href="#" style="font-size: 20px;">Cupcake</a></div>
+                                        <!--This is the price per unit section of the checkout page-->
+                                        <div class="col-md-5 col-xl-4 product-info">
+                                            <div class="product-specs">
+                                                <div><span>Price Per Unit:&nbsp;</span><span id="pricePerUnit" class="value">$4.00</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-2 col-xl-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="quantity" value="1" readonly=""></div>
+                                        <div class="col-6 col-md-2 col-xl-2 text-right price"
+                                            id="totalItemPrice" style="margin-top: 5px;"><span id="totalItemPrice">$4.00</span></div>
+                                    </div>
+                                    <!--This is more cart carried over-->
+                                    <div class="form-row justify-content-center align-items-center" style="margin-bottom: 5px;margin-top: 5px;padding: 5px;padding-top: 5px;padding-right: 5px;">
+                                        <div class="col" id="nameOfItem"><a class="product-name" href="#" style="font-size: 20px;">Cupcake</a></div>
+                                        <div class="col-md-5 col-xl-4 product-info">
+                                            <div class="product-specs">
+                                                <div><span>Price Per Unit:&nbsp;</span><span id="pricePerUnit" class="value">$4.00</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-2 col-xl-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="quantity" value="1" readonly=""></div>
+                                        <div class="col-6 col-md-2 col-xl-2 text-right price"
+                                            style="margin-top: 5px;"><span id="totalItemPrice">$4.00</span></div>
+                                    </div>
+                                    <div class="form-row justify-content-center align-items-center" style="margin-bottom: 5px;margin-top: 5px;">
+                                        <div class="col" id="nameOfItem"><a class="product-name" href="#" style="font-size: 20px;">Cupcake</a></div>
+                                        <div class="col-md-5 col-xl-4 product-info">
+                                            <div class="product-specs">
+                                                <div><span>Price Per Unit:&nbsp;</span><span id="pricePerUnit" class="value">$4.00</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-2 col-xl-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="quantity" value="1" readonly=""></div>
+                                        <div class="col-6 col-md-2 col-xl-2 text-right price"
+                                            style="margin-top: 5px;"><span id="totalItemPrice">$4.00</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-3 text-center" style="background-color: rgb(248,247,245);min-width: 279px;">
+                            <div class="summary">
+                                <h2 style="padding-bottom: 15px;background-color: rgb(248,247,245);color: rgb(133,135,150);padding-top: 15px;font-size: 25px;"><strong><em>Summary</em></strong></h2>
+                                <h4 class="text-center" style="padding-bottom: 5px;padding-top: 5px;"><span class="text" style="font-size: 22px;">Subtotal: &nbsp;</span><span id="subtotalPrice" class="price" style="font-size: 22px;">$25.00</span></h4>
+                                <h4 style="padding-bottom: 17px;padding-top: 5px;height: 38px;"><span class="text" style="font-size: 22px;">Shipping: &nbsp;</span><span id="shippingPrice" class="price" style="font-size: 22px;">$5.99</span></h4>
+                                <h4 id="goatPointsSummary" style="padding-bottom: 17px;padding-top: 5px;height: 38px;display:none;"><span class="text" style="font-size: 22px;">Goat Points: &nbsp;</span><span id="shippingPrice" class="price" style="font-size: 22px;">$5.99</span></h4>
+                                <h4 class="text-center" style="padding-bottom: 5px;padding-top: 5px;"><span class="text" style="font-size: 22px;">Tax: &nbsp;</span><span id="taxPrice" class="price" style="font-size: 22px;">$3.00</span></h4>
+                                <h4 style="padding-bottom: 10px;padding-top: 26px;margin-bottom: 45px;margin-top: 5px;"><span class="text" style="font-size: 25px;"><strong>Total: &nbsp;</strong></span><span id="totalPrice" class="price" style="font-size: 25px;"><strong>$30.99</strong></span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--This is the checkout beginning-->
+                <div id="shipping" class="card-details" style="margin-top: 10px;">
+                    <!--This is the delivery details portion-->
+                    <h3 class="title" style="font-size: 30px;"><strong>Delivery Details</strong></h3>
+                    <p style="margin-top: 40px;font-size: 22px;">Choose Your Preferred Method Of Delivery</p>
+                    <form>
+                        <div class="form-group" style="padding-left: 10px;"><select class="custom-select" id="deliveryMethod" required="" style="width: 270px;margin-top: 20px;height: 45px;font-size: 17px;"><optgroup label="Delivery Method"><option value="shipToAddress" selected="">Ship To Address</option><option value="pickUpInStore">Pick Up In Store (No Additional Fee)</option></optgroup></select></div>
+                    </form>
+                    <!--This is the beginning of the information that needs to be filled out-->
+                    <p style="margin-top: 40px;font-size: 22px;margin-bottom: 30px;">Please Fill Out The Information Below</p>
+                    <div id="shipToAddress" style="display:block;">
+                        <!--This holds the form information-->
+                        <div class="form-row" style="padding-left: 10px;">
+                            <!--This is the recipient name-->
+                            <div class="col-sm-7">
+                                <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>Recipient Name</strong></label><input class="form-control" type="text" id="recipientName" placeholder="Recipient Name" required="" minlength="1"></div>
+                            </div>
+                            <!--This is the phone number-->
+                            <div class="col-sm-7" style="height: 87px;">
+                                <div class="form-group" style="height: 27px;"><label for="card-holder" style="font-size: 17px;"><strong>Phone Number</strong></label><input class="form-control" type="tel" id="phoneNumber" placeholder="Phone Number" required=""></div>
+                            </div>
+                            <!--This is the address 1 section-->
+                            <div class="col-sm-8">
+                                <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Address 1</strong></label><input class="form-control" type="text" id="shippingAddress1" placeholder="Address 1" required=""></div>
+                            </div>
+                            <!--This is the address 2 section-->
+                            <div class="col-sm-8">
+                                <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Address 2</strong></label><input class="form-control" type="text" id="shippingAddress2" placeholder="Address 2" required=""></div>
+                            </div>
+                            <!--This is the city section-->
+                            <div class="col-sm-8 col-xl-5 offset-xl-0">
+                                <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>City</strong></label><input class="form-control" type="text" id="city" placeholder="City" required=""></div>
+                            </div>
+                            <!--This is the zip code section-->
+                            <div class="col-sm-8 col-xl-3">
+                                <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Zip Code</strong></label><input class="form-control" type="text" id="zipCode" placeholder="Zip Code" required=""></div>
+                            </div>
+                            <!--This is the state section-->
+                            <div class="col-sm-8 col-xl-3">
+                                <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>State</strong></label><input class="form-control" type="text" id="state" placeholder="State" required=""></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--This is the pickup in the store option-->
+                    <div id="pickUpInStore" style="display: none;margin-top: 30px;">
+                        <!--This is the recipient name for the pick up option-->
+                        <div class="col-sm-7">
+                            <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>Recipient Name</strong></label><input class="form-control" type="text" id="recipientName" placeholder="Recipient Name" required=""></div>
+                        </div>
+                        <!--This is the phone number for the pickup option-->
+                        <div class="col-sm-7" style="height: 87px;">
+                            <div class="form-group" style="height: 27px;"><label for="card-holder" style="font-size: 17px;"><strong>Phone Number</strong></label><input class="form-control" type="tel" id="phoneNumber" placeholder="Phone Number" required=""></div>
+                        </div>
+                    </div>
+                    <!--This is the clickable proceed button-->
+                    <div class="col-sm-12">
+                        <div class="form-group"><button class="btn btn-primary btn-block" id="proceedShipping" type="submit" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;font-size: 20px;">Proceed</button></div>
+                    </div>
+                </div>
+                <!--This is the option to enable goat points-->
+                <div id="goatPoints" class="card-details" style="margin-top: 30px; display: none;">
+                    <h3 class="title" style="font-size: 30px;margin-bottom: 20px;"><strong>Goat Points Details</strong></h3>
+                    <p style="font-size: 20px;margin-bottom: 30px;">Want To Use Goat Points With Your Order?<br>Just Click Apply To Use It Towards Your Balance!</p>
+                    <div class="form-row">
+                        <!--This shows your goat points balance-->
+                        <div class="col-sm-8">
+                            <div class="form-group"><label for="card-number"><strong>Goat Points Balance:</strong></label><input class="form-control" type="text" id="goatPointBalance" style="width: 250px;" readonly="" placeholder="Goat Points"></div>
+                        </div>
+                        <!--This is the acutal button to enable or disbale it-->
+                        <div class="col-sm-12">
+                            <div class="form-group"><button class="btn btn-primary" id="applyGoatPoints" type="submit" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;">Apply Goat Points</button><button class="btn btn-primary" id="unapplyGoatPoints"
+                                    type="submit" style="background-color: rgb(105,104,104);margin-top: 20px;height: 40px;display:none;">Un-Apply Goat Points</button></div>
+                        </div>
+                    </div>
+                </div>
+                <!--Here are the credit card details for the payment-->
+                <div id="purchase" class="card-details" style="margin-top: 50px;display: none;">
+                    <h3 class="title" style="font-size: 30px;margin-bottom: 40px;"><strong>Credit Card Details</strong></h3>
+                    <!--This is the section for the payment-->
+                    <div class="form-row">
+                        <div class="col-sm-7">
+                            <!--This is the card holder part of the form-->
+                            <div class="form-group"><label for="card-holder">Card Holder</label><input class="form-control" type="text" id="cardHolder" placeholder="Card Holder" required=""></div>
+                        </div>
+                        <div class="col-sm-5">
+                            <!--This is the expiration date part of the form-->
+                            <div class="form-group"><label>Expiration date</label>
+                                <div class="input-group expiration-date"><input class="form-control" type="text" id="monthExpr" placeholder="MM" required=""><input class="form-control" type="text" id="yearExpr" placeholder="YY" required=""></div>
+                            </div>
+                        </div>
+                        <!--This is the card number section-->
+                        <div class="col-sm-8">
+                            <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" type="text" id="cardNumber" placeholder="Card Number" required=""></div>
+                        </div>
+                        <!--This is the cvc part of the form-->
+                        <div class="col-sm-4">
+                            <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text" id="cvc" placeholder="CVC" required="" minlength="3" maxlength="4"></div>
+                        </div>
+                        <!--This is the confirm purchase button-->
+                        <div class="col-sm-12">
+                            <div class="form-group"><button class="btn btn-primary btn-block" id="confirmPurchase" type="submit" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;">Confirm Purchase</button></div>
+                        </div>
+                    </div>
+                </div>
+                <!--This is the order confirmed part of the page-->
+                <div id="confirmation" class="card-details" style="margin-top: 30px; display: none;">
+                    <div class="form-row" style="margin-top: 30px;">
+                        <!--This is where we see the order received part on the top-->
+                        <div class="col-sm-7 text-center align-self-center m-auto" style="margin-bottom: 0px;">
+                            <h6 class="text-center" style="color: rgb(79,121,96);font-size: 50px;">Order Recieved!</h6><i class="fa fa-check-circle" style="font-size: 78px;color: rgb(79,121,96);"></i></div>
+                        <!--This is the part that says we are processing your order-->
+                        <div class="col-sm-8 text-center align-self-center m-auto">
+                            <p style="margin-top: 25px;">Your Order Has Been Recieved and Is Currently Being Processed.</p>
+                            <p>Your Order Number Is:&nbsp;<label for="card-number">#########</label></p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
