@@ -7,16 +7,17 @@
  * @exports handleSessionUpdateValues
  * @exports handleSessionGetSessionInfo
  * @require read-hidden
- * @require www
+ * @require app
  * @require uuid/v4
  */
 
 // This helper file makes a cleaner reading of a credientials file for
 // hidden information like DB credientials
 const hidden = require('./read-hidden.js');
-//const sessions = require('../bin/www');
 const sessions = require('../app.js');
 const uuidv4 = require('uuid/v4');
+
+// 30 minutes
 const TIMEOUT = 1800000;
 
 /**
@@ -78,6 +79,30 @@ exports.handleSessionGetSessionInfo = function(sessionId) {
       // reached end of sessions
       } else if (sessions["sessions"].length - 1 == i) {
         resolve(null);
+      }
+    }
+  })
+}
+
+/**
+ * @function handleSessionGetCart
+ * @description This will get the session's current cart
+ * @param sessionId the session that will have the items pulled
+ */
+exports.handleSessionGetCart = function(sessionId) {
+  return new Promise(function(resolve, reject) {
+    //console.log("IN GET CART FUNCTION");
+    var sessionList = sessions["sessions"];
+    for (var i = 0; i < sessionList.length; i++) {
+      // found the user's session and updated it
+      if (sessionList[i]["uuid"] == sessionId) {
+        resolve(sessionList[i]["cart"]);
+        return;
+      // reached end of sessions
+      } else if (sessionList.length - 1 == i) {
+        emptyCart = {}
+        resolve(emptyCart);
+        return
       }
     }
   })
