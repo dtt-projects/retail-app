@@ -103,7 +103,7 @@ const createAccount = (req, res, next) => {
               var emailContent = ('<!DOCTYPE html><html><head>' +
               '<title>Welcome to Sprout Creek Farm!</title></head>' +
               '<body><h1 style="text-align:center;">Welcome to Sprout Creek Farm!</h1>' +
-              '<p>Hello ' + req.body["first_name"] + ',</p>' +
+              '<p>Hello ' + req.body["firstName"] + ',</p>' +
               '<p>Welcome to Sprout Creek Farm. Thank you for ' +
               'signing up and joining our community. Now that ' +
               'you are a member, here is a list of the benefits ' +
@@ -187,13 +187,8 @@ const createAccount = (req, res, next) => {
                            'x-ibm-client-secret': json[2]["ClientSecret"],
                            'x-ibm-client-id': json[2]["ClientId"] },
                         body:
-                         { "firstName": req.body["first_name"],
-                           "lastName": req.body["last_name"],
-                           "address1": req.body["address"],
-                           "city": req.body["city"],
-                           "state": req.body["state"],
-                           "zip": req.body["zip"],
-                           "phoneHome": req.body["phone_number"],
+                         { "firstName": req.body["firstName"],
+                           "lastName": req.body["lastName"],
                            "emailAddress": req.body["email"] },
                         json: true };
 
