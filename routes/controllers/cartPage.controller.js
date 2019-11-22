@@ -23,7 +23,7 @@
  * @param {Function} next The function to call when this method is done executing
  *    and does not return or render anything (no `res` methods called).
  */
-const sendCartPage = (req, res, next) => {
+const sendCartPage = async (req, res, next) => {
 
   // updates and validates user's cookies
   sessions.handleSession(req.cookies)
@@ -59,17 +59,20 @@ const sendCartPage = (req, res, next) => {
                                   , "price": data["price"]
                                   , "quantity": cart[key]
                                   , "itemId": key
+                                  , "total": data["price"] * cart[key]
+                                  , "maxQuantity": data["quantity"]
                                 });
+                  console.log("before length check");
+                  if (cartDisplay.length == keys.length) {
+                    console.log(cartDisplay);
+                    res.render('cart', {
+                      title: 'Sprout Creek Farm Cart',
+                      page: 'cart',
+                      items: cartDisplay});
+                  }
                 }
               });
             })
-            if (cartDisplay.length == keys.length) {
-              console.log(cartDisplay);
-              res.render('cart', {
-                title: 'Sprout Creek Farm Cart',
-                page: 'cart',
-                items: cartDisplay});
-            }
           // empty cart
           } else {
             console.log("in empty cart")
