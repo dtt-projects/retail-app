@@ -3,6 +3,11 @@
   flex-wrap: wrap;
   margin-right: -.75rem;
   margin-left: -.75rem;
-  overflow: auto;
+  /*overflow-y: auto;*/
+}
+
+.text-break {
+  word-break: break-word!important;
+  overflow-wrap: break-word!important;
 }
 
