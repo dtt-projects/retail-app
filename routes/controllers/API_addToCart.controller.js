@@ -28,7 +28,7 @@ const addToCart = (req, res, next) => {
   var sessionId = req.cookies["sessionId"];
   var itemId = req.body["itemId"];
   var amount = req.body["amount"];
-  var isAdding = true;
+  var isAdding = req.body["isAdding"];
 
   sessions.handleSessionUpdateCart(sessionId, itemId, amount, isAdding)
     .then(isSuccessful => {
