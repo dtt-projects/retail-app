@@ -28,16 +28,17 @@
 
                                 <div class="col-sm-7" id="recipientName">
 
-                                    <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>Recipient Name</strong></label><input class="form-control" type="text" id="recipientName" onchange="verifyName(this.value, id)" placeholder="Recipient Name" minlength="1" required=""></div>
+                                    <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>Recipient Name</strong></label><input class="form-control" type="text" id="recipientName" onchange="verifyName(this.value, id)" placeholder="Recipient Name" minlength="1" required="">
                                     <!--This is the validation funciton for the recipient name-->
                                     <script type = "text/javascript">
                                       function verifyName(name, id){
-                                        var nameRegEx = new RegExp("^(?=.*[a-zA-Z])");
+                                        var nameRegEx = new RegExp(/^[a-zA-Z]+$/);
                                         if(nameRegEx.test(name) != true){
                                           alert("Please use letters in the name field");
                                         }
                                       }
                                     </script>
+                                  </div>
                                 </div>
                                 <!--This is the phone number-->
                                 <div class="col-sm-7" id="phoneNumber" style="height: 87px;">
@@ -45,7 +46,7 @@
                                       <!--This is the validation function for the phone number-->
                                       <script type = "text/javascript">
                                         function verifyPhoneNum(number, id){
-                                          var phoneNum = new RegExp("^(?=.*[0-9])");
+                                          var phoneNum = new RegExp(/^[0-9]+$/);
                                           if(phoneNum.test(number) != true){
                                             alert("Please use only numbers");
                                           }
@@ -59,14 +60,13 @@
                                       <!--This is the validation function for the address-->
                                       <script type = "text/javascript">
                                         function verifyAddress(address, id){
-                                          var address1 = new RegExp("^(?=.*[0-9])");
-                                          var address2 = new RegExp("^(?=.*[a-zA-Z])");
+                                          var address1 = new RegExp(/^[0-9]+$/);
+                                          var address2 = new RegExp(/^[a-zA-Z]+$/);
                                           var splitAddress = address.split(" ");
 
-                                          var nameRegEx = new RegExp("^(?=.*[a-zA-Z])");
                                           if(address1.test(splitAddress[0]) != true){
-                                            alert("Please use numbers first and letter after for the address field");
-                                          }else if(address2.test(address) != true){
+                                            alert("Please use numbers first and letters after for the address field");
+                                          }else if(address2.test(splitAddress[1]) != true || splitAddress[1] == undefined){
                                             alert("Please use letters after the numbers for the address field");
                                           }
                                         }
@@ -79,14 +79,14 @@
                                       <!--This is the validation script for the address-->
                                       <script type = "text/javascript">
                                         function verifyAddress2(address, id){
-                                          var address1 = new RegExp("^(?=.*[0-9])");
-                                          var address2 = new RegExp("^(?=.*[a-zA-Z])");
+                                          var address1 = new RegExp(/^[0-9]+$/);
+                                          var address2 = new RegExp(/^[a-zA-Z]+$/);
                                           var splitAddress = address.split(" ");
 
-                                          var nameRegEx = new RegExp("^(?=.*[a-zA-Z])");
+
                                           if(address1.test(splitAddress[0]) != true){
                                             alert("Please use numbers first and letter after for the address field");
-                                          }else if(address2.test(address) != true){
+                                          }else if(address2.test(splitAddress[1]) != true || splitAddress[1] == undefined){
                                             alert("Please use letters after the numbers for the address field");
                                           }
                                         }
@@ -99,7 +99,7 @@
                                       <!--This is validation for the city field-->
                                       <script type = "text/javascript">
                                         function verifyCity(city, id){
-                                          var cityRegEx = new RegExp("^(?=.*[a-zA-Z])");
+                                          var cityRegEx = new RegExp(/^[a-zA-Z]+$/);
                                           if(cityRegEx.test(city) != true){
                                             alert("Please use only letters in the city field");
                                           }
@@ -109,14 +109,15 @@
                                 </div>
                                 <!--This is the zip code-->
                                 <div class="col-sm-8 col-xl-3" id="zipCode">
-                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Zip Code</strong></label><input class="form-control" type="text" onchange = "verifyZip(this.value, id)" id="shippingZipCode" placeholder="Zip Code" required="" minlength="1" maxlength = "5" pattern="/(^\d{5}$)|(^\d{5}-\d{4}$)/"
+                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Zip Code</strong></label><input class="form-control" type="text" onchange = "verifyZip(this.value, id)" id="shippingZipCode" placeholder="Zip Code" required="" minlength="5" maxlength = "5" pattern="/(^\d{5}$)|(^\d{5}-\d{4}$)/"
                                             inputmode="numeric">
                                         <!--This is the validation for the zip-->
                                         <script type = "text/javascript">
                                           function verifyZip(zip, id){
-                                            var zipRegExp = new RegExp("^(?=.*[0-9])");
-                                            if(zipRegExp.test(zip) != true){
-                                              alert("Please use at most 5 numbers for your zip code");
+                                            var zipRegExp = new RegExp(/^[0-9]+$/);
+
+                                            if(zipRegExp.test(zip) != true || zip.length < 6){
+                                              alert("Please use 5 numbers for your zip code");
                                             }
                                           }
 
@@ -125,13 +126,14 @@
                                 </div>
                                 <!--This is the state-->
                                 <div class="col-sm-8 col-xl-3" id="state">
-                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>State</strong></label><input class="form-control" type="text" id="shippingState" onchange = "verifyState(this.value, id)" placeholder="State" required="" minlength="1">
+                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>State</strong></label><input class="form-control" type="text" id="shippingState" onchange = "verifyState(this.value, id)" placeholder="State" required="" minlength="2" maxlength="2">
                                       <!--This is the validation for the state-->
                                       <script type = "text/javascript">
                                         function verifyState(state, id){
-                                          var stateRegEx = new RegExp("^(?=.*[a-zA-Z])");
+                                          var stateRegEx = new RegExp(/^[a-zA-Z]+$/);
+
                                           if(stateRegEx.test(state) != true){
-                                            alert("Please use only letters in the city field");
+                                            alert("Please use only letters in the state field");
                                           }
                                         }
                                       </script>
@@ -231,7 +233,7 @@
                                   <!--This is the validation for the card holders-->
                                   <script type = "text/javascript">
                                     function verifyCardHolder(cardHolder, id){
-                                      var cardHolderRegEx = new RegExp("^(?=.*[a-zA-Z])");
+                                      var cardHolderRegEx = new RegExp(/^[a-zA-Z]+$/);
                                       if(cardHolderRegEx.test(cardHolder) != true){
                                         alert("Please use your name in the card holder field");
                                       }
@@ -246,7 +248,7 @@
                                       <!--This is the validation for the month-->
                                       <script type = "text/javascript">
                                         function verifyExpiration(expirationMonth, id){
-                                          var expirationDateRegEx = new RegExp("^(?=.*[0-9])");
+                                          var expirationDateRegEx = new RegExp(/^[0-9]+$/);
                                           if(expirationDateRegEx.test(expirationMonth) != true){
                                             alert("Please use two numbers for the expiration month");
                                           }
@@ -255,7 +257,7 @@
                                         <!--This is the validation for the year-->
                                         <script type = "text/javascript">
                                         function verifyExpirationYear(expirationYear, id){
-                                          var expirationDateRegEx = new RegExp("^(?=.*[0-9])");
+                                          var expirationDateRegEx = new RegExp(/^[0-9]+$/);
                                           if(expirationDateRegEx.test(expirationYear) != true){
                                             alert("Please use two numbers for the expiriation year");
                                           }
@@ -308,7 +310,7 @@
                                 <!--This is the cvc validation-->
                                 <script type = "text/javascript">
                                   function verifyCVC(cvc, id){
-                                    var cvcRegExp = new RegExp("^(?=.*[0-9])");
+                                    var cvcRegExp = new RegExp(/^[0-9]+$/);
                                     var cvcLength = document.getElementById("cvc").value;
                                     if(cvcRegExp.test(cvc) != true || cvcLength.length < 3){
                                       alert("Please enter a valid cvc combination");
