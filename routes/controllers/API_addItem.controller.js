@@ -54,7 +54,7 @@ const addItem = (req, res, next) => {
               // prepare the request and the ibm api
               var options = {
                 method: 'POST',
-                url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Inventory',
+                url: 'json[2]["apiUrl"]Inventory',
                 headers: {
                   accept: 'application/json',
                     'content-type': 'application/json',

@@ -69,7 +69,7 @@ const updateItem = (req, res, next) => {
             // build out the request for the api call
             var options = {
               method: 'PUT',
-              url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Inventory/' + req.body["itemId"],
+              url: 'json[2]["apiUrl"]Inventory/' + req.body["itemId"],
               headers: {
                 accept: 'application/json',
                 'content-type': 'application/json',

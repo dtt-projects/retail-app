@@ -47,7 +47,7 @@ const sendAdminDashboardManageOrdersPage = (req, res, next) => {
                       // setup the api call and point it towards a single item
                       var options = {
                         method: 'GET',
-                        url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/capstone-1.0/Order',
+                        url: 'json[2]["apiUrl"]Order',
                         headers:
                           { accept: 'application/json',
                             'x-ibm-client-secret': json[2]["ClientSecret"],
