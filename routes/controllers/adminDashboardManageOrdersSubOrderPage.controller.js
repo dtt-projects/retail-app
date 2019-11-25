@@ -49,7 +49,7 @@ const sendAdminDashboardManageOrdersSubOrderPage = (req, res, next) => {
                       // setup the api call and point it towards a single item
                       var options = {
                         method: 'GET',
-                        url: 'json[2]["apiUrl"]Order/' + orderId,
+                        url: 'json[2]["apiUrl"]' + 'Order/' + orderId,
                         headers:
                           { accept: 'application/json',
                             'x-ibm-client-secret': json[2]["ClientSecret"],

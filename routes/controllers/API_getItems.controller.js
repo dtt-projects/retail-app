@@ -37,7 +37,7 @@ const getItems = (req, res, next) => {
       // setup the call for the api
       var options = {
         method: 'GET',
-        url: 'json[2]["apiUrl"]Inventory',
+        url: 'json[2]["apiUrl"]' + 'Inventory',
         headers:
           { accept: 'application/json',
             'x-ibm-client-secret': json[2]["ClientSecret"],
