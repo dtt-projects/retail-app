@@ -76,36 +76,89 @@
                 </ul><button class="btn btn-primary" type="button" style="width: 85px;margin: 9px;padding: 6px;background-color: rgb(79,121,96);">Log In</button></div>
         </div>
     </nav>
-    <header></header><a href="#" style="font-size: 20px;margin-left: 40px;margin-top: 0px;color: rgb(133,135,150);">Back To Previous Page</a>
-    <div class="container border rounded shadow-sm" style="background-color: #ffffff;margin-top: 60px;max-width: 960px;padding-top: 15px;padding-bottom: 15px;padding-right: 50px;padding-left: 50px;">
-        <div class="row justify-content-center align-items-center" style="margin-top: 0px;margin-right: 0px;margin-left: 0px;margin-bottom: 0px;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;">
-            <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto" style="margin-top: 30px;padding: 0px;padding-right: 0px;margin-right: 6px;width: 270px;height: 270px;">
-                <div class="gallery">
-                    <div class="sp-wrap"><a href="assets/img/tech/image1.jpg?h=632f7cbe39109a76c61629561f97c295"><img class="img-fluid d-block mx-auto" src="assets/img/tech/image1.jpg?h=632f7cbe39109a76c61629561f97c295"></a><a href="assets/img/tech/image1.jpg?h=632f7cbe39109a76c61629561f97c295"><img class="img-fluid d-block mx-auto" src="assets/img/tech/image1.jpg?h=632f7cbe39109a76c61629561f97c295"></a><a href="assets/img/tech/image1.jpg?h=632f7cbe39109a76c61629561f97c295"><img class="img-fluid d-block mx-auto" src="assets/img/tech/image1.jpg?h=632f7cbe39109a76c61629561f97c295"></a></div>
-                </div><img src="assets/img/bogart.jpg?h=e60673f3dcbecae44bc43ea5761f59d0" style="background-position: center;background-size: auto;margin-bottom: 20px;width: 250px;height: 250px;"></div>
-            <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto text-break" style="margin-bottom: 30px;padding-right: 25px;padding-bottom: 12px;padding-left: 25px;padding-top: 12px;">
-                <div class="info">
-                    <h3 class="text-center" style="margin-top: 5px;font-size: 25px;height: 37px;color: rgb(98,100,112);"><strong><em>Bogart</em></strong></h3>
-                    <div class="price">
-                        <h3 style="margin-top: 20px;font-size: 22px;color: rgb(98,100,112);"><strong>Price Per Unit:</strong><br></h3>
-                        <p id="pricePerUnit" style="font-size: 22px;color: rgb(98,100,112);height: 35px;">$12.00</p>
-                    </div>
-                    <div class="price">
-                        <h3 style="margin-top: 20px;font-size: 22px;color: rgb(98,100,112);"><strong>Category:</strong><br></h3>
-                        <p id="categoryItem" style="font-size: 22px;color: rgb(98,100,112);height: 35px;">Cheese</p>
-                    </div>
-                    <div class="summary" style="width: 780px;height: 140px;">
-                        <h3 style="margin-top: 20px;font-size: 22px;height: 29px;color: rgb(98,100,112);"><strong>Description:</strong><br><br></h3>
-                        <p class="text-break" id="descriptionItem" style="margin-top: 15px;font-size: 20px;color: rgb(98,100,112);height: 75px;overflow-y: auto;">a good amn</p>
-                    </div>
+    <header></header><a href="adminManageAccounts.html" style="margin-left: 40px;margin-top: 0px;color: rgb(133,135,150);font-size: 20px;">Back To Accounts</a>
+    <div class="container-fluid text-center border rounded shadow-sm" style="background-color: #ffffff;margin-top: 60px;max-width: 960px;padding-top: 15px;padding-bottom: 15px;padding-right: 50px;padding-left: 50px;">
+        <h1 class="text-center" style="color: rgb(133,135,150);font-size: 28px;height: 90px;">Account Details</h1>
+        <div class="row">
+            <div class="col align-self-center m-auto">
+                <div class="table-responsive" style="margin-top: 25px;padding: 10px;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>User ID</td>
+                                <td id="aid" contenteditable="false">11</td>
+                            </tr>
+                            <tr>
+                                <td>Admin</td>
+                                <td id="adminStatus" contenteditable="false">false</td>
+                            </tr>
+                            <tr>
+                                <td>Username</td>
+                                <td id="userName" contenteditable="false">johnDoe</td>
+                            </tr>
+                            <tr>
+                                <td>First Name</td>
+                                <td id="firstName" contenteditable="false">John</td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td id="lastName" contenteditable="false">Doe</td>
+                            </tr>
+                            <tr>
+                                <td>E-Mail</td>
+                                <td id="eMail" contenteditable="false">john.doe@email.com</td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number (Home)</td>
+                                <td id="phoneNumberHome" contenteditable="false">9304809348290</td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number (Mobile)</td>
+                                <td id="phoneNumberMobile" contenteditable="false">034823948229</td>
+                            </tr>
+                            <tr>
+                                <td>Address (1)</td>
+                                <td id="addressOne" contenteditable="false">50 Fake Street</td>
+                            </tr>
+                            <tr>
+                                <td>Address (2)</td>
+                                <td id="addressTwo" contenteditable="false">504 B Suite</td>
+                            </tr>
+                            <tr>
+                                <td>City</td>
+                                <td id="cityName" contenteditable="false">Poughkeepsie</td>
+                            </tr>
+                            <tr>
+                                <td>State</td>
+                                <td id="stateName" contenteditable="false">NY</td>
+                            </tr>
+                            <tr>
+                                <td>Zip Code</td>
+                                <td id="zipCode" contenteditable="false">12601</td>
+                            </tr>
+                            <tr>
+                                <td contenteditable="false">Gender</td>
+                                <td id="genderCode" contenteditable="false">M</td>
+                            </tr>
+                            <tr>
+                                <td contenteditable="false">Creation Date</td>
+                                <td id="creationDate" contenteditable="false">10/10/2010</td>
+                            </tr>
+                            <tr>
+                                <td contenteditable="false">Last Updated</td>
+                                <td id="lastUpdated" contenteditable="false">12/1/2018</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div><label class="d-none d-md-block" for="quantity" style="font-size: 22px;color: rgb(98,100,112);"><strong>Quantity:</strong><input type="number" id="quantity" class="form-control quantity-input" value="1" style="width: 60px;padding-right: 6px;padding-bottom: 6px;padding-left: 6px;" min="1" max="10"></label></div>
-                <button
-                    class="btn btn-primary btn-block" type="button" style="margin-top: 30px;background-color: rgb(79,121,96);height: 50px;font-size: 22px;"><i class="icon-basket"></i>&nbsp;Add to Cart</button>
             </div>
-        </div>
-    </div>
-    <div class="footer-dark" style="background-color: rgb(144,93,51);height: 377px;padding: 50px;width: 100%;margin-top: 100px;">
+        </div><button class="btn btn-primary" id="editAccountInformation" type="button" style="background-color: rgb(79,121,96);margin-top: 15px;font-size: 18px;">Edit Information</button><button class="btn btn-primary text-center" id="sumbitChanges" type="button"
+            style="background-color: rgb(100,117,207);margin-top: 15px;font-size: 18px;display:none;">Submit Changes</button><button class="btn btn-primary" id="cancelChanges" type="button" style="background-color: rgb(129,130,133);margin-top: 15px;font-size: 18px;display: none;">Cancel</button></div>
+    <div
+        class="footer-dark" style="background-color: rgb(144,93,51);height: 377px;padding: 50px;width: 100%;margin-top: 100px;">
         <footer>
             <div class="container">
                 <div class="row">
@@ -133,24 +186,24 @@
                 <p class="copyright">Sprout Creek Farm © 2019</p>
             </div>
         </footer>
-    </div>
-    <script src="assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js?h=63715b63ee49d5fe4844c2ecae071373"></script>
-    <script src="assets/js/smart-forms.min.js?h=1585abf9beaf49802b3a80bf813edceb"></script>
-    <script src="assets/js/bs-init.js?h=009e1093d04bef4d964ccf07197400d3"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    <script src="assets/js/Sprout-Creek-Shopping-Cart-1.js?h=975b2635c9a06eae9f47d6cae8158a12"></script>
-    <script src="assets/js/Sprout-Creek-Shopping-Cart.js?h=417b03f5f0a4f9f27f8c248f532eb5af"></script>
-    <script src="assets/js/editAccount.js?h=25f18be7bb2151730c532f113b7d9208"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.0/owl.carousel.js"></script>
-    <script src="assets/js/paymentPage.js?h=a0bb52ca0e8aabcf85162ee117b10f3b"></script>
-    <script src="assets/js/slider-hover.js?h=c1e4ccc027c05db2a63a66297f1c4871"></script>
-    <script src="assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
+        </div>
+        <script src="assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js?h=63715b63ee49d5fe4844c2ecae071373"></script>
+        <script src="assets/js/smart-forms.min.js?h=1585abf9beaf49802b3a80bf813edceb"></script>
+        <script src="assets/js/bs-init.js?h=009e1093d04bef4d964ccf07197400d3"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+        <script src="assets/js/Sprout-Creek-Shopping-Cart-1.js?h=975b2635c9a06eae9f47d6cae8158a12"></script>
+        <script src="assets/js/Sprout-Creek-Shopping-Cart.js?h=417b03f5f0a4f9f27f8c248f532eb5af"></script>
+        <script src="assets/js/editAccount.js?h=25f18be7bb2151730c532f113b7d9208"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.0/owl.carousel.js"></script>
+        <script src="assets/js/paymentPage.js?h=a0bb52ca0e8aabcf85162ee117b10f3b"></script>
+        <script src="assets/js/slider-hover.js?h=c1e4ccc027c05db2a63a66297f1c4871"></script>
+        <script src="assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
 </body>
 
 </html>

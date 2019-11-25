@@ -6,3 +6,14 @@
   overflow: auto;
 }
 
+.table-responsive {
+  /*overflow-y: auto;*/
+}
+
+.card-body {
+  overflow-y: auto;
+}
+
+.col {
+}
+
