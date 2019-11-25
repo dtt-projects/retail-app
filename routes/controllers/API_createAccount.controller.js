@@ -180,7 +180,7 @@ const createAccount = (req, res, next) => {
                       var request = require("request");
 
                       var options = { method: 'POST',
-                        url: 'json[2]["apiUrl"]' + 'Customer',
+                        url: json[2]["apiUrl"] + 'Customer',
                         headers:
                          { accept: 'application/json',
                            'content-type': 'application/json',

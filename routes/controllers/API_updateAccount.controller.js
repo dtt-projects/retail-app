@@ -108,7 +108,7 @@ const updateAccount = (req, res, next) => {
                 // setup to update customer on ibm DB
                 var options = {
                   method: 'PUT',
-                  url: 'json[2]["apiUrl"]' + 'Customer/' + ibmId,
+                  url: json[2]["apiUrl"] + 'Customer/' + ibmId,
                   headers: {
                     accept: 'application/json',
                     'content-type': 'application/json',
