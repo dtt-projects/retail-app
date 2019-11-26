@@ -23,7 +23,7 @@
  * @param {Function} next The function to call when this method is done executing
  *    and does not return or render anything (no `res` methods called).
  */
-const sendCartPage = async (req, res, next) => {
+const sendCartPage = (req, res, next) => {
 
   // updates and validates user's cookies
   sessions.handleSession(req.cookies)
