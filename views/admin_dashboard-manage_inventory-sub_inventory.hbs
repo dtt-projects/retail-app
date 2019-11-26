@@ -1,13 +1,20 @@
-
+<!--File: admin_dashboard-manage_inventory-sub_inventory.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 11/25/2019-->
+<!--Description: This is the body of the admin_dashboard-manage_inventpry-sub_inventory page-->
 
 <!--This is create inventory and sub-->
 
+<!--This is the button to go back to the inventory page-->
 <header></header><a href="/admin_dashboard/manage_inventory" style="margin-left: 40px;margin-top: 0px;color: rgb(133,135,150);font-size: 20px;">Back To Inventory</a>
   <div class="container-fluid text-center border rounded shadow-sm" style="background-color: #ffffff;margin-top: 60px;max-width: 960px;padding-top: 15px;padding-bottom: 15px;padding-right: 50px;padding-left: 50px;">
       <h5 class="text-left" style="color: rgb(133,135,150);font-size: 28px;height: 90px;padding-top: 30px;"><strong>Inventory Item</strong></h5>
       <div class="row">
           <div class="col text-left">
-              <form>
+              <!--This is the form to post the information to the system-->
+
+              <!--Come back here and double check the form action-->
+              <form method = "post" action = "/api/sub_inventory">
                   <div class="form-group"><label style="font-size: 20px;"><strong>Item ID:</strong><input class="form-control" type="number" id="itemID" required="" min="0" step="1" placeholder="Item ID"></label></div>
                   <div class="form-group"><label style="font-size: 20px;"><strong>Merchant ID:</strong><input class="form-control" type="number" id="merchantID" min="0" step="1" required="" placeholder="Merchant ID"></label></div>
                   <div class="form-group"><label style="font-size: 20px;"><strong>Item Name:</strong><br><input class="form-control" type="text" id="itemName" placeholder="Name" required="" minlength="1"></label></div>
@@ -23,7 +30,7 @@
       </div>
   </div>
 
-
+<!--This is the logout button-->
 <input type=button value="logout" onClick="eraseCookie()"/>
 <script src="../javascripts/addItem.js" async></script>
 <script src="../javascripts/client.js" async></script>
@@ -64,7 +71,10 @@
       </tr>
     {{/each}}
   </table> -->
-<h1> END ITEMS </h1>
+
+
+
+<!--<h1> END ITEMS </h1>-->
 
 <script> function eraseCookie() {
   // make the api call
