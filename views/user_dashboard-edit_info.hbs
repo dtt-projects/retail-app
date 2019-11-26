@@ -1,10 +1,16 @@
+<!--File: user_dashboard-edit_info.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 11/10/2019-->
+<!--Description: This is the body of the user_dashboard-edit_info page-->
 <div style="margin-top: 30px;margin-bottom: 50px;">
       <div class="container-fluid">
           <div class="row">
+              <!--This is the welcome message for the current user-->
               <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
                   <h1 style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {userName}!</strong></h1>
               </div>
           </div>
+          <!--This is the goat points information-->
           <div class="row justify-content-center" style="margin-bottom: 50px;">
               <div class="col-xl-4 m-auto" style="margin-top: 10px;margin-bottom: 15px;">
                   <div class="card shadow border-left-primary py-2" style="margin-top: 10px;margin-bottom: 10px;">
@@ -21,6 +27,7 @@
               </div>
               <div class="col-xl-6"></div>
           </div>
+          <!--This is the nav bar that has the dashboard, view orders, and edit information-->
           <div class="row justify-content-center align-items-center" style="height: 100%;">
               <div class="col-auto col-sm-11 col-md-9 col-lg-9 col-xl-11 text-break text-center align-self-center m-auto" style="padding: 5px;padding-left: 40px;">
                   <div class="card">
@@ -35,6 +42,7 @@
                           <h4 class="card-title" style="font-size: 28px;margin-top: 20px;">Account Details</h4>
                           <div class="col align-self-center m-auto">
                               <div class="table-responsive" style="margin-top: 25px;padding: 10px;height: 544px;">
+                                  <!--This is the table of user information-->
                                   <table class="table table-hover">
                                       <thead>
                                           <tr></tr>
@@ -110,6 +118,7 @@
   <li> <a href="/user_dashboard/edit_information"> Edit Information </a> </li>
 </ul> -->
 
+<!--This is the form that holds the appropriate infromation-->
 <form>
   <table>
     <tr>
