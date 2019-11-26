@@ -22,8 +22,30 @@
 
                           <!--This form is where the user will input the credentials to log in-->
                           <form class="user" action="/api/login" method = "post" style="margin-top: 0px;">
-                              <div class="form-group"><input class="form-control form-control-user" type="text" id="username" placeholder="Username" name="username" style="font-size: 18px;"></div>
-                              <div class="form-group"><input class="form-control form-control-user" type="password" id="password" placeholder="Password" name="password" style="font-size: 18px;"></div>
+                              <div class="form-group"><input class="form-control form-control-user" type="text" id="username" onchange = "verifyUserName(this.value, id)" placeholder="Username" name="username" style="font-size: 18px;">
+                              <script type = "text/javascript">
+                                function verifyUserName(username, id){
+                                  var userNameRegExp = new RegExp(/^[a-z0-9]+$/i);
+                                  if(userNameRegExp.test(username) != true){
+                                    if(username == ""){
+                                      alert("Please enter a username");
+                                    }else{
+                                      alert(username + " is not a valid username");
+                                    }
+                                  }
+                                }
+                              </script>
+                              </div>
+                              <div class="form-group"><input class="form-control form-control-user" type="password" onchange = "verifyPassword(this.value, id)" id="password" placeholder="Password" name="password" style="font-size: 18px;">
+                              <script type = "text/javascript">
+                                function verifyPassword(password, id){
+                                  var passwordRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+                                  if(passwordRegExp.test(password) != true){
+                                    alert("Incorrect password");
+                                  }
+                                }
+                              </script>
+                              </div>
                               <div class="form-group">
                                   <div class="custom-control custom-checkbox small">
                                       <div class="form-check"><input class="form-check-input custom-control-input" type="checkbox" id="formCheck-1"><label class="form-check-label custom-control-label" for="formCheck-1" style="font-size: 14px;">Remember Me</label></div>
