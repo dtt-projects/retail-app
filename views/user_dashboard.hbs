@@ -1,10 +1,18 @@
+<!--File: user_dashboard.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 11/25/2019-->
+<!--Description: This is the body of the user_dashboard page-->
+
+<!--This is the main container for the page-->
 <div style="margin-top: 30px;margin-bottom: 50px;">
       <div class="container-fluid">
           <div class="row">
+              <!--This is the welcoming message at the top-->
               <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
                   <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {username}</strong></h1>
               </div>
           </div>
+          <!--This div contains the goat point information-->
           <div class="row justify-content-center" style="margin-bottom: 50px;">
               <div class="col-xl-4 offset-xl-3 m-auto" style="margin-top: 10px;margin-bottom: 15px;">
                   <div class="card shadow border-left-primary py-2" style="margin-top: 10px;margin-bottom: 10px;">
@@ -21,21 +29,26 @@
               </div>
               <div class="col-xl-6"></div>
           </div>
+          <!--This div holds the nav bar for the dashboard, view orders, and edit information areas-->
           <div class="row justify-content-center align-items-center" style="height: 100%;">
               <div class="col-auto col-sm-11 col-md-9 col-lg-9 col-xl-11 text-break text-center align-self-center m-auto" style="padding: 5px;padding-left: 40px;">
                   <div class="card">
                       <div class="card-header">
+                          <!--Here are the links for the nav bar-->
                           <ul class="nav nav-tabs card-header-tabs">
                               <li class="nav-item"><a class="nav-link active" href="/login" style="font-size: 20px;">Dashboard</a></li>
                               <li class="nav-item"><a class="nav-link" href="/user_dashboard/view_orders" style="font-size: 20px;">Order(s)</a></li>
                               <li class="nav-item"><a class="nav-link" href="/user_dashboard/edit_information" style="font-size: 20px;">Account Details</a></li>
                           </ul>
                       </div>
+                      <!--This is the account dashboard heading we have under the dashboard tab on the top left-->
                       <div class="card-body">
                           <h4 class="card-title" style="font-size: 28px;margin-top: 20px;">Account Dashboard</h4>
                           <div class="col align-self-center m-auto">
-                              <h4 style="margin-top: 35px;"><em>Account Information</em></h4><a href="#">Update Information</a>
+                              <!--This is the link to view the account-->
+                              <h4 style="margin-top: 35px;"><em>Account Information</em></h4><a href="/user_dashboard/edit_information">Update Information</a>
                               <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 250px;">
+                                  <!--This is the table that has your account information in it-->
                                   <table class="table table-hover">
                                       <thead>
                                           <tr></tr>
@@ -89,8 +102,9 @@
                                   </table>
                               </div>
                           </div>
+                          <!--This is the view all orders option-->
                           <div class="col align-self-center m-auto">
-                              <h4 style="margin-top: 65px;"><em>Recent Order(s)</em></h4><a href="#">View All Orders</a>
+                              <h4 style="margin-top: 65px;"><em>Recent Order(s)</em></h4><a href="/user_dashboard/view_orders">View All Orders</a>
                               <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 280px;">
                                   <table class="table table-hover">
                                       <thead>
@@ -139,6 +153,8 @@
 </ul>
 <h1 style = "color: black"> Your goat points </h1>
 <h1 style = "color: black"> {{goatPoints}} </h1> -->
+
+<!--This is the log out button and the function that will log you out-->
 <input type=button value="logout" onClick="eraseCookie()"/>
 
 <script> function eraseCookie() {
