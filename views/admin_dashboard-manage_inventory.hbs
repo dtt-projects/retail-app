@@ -1,7 +1,81 @@
+<div style="margin-top: 30px;margin-bottom: 50px;">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
+                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {userName}!</strong></h1>
+              </div>
+          </div>
+          <div class="row justify-content-center align-items-center" style="height: 100%;">
+              <div class="col-auto col-sm-11 col-md-9 col-lg-9 col-xl-11 text-break text-center align-self-center m-auto" style="padding: 5px;padding-left: 40px;">
+                  <div class="card">
+                      <div class="card-header">
+                          <ul class="nav nav-tabs card-header-tabs">
+                              <li class="nav-item"><a class="nav-link" href="/login" style="font-size: 20px;">Dashboard</a></li>
+                              <li class="nav-item"><a class="nav-link active" href="/admin_dashboard/manage_inventory" style="font-size: 20px;">Manage Inventory</a></li>
+                              <li class="nav-item"><a class="nav-link" href="/admin_dashboard/manage_orders" style="font-size: 20px;">Manage Order(s)</a></li>
+                              <li class="nav-item"><a class="nav-link" href="/admin_dashboard/manage_accounts" style="font-size: 20px;">Manage Accounts</a></li>
+                          </ul>
+                      </div>
+                      <div class="card-body">
+                          <h4 class="card-title" style="font-size: 28px;margin-top: 20px;">Manage Inventory</h4>
+                          <div class="text-right"><button class="btn btn-primary" type="button" style="margin-top: 15px;background-color: rgb(79,121,96);font-size: 18px;">Add Item</button></div>
+                          <div class="col align-self-center m-auto">
+                              <h4 style="margin-top: 35px;"><em>Inventory List</em></h4>
+                              <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 280px;">
+                                  <table class="table table-hover">
+                                      <thead>
+                                          <tr>
+                                              <th>Item ID</th>
+                                              <th>Name</th>
+                                              <th>Category</th>
+                                              <th>Quantity</th>
+                                              <th>Price</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <tr>
+                                              <td>Cell 1</td>
+                                              <td>Cell 2</td>
+                                              <td>Cell 2</td>
+                                              <td>Cell 2</td>
+                                              <td>Cell 2</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Cell 3</td>
+                                              <td>Cell 4</td>
+                                              <td>Cell 4</td>
+                                              <td>Cell 4</td>
+                                              <td>Cell 4</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Cell 3</td>
+                                              <td>Cell 4</td>
+                                              <td>Cell 4</td>
+                                              <td>Cell 4</td>
+                                              <td>Cell 4</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Cell 3</td>
+                                              <td>Cell 4</td>
+                                              <td>Cell 4</td>
+                                              <td>Cell 4</td>
+                                              <td>Cell 4</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
 <input type=button value="logout" onClick="eraseCookie()"/>
 <script src="../javascripts/addItem.js" async></script>
 <script src="../javascripts/client.js" async></script>
-<h2> ADMIN ACCOUNT INVENTORY PAGE!!!! </h2>
+<!-- <h2> ADMIN ACCOUNT INVENTORY PAGE!!!! </h2>
 <h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
 <h2> {{email}} </h2>
 
@@ -40,7 +114,7 @@
       </tr>
     {{/each}}
   </table>
-<h1> END ITEMS </h1>
+<h1> END ITEMS </h1> -->
 
 <script> function eraseCookie() {
   // make the api call
