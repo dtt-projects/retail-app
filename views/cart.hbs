@@ -26,7 +26,7 @@
                                              <div><span style="font-size: 17px;"><strong>Price Per Unit:&nbsp;</strong></span><span id="{{itemId}}Price"class="value" style="font-size: 17px;">${{price}}</span></div>
                                          </div>
                                      </div>
-                                     <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto quantity"><label class="d-none d-md-block" for="quantity" style="font-size: 18px;"><strong>Quantity</strong></label><input type="number" id="{{itemId}}" onChange="updateCart({{itemId}})" class="form-control quantity-input" min="1" max="{{maxQuantity}}" value="{{quantity}}"></div>
+                                     <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto quantity"><label class="d-none d-md-block" for="quantity" style="font-size: 18px;"><strong>Quantity</strong></label><input type="number" id="{{itemId}}" onChange="updatePage({{itemId}})" class="form-control quantity-input" min="1" max="{{maxQuantity}}" value="{{quantity}}"></div>
                                      <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto price"
                                          style="margin-top: 5px;"><span id="{{itemId}}TotalItemPrice" style="font-size: 20px;padding-top: 0px;">${{total}}</span></div>
                                      <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto"><button class="btn btn-primary" type="button" onClick="removeFromCart({{itemId}});"style="background-color: rgb(105,108,119);padding-top: 6px;margin-top: 5px;">Remove</button></div>
@@ -42,8 +42,8 @@
                                <h4 style="padding-bottom: 17px;padding-top: 5px;"><span class="text" style="font-size: 22px;"><strong>Shipping: &nbsp;</strong></span><span class="price" style="font-size: 22px;">Calculated At Checkout</span></h4>
                                <h4 style="padding-bottom: 20px;padding-top: 5px;"><span class="text" style="font-size: 22px;"><strong>Tax: &nbsp;</strong></span><span class="price" style="font-size: 22px;">Calculated At Checkout</span></h4>
                                <h4 style="padding-bottom: 0px;padding-top: 10px;margin-bottom: 45px;"><span class="text" style="font-size: 25px;"><strong>Total: &nbsp;</strong></span><span class="price" id="totalTotal" style="font-size: 25px;"><strong></strong></span></h4>
-                                 <button class="btn btn-primary btn-block btn-lg border rounded shadow-sm"
-                                   type="button"  style="background-color: rgb(79,121,96);font-size: 22px;">Checkout</button></div>
+                                 <a href="/check_out"><button class="btn btn-primary btn-block btn-lg border rounded shadow-sm"
+                                   type="button"  style="background-color: rgb(79,121,96);font-size: 22px;">Checkout</button></a></div>
                        </div>
                    </div>
                </div>
@@ -101,10 +101,29 @@
        document.getElementById(ids[i].toString() + "TotalItemPrice").innerHTML = "$" + itemTotal.toString();
        total += itemTotal;
 
+       var json = JSON.stringify({
+         "itemId" : ids[i],
+         "amount" : currentCount,
+       });
+       // make the api call
+       fetch("/api/setToCart",
+         {method: "POST",
+           headers: {
+           "Accept": "application/json",
+           "Content-Type": "application/json"
+         },
+         body : json
+       })
+
+
        if (i == ids.length - 1) {
          document.getElementById("subTotal").innerHTML = "$" + total.toString();
          document.getElementById("totalTotal").innerHTML = "$" + total.toString();
        }
      }
+   }
+
+   function checkOut() {
+
    }
    </script>
