@@ -15,17 +15,18 @@
 
               <!--Come back here and double check the form action-->
               <form method = "post" action = "/api/sub_inventory">
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Item ID:</strong><input class="form-control" type="number" id="itemID" required="" min="0" step="1" placeholder="Item ID"></label></div>
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Item ID:</strong><input class="form-control" type="number" id="itemID" value="{{item.itemid}}" placeholder="Item ID"></label></div>
                   <div class="form-group"><label style="font-size: 20px;"><strong>Merchant ID:</strong><input class="form-control" type="number" id="merchantID" min="0" step="1" required="" placeholder="Merchant ID"></label></div>
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Item Name:</strong><br><input class="form-control" type="text" id="itemName" placeholder="Name" required="" minlength="1"></label></div>
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Category:</strong><br><input class="form-control" type="text" id="itemCategory" placeholder="Category" required="" minlength="1"></label></div>
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Quantity:</strong><br><input class="form-control" type="number" id="itemQuantity" placeholder="Quantity" required="" min="0" step="1"></label></div>
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Price:</strong><br><input class="form-control" type="number" id="itemPrice" required="" placeholder="Price" min="1" step="1"></label></div>
-                  <div class="form-group" style="height: 165px;"><label style="font-size: 20px;"><strong>Image:</strong><br><input class="form-control" type="url" id="imageUrl" placeholder="Image URL" style="margin-bottom: 20px;"><input type="file" id="imageFile" rows="7" cols="50"></label>
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Item Name:</strong><br><input class="form-control" type="text" id="itemName" value="{{item.itemname}}" placeholder="Name" required="" minlength="1"></label></div>
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Category:</strong><br><input class="form-control" type="text" id="itemCategory" value="{{item.itemcat}}" placeholder="Category" required="" minlength="1"></label></div>
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Quantity:</strong><br><input class="form-control" type="number" id="itemQuantity" value="{{item.quantity}}" placeholder="Quantity" required="" min="0" step="1"></label></div>
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Price:</strong><br><input class="form-control" type="number" id="itemPrice" required="" value="{{item.price}}" placeholder="Price" min="1" step="1"></label></div>
+                  <div class="form-group" style="height: 165px;"><label style="font-size: 20px;"><strong>Image:</strong><br><input class="form-control" type="url" id="imageUrl" value="{{item.itemimagelink}}" placeholder="Image URL" style="margin-bottom: 20px;"><input type="file" id="imageFile" rows="7" cols="50"></label>
                       <small
                           class="form-text text-muted" style="font-size: 15px;"><em>Chose either by 'URL' or by 'File' for image selection</em></small>
                   </div>
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Description:</strong><textarea class="form-control" id="itemDescription" rows="7" cols="50" required="" minlength="1" placeholder="Description" spellcheck="true" wrap="soft" maxlength="500"></textarea><br></label></div>
+                  <img src="{{item.itemimagelink}}"5
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Description:</strong><textarea class="form-control" id="itemDescription" rows="7" cols="50" required="" minlength="1" placeholder="Description" spellcheck="true" wrap="soft" maxlength="500">{{item.itemdesc}}</textarea><br></label></div>
               </form><button class="btn btn-primary" type="button" method = "post" action = "/api/" style="background-color: rgb(79,121,96);font-size: 20px;margin-bottom: 15px;">Submit Item</button></div>
       </div>
   </div>
@@ -34,68 +35,3 @@
 <input type=button value="logout" onClick="eraseCookie()"/>
 <script src="../javascripts/addItem.js" async></script>
 <script src="../javascripts/client.js" async></script>
-<!-- <h2> ADMIN ACCOUNT SUB INVENTORY PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-<h2> {{email}} </h2>
-
-<ul>
-  <li> <a href="/admin_dashboard"> Main </a> </li>
-  <li> <a href="/admin_dashboard/manage_inventory"> Manage Inventory </a> </li>
-  <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
-  <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
-</ul>
-
-
-<h1> Items </h1>
-  <table>
-    <tr>
-      <td> itemid </td>
-      <td> itemcat </td>
-      <td> itemdesc </td>
-      <td> quantity </td>
-      <td> merchantid </td>
-      <td> itemname </td>
-      <td> price </td>
-      <td> itemimagelink </td>
-    </tr>
-    {{#each item}}
-      <tr>
-        <td> {{itemid}} </td>
-        <td> {{itemcat}} </td>
-        <td> {{itemdesc}} </td>
-        <td> {{quantity}} </td>
-        <td> {{merchantid}} </td>
-        <td> {{itemname}} </td>
-        <td> {{price}} </td>
-        <td> <img src="{{itemimagelink}}"> </td>
-      </tr>
-    {{/each}}
-  </table> -->
-
-
-
-<!--<h1> END ITEMS </h1>-->
-
-<script> function eraseCookie() {
-  // make the api call
-  fetch("/api/logout",
-    {method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        alert("Logout failed. Try again.");
-        location.reload(true);
-        return
-      } else {
-        // send to a webpage
-        location.reload(true);
-        return;
-      }
-    });
-}
-
-</script>

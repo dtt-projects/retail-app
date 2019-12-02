@@ -6,7 +6,7 @@
       <div class="container-fluid">
           <div class="row">
               <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
-                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {userName}!</strong></h1>
+                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {{userInfo.firstname}}!</strong></h1>
               </div>
           </div>
           <!--This is the part that has the nav bar with the dashboard, manage inventory, manage orders, and manage accounts-->
@@ -30,6 +30,7 @@
                               <h4 style="margin-top: 35px;"><em>Inventory List</em></h4>
                               <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 280px;">
                                   <!--This is the table with the inventory items-->
+                                  {{#if hasInventory}}
                                   <table class="table table-hover">
                                       <thead>
                                           <tr>
@@ -41,36 +42,20 @@
                                           </tr>
                                       </thead>
                                       <tbody>
+                                        {{#each inventory}}
                                           <tr>
-                                              <td>Cell 1</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 2</td>
+                                              <td><a href="/admin_dashboard/manage_inventory/sub_inventory/{{itemid}}">{{itemid}}</a></td>
+                                              <td>{{itemname}}</td>
+                                              <td>{{itemcat}}</td>
+                                              <td>{{quantity}}</td>
+                                              <td>{{price}}</td>
                                           </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
+                                        {{/each}}
                                       </tbody>
                                   </table>
+                                  {{else}}
+                                  <p> We have no inventory you should add some items! </p>
+                                  {{/if}}
                               </div>
                           </div>
                       </div>
