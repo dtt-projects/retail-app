@@ -2,7 +2,7 @@
       <div class="container-fluid">
           <div class="row">
               <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
-                  <h1 style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {userName}!</strong></h1>
+                  <h1 style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {{userInfo.firstname}}!</strong></h1>
               </div>
           </div>
           <div class="row justify-content-center" style="margin-bottom: 50px;">
@@ -12,7 +12,7 @@
                           <div class="row text-center align-items-center no-gutters">
                               <div class="col-xl-9 text-center mr-2">
                                   <div class="text-uppercase text-primary font-weight-bold text-xs mb-1" style="height: 28px;"><span style="font-size: 16px;">GoAT POINT BALANCE</span></div>
-                                  <div class="text-dark font-weight-bold h5 mb-0"><span style="font-size: 22px;">20 Goat Point(s)</span></div>
+                                  <div class="text-dark font-weight-bold h5 mb-0"><span style="font-size: 22px;">{{goatPoints}} Goat Point(s)</span></div>
                               </div>
                               <div class="col-auto" style="font-size: 20px;"><i class="fas fa-money-bill fa-2x text-gray-300"></i></div>
                           </div>
@@ -46,47 +46,47 @@
                                           </tr>
                                           <tr>
                                               <td>First Name</td>
-                                              <td id="firstName" contenteditable="false">John</td>
+                                              <td id="firstName" contenteditable="false">{{userInfo.firstname}}</td>
                                           </tr>
                                           <tr>
                                               <td>Last Name</td>
-                                              <td id="lastName" contenteditable="false">Doe</td>
+                                              <td id="lastName" contenteditable="false">{{userInfo.lastname}}</td>
                                           </tr>
                                           <tr>
                                               <td>E-Mail</td>
-                                              <td id="eMail" contenteditable="false">john.doe@email.com</td>
+                                              <td id="eMail" contenteditable="false">{{userInfo.emailaddres}}</td>
                                           </tr>
                                           <tr>
                                               <td>Phone Number (Home)</td>
-                                              <td id="phoneNumberHome" contenteditable="false">9304809348290</td>
+                                              <td id="phoneNumberHome" contenteditable="false">{{userInfo.phonehome}}</td>
                                           </tr>
                                           <tr>
                                               <td>Phone Number (Mobile)</td>
-                                              <td id="phoneNumberMobile" contenteditable="false">034823948229</td>
+                                              <td id="phoneNumberMobile" contenteditable="false">{{userInfo.phonemobile}}</td>
                                           </tr>
                                           <tr>
                                               <td>Address (1)</td>
-                                              <td id="addressOne" contenteditable="false">50 Fake Street</td>
+                                              <td id="addressOne" contenteditable="false">{{userInfo.address1}}</td>
                                           </tr>
                                           <tr>
                                               <td>Address (2)</td>
-                                              <td id="addressTwo" contenteditable="false">504 B Suite</td>
+                                              <td id="addressTwo" contenteditable="false">{{userInfo.address2}}</td>
                                           </tr>
                                           <tr>
                                               <td>City</td>
-                                              <td id="cityName" contenteditable="false">Poughkeepsie</td>
+                                              <td id="cityName" contenteditable="false">{{userInfo.citycode}}</td>
                                           </tr>
                                           <tr>
                                               <td>State</td>
-                                              <td id="stateName" contenteditable="false">NY</td>
+                                              <td id="stateName" contenteditable="false">{{userInfo.statecode}}</td>
                                           </tr>
                                           <tr>
                                               <td>Zip Code</td>
-                                              <td id="zipCode" contenteditable="false">12601</td>
+                                              <td id="zipCode" contenteditable="false">{{userInfo.postcode}}</td>
                                           </tr>
                                           <tr>
                                               <td contenteditable="false">Gender</td>
-                                              <td id="genderCode" contenteditable="false">M</td>
+                                              <td id="genderCode" contenteditable="false">{{userInfo.gendercode}}</td>
                                           </tr>
                                       </tbody>
                                   </table>
@@ -98,17 +98,7 @@
           </div>
       </div>
   </div>
-<!--
-<h2> USER ACCOUNT EDIT INFO PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-<script src="../javascripts/updateAccount.js" async></script>
 
-
-<ul>
-  <li> <a href="/user_dashboard"> Main </a> </li>
-  <li> <a href="/user_dashboard/view_orders"> View Orders </a> </li>
-  <li> <a href="/user_dashboard/edit_information"> Edit Information </a> </li>
-</ul> -->
 
 <form>
   <table>
@@ -198,30 +188,3 @@
       </td>
     </tr>
 </form>
-
-
-<input type=button value="logout" onClick="eraseCookie()"/>
-
-<script> function eraseCookie() {
-  // make the api call
-  fetch("/api/logout",
-    {method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        alert("Logout failed. Try again.");
-        location.reload(true);
-        return
-      } else {
-        // send to a webpage
-        location.reload(true);
-        return;
-      }
-    });
-}
-
-</script>

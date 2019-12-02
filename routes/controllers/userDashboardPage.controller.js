@@ -144,7 +144,7 @@ const sendUserDashboardPage = (req, res, next) => {
                                           } else if (orders.length > 5) {
                                             orders = orders.slice(0, 5);
                                           }
-                                          
+
                                           console.log("++++++++++++++++++++++++++++++++++++++");
                                           console.log(userInfo);
                                           console.log("======================================");
@@ -154,7 +154,9 @@ const sendUserDashboardPage = (req, res, next) => {
                                             "userInfo": userInfo,
                                             "goatPoints": goatPoints,
                                             "orders": orders,
-                                            "hasOrders": hasOrders
+                                            "hasOrders": hasOrders,
+                                            "isLogged": true,
+                                            "isDashboard": true
                                           })
                                         }
                                       });

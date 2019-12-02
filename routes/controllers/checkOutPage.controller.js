@@ -158,13 +158,15 @@ const sendCheckOutPage = (req, res, next) => {
                                               console.log("before length check");
                                               if (cartDisplay.length == keys.length) {
                                                 console.log(cartDisplay);
+
                                                 res.render('check_out', {
                                                   "title": 'Sprout Creek Farm Check Out',
                                                   "page": 'cart',
                                                   "customerInfo": customerInfo,
                                                   "goatPoints": goatPoints,
                                                   "customerCard": customerCard,
-                                                  "items": cartDisplay});
+                                                  "items": cartDisplay,
+                                                  "isLogged": isLoggedIn});
                                               }
                                             }
                                           });
