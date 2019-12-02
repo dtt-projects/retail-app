@@ -11,6 +11,11 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+const hidden = require('../../scripts/read-hidden.js');
+
+const mysql = require('mysql');
+
+const request = require('request');
 
 /**
  * @function sendAdminDashboardPage
@@ -34,6 +39,13 @@ const sendAdminDashboardPage = (req, res, next) => {
               .then(isAdmin => {
                 // user is an admin
                 if (isAdmin) {
+                  sessions.handleSessionGetSessionInfo(sessionId)
+                    .then(aid => {
+                      hidden.readHidden()
+                        .then(json => {
+                          // connect to db
+                        })
+                    })
                   res.render('admin_dashboard', {
                     title: 'Sprout Creek Farm Admin Dashboard',
                     page: 'login'});
