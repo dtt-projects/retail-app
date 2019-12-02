@@ -24,7 +24,12 @@ const sendHomePage = (req, res, next) => {
   sessions.handleSession(req.cookies)
     .then(sessionId => {
       res.cookie("sessionId", sessionId);
-      res.render('homepage', { title: 'Sprout Creek Farm Homepage' });
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          res.render('homepage', {
+            title: 'Sprout Creek Farm Homepage',
+            "isLogged": isLoggedIn});
+        });
     });
 };
 

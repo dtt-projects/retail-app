@@ -11,6 +11,12 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+ const mysql = require('mysql');
+
+ const request = require('request');
+
+ const hidden = require('../../scripts/read-hidden.js');
+
 /**
  * @function sendCheckOutPage
  * @description Send the base page rendered by `Handlebars.js`. Compilation
@@ -25,9 +31,171 @@ const sendCheckOutPage = (req, res, next) => {
   sessions.handleSession(req.cookies)
     .then(sessionId => {
       res.cookie("sessionId", sessionId);
-      res.render('check_out', {
-        title: 'Sprout Creek Farm Check Out',
-        page: 'cart' });
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          // user is logged in bring them to checkout
+          if (isLoggedIn) {
+            // get user info based on session
+            sessions.handleSessionGetSessionInfo(sessionId)
+              .then(aid => {
+                hidden.readHidden()
+                  .then(json => {
+                    console.log("DB area");
+                    var con = mysql.createConnection({
+                      host: json[0]["host"],
+                      user: json[0]["user"],
+                      password: json[0]["password"],
+                      database: json[0]["database"]
+                    });
+                    con.connect(function(err) {
+                      if (err) {
+                        console.log(err);
+                        res.status(400);
+                        res.setHeader('Content-Type', 'plain/text');
+                        res.send();
+                      }
+                    });
+
+                    console.log("POST DB area");
+
+                    statement = ("select ibmid, goatpoints from ibm join rewards on ibm.aid=rewards.aid where ibm.aid=" + aid);
+
+                    con.query(statement, function(err, result) {
+                      if (err) {
+                        console.log(err);
+                        res.status(400);
+                        con.end();
+                        res.send();
+                        return;
+                      // ibm u
+                      } else if (result.length > 0) {
+                        console.log("IBM area");
+                        console.log(result);
+                        console.log(result[0]);
+                        console.log(result[0]["ibmid"]);
+                        var ibmId = result[0]["ibmid"];
+                        var goatPoints = result[0]["goatpoints"];
+
+                        var options = { method: 'GET',
+                          url: json[2]["apiUrl"] + 'Customer/' + ibmId,
+                          headers:
+                           { accept: 'application/json',
+                              'content-type': 'application/json',
+                              'x-ibm-client-secret': json[2]["ClientSecret"],
+                              'x-ibm-client-id': json[2]["ClientId"] },
+                          json: true };
+
+                        request(options, function (error, response, body) {
+                          if (error) {
+                            console.error('Failed: %s', error.message);
+                            con.end();
+                            res.status(401);
+                            res.send();
+                            return;
+                          } else {
+                            console.log(body["data"]["customerList"]);
+                            var customerInfo = body["data"]["customerList"];
+
+                            // get ibm card with account
+                            var options = { method: 'GET',
+                              url: json[2]["apiUrl"] + 'Credit',
+                              qs:
+                               { CustomerId: ibmId,
+                                 Prefered: 'true' },
+                              headers:
+                               { accept: 'application/json',
+                                  'content-type': 'application/json',
+                                  'x-ibm-client-secret': json[2]["ClientSecret"],
+                                  'x-ibm-client-id': json[2]["ClientId"] },
+                              json: true };
+
+                              request(options, function (error, response, body) {
+                                if (error) {
+                                  console.error('Failed: %s', error.message);
+                                  con.end();
+                                  res.status(401);
+                                  res.send();
+                                  return;
+                                } else {
+                                  console.log("CARD");
+                                  console.log(body);
+                                  console.log(body["data"]["creditCardList"][0])
+                                  var customerCard = body["data"]["creditCardList"][0];
+
+                                  sessions.handleSessionGetCart(sessionId)
+                                    .then(cart => {
+                                      var keys = Object.keys(cart);
+                                      // has values in cart
+                                      var cartDisplay = [];
+                                      console.log("before key length if")
+                                      if (keys.length > 0) {
+                                        keys.forEach(function(key) {
+                                          var amount = cart[key];
+                                          // setup url for api call
+                                          var options = {
+                                            method: 'GET',
+                                            url: 'http://' + req.headers["host"] + '/api/getItem/' + key,
+                                          };
+                                          // make the request to get a single item from IBM DB
+                                          // if error send user back to root admin Inventory page
+                                          // if sucess populate the item page
+                                          request(options, function (error, response, body) {
+                                            if (error) {
+                                              console.log(error.message);
+                                            } else {
+                                              //itemsList = JSON.parse(body.toString())
+                                              var data = JSON.parse(body.toString())[0];
+                                              console.log("else")
+                                              cartDisplay.push({"img": data["itemimagelink"]
+                                                              , "name": data["itemname"]
+                                                              , "cat": data["itemcat"]
+                                                              , "price": data["price"]
+                                                              , "quantity": cart[key]
+                                                              , "itemId": key
+                                                              , "total": data["price"] * cart[key]
+                                                              , "maxQuantity": data["quantity"]
+                                                            });
+                                              console.log("before length check");
+                                              if (cartDisplay.length == keys.length) {
+                                                console.log(cartDisplay);
+
+                                                res.render('check_out', {
+                                                  "title": 'Sprout Creek Farm Check Out',
+                                                  "page": 'cart',
+                                                  "customerInfo": customerInfo,
+                                                  "goatPoints": goatPoints,
+                                                  "customerCard": customerCard,
+                                                  "items": cartDisplay,
+                                                  "isLogged": isLoggedIn});
+                                              }
+                                            }
+                                          });
+                                        })
+                                      }
+                                    })
+                                }
+                              })
+                            }
+                        });
+                    // get ibmId
+                    // pull ibm api for user information
+                    // send it as a user
+                    // fill in hbs form
+
+                    // when procced send updated info to our db and ibm db based on session cookies
+
+                    // send cart again...
+                    // goat points
+                    // send card info based on ibm id
+                    }
+                    })
+                  })
+                })
+              } else {
+                res.redirect('/login');
+                return;
+          }
+        })
   });
 };
 

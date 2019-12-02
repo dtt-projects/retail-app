@@ -25,9 +25,13 @@ const sendEatAtTheFarmPage = (req, res, next) => {
   sessions.handleSession(req.cookies)
     .then(sessionId => {
       res.cookie("sessionId", sessionId);
-      res.render('eat_at_the_farm', {
-        title: 'Sprout Creek Farm Eat At The Farm',
-        page: 'Eat At The Farm' });
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          res.render('eat_at_the_farm', {
+            title: 'Sprout Creek Farm Eat At The Farm',
+            page: 'Eat At The Farm',
+            "isLogged": isLoggedIn});
+        });
     });
 };
 

@@ -53,10 +53,15 @@ const sendMarketItemPage = (req, res, next) => {
           //itemsList = JSON.parse(body.toString())
           var data = JSON.parse(body.toString());
           console.log(data[0]["itemname"]);
-          res.render('marketItem', {
-            title: "Sprout Creek Farm Market | " + data[0]["itemname"],
-            page: 'market',
-            item: data});
+          sessions.handleSessionIsLoggedIn(sessionId)
+            .then(isLoggedIn => {
+              res.render('marketItem', {
+                title: "Sprout Creek Farm Market | " + data[0]["itemname"],
+                page: 'market',
+                item: data,
+                "isLogged": isLoggedIn});
+            });
+
         }
       });
     });

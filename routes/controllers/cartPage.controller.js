@@ -65,21 +65,29 @@ const sendCartPage = (req, res, next) => {
                   console.log("before length check");
                   if (cartDisplay.length == keys.length) {
                     console.log(cartDisplay);
-                    res.render('cart', {
-                      title: 'Sprout Creek Farm Cart',
-                      page: 'cart',
-                      items: cartDisplay});
+                    sessions.handleSessionIsLoggedIn(sessionId)
+                      .then(isLoggedIn => {
+                        res.render('cart', {
+                          title: 'Sprout Creek Farm Cart',
+                          page: 'cart',
+                          items: cartDisplay,
+                          "isLogged": isLoggedIn});
+                      });
                   }
                 }
               });
             })
           // empty cart
           } else {
-            console.log("in empty cart")
-            res.render('cart', {
-              title: 'Sprout Creek Farm Cart',
-              page: 'cart',
-              msg: 'Your cart is empty'});
+            console.log("in empty cart");
+            sessions.handleSessionIsLoggedIn(sessionId)
+              .then(isLoggedIn => {
+                res.render('cart', {
+                  title: 'Sprout Creek Farm Cart',
+                  page: 'cart',
+                  msg: 'Your cart is empty',
+                  "isLogged": isLoggedIn});
+              });
             return;
           }
         })

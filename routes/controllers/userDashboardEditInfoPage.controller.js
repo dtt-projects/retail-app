@@ -16,6 +16,8 @@
 
  const mysql = require('mysql');
 
+ const hidden = require('../../scripts/read-hidden.js');
+
  /* sessions
   * This is to help with handling sessions to maintain cart and auth
   */
@@ -48,50 +50,96 @@ const sendUserDashboardEditInfoPage = (req, res, next) => {
                   res.redirect('/admin_dashboard')
                 // user is not an admin
                 } else {
-                  console.log("Edit info");
-                  console.log(sessionId);
-                  // setup call for internal api call
-                  var options ={
-                    method: 'GET',
-                    url: 'http://' + req.headers["host"] + '/api/getAccount',
-                    body: req.cookies,
-                    json: true
-                  };
+                  sessions.handleSessionGetSessionInfo(sessionId)
+                    .then(aid => {
+                      // setup call for internal api call
+                      var options ={
+                        method: 'GET',
+                        url: 'http://' + req.headers["host"] + '/api/getGoatPoints',
+                        body: req.cookies,
+                        json: true
+                      };
 
-                  // this sends out the request and either getGoatPoints or
-                  // will get nothing and return -1
-                  //console.log("send request");
-                  request(options, function (error, response, body) {
-                    if (error) {
-                      console.log(error.message);
-                    } else {
-                      //console.log(response);
-                      //console.log(response);
-                      var aid = response["body"]["aid"];
-                      var firstname = response["body"]["firstname"];
-                      var lastname = response["body"]["lastname"];
-                      var address = response["body"]["address"];
-                      var city = response["body"]["city"];
-                      var zip = response["body"]["zip"];
-                      var email = response["body"]["email"];
-                      var phonenumber = response["body"]["phonenumber"];
-                      var username = response["body"]["username"];
-                      res.render('user_dashboard-edit_info', {
-                        "title": 'Sprout Creek Farm User Dashboard',
-                        "page": 'login',
-                        "aid": aid,
-                        "firstname": firstname,
-                        "lastname": lastname,
-                        "address": address,
-                        "city": city,
-                        "zip": zip,
-                        "email": email,
-                        "phonenumber": phonenumber,
-                        "username": username});
-                    }
-                  });
+                      // this sends out the request and either getGoatPoints or
+                      // will get nothing and return -1
+                      var goatPoints = 0;
+                      request(options, function (error, response, body) {
+                        if (error) {
+                          console.log(error.message);
+                        } else {
+                          //console.log(response);
+                          goatPoints = response["body"];
+                          goatPoints = goatPoints["goatPoints"];
+
+                          hidden.readHidden()
+                            .then(json => {
+                              // connect to the database
+                              var con = mysql.createConnection({
+                                host: json[0]["host"],
+                                user: json[0]["user"],
+                                password: json[0]["password"],
+                                database: json[0]["database"]
+                              });
+                              con.connect(function(err) {
+                                if (err) {
+                                  console.log(err);
+                                  res.setHeader('Content-Type', 'plain/text');
+                                  res.status(400);
+                                  res.send();
+                                }
+                              });
+
+                              var statement = ("SELECT ibmid from ibm where aid=" + aid);
+                              con.query(statement, function(err, result) {
+                                if (err) {
+                                  console.log(err);
+                                  con.end();
+                                  res.send();
+                                  return;
+                                } else {
+                                  var ibmId = result[0]["ibmid"];
+                                  con.end();
+                                  var options = { method: 'GET',
+                                    url: json[2]["apiUrl"] + 'Customer/' + ibmId,
+                                    headers:
+                                     { accept: 'application/json',
+                                        'content-type': 'application/json',
+                                        'x-ibm-client-secret': json[2]["ClientSecret"],
+                                        'x-ibm-client-id': json[2]["ClientId"] },
+                                    json: true };
+
+                                  request(options, function (error, response, body) {
+                                    if (error) {
+                                      console.error('Failed: %s', error.message);
+                                      con.end();
+                                      res.status(401);
+                                      res.send();
+                                      return;
+                                    } else {
+                                      userInfo = body["data"]["customerList"][0];
+
+
+                                      console.log("++++++++++++++++++++++++++++++++++++++");
+                                      console.log(userInfo);
+                                      console.log("======================================");
+                                      res.render('user_dashboard-edit_info', {
+                                        "title": 'Sprout Creek Farm User Dashboard',
+                                        "page": 'login',
+                                        "userInfo": userInfo,
+                                        "goatPoints": goatPoints,
+                                        "isLogged": true,
+                                        "isDashboard": true
+                                      });
+                                    }
+                                  });
+                                }
+                              });
+                            })
+                        }
+                    })
+                  })
                 }
-              })
+              });
           // user isnt logged in render login page
           } else {
             res.redirect("/login");
