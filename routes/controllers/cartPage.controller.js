@@ -79,11 +79,15 @@ const sendCartPage = (req, res, next) => {
             })
           // empty cart
           } else {
-            console.log("in empty cart")
-            res.render('cart', {
-              title: 'Sprout Creek Farm Cart',
-              page: 'cart',
-              msg: 'Your cart is empty'});
+            console.log("in empty cart");
+            sessions.handleSessionIsLoggedIn(sessionId)
+              .then(isLoggedIn => {
+                res.render('cart', {
+                  title: 'Sprout Creek Farm Cart',
+                  page: 'cart',
+                  msg: 'Your cart is empty',
+                  "isLogged": isLoggedIn});
+              });
             return;
           }
         })
