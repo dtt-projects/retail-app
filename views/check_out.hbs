@@ -80,7 +80,6 @@
                                           var address1 = new RegExp(/^[0-9]+$/);
                                           var address2 = new RegExp(/^[a-zA-Z]+$/);
                                           var splitAddress = address.split(" ");
-
                                           if(address1.test(splitAddress[0]) != true){
                                             alert("Please use numbers first and letters after for the address field");
                                           }else if(address2.test(splitAddress[1]) != true || splitAddress[1] == undefined){
@@ -99,8 +98,6 @@
                                           var address1 = new RegExp(/^[0-9]+$/);
                                           var address2 = new RegExp(/^[a-zA-Z]+$/);
                                           var splitAddress = address.split(" ");
-
-
                                           if(address1.test(splitAddress[0]) != true){
                                             alert("Please use numbers first and letter after for the address field");
                                           }else if(address2.test(splitAddress[1]) != true || splitAddress[1] == undefined){
@@ -132,12 +129,10 @@
                                         <script type = "text/javascript">
                                           function verifyZip(zip, id){
                                             var zipRegExp = new RegExp(/^[0-9]+$/);
-
                                             if(zipRegExp.test(zip) != true || zip.length != 5){
                                               alert("Please use 5 numbers for your zip code");
                                             }
                                           }
-
                                         </script>
                                     </div>
                                 </div>
@@ -148,7 +143,6 @@
                                       <script type = "text/javascript">
                                         function verifyState(state, id){
                                           var stateRegEx = new RegExp(/^[a-zA-Z]+$/);
-
                                           if(stateRegEx.test(state) != true){
                                             alert("Please use only letters in the state field");
                                           }
@@ -247,7 +241,6 @@
                                       <script type = "text/javascript">
                                         function verifyExpiration(expirationMonth, id){
                                           var expirationDateRegEx = new RegExp(/^[0-9]+$/);
-
                                           if(expirationMonth < 1 || expirationMonth > 12){
                                             alert("Please enter a valid month");
                                           }
@@ -260,7 +253,6 @@
                                         <script type = "text/javascript">
                                         function verifyExpirationYear(expirationYear, id){
                                           var expirationDateRegEx = new RegExp(/^[0-9]+$/);
-
                                           if(expirationDateRegEx.test(expirationYear) != true){
                                             alert("Please use two numbers for the expiriation year");
                                           }
@@ -275,15 +267,12 @@
                                   <!--This is the credit card validation-->
                                   <script type = "text/javascript">
                                     function verifyCard(cardNumber, id){
-
                                       //This is the regular expression for visa, mastercard, amex, and discover
                                       var visa = new RegExp("^(?:4[0-9]{12}(?:[0-9]{3})?)");
                                       var mastercard = new RegExp("^5[1-5][0-9]{14}$");
                                       var amex = new RegExp("3[47][0-9]{13}$");
                                       var discover = new RegExp("6(?:011|5[0-9]{2})[0-9]{12}");
-
                                       var goodCard = false;
-
                                       //Here we test every card and see which it may be.
                                       if(visa.test(cardNumber) == true){
                                         goodCard = true;
@@ -297,12 +286,10 @@
                                       if(discover.test(cardNumber) == true){
                                         goodCard = true;
                                       }
-
                                       //If none of the validations work then we need a new card number
                                       if(!goodCard){
                                         alert("Please enter a valid credit card");
                                       }
-
                                     }
                                   </script>
                                 </div>

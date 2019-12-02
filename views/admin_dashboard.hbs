@@ -1,3 +1,9 @@
+<!--File: admin_dashboard.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 11/10/2019-->
+<!--Description: This is the body of the admin_dashboard page-->
+
+<!--This div holds the main admin dashboard-->
 <div style="margin-top: 30px;margin-bottom: 50px;">
       <div class="container-fluid">
           <div class="row">
@@ -5,6 +11,8 @@
                   <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {userName}!</strong></h1>
               </div>
           </div>
+
+          <!--Here is the links in the nav bar that are the dashboard, manage inventory, manage orders, and manage accounts-->
           <div class="row justify-content-center align-items-center" style="height: 100%;">
               <div class="col-auto col-sm-11 col-md-9 col-lg-9 col-xl-11 text-break text-center align-self-center m-auto" style="padding: 5px;padding-left: 40px;">
                   <div class="card">
@@ -16,11 +24,13 @@
                               <li class="nav-item"><a class="nav-link" href="/admin_dashboard/manage_accounts" style="font-size: 20px;">Manage Accounts</a></li>
                           </ul>
                       </div>
+                      <!--This is the recent orders part that has on the dashboard-->
                       <div class="card-body">
                           <h4 class="card-title" style="font-size: 28px;margin-top: 20px;">Account Dashboard</h4>
                           <div class="col align-self-center m-auto">
-                              <h4 style="margin-top: 65px;"><em>Recent Order(s)</em></h4><a href="#">View All Orders</a>
+                              <h4 style="margin-top: 65px;"><em>Recent Order(s)</em></h4><a href="/admin_dashboard/manage_orders">View All Orders</a>
                               <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 280px;">
+                                  <!--This is the order table-->
                                   <table class="table table-hover">
                                       <thead>
                                           <tr>
@@ -72,6 +82,7 @@
   <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
 </ul> -->
 
+<!--This is the logout function-->
 <script> function eraseCookie() {
   // make the api call
   fetch("/api/logout",

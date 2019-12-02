@@ -22,68 +22,31 @@
                         <form class="user" style="height: 343px;" action = "api/create_account" method = "post">
                             <div class="form-group row">
                                 <!-- This is the first name field-->
-                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="firstName" placeholder="First Name" onchange = "verifyFirstName(this.value, id)" name="firstName" style="font-size: 18px;">
-                                <script type = "text/javascript">
-                                  function verifyFirstName(firstname, id){
-                                    var firstNameRegExp = new RegExp(/^[A-Za-z]+$/);
-                                    if(firstNameRegExp.test(firstname) != true){
-                                      alert("Please enter only letters for the first name field");
-                                    }
-                                  }
-                                </script>
+                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="firstName" placeholder="First Name" name="firstName" style="font-size: 18px;">
+                                <!-- <script type = "text/javascript">
+
+                                </script> -->
                                 </div>
                                 <!-- This is the last name field-->
-                                <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="lastName" onchange = "verifyLastName(this.value, id)" placeholder="Last Name" name="lastName" style="font-size: 18px;">
-                                  <script type = "text/javascript">
-                                    function verifyLastName(lastname, id){
-                                      var lastnameRegExp = new RegExp(/^[A-Za-z]+$/);
-                                      if(lastnameRegExp.test(lastname) != true){
-                                        alert("Please enter only letters for the last name field");
-                                      }
-                                    }
-                                  </script>
+                                <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="lastName" placeholder="Last Name" name="lastName" style="font-size: 18px;">
+
                                 </div>
                             </div>
                             <!-- This is the user name field-->
-                            <div class="form-group"><input class="form-control form-control-user" type="text" id="username"  onchange = "verifyUserName(this.value, id)" placeholder="Username" name="username" style="font-size: 18px;">
-                              <script type = "text/javascript">
-                                function verifyUserName(username, id){
-                                  var usernameRegExp = new RegExp(/^[a-zA-Z0-9]+$/);
-                                  if(usernameRegExp.test(username) != true){
-                                    alert("Please only use letters and numbers in your username");
-                                  }
-                                }
+                            <div class="form-group"><input class="form-control form-control-user" type="text" id="username" placeholder="Username" name="username" style="font-size: 18px;">
 
-                              </script>
                             </div>
                             <!-- This is the email address field-->
-                            <div class="form-group"><input class="form-control form-control-user" type="email" onchange = "verifyEmail(this.value, id)" id="email" aria-describedby="emailHelp" placeholder="Email Address" name="email" style="font-size: 18px;">
-                            <script type = "text/javascript">
-                              function verifyEmail(email, id){
-                                var emailAddressRegExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-                                if(emailAddressRegExp.test(email) != true){
-                                  alert("Please follow the format of: emailaddress@example.com");
-                                }
-                              }
-                            </script>
+                            <div class="form-group"><input class="form-control form-control-user" type="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" name="email" style="font-size: 18px;">
+
                           </div>
                             <!-- This is password fields-->
                             <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="password" onchange = "verifyPassword(this.value, id)" placeholder="Password" name="password" style="font-size: 18px;">
-                                  <script type = "text/javascript">
-                                    function verifyPassword(password, id){
-                                      var passwordRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-                                      if(passwordRegExp.test(password) != true){
-                                        alert("Please create a password that has: \n" +
-                                              "One uppper case letter(s) \n" +
-                                              "One special chatacter(s) \n" +
-                                              "At least 8 characters \n");
-                                      }
-                                    }
-                                  </script>
+                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="password" placeholder="Password" name="password" style="font-size: 18px;">
+
                                 </div>
-                                <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="repeatpassword" onchange = "verifyPassword(this.value, id)" placeholder="Repeat Password" name="password_repeat" style="font-size: 18px;"></div>
-                            </div><button class="btn btn-primary btn-block text-white btn-user" type="submit" style="font-size: 18px;background-color: rgb(79,121,96);">Register Account</button>
+                                <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="repeatpassword" placeholder="Repeat Password" name="password_repeat" style="font-size: 18px;"></div>
+                            </div><button class="btn btn-primary btn-block text-white btn-user" onclick = "verifyFirstName(firstName.value, id); verifyLastName(lastName.value, id); verifyUser_Name(username.value, id); verifyEmail(email.value, id); verifyPassword(password.value, id);" type="Button" style="font-size: 18px;background-color: rgb(79,121,96);">Register Account</button>
                             <hr>
                             <hr>
                         </form>
