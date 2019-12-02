@@ -25,9 +25,13 @@ const sendSupportPage = (req, res, next) => {
   sessions.handleSession(req.cookies)
     .then(sessionId => {
       res.cookie("sessionId", sessionId);
-      res.render('support', {
-        title: 'Sprout Creek Farm Support',
-        page: 'Support' });
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          res.render('support', {
+            title: 'Sprout Creek Farm Support',
+            page: 'Support',
+            "isLogged": isLoggedIn});
+        });
     });
 };
 

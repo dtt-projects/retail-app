@@ -47,10 +47,14 @@ const sendMarketPage = (req, res, next) => {
           res.redirect('/');
         } else {
           itemsList = JSON.parse(body.toString());
-          res.render('market', {
-            title: 'Sprout Creek Farm Market',
-            page: 'market',
-            items: itemsList});
+          sessions.handleSessionIsLoggedIn(sessionId)
+            .then(isLoggedIn => {
+              res.render('market', {
+                title: 'Sprout Creek Farm Market',
+                page: 'market',
+                items: itemsList,
+                "isLogged": isLoggedIn});
+            });
         }
       });
     });

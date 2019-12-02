@@ -24,9 +24,13 @@ const sendContactPage = (req, res, next) => {
   sessions.handleSession(req.cookies)
     .then(sessionId => {
       res.cookie("sessionId", sessionId);
-      res.render('contact', {
-        title: 'Sprout Creek Farm Contact',
-        page: 'Contact' });
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          res.render('contact', {
+            title: 'Sprout Creek Farm Contact',
+            page: 'Contact',
+            "isLogged": isLoggedIn});
+        });
     });
 };
 

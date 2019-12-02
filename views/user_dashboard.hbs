@@ -1,18 +1,10 @@
-<!--File: user_dashboard.hbs-->
-<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
-<!--Date: 11/25/2019-->
-<!--Description: This is the body of the user_dashboard page-->
-
-<!--This is the main container for the page-->
 <div style="margin-top: 30px;margin-bottom: 50px;">
       <div class="container-fluid">
           <div class="row">
-              <!--This is the welcoming message at the top-->
               <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
-                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {username}</strong></h1>
+                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {{userInfo.firstname}}</strong></h1>
               </div>
           </div>
-          <!--This div contains the goat point information-->
           <div class="row justify-content-center" style="margin-bottom: 50px;">
               <div class="col-xl-4 offset-xl-3 m-auto" style="margin-top: 10px;margin-bottom: 15px;">
                   <div class="card shadow border-left-primary py-2" style="margin-top: 10px;margin-bottom: 10px;">
@@ -20,7 +12,7 @@
                           <div class="row text-center align-items-center no-gutters">
                               <div class="col-xl-9 text-center mr-2">
                                   <div class="text-uppercase text-primary font-weight-bold text-xs mb-1" style="height: 28px;"><span style="font-size: 16px;">GOAT POINT BALANCE</span></div>
-                                  <div class="text-dark font-weight-bold h5 mb-0"><span id="totalGoatPoints" style="font-size: 22px;">20 Goat Point(s)</span></div>
+                                  <div class="text-dark font-weight-bold h5 mb-0"><span id="totalGoatPoints" style="font-size: 22px;">{{goatPoints}} Goat Point(s)</span></div>
                               </div>
                               <div class="col-auto" style="font-size: 20px;"><i class="fas fa-money-bill fa-2x text-gray-300"></i></div>
                           </div>
@@ -29,26 +21,21 @@
               </div>
               <div class="col-xl-6"></div>
           </div>
-          <!--This div holds the nav bar for the dashboard, view orders, and edit information areas-->
           <div class="row justify-content-center align-items-center" style="height: 100%;">
               <div class="col-auto col-sm-11 col-md-9 col-lg-9 col-xl-11 text-break text-center align-self-center m-auto" style="padding: 5px;padding-left: 40px;">
                   <div class="card">
                       <div class="card-header">
-                          <!--Here are the links for the nav bar-->
                           <ul class="nav nav-tabs card-header-tabs">
                               <li class="nav-item"><a class="nav-link active" href="/login" style="font-size: 20px;">Dashboard</a></li>
                               <li class="nav-item"><a class="nav-link" href="/user_dashboard/view_orders" style="font-size: 20px;">Order(s)</a></li>
                               <li class="nav-item"><a class="nav-link" href="/user_dashboard/edit_information" style="font-size: 20px;">Account Details</a></li>
                           </ul>
                       </div>
-                      <!--This is the account dashboard heading we have under the dashboard tab on the top left-->
                       <div class="card-body">
                           <h4 class="card-title" style="font-size: 28px;margin-top: 20px;">Account Dashboard</h4>
                           <div class="col align-self-center m-auto">
-                              <!--This is the link to view the account-->
-                              <h4 style="margin-top: 35px;"><em>Account Information</em></h4><a href="/user_dashboard/edit_information">Update Information</a>
+                              <h4 style="margin-top: 35px;"><em>Account Information</em></h4><a href="#">Update Information</a>
                               <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 250px;">
-                                  <!--This is the table that has your account information in it-->
                                   <table class="table table-hover">
                                       <thead>
                                           <tr></tr>
@@ -56,55 +43,55 @@
                                       <tbody style="height: 195px;">
                                           <tr>
                                               <td>First Name</td>
-                                              <td>John</td>
+                                              <td>{{userInfo.firstname}}</td>
                                           </tr>
                                           <tr>
                                               <td>Last Name</td>
-                                              <td>Doe</td>
+                                              <td>{{userInfo.lastname}}</td>
                                           </tr>
                                           <tr>
                                               <td>E-Mail</td>
-                                              <td>john.doe@email.com</td>
+                                              <td>{{userInfo.emailaddres}}</td>
                                           </tr>
                                           <tr>
                                               <td>Phone Number (Home)</td>
-                                              <td>9304809348290</td>
+                                              <td>{{userInfo.phonehome}}</td>
                                           </tr>
                                           <tr>
                                               <td>Phone Number (Mobile)</td>
-                                              <td>034823948229</td>
+                                              <td>{{userInfo.phonemobile}}</td>
                                           </tr>
                                           <tr>
                                               <td>Address (1)</td>
-                                              <td>50 Fake Street</td>
+                                              <td>{{userInfo.address1}}</td>
                                           </tr>
                                           <tr>
                                               <td>Address (2)</td>
-                                              <td>504 B Suite</td>
+                                              <td>{{userInfo.address2}}</td>
                                           </tr>
                                           <tr>
                                               <td>City</td>
-                                              <td>Poughkeepsie</td>
+                                              <td>{{userInfo.citycode}}</td>
                                           </tr>
                                           <tr>
                                               <td>State</td>
-                                              <td>NY</td>
+                                              <td>{{userInfo.statecode}}</td>
                                           </tr>
                                           <tr>
                                               <td>Zip Code</td>
-                                              <td>12601</td>
+                                              <td>{{userInfo.postcode}}</td>
                                           </tr>
                                           <tr>
                                               <td>Gender</td>
-                                              <td>M</td>
+                                              <td>{{userInfo.gendercode}}</td>
                                           </tr>
                                       </tbody>
                                   </table>
                               </div>
                           </div>
-                          <!--This is the view all orders option-->
                           <div class="col align-self-center m-auto">
                               <h4 style="margin-top: 65px;"><em>Recent Order(s)</em></h4><a href="/user_dashboard/view_orders">View All Orders</a>
+                              {{#if hasOrders}}
                               <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 280px;">
                                   <table class="table table-hover">
                                       <thead>
@@ -114,25 +101,18 @@
                                           </tr>
                                       </thead>
                                       <tbody>
+                                        {{#each orders}}
                                           <tr>
-                                              <td>Cell 1</td>
-                                              <td>Cell 2</td>
+                                              <td>{{ordernum}}</td>
+                                              <td>{{orderdate}}</td>
                                           </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                          </tr>
+                                        {{/each}}
                                       </tbody>
                                   </table>
                               </div>
+                              {{else}}
+                              <p> You currently don't have any orders go buy something! </p>
+                              {{/if}}
                           </div>
                       </div>
                   </div>
@@ -140,43 +120,3 @@
           </div>
       </div>
   </div>
-
-<!--
-<h2> USER ACCOUNT DASHBOARD PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-
-
-<ul>
-  <li> <a href="/user_dashboard"> Main </a> </li>
-  <li> <a href="/user_dashboard/view_orders"> View Orders </a> </li>
-  <li> <a href="/user_dashboard/edit_information"> Edit Information </a> </li>
-</ul>
-<h1 style = "color: black"> Your goat points </h1>
-<h1 style = "color: black"> {{goatPoints}} </h1> -->
-
-<!--This is the log out button and the function that will log you out-->
-<input type=button value="logout" onClick="eraseCookie()"/>
-
-<script> function eraseCookie() {
-  // make the api call
-  fetch("/api/logout",
-    {method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        alert("Logout failed. Try again.");
-        location.reload(true);
-        return
-      } else {
-        // send to a webpage
-        location.reload(true);
-        return;
-      }
-    });
-}
-
-</script>

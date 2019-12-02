@@ -16,71 +16,33 @@
                                <div class="product"></div>
                                <div class="product">
                                 {{#each items}}
-                                   <div class="row justify-content-center align-items-center" style="padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;margin-top: 5px;margin-bottom: 5px;">
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto" style="padding-right: 20px;">
-
-                                           <div class="product-image"><img class="img-fluid d-block mx-auto image" src="/images/Ultimate-Vanilla-Cupcakes-01.jpg?h=a85b89dc674aeb8cc149921cd89dcba8" style="width: 74px;height: 110px;"></div>
-
-                                           <div class="product-image"><img class="img-fluid d-block mx-auto image" src="{{img}}" style="width: 74px;height: 100px;"></div>
-
-                                       </div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto product-info"><a class="product-name" href="/marketItem/{{itemId}}" style="font-size: 20px;">{{name}}</a>
-                                           <div class="product-specs">
-                                               <div style="font-size: 17px;"><span style="font-size: 17px;"><strong>Category:&nbsp;</strong></span><span class="value" style="font-size: 17px;">{{cat}}</span></div>
-                                               <div><span style="font-size: 17px;"><strong>Price Per Unit:&nbsp;</strong></span><span class="value" style="font-size: 17px;">${{price}}</span></div>
-                                           </div>
-                                       </div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto quantity"><label class="d-none d-md-block" for="quantity" style="font-size: 18px;"><strong>Quantity</strong></label><input type="number" id="number" class="form-control quantity-input" value="{{quantity}}"></div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto price"
-
-                                           style="margin-top: 5px;"><span style="font-size: 20px;padding-top: 0px;">$4.00</span></div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto"><button class="btn btn-primary" type="button" style="background-color: rgb(105,108,119);padding-top: 6px;margin-top: 5px;">Remove</button></div>
-                                   </div>
-                                   <div class="row justify-content-center align-items-center" style="padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;margin-top: 5px;margin-bottom: 5px;">
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto" style="padding-right: 20px;">
-                                           <div class="product-image"><img class="img-fluid d-block mx-auto image" src="/images/Ultimate-Vanilla-Cupcakes-01.jpg?h=a85b89dc674aeb8cc149921cd89dcba8" style="width: 74px;height: 110px;"></div>
-                                       </div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto product-info"><a class="product-name" href="#" style="font-size: 20px;">Cupcake</a>
-                                           <div class="product-specs">
-                                               <div style="font-size: 17px;"><span style="font-size: 17px;"><strong>Category:&nbsp;</strong></span><span class="value" style="font-size: 17px;">Dessert</span></div>
-                                               <div><span style="font-size: 17px;"><strong>Price Per Unit:&nbsp;</strong></span><span class="value" style="font-size: 17px;">$4.00</span></div>
-                                           </div>
-                                       </div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto quantity"><label class="d-none d-md-block" for="quantity" style="font-size: 18px;"><strong>Quantity</strong></label><input type="number" id="number" class="form-control quantity-input" value="1"></div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto price"
-                                           style="margin-top: 5px;"><span style="font-size: 20px;padding-top: 0px;">$4.00</span></div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto"><button class="btn btn-primary" type="button" style="background-color: rgb(105,108,119);padding-top: 6px;margin-top: 5px;">Remove</button></div>
-                                   </div>
-                                   <div class="row justify-content-center align-items-center" style="padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;margin-top: 5px;margin-bottom: 5px;">
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto" style="padding-right: 20px;">
-                                           <div class="product-image"><img class="img-fluid d-block mx-auto image" src="/images/Ultimate-Vanilla-Cupcakes-01.jpg?h=a85b89dc674aeb8cc149921cd89dcba8" style="width: 74px;height: 100px;"></div>
-                                       </div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto product-info"><a class="product-name" href="#" style="font-size: 20px;">Cupcake</a>
-                                           <div class="product-specs">
-                                               <div style="font-size: 17px;"><span style="font-size: 17px;"><strong>Category:&nbsp;</strong></span><span class="value" style="font-size: 17px;">Dessert</span></div>
-                                               <div><span style="font-size: 17px;"><strong>Price Per Unit:&nbsp;</strong></span><span class="value" style="font-size: 17px;">$4.00</span></div>
-                                           </div>
-                                       </div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto quantity"><label class="d-none d-md-block" for="quantity" style="font-size: 18px;"><strong>Quantity</strong></label><input type="number" id="number" class="form-control quantity-input" value="1"></div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto price"
-                                           style="margin-top: 5px;"><span style="font-size: 20px;padding-top: 0px;">$4.00</span></div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto"><button class="btn btn-primary" type="button" style="background-color: rgb(105,108,119);padding-top: 6px;margin-top: 5px;">Remove</button></div>
-                                           style="margin-top: 5px;"><span style="font-size: 20px;padding-top: 0px;">${{total}}</span></div>
-                                       <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto"><button class="btn btn-primary" type="button" onClick="removeFromCart({{itemId}}, {{quantity}});"style="background-color: rgb(105,108,119);padding-top: 6px;margin-top: 5px;">Remove</button></div>
-
-                                   </div>
-                                   {{/each}}
+                                <div class="row justify-content-center align-items-center" style="padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;margin-top: 5px;margin-bottom: 5px;">
+                                     <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto" style="padding-right: 20px;">
+                                         <div class="product-image"><img class="img-fluid d-block mx-auto image" src="{{img}}" style="width: 74px;height: 100px;"></div>
+                                     </div>
+                                     <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto product-info"><a class="product-name" href="/marketItem/{{itemId}}" style="font-size: 20px;">{{name}}</a>
+                                         <div class="product-specs">
+                                             <div style="font-size: 17px;"><span style="font-size: 17px;"><strong>Category:&nbsp;</strong></span><span class="value" style="font-size: 17px;">{{cat}}</span></div>
+                                             <div><span style="font-size: 17px;"><strong>Price Per Unit:&nbsp;</strong></span><span id="{{itemId}}Price"class="value" style="font-size: 17px;">${{price}}</span></div>
+                                         </div>
+                                     </div>
+                                     <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto quantity"><label class="d-none d-md-block" for="quantity" style="font-size: 18px;"><strong>Quantity</strong></label><input type="number" id="{{itemId}}" onChange="updatePage({{itemId}})" class="form-control quantity-input" min="1" max="{{maxQuantity}}" value="{{quantity}}"></div>
+                                     <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto price"
+                                         style="margin-top: 5px;"><span id="{{itemId}}TotalItemPrice" style="font-size: 20px;padding-top: 0px;">${{total}}</span></div>
+                                     <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto"><button class="btn btn-primary" type="button" onClick="removeFromCart({{itemId}});"style="background-color: rgb(105,108,119);padding-top: 6px;margin-top: 5px;">Remove</button></div>
+                                 </div>
+                                {{/each}}
                                </div>
                            </div>
                        </div>
                        <div class="col text-center" style="background-color: #fbf9f9;padding-left: 0px;">
                            <div class="border rounded shadow-sm summary">
                                <h2 style="padding-bottom: 0px;background-color: rgb(251,249,249);color: rgb(133,135,150);padding-top: 15px;font-size: 25px;"><strong><em>Summary</em></strong></h2>
-                               <h4 class="text-center" style="padding-bottom: 5px;padding-top: 20px;"><span class="text" style="font-size: 22px;"><strong>Subtotal: &nbsp;</strong></span><span class="price" style="font-size: 22px;">$25.00</span></h4>
+                               <h4 class="text-center" style="padding-bottom: 5px;padding-top: 20px;"><span class="text" style="font-size: 22px;"><strong>Subtotal: &nbsp;</strong></span><span class="price" id="subTotal" style="font-size: 22px;"></span></h4>
                                <h4 style="padding-bottom: 17px;padding-top: 5px;"><span class="text" style="font-size: 22px;"><strong>Shipping: &nbsp;</strong></span><span class="price" style="font-size: 22px;">Calculated At Checkout</span></h4>
                                <h4 style="padding-bottom: 20px;padding-top: 5px;"><span class="text" style="font-size: 22px;"><strong>Tax: &nbsp;</strong></span><span class="price" style="font-size: 22px;">Calculated At Checkout</span></h4>
-                               <h4 style="padding-bottom: 0px;padding-top: 10px;margin-bottom: 45px;"><span class="text" style="font-size: 25px;"><strong>Total: &nbsp;</strong></span><span class="price" style="font-size: 25px;"><strong>$25.00</strong></span></h4>
-                                 <a href = "/check_out"><button class="btn btn-primary btn-block btn-lg border rounded shadow-sm"
+                               <h4 style="padding-bottom: 0px;padding-top: 10px;margin-bottom: 45px;"><span class="text" style="font-size: 25px;"><strong>Total: &nbsp;</strong></span><span class="price" id="totalTotal" style="font-size: 25px;"><strong></strong></span></h4>
+                                 <a href="/check_out"><button class="btn btn-primary btn-block btn-lg border rounded shadow-sm"
                                    type="button"  style="background-color: rgb(79,121,96);font-size: 22px;">Checkout</button></a></div>
                        </div>
                    </div>
@@ -88,12 +50,12 @@
            </div>
        </section>
    </main>
-
+<body  onLoad="updatePage();"/>
    <script>
-   function removeFromCart(itemId, amount) {
+   function removeFromCart(itemId) {
      var json = JSON.stringify({
        "itemId" : itemId,
-       "amount" : amount,
+       "amount" : 999,
        "isAdding": false
      });
      console.log(json);
@@ -117,7 +79,41 @@
            location.reload();
          });
        }
-
      });
+   }
+   function updatePage() {
+     var ids = []
+     {{#each items}}
+       ids.push({{itemId}});
+     {{/each}}
+     var totalCount = 0;
+     var total = 0;
+     // get total item quan
+     for (var i = 0; i < ids.length; i++) {
+       var currentCount = parseInt(document.getElementById(ids[i].toString()).value);
+       var pricePerUnit = parseFloat(document.getElementById(ids[i].toString() + "Price").innerHTML.replace("$", ""));
+       var itemTotal = currentCount * pricePerUnit;
+       document.getElementById(ids[i].toString() + "TotalItemPrice").innerHTML = "$" + itemTotal.toString();
+       total += itemTotal;
+       var json = JSON.stringify({
+         "itemId" : ids[i],
+         "amount" : currentCount,
+       });
+       // make the api call
+       fetch("/api/setToCart",
+         {method: "POST",
+           headers: {
+           "Accept": "application/json",
+           "Content-Type": "application/json"
+         },
+         body : json
+       })
+       if (i == ids.length - 1) {
+         document.getElementById("subTotal").innerHTML = "$" + total.toString();
+         document.getElementById("totalTotal").innerHTML = "$" + total.toString();
+       }
+     }
+   }
+   function checkOut() {
    }
    </script>

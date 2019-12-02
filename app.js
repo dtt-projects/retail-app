@@ -169,6 +169,9 @@ const API_addToCartRouter = require('./routes/API_addToCart.router')
 /** The API_removeFromCart path router defined in './routes/API_removeFromCart'. */
 const API_removeFromCartRouter = require('./routes/API_removeFromCart.router')
 
+/** The API_setToCart path router defined in './routes/API_setToCart'. */
+const API_setToCartRouter = require('./routes/API_setToCart.router')
+
 
 // Testing routes
 const print_cookiesRouter = require('./routes/print_cookies.router');
@@ -264,6 +267,7 @@ app.use('/api/updateItem', API_updateItemRouter);
 app.use('/api/getGoatPoints', API_getGoatPointsRouter);
 app.use('/api/addToCart', API_addToCartRouter);
 app.use('/api/API_removeFromCart', API_removeFromCartRouter);
+app.use('/api/setToCart', API_setToCartRouter);
 
 
 

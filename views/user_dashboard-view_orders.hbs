@@ -1,16 +1,10 @@
-<!--File: user_dashboard-view_orders.hbs-->
-<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
-<!--Date: 11/10/2019-->
-<!--Description: This is the body of the about page-->
 <div style="margin-top: 30px;margin-bottom: 50px;">
       <div class="container-fluid">
           <div class="row">
-              <!--This is the welome message on the top-->
               <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
-                  <h1 style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {userName}!</strong></h1>
+                  <h1 style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {{userInfo.firstname}}!</strong></h1>
               </div>
           </div>
-          <!--This is the goat points information-->
           <div class="row justify-content-center" style="margin-bottom: 50px;">
               <div class="col-xl-4 offset-xl-3 m-auto" style="margin-top: 10px;margin-bottom: 15px;">
                   <div class="card shadow border-left-primary py-2" style="margin-top: 10px;margin-bottom: 10px;">
@@ -18,7 +12,7 @@
                           <div class="row text-center align-items-center no-gutters">
                               <div class="col-xl-9 text-center mr-2">
                                   <div class="text-uppercase text-primary font-weight-bold text-xs mb-1" style="height: 28px;"><span style="font-size: 16px;">GoAT POINT BALANCE</span></div>
-                                  <div class="text-dark font-weight-bold h5 mb-0"><span style="font-size: 22px;">20 Goat Point(s)</span></div>
+                                  <div class="text-dark font-weight-bold h5 mb-0"><span style="font-size: 22px;">{{goatPoints}} Goat Point(s)</span></div>
                               </div>
                               <div class="col-auto" style="font-size: 20px;"><i class="fas fa-money-bill fa-2x text-gray-300"></i></div>
                           </div>
@@ -27,7 +21,6 @@
               </div>
               <div class="col-xl-6"></div>
           </div>
-          <!--This is the nav bar on the top that has dashboard, view orders, edit information-->
           <div class="row justify-content-center align-items-center" style="height: 100%;">
               <div class="col-auto col-sm-11 col-md-9 col-lg-9 col-xl-11 text-break text-center align-self-center m-auto" style="padding: 5px;padding-left: 40px;">
                   <div class="card">
@@ -41,8 +34,8 @@
                       <div class="card-body">
                           <h4 class="card-title" style="font-size: 28px;margin-top: 20px;">Order(s)</h4>
                           <div class="col align-self-center m-auto">
+                            {{#if hasOrders}}
                               <div class="table-responsive" style="margin-top: 40px;padding: 10px;">
-                                  <!--This is the table that holds the orders information-->
                                   <table class="table table-hover">
                                       <thead>
                                           <tr>
@@ -50,60 +43,25 @@
                                               <th>Order Quantity</th>
                                               <th>Order Price</th>
                                               <th>Order Date</th>
+                                              <th>Item Id</th>
                                           </tr>
                                       </thead>
                                       <tbody>
+                                          {{#each orders}}
                                           <tr>
-                                              <td>Cell 1</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 2</td>
+                                              <td>{{ordernum}}</td>
+                                              <td>{{quanitity}}</td>
+                                              <td>{{ordertotal}}</td>
+                                              <td>{{orderdate}}</td>
+                                              <td>{{itemid}}</td>
                                           </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
+                                          {{/each}}
                                       </tbody>
                                   </table>
                               </div>
+                              {{else}}
+                              <p> You currently don't have any orders go buy something! </p>
+                              {{/if}}
                           </div>
                       </div>
                   </div>
@@ -111,41 +69,3 @@
           </div>
       </div>
   </div>
-<!--
-<h2> USER ACCOUNT VIEW ORDERS PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-
-
-<ul>
-  <li> <a href="/user_dashboard"> Main </a> </li>
-  <li> <a href="/user_dashboard/view_orders"> View Orders </a> </li>
-  <li> <a href="/user_dashboard/edit_information"> Edit Information </a> </li>
-</ul> -->
-
-
-<!--This is the logout information-->
-<input type=button value="logout" onClick="eraseCookie()"/>
-
-<script> function eraseCookie() {
-  // make the api call
-  fetch("/api/logout",
-    {method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        alert("Logout failed. Try again.");
-        location.reload(true);
-        return
-      } else {
-        // send to a webpage
-        location.reload(true);
-        return;
-      }
-    });
-}
-
-</script>

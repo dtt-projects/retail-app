@@ -159,6 +159,29 @@ exports.handleSessionUpdateCart = function(sessionId, itemId, amount, isAdding) 
   })
 }
 
+/**
+ * @function handleSessionSetCartItem
+ * @description This will set an item in cart with a particular amount
+ * @param sessionId the session that will have the items added
+ * @param itemId the corresponding item id from the ibm db
+ * @param amount the amount of that item being added
+ */
+exports.handleSessionSetCartItem = function (sessionId, itemId, amount) {
+  return new Promise(function(resolve, reject) {
+    var sessionList = sessions["sessions"];
+    for (var i = 0; i < sessionList.length; i++) {
+      // found the user's session and updated it
+      if (sessionList[i]["uuid"] == sessionId) {
+        sessionList[i]["cart"][itemId.toString()] = amount;
+        resolve(true);
+      // reached end of sessions
+      } else if (sessionList.length - 1 == i) {
+        resolve(false);
+      }
+    }
+  });
+};
+
 
 /**
  * @function handleSessionIsAdmin
