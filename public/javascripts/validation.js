@@ -61,6 +61,13 @@ function verifyPassword(password, id){
   }
 }
 
+function verifyPasswordRepeat(password, id){
+  var passwordRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+  if(passwordRegExp.test(password) != true){
+    alert("Please enter the same password as before");
+  }
+}
+
 function verifyName(name, id){
   var nameRegEx = new RegExp(/^[a-zA-Z\s]+$/);
   if(nameRegEx.test(name) != true){
