@@ -5,6 +5,9 @@
  * @exports {Object} Functions to attach to the
  *    `userDashboardViewOrdersPage` router.
  * @require session-helper
+ * @require request
+ * @require mysql
+ * @require read-hidden
  */
 
  /* sessions
@@ -12,10 +15,19 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+ /* request
+  * This is to help with handling sessions to maintain cart and auth
+  */
  const request = require('request');
 
+ /* mysql
+  * This is to help with handling sessions to maintain cart and auth
+  */
  const mysql = require('mysql');
 
+ /* hidden
+  * This is to help with handling sessions to maintain cart and auth
+  */
  const hidden = require('../../scripts/read-hidden.js');
 
 /**
@@ -28,7 +40,6 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendUserDashboardViewOrdersPage = (req, res, next) => {
-  // check their session and update it
   // check their session and update it
   sessions.handleSession(req.cookies)
     .then(sessionId => {
@@ -62,9 +73,9 @@ const sendUserDashboardViewOrdersPage = (req, res, next) => {
                           console.log(error.message);
                         } else {
                           //console.log(response);
-                          goatPoints = response["body"];
-                          goatPoints = goatPoints["goatPoints"];
+                          goatPoints = response["body"]["goatPoints"];
 
+                          // this will read the hidden file for db connection
                           hidden.readHidden()
                             .then(json => {
                               // connect to the database
@@ -83,6 +94,7 @@ const sendUserDashboardViewOrdersPage = (req, res, next) => {
                                 }
                               });
 
+                              // get the corresponding imb id from the table
                               var statement = ("SELECT ibmid from ibm where aid=" + aid);
                               con.query(statement, function(err, result) {
                                 if (err) {
@@ -92,6 +104,8 @@ const sendUserDashboardViewOrdersPage = (req, res, next) => {
                                   return;
                                 } else {
                                   var ibmId = result[0]["ibmid"];
+
+                                  // end connection because we dont use it again
                                   con.end();
                                   var options = { method: 'GET',
                                     url: json[2]["apiUrl"] + 'Customer/' + ibmId,
