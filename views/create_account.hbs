@@ -22,19 +22,31 @@
                         <form class="user" style="height: 343px;" action = "api/create_account" method = "post">
                             <div class="form-group row">
                                 <!-- This is the first name field-->
-                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="firstName" placeholder="First Name" name="firstName" style="font-size: 18px;"></div>
+                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="firstName" placeholder="First Name" name="firstName" style="font-size: 18px;">
+                                <!-- <script type = "text/javascript">
+
+                                </script> -->
+                                </div>
                                 <!-- This is the last name field-->
-                                <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="lastName" placeholder="Last Name" name="lastName" style="font-size: 18px;"></div>
+                                <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="lastName" placeholder="Last Name" name="lastName" style="font-size: 18px;">
+
+                                </div>
                             </div>
                             <!-- This is the user name field-->
-                            <div class="form-group"><input class="form-control form-control-user" type="text" id="username"  placeholder="Username" name="username" style="font-size: 18px;"></div>
+                            <div class="form-group"><input class="form-control form-control-user" type="text" id="username" placeholder="Username" name="username" style="font-size: 18px;">
+
+                            </div>
                             <!-- This is the email address field-->
-                            <div class="form-group"><input class="form-control form-control-user" type="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" name="email" style="font-size: 18px;"></div>
+                            <div class="form-group"><input class="form-control form-control-user" type="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" name="email" style="font-size: 18px;">
+
+                          </div>
                             <!-- This is password fields-->
                             <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="password" placeholder="Password" name="password" style="font-size: 18px;"></div>
+                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="password" placeholder="Password" name="password" style="font-size: 18px;">
+
+                                </div>
                                 <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="repeatpassword" placeholder="Repeat Password" name="password_repeat" style="font-size: 18px;"></div>
-                            </div><button class="btn btn-primary btn-block text-white btn-user" type="submit" style="font-size: 18px;background-color: rgb(79,121,96);">Register Account</button>
+                            </div><button class="btn btn-primary btn-block text-white btn-user" onclick = "verifyFirstName(firstName.value, id); verifyLastName(lastName.value, id); verifyUser_Name(username.value, id); verifyEmail(email.value, id); verifyPassword(password.value, id); verifyPasswordRepeat(repeatpassword.value, id)" type="submit" style="font-size: 18px;background-color: rgb(79,121,96);">Register Account</button>
                             <hr>
                             <hr>
                         </form>

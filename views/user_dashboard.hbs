@@ -1,36 +1,122 @@
-<h2> USER ACCOUNT DASHBOARD PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-
-
-<ul>
-  <li> <a href="/user_dashboard"> Main </a> </li>
-  <li> <a href="/user_dashboard/view_orders"> View Orders </a> </li>
-  <li> <a href="/user_dashboard/edit_information"> Edit Information </a> </li>
-</ul>
-<h1 style = "color: black"> Your goat points </h1>
-<h1 style = "color: black"> {{goatPoints}} </h1>
-<input type=button value="logout" onClick="eraseCookie()"/>
-
-<script> function eraseCookie() {
-  // make the api call
-  fetch("/api/logout",
-    {method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        alert("Logout failed. Try again.");
-        location.reload(true);
-        return
-      } else {
-        // send to a webpage
-        location.reload(true);
-        return;
-      }
-    });
-}
-
-</script>
+<div style="margin-top: 30px;margin-bottom: 50px;">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
+                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {{userInfo.firstname}}</strong></h1>
+              </div>
+          </div>
+          <div class="row justify-content-center" style="margin-bottom: 50px;">
+              <div class="col-xl-4 offset-xl-3 m-auto" style="margin-top: 10px;margin-bottom: 15px;">
+                  <div class="card shadow border-left-primary py-2" style="margin-top: 10px;margin-bottom: 10px;">
+                      <div class="card-body">
+                          <div class="row text-center align-items-center no-gutters">
+                              <div class="col-xl-9 text-center mr-2">
+                                  <div class="text-uppercase text-primary font-weight-bold text-xs mb-1" style="height: 28px;"><span style="font-size: 16px;">GOAT POINT BALANCE</span></div>
+                                  <div class="text-dark font-weight-bold h5 mb-0"><span id="totalGoatPoints" style="font-size: 22px;">{{goatPoints}} Goat Point(s)</span></div>
+                              </div>
+                              <div class="col-auto" style="font-size: 20px;"><i class="fas fa-money-bill fa-2x text-gray-300"></i></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xl-6"></div>
+          </div>
+          <div class="row justify-content-center align-items-center" style="height: 100%;">
+              <div class="col-auto col-sm-11 col-md-9 col-lg-9 col-xl-11 text-break text-center align-self-center m-auto" style="padding: 5px;padding-left: 40px;">
+                  <div class="card">
+                      <div class="card-header">
+                          <ul class="nav nav-tabs card-header-tabs">
+                              <li class="nav-item"><a class="nav-link active" href="/login" style="font-size: 20px;">Dashboard</a></li>
+                              <li class="nav-item"><a class="nav-link" href="/user_dashboard/view_orders" style="font-size: 20px;">Order(s)</a></li>
+                              <li class="nav-item"><a class="nav-link" href="/user_dashboard/edit_information" style="font-size: 20px;">Account Details</a></li>
+                          </ul>
+                      </div>
+                      <div class="card-body">
+                          <h4 class="card-title" style="font-size: 28px;margin-top: 20px;">Account Dashboard</h4>
+                          <div class="col align-self-center m-auto">
+                              <h4 style="margin-top: 35px;"><em>Account Information</em></h4><a href="#">Update Information</a>
+                              <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 250px;">
+                                  <table class="table table-hover">
+                                      <thead>
+                                          <tr></tr>
+                                      </thead>
+                                      <tbody style="height: 195px;">
+                                          <tr>
+                                              <td>First Name</td>
+                                              <td>{{userInfo.firstname}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Last Name</td>
+                                              <td>{{userInfo.lastname}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>E-Mail</td>
+                                              <td>{{userInfo.emailaddres}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Phone Number (Home)</td>
+                                              <td>{{userInfo.phonehome}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Phone Number (Mobile)</td>
+                                              <td>{{userInfo.phonemobile}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Address (1)</td>
+                                              <td>{{userInfo.address1}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Address (2)</td>
+                                              <td>{{userInfo.address2}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>City</td>
+                                              <td>{{userInfo.citycode}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>State</td>
+                                              <td>{{userInfo.statecode}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Zip Code</td>
+                                              <td>{{userInfo.postcode}}</td>
+                                          </tr>
+                                          <tr>
+                                              <td>Gender</td>
+                                              <td>{{userInfo.gendercode}}</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                          <div class="col align-self-center m-auto">
+                              <h4 style="margin-top: 65px;"><em>Recent Order(s)</em></h4><a href="/user_dashboard/view_orders">View All Orders</a>
+                              {{#if hasOrders}}
+                              <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 280px;">
+                                  <table class="table table-hover">
+                                      <thead>
+                                          <tr>
+                                              <th>Order</th>
+                                              <th>Date Placed</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                        {{#each orders}}
+                                          <tr>
+                                              <td>{{ordernum}}</td>
+                                              <td>{{orderdate}}</td>
+                                          </tr>
+                                        {{/each}}
+                                      </tbody>
+                                  </table>
+                              </div>
+                              {{else}}
+                              <p> You currently don't have any orders go buy something! </p>
+                              {{/if}}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>

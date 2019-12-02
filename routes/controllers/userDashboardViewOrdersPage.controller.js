@@ -5,12 +5,30 @@
  * @exports {Object} Functions to attach to the
  *    `userDashboardViewOrdersPage` router.
  * @require session-helper
+ * @require request
+ * @require mysql
+ * @require read-hidden
  */
 
  /* sessions
   * This is to help with handling sessions to maintain cart and auth
   */
  const sessions = require('../../scripts/session-helper.js');
+
+ /* request
+  * This is to help with handling sessions to maintain cart and auth
+  */
+ const request = require('request');
+
+ /* mysql
+  * This is to help with handling sessions to maintain cart and auth
+  */
+ const mysql = require('mysql');
+
+ /* hidden
+  * This is to help with handling sessions to maintain cart and auth
+  */
+ const hidden = require('../../scripts/read-hidden.js');
 
 /**
  * @function sendUserDashboardViewOrdersPage
@@ -37,12 +55,132 @@ const sendUserDashboardViewOrdersPage = (req, res, next) => {
                   res.redirect('/admin_dashboard')
                 // user is not an admin
                 } else {
-                  // setup call for internal api call
-                  res.render('user_dashboard-view_orders', {
-                    title: 'Sprout Creek Farm User Dashboard',
-                    page: 'login' });
+                  sessions.handleSessionGetSessionInfo(sessionId)
+                    .then(aid => {
+                      // setup call for internal api call
+                      var options ={
+                        method: 'GET',
+                        url: 'http://' + req.headers["host"] + '/api/getGoatPoints',
+                        body: req.cookies,
+                        json: true
+                      };
+
+                      // this sends out the request and either getGoatPoints or
+                      // will get nothing and return -1
+                      var goatPoints = 0;
+                      request(options, function (error, response, body) {
+                        if (error) {
+                          console.log(error.message);
+                        } else {
+                          //console.log(response);
+                          goatPoints = response["body"]["goatPoints"];
+
+                          // this will read the hidden file for db connection
+                          hidden.readHidden()
+                            .then(json => {
+                              // connect to the database
+                              var con = mysql.createConnection({
+                                host: json[0]["host"],
+                                user: json[0]["user"],
+                                password: json[0]["password"],
+                                database: json[0]["database"]
+                              });
+                              con.connect(function(err) {
+                                if (err) {
+                                  console.log(err);
+                                  res.setHeader('Content-Type', 'plain/text');
+                                  res.status(400);
+                                  res.send();
+                                }
+                              });
+
+                              // get the corresponding imb id from the table
+                              var statement = ("SELECT ibmid from ibm where aid=" + aid);
+                              con.query(statement, function(err, result) {
+                                if (err) {
+                                  console.log(err);
+                                  con.end();
+                                  res.send();
+                                  return;
+                                } else {
+                                  var ibmId = result[0]["ibmid"];
+
+                                  // end connection because we dont use it again
+                                  con.end();
+                                  var options = { method: 'GET',
+                                    url: json[2]["apiUrl"] + 'Customer/' + ibmId,
+                                    headers:
+                                     { accept: 'application/json',
+                                        'content-type': 'application/json',
+                                        'x-ibm-client-secret': json[2]["ClientSecret"],
+                                        'x-ibm-client-id': json[2]["ClientId"] },
+                                    json: true };
+
+                                  request(options, function (error, response, body) {
+                                    if (error) {
+                                      console.error('Failed: %s', error.message);
+                                      con.end();
+                                      res.status(401);
+                                      res.send();
+                                      return;
+                                    } else {
+                                      userInfo = body["data"]["customerList"][0];
+
+                                      var options = { method: 'GET',
+                                        url: json[2]["apiUrl"] + 'Order',
+                                        qs:
+                                         { CustomerNum: ibmId },
+                                        headers:
+                                         { accept: 'application/json',
+                                           'x-ibm-client-secret': json[2]["ClientSecret"],
+                                           'x-ibm-client-id': json[2]["ClientId"] } };
+
+                                      request(options, function (error, response, body) {
+                                        if (error) {
+                                          return console.error('Failed: %s', error.message);
+                                        } else {
+                                          //console.log('Success: ', body);
+                                          body = JSON.parse(body);
+                                          console.log(body)
+                                          console.log(typeof(body));
+                                          console.log(body["data"])
+                                          var orders = [];
+                                          orders = body["data"]["orderList"];
+                                          var hasOrders = true;
+                                          if (orders.length == 0) {
+                                            hasOrders = false;
+                                          }
+
+                                          console.log("++++++++++++++++++++++++++++++++++++++");
+                                          console.log(userInfo);
+                                          console.log("======================================");
+                                          try {
+                                            console.log("RENDER")
+                                          res.render('user_dashboard-view_orders', {
+                                            "title": 'Sprout Creek Farm User Dashboard | Orders',
+                                            "page": 'login',
+                                            "userInfo": userInfo,
+                                            "goatPoints": goatPoints,
+                                            "orders": orders,
+                                            "hasOrders": hasOrders,
+                                            "isLogged": true,
+                                            "isDashboard": true
+                                          })
+                                        } catch (e) {
+                                          console.log(e);
+                                        }
+                                        }
+                                      });
+                                    }
+                                  });
+                                }
+                              });
+                            })
+                        }
+                    })
+                  })
                 }
-              })
+              });
           // user isnt logged in render login page
           } else {
             res.redirect("/login");

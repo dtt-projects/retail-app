@@ -24,9 +24,13 @@ const sendSummerCampPage = (req, res, next) => {
   sessions.handleSession(req.cookies)
     .then(sessionId => {
       res.cookie("sessionId", sessionId);
-      res.render('summerCamp', {
-        title: 'Sprout Creek Farm Summer Camp Page',
-        page: 'Summer Camp' });
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          res.render('summerCamp', {
+            title: 'Sprout Creek Farm Summer Camp Page',
+            page: 'Support',
+            "isLogged": isLoggedIn});
+        });
     });
 };
 
