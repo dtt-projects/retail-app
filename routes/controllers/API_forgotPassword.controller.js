@@ -94,7 +94,7 @@ const forgotPassword = (req, res, next) => {
                     from: 'compscigoat@gmail.com',
                     to:   email,
                     subject: 'Sending Email using Node.js',
-                    text: email_text
+                    html: email_text
                   };
 
                   // send the email with the new password
