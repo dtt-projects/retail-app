@@ -138,7 +138,7 @@ const createAccount = (req, res, next) => {
 
               // email from, to, subject, text
               var mailOptions = {
-                from: 'compscigoat@gmail.com',
+                from: 'Sprout Creek Farm --No Reply',
                 to:   req.body["email"],
                 subject: 'Welcome to Sprout Creek Farm!',
                 html: emailContent
