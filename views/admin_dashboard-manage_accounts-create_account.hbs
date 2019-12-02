@@ -1,9 +1,17 @@
+<!--File: admin_dashboard-manage_account-create_account.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 12/01/2019-->
+<!--Description: This is the body of the admin_dashboard-mangage_account-create_account page-->
+
+<!--This the the button that brings you back to the previous page-->
 <header></header><a href="/admin_dashboard/manage_accounts" style="margin-left: 40px;margin-top: 0px;color: rgb(133,135,150);font-size: 20px;">Back To Accounts</a>
 <div class="container-fluid text-center border rounded shadow-sm" style="background-color: #ffffff;margin-top: 60px;max-width: 800px;">
+    <!--This is the button that text that says create an admin account-->
     <h5 class="text-left" style="color: rgb(133,135,150);font-size: 28px;padding-top: 30px;"><strong>Create An Admin Account</strong></h5>
     <div class="row">
         <div class="col text-left" style="padding-top: 15px;padding-bottom: 15px;">
-            <form>
+            <!--This is the form to create an account-->
+            <form action = "/api/create_account" method = "post">
                 <div class="form-group"><label style="font-size: 20px;"><strong>User Name:</strong><br><input class="form-control" type="text" id="username" placeholder="User Name" required="" minlength="1"></label></div>
                 <div class="form-group"><label style="font-size: 20px;"><strong>Temporary Password:</strong><br><input class="form-control" type="password" id="password" placeholder="Temp Password" required="" minlength="1"></label></div>
                 <div class="form-group"><label style="font-size: 20px;"><strong>First Name:</strong><br><input class="form-control" type="text" id="firstname" placeholder="First Name" required="" minlength="1"></label></div>
@@ -14,7 +22,8 @@
                 <div class="form-group"><label style="font-size: 20px;"><strong>Zip:</strong><br><input class="form-control" type="text" id="zip" placeholder="Zip" required="" minlength="1" inputmode="numeric"></label></div>
                 <div class="form-group"><label style="font-size: 20px;"><strong>City:</strong><br><input class="form-control" type="text" id="city" placeholder="City" required="" minlength="1"></label></div>
             </form>
-            <button class="btn btn-primary" id="createAccount">Create Account</button></div>
+      <!--This is the button to submit the new account-->
+      <button class="btn btn-primary" id="createAccount">Create Account</button></div>
     </div>
 </div>
 
