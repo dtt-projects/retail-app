@@ -14,24 +14,22 @@
               <!--This is the form to post the information to the system-->
 
               <!--Come back here and double check the form action-->
-              <form method = "post" action = "/api/sub_inventory">
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Item ID:</strong><input class="form-control" type="number" id="itemID" value="{{item.itemid}}" placeholder="Item ID"></label></div>
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Merchant ID:</strong><input class="form-control" type="number" id="merchantID" min="0" step="1" required="" placeholder="Merchant ID"></label></div>
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Item Name:</strong><br><input class="form-control" type="text" id="itemName" value="{{item.itemname}}" placeholder="Name" required="" minlength="1"></label></div>
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Category:</strong><br><input class="form-control" type="text" id="itemCategory" value="{{item.itemcat}}" placeholder="Category" required="" minlength="1"></label></div>
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Quantity:</strong><br><input class="form-control" type="number" id="itemQuantity" value="{{item.quantity}}" placeholder="Quantity" required="" min="0" step="1"></label></div>
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Price:</strong><br><input class="form-control" type="number" id="itemPrice" required="" value="{{item.price}}" placeholder="Price" min="1" step="1"></label></div>
-                  <div class="form-group" style="height: 165px;"><label style="font-size: 20px;"><strong>Image:</strong><br><input class="form-control" type="url" id="imageUrl" value="{{item.itemimagelink}}" placeholder="Image URL" style="margin-bottom: 20px;"><input type="file" id="imageFile" rows="7" cols="50"></label>
+              <form method = "post" action = "/api/updateItem">
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Item ID:</strong><input class="form-control" type="number" name="itemId" id="itemId" value="{{item.itemid}}" readonly placeholder="Item ID"></label></div>
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Merchant ID:</strong><input class="form-control" type="number" name="merchantId" id="merchantId" min="0" step="1" placeholder="Merchant ID"></label></div>
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Item Name:</strong><br><input class="form-control" type="text" name="name" id="name" value="{{item.itemname}}" placeholder="Name" required="" minlength="1"></label></div>
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Category:</strong><br><input class="form-control" type="text" name="cat" id="cat" value="{{item.itemcat}}" placeholder="Category" required="" minlength="1"></label></div>
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Quantity:</strong><br><input class="form-control" type="number" name="quantity" id="quantity" value="{{item.quantity}}" placeholder="Quantity" required="" min="0" step="1"></label></div>
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Price:</strong><br><input class="form-control" type="float" name="price" id="price" required="" value="{{item.price}}" placeholder="Price" min="1" step="1"></label></div>
+                  <div class="form-group" style="height: 165px;"><label style="font-size: 20px;"><strong>Image:</strong><br><input class="form-control" type="url" name="imageLink" id="imageLink" value="{{item.itemimagelink}}" placeholder="Image URL" style="margin-bottom: 20px;"><input type="file" id="imageFile" rows="7" cols="50"></label>
                       <small
                           class="form-text text-muted" style="font-size: 15px;"><em>Chose either by 'URL' or by 'File' for image selection</em></small>
                   </div>
-                  <img src="{{item.itemimagelink}}"5
-                  <div class="form-group"><label style="font-size: 20px;"><strong>Description:</strong><textarea class="form-control" id="itemDescription" rows="7" cols="50" required="" minlength="1" placeholder="Description" spellcheck="true" wrap="soft" maxlength="500">{{item.itemdesc}}</textarea><br></label></div>
-              </form><button class="btn btn-primary" type="button" method = "post" action = "/api/" style="background-color: rgb(79,121,96);font-size: 20px;margin-bottom: 15px;">Submit Item</button></div>
+                  <img style="height: 165px;width: 165px;" src="{{item.itemimagelink}}">
+                  <div class="form-group"><label style="font-size: 20px;"><strong>Description:</strong><textarea class="form-control" name="desc" id="desc" rows="7" cols="50" required="" minlength="1" placeholder="Description" spellcheck="true" wrap="soft" maxlength="500">{{item.itemdesc}}</textarea><br></label></div>
+                  <button class="btn btn-primary" type="submit"  style="background-color: rgb(79,121,96);font-size: 20px;margin-bottom: 15px;">Submit Item</button>
+              </form></div>
       </div>
   </div>
 
-<!--This is the logout button-->
-<input type=button value="logout" onClick="eraseCookie()"/>
-<script src="../javascripts/addItem.js" async></script>
 <script src="../javascripts/client.js" async></script>
