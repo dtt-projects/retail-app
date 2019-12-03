@@ -93,8 +93,20 @@ const sendCheckOutPage = (req, res, next) => {
                             res.send();
                             return;
                           } else {
-                            console.log(body["data"]["customerList"]);
-                            var customerInfo = body["data"]["customerList"];
+                            console.log(body["data"]["customerList"][0]);
+                            var customerInfo = body["data"]["customerList"][0];
+                            customerInfo["phonemobile"] = customerInfo["phonemobile"].trim();
+                            customerInfo["firstname"] = customerInfo["firstname"].trim();
+                            customerInfo["address2"] = customerInfo["address2"].trim();
+                            customerInfo["gendercode"] = customerInfo["gendercode"].trim();
+                            customerInfo["address1"] = customerInfo["address1"].trim();
+                            customerInfo["postcode"] = customerInfo["postcode"].trim();
+                            customerInfo["statecode"] = customerInfo["statecode"].trim();
+                            customerInfo["lastname"] = customerInfo["lastname"].trim();
+                            customerInfo["citycode"] = customerInfo["citycode"].trim();
+                            customerInfo["emailaddres"] = customerInfo["emailaddres"].trim();
+                            customerInfo["phonehome"] = customerInfo["phonehome"].trim();
+
 
                             // get ibm card with account
                             var options = { method: 'GET',

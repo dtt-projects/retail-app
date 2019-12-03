@@ -114,7 +114,7 @@
               </li>
             </ul>
             <!--This is this login button-->
-            <button onclick = {{#if isDashboard}}"eraseCookie();"{{else}}"window.location.href='login'"{{/if}}"window.location.href='login'" class="btn btn-primary" type="hidden" style="width: 85px;margin: 9px;padding: 6px;background-color: rgb(79,121,96);">{{#if isDashboard}} Logout {{else if isLogged}} Dashboard {{else}} Log In {{/if}}</button></div>
+            <button onclick = {{#if isDashboard}}"eraseCookie();"{{else}}"window.location.href='/login'"{{/if}}"window.location.href='/login'" class="btn btn-primary" type="hidden" style="width: 85px;margin: 9px;padding: 6px;background-color: rgb(79,121,96);">{{#if isDashboard}} Logout {{else if isLogged}} Dashboard {{else}} Log In {{/if}}</button></div>
 
         </div>
     </nav>

@@ -8,7 +8,7 @@
           <div class="row">
               <!--This is the welcome message the user sees-->
               <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
-                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {userName}!</strong></h1>
+                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {{userInfo.firstname}}!</strong></h1>
               </div>
           </div>
           <!--This is the nav bar that has the dashboard, manage inventory, manage orders, manage accounts-->
@@ -28,90 +28,33 @@
                           <h4 class="card-title" style="font-size: 28px;margin-top: 20px;">Manage Order(s)</h4>
                           <div class="col align-self-center m-auto">
                               <div class="table-responsive" style="margin-top: 40px;padding: 10px;">
-                                  <!--This is the table of orders-->
-                                  <table class="table table-hover">
-                                      <thead>
-                                          <tr>
-                                              <th>Order Number</th>
-                                              <th>Customer ID</th>
-                                              <th>Merchant ID</th>
-                                              <th>Order Total</th>
-                                              <th>Order Date</th>
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                          <tr>
-                                              <td>Cell 1</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 2</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                          </tr>
-                                      </tbody>
-                                  </table>
+                                {{#if hasOrders}}
+                                    <!--This is the table of orders-->
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Order Number</th>
+                                                <th>Customer ID</th>
+                                                <th>Item ID</th>
+                                                <th>Order Total</th>
+                                                <th>Order Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each orders}}
+                                            <tr>
+                                                <td><a href="/admin_dashboard/manage_orders/sub_order/{{ordernum}}">{{ordernum}}</a></td>
+                                                <td>{{customernum}}</td>
+                                                <td><a href="/marketItem/{{itemid}}">{{itemid}}</a></td>
+                                                <td>{{ordertotal}}</td>
+                                                <td>{{orderdate}}</td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                  {{else}}
+                                  <p> Sadly there haven't been any orders yet.
+                                  {{/if}}
                               </div>
                           </div>
                       </div>
@@ -120,72 +63,3 @@
           </div>
       </div>
   </div>
-
-
-<!--This is the log out button--> 
-<input type=button value="logout" onClick="eraseCookie()"/>
-<!-- <h2> ADMIN ACCOUNT ORDERS PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-<h2> {{email}} </h2>
-
-<ul>
-  <li> <a href="/admin_dashboard"> Main </a> </li>
-  <li> <a href="/admin_dashboard/manage_inventory"> Manage Inventory </a> </li>
-  <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
-  <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
-</ul>
-<table>
-  <tr>
-    <td> orderNum </td>
-    <td> itemId </td>
-    <td> creditId </td>
-    <td> trackingNum </td>
-    <td> quantity </td>
-    <td> shipperId </td>
-    <td> merchantId </td>
-    <td> customerNum </td>
-    <td> orderDate </td>
-    <td> orderTime </td>
-    <td> orderTotal </td>
-    <td> trackingId </td>
-  </tr>
-  {{#each orders}}
-    <tr>
-      <td> <a href="/admin_dashboard/manage_orders/sub_order/{{ordernum}}"> {{ordernum}} </a></td>
-      <td> {{itemid}} </td>
-      <td> {{creditid}} </td>
-      <td> {{trackingnum}} </td>
-      <td> {{quantity}} </td>
-      <td> {{shipperid}} </td>
-      <td> {{merchantid}} </td>
-      <td> {{customernum}} </td>
-      <td> {{orderdate}} </td>
-      <td> {{ordertime}} </td>
-      <td> {{ordertotal}} </td>
-      <td> {{trackingid}} </td>
-    </tr>
-  {{/each}}
-</table> -->
-<script> function eraseCookie() {
-  // make the api call
-  fetch("/api/logout",
-    {method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        alert("Logout failed. Try again.");
-        location.reload(true);
-        return
-      } else {
-        // send to a webpage
-        location.reload(true);
-        return;
-      }
-    });
-}
-
-</script>

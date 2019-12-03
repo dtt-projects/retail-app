@@ -15,6 +15,9 @@
 
  const request = require('request');
 
+const mysql = require('mysql');
+
+const hidden = require('../../scripts/read-hidden.js');
 
 /**
  * @function sendAdminDashboardManageInventoryPage
@@ -38,28 +41,77 @@ const sendAdminDashboardManageInventoryPage = (req, res, next) => {
               .then(isAdmin => {
                 // user is an admin
                 if (isAdmin) {
-                  // get server url
-                  var options ={
-                    method: 'GET',
-                    url: 'http://' + req.headers["host"] + '/api/getItems',
-                  };
+                  sessions.handleSessionGetSessionInfo(sessionId)
+                    .then(aid => {
+                      hidden.readHidden()
+                        .then(json => {
+                          // connect to db
+                          // log into database
+                          var con = mysql.createConnection({
+                            host: json[0]["host"],
+                            user: json[0]["user"],
+                            password: json[0]["password"],
+                            database: json[0]["database"]
+                          });
+                          con.connect(function(err) {
+                            if (err) {
+                              console.log(err);
+                              res.status(400);
+                              res.setHeader('Content-Type', 'plain/text');
+                              res.send("Account creation failed!");
+                            }
+                          });
 
-                  // the request on failure log and redirect back
-                  // on success send to page and populate it
-                  request(options, function (error, response, body) {
-                    if (error) {
-                      console.log(error.message);
-                      res.status(400);
-                      res.redirect('../admin_dashboard');
-                    } else {
-                      itemsList = JSON.parse(body.toString());
-                      res.render('admin_dashboard-manage_inventory', {
-                        title: 'Sprout Creek Farm Admin Dashboard | Inventory',
-                        page: 'login',
-                        items: itemsList});
-                    }
-                  });
-                  // user is not an admin
+                          var statement = ("SELECT * FROM accounts where aid=" + aid);
+                          con.query(statement, function(err, result) {
+                          if (err) {
+                            console.log(err);
+                            res.status(400);
+                            res.setHeader('Content-Type', 'plain/text');
+                            res.redirect("/");
+                          } else {
+                            var userInfo = result[0];
+                            console.log(userInfo);
+
+                            // kill the db connection
+                            con.end();
+
+                            var options = { method: 'GET',
+                              url: json[2]["apiUrl"] + 'Inventory',
+                              headers:
+                               { accept: 'application/json',
+                                 'x-ibm-client-secret': json[2]["ClientSecret"],
+                                 'x-ibm-client-id': json[2]["ClientId"] } };
+
+                            request(options, function (error, response, body) {
+                              if (error) {
+                                console.error('Failed: %s', error.message);
+                                res.status(400);
+                                res.send();
+                                return
+                              } else {
+                                console.log('Success: ', body);
+                                body = JSON.parse(body);
+                                var inventory = body["data"]["inventoryList"];
+                                var hasInventory = true;
+                                if (inventory.length == 0) {
+                                  hasInventory = false;
+                                }
+
+                                res.render('admin_dashboard-manage_inventory', {
+                                  title: 'Sprout Creek Farm Admin Dashboard',
+                                  page: 'login',
+                                  "isDashboard": true,
+                                  "userInfo": userInfo,
+                                  "hasInventory": hasInventory,
+                                  "inventory": inventory});
+                              }
+                            });
+                          }
+                        });
+                        })
+                    })
+                // user is not an admin
                 } else {
                   res.redirect("/user_dashboard");
                 }

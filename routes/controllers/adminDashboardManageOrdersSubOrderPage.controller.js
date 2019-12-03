@@ -66,12 +66,47 @@ const sendAdminDashboardManageOrdersSubOrderPage = (req, res, next) => {
                           res.send();
                         } else {
                           console.log(body);
-                          data = JSON.parse(body.toString())["data"]["orderList"];
+                          data = JSON.parse(body.toString())["data"]["orderList"][0];
                           console.log(data);
-                          res.render('admin_dashboard-manage_orders-sub_order', {
-                            title: 'Sprout Creek Farm Admin Dashboard | Sub Order',
-                            page: 'Login',
-                            "orders": data});
+
+                          var options = {
+                            method: 'GET',
+                            url: json[2]["apiUrl"] + 'Inventory/' + data["itemid"],
+                            headers:
+                              { accept: 'application/json',
+                                'x-ibm-client-secret': json[2]["ClientSecret"],
+                                'x-ibm-client-id': json[2]["ClientId"] }
+                          };
+
+                          // if call fails log error and send back 400
+                          // if call successful send back the single item's data
+                          request(options, function (error, response, body) {
+                            if (error) {
+                              console.log("Failed getItem: " + error.message);
+                              res.status(400);
+                              res.send();
+                            } else {
+                              body = JSON.parse(body.toString());
+                              console.log(body);
+                              try {
+                                itemname = body["data"]["inventoryList"][0]["itemname"]
+
+                                res.render('admin_dashboard-manage_orders-sub_order', {
+                                  title: 'Sprout Creek Farm Admin Dashboard | Sub Order',
+                                  page: 'Login',
+                                  "orders": data,
+                                  "itemname": itemname});
+                              } catch (e) {
+                                itemname = "";
+                                res.render('admin_dashboard-manage_orders-sub_order', {
+                                  title: 'Sprout Creek Farm Admin Dashboard | Sub Order',
+                                  page: 'Login',
+                                  "orders": data,
+                                  "itemname": itemname,
+                                  "isDashboard": true});
+                              }
+                            }
+                          });
                         }
                       });
                     });

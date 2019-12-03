@@ -4,7 +4,7 @@
 <!--Description: This is the body of the admin_dashboard-manage_orders-sub_order page-->
 
 <!--This is the button on the top that brings you back to the manage accounts page-->
-<header></header><a href="/admin_dashboard/manage_accounts" style="margin-left: 40px;margin-top: 0px;color: rgb(133,135,150);font-size: 20px;">Back To Orders</a>
+<header></header><a href="/admin_dashboard/manage_orders" style="margin-left: 40px;margin-top: 0px;color: rgb(133,135,150);font-size: 20px;">Back To Orders</a>
   <div class="container-fluid text-center border rounded shadow-sm" style="background-color: #ffffff;margin-top: 60px;max-width: 960px;padding-top: 15px;padding-bottom: 15px;padding-right: 50px;padding-left: 50px;height: 756px;">
       <!--This is the order details section-->
       <h1 class="text-center" style="color: rgb(133,135,150);font-size: 28px;height: 90px;">Order Details</h1>
@@ -19,51 +19,55 @@
                       <tbody>
                           <tr>
                               <td>Order Number</td>
-                              <td id="orderNumber">{Order Number}</td>
+                              <td id="orderNumber">{{orders.ordernum}}</td>
                           </tr>
                           <tr>
                               <td>Order Date</td>
-                              <td id="orderDate">{Order Date}</td>
+                              <td id="orderDate">{{orders.orderdate}}</td>
                           </tr>
                           <tr>
                               <td>Order Time</td>
-                              <td id="orderTime">{orderTime}</td>
+                              <td id="orderTime">{{orders.ordertime}}</td>
                           </tr>
                           <tr>
                               <td>Customer Number</td>
-                              <td id="customerNumber">{customerNumber}</td>
+                              <td id="customerNumber">{{orders.customernum}}</td>
                           </tr>
                           <tr>
                               <td>Order Total</td>
-                              <td id="orderTotal">{orderTotal}</td>
+                              <td id="orderTotal">{{orders.ordertotal}}</td>
                           </tr>
                           <tr>
                               <td>Quantity</td>
-                              <td id="orderQuantity">{quantity}</td>
+                              <td id="orderQuantity">{{orders.quantity}}</td>
                           </tr>
                           <tr>
                               <td>Credit ID</td>
-                              <td id="creditID">{creditID}</td>
+                              <td id="creditID">{{orders.creditid}}</td>
                           </tr>
                           <tr>
                               <td>Shipper ID</td>
-                              <td id="shipperID">{shipperID}</td>
+                              <td id="shipperID">{{orders.shipperid}}</td>
                           </tr>
                           <tr>
                               <td>Tracking ID</td>
-                              <td id="trackingID">{trackingID}</td>
+                              <td id="trackingID">{{orders.trackingnum}}</td>
                           </tr>
                           <tr>
                               <td>Tracking Number</td>
-                              <td id="trackingNumber">{trackingNumber}</td>
+                              <td id="trackingNumber">{{orders.trackingid}}</td>
                           </tr>
                           <tr>
                               <td>Item ID</td>
-                              <td id="itemID">{itemID}</td>
+                              <td id="itemID">{{orders.itemid}}</td>
+                          </tr>
+                          <tr>
+                            <td>Item Name</td>
+                            <td id="itemname">{{itemname}}</td>
                           </tr>
                           <tr>
                               <td>Merchant ID</td>
-                              <td id="merchantID">{merchantID}</td>
+                              <td id="merchantID">{{orders.merchantid}}</td>
                           </tr>
                           <tr></tr>
                       </tbody>
@@ -72,71 +76,3 @@
           </div>
       </div>
   </div>
-
-<!--This is the logout button-->
-<input type=button value="logout" onClick="eraseCookie()"/>
-<!-- <h2> ADMIN ACCOUNT ORDERS PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-<h2> {{email}} </h2>
-
-<ul>
-  <li> <a href="/admin_dashboard"> Main </a> </li>
-  <li> <a href="/admin_dashboard/manage_inventory"> Manage Inventory </a> </li>
-  <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
-  <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
-</ul>
-<table>
-  <tr>
-    <td> orderNum </td>
-    <td> itemId </td>
-    <td> creditId </td>
-    <td> trackingNum </td>
-    <td> quantity </td>
-    <td> shipperId </td>
-    <td> merchantId </td>
-    <td> customerNum </td>
-    <td> orderDate </td>
-    <td> orderTime </td>
-    <td> orderTotal </td>
-    <td> trackingId </td>
-  </tr>
-  {{#each orders}}
-    <tr>
-      <td> {{ordernum}} </td>
-      <td> {{itemid}} </td>
-      <td> {{creditid}} </td>
-      <td> {{trackingnum}} </td>
-      <td> {{quantity}} </td>
-      <td> {{shipperid}} </td>
-      <td> {{merchantid}} </td>
-      <td> {{customernum}} </td>
-      <td> {{orderdate}} </td>
-      <td> {{ordertime}} </td>
-      <td> {{ordertotal}} </td>
-      <td> {{trackingid}} </td>
-    </tr>
-  {{/each}}
-</table> -->
-<script> function eraseCookie() {
-  // make the api call
-  fetch("/api/logout",
-    {method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        alert("Logout failed. Try again.");
-        location.reload(true);
-        return
-      } else {
-        // send to a webpage
-        location.reload(true);
-        return;
-      }
-    });
-}
-
-</script>

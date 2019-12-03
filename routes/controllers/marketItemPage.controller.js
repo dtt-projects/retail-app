@@ -51,6 +51,7 @@ const sendMarketItemPage = (req, res, next) => {
           res.redirect('/');
         } else {
           //itemsList = JSON.parse(body.toString())
+          try {
           var data = JSON.parse(body.toString());
           console.log(data[0]["itemname"]);
           sessions.handleSessionIsLoggedIn(sessionId)
@@ -61,8 +62,11 @@ const sendMarketItemPage = (req, res, next) => {
                 item: data,
                 "isLogged": isLoggedIn});
             });
-
-        }
+          } catch (e) {
+            console.log("Invalid item id: " + itemNum);
+            res.redirect("/market");
+          }
+      }
       });
     });
 };
