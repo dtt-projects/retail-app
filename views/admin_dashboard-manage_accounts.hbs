@@ -7,7 +7,7 @@
           <div class="row">
               <!--This is the welcome message for the admin-->
               <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
-                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {userName}!</strong></h1>
+                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {{userInfo.firstname}}!</strong></h1>
               </div>
           </div>
           <!--This is the nav bar that has the dashboard, manage inventory, manage orders, manage accounts-->
@@ -125,7 +125,7 @@
                                           </tr>
                                       </tbody>
                                   </table>
-                                  
+
                               </div>
                           </div>
                       </div>
