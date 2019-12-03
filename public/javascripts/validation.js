@@ -1,4 +1,3 @@
-
 function verifyUserName(username, id){
   var userNameRegExp = new RegExp(/^[a-z0-9]+$/i);
   if(userNameRegExp.test(username) != true){
@@ -61,8 +60,12 @@ function verifyPassword(password, id){
   }
 }
 
-function verifyPasswordRepeat(password, id){
+function verifyPasswordRepeat(password, passwordRepeat, id){
   var passwordRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+
+  if(password.equals(passwordRepeat)){
+    alert("We need matching");
+  }
   if(passwordRegExp.test(password) != true){
     alert("Please enter the same password as before");
   }
@@ -73,20 +76,16 @@ function verifyName(name, id){
   if(nameRegEx.test(name) != true){
     alert("Please use letters in the name field");
   }
-  var validName = prompt("Please use letter only!");
-  while(nameRegEx.test(validName) != true){
-    validName = prompt("Please enter letters only");
-  }
+//  var validName = prompt("Please use letter only!");
+  //while(nameRegEx.test(validName) != true){
+  //  validName = prompt("Please enter letters only");
+  //}
 }
 
 function verifyPhoneNum(number, id){
   var phoneNum = new RegExp(/^[0-9]+$/);
   if(phoneNum.test(number) != true){
     alert("Please use only numbers and be sure not to use any dashes");
-  }
-  var validPhoneNum = prompt("Please enter numbers only!");
-  while(phoneNum.test(validPhoneNum) != true){
-    validPhoneNum = prompt("Please enter numbers only");
   }
 }
 
@@ -100,10 +99,7 @@ function verifyAddress(address, id){
   }else if(address2.test(splitAddress[1]) != true || splitAddress[1] == undefined){
     alert("Please use letters after the numbers for the address field");
   }
-  var validAddress = prompt("Please enter numbers followed by letters");
-  while(address1.test(validAddress) != true || address2.test(validAddress != true)){
-    validAddress = prompt("Please enter numbers followed by letters");
-  }
+
 }
 
 function verifyAddress2(address, id){
@@ -117,10 +113,6 @@ function verifyAddress2(address, id){
   }else if(address2.test(splitAddress[1]) != true || splitAddress[1] == undefined){
     alert("Please use letters after the numbers for the address field");
   }
-  var validAddress2 = prompt("Please enter numbers followed by letters");
-  while(address1.test(validAddress2) != true || address2.test(validAddress) != true){
-    validAddress2 = prompt("Please enter number followed by letters");
-  }
 }
 
 
@@ -128,10 +120,6 @@ function verifyCity(city, id){
   var cityRegEx = new RegExp(/^[a-zA-Z]+$/);
   if(cityRegEx.test(city) != true){
     alert("Please use only letters in the city field");
-    var validCity = prompt("Please enter a valid city");
-    while(cityRegEx.test(validCity) != true){
-      validCity = prompt("Please enter a valid city!");
-    }
   }
 }
 
@@ -141,10 +129,8 @@ function verifyZip(zip, id){
   if(zipRegExp.test(zip) != true || zip.length != 5){
     alert("Please use 5 numbers for your zip code");
   }
-  var validZip = prompt("Please enter a valid zip");
-  while(zipRegExp.test(validZip) != true){
-    validZip = prompt("Please enter a valid zip");
-  }
+
+
 }
 
 function verifyState(state, id){
@@ -153,9 +139,65 @@ function verifyState(state, id){
   if(stateRegEx.test(state) != true){
     alert("Please use only letters in the state field");
   }
+}
 
-  var validState = prompt("Please enter a valid two letter abbreviation");
-  while(stateRegEx.test(state) != true){
-    valid
+
+function verifyCardHolder(cardHolder, id){
+  var cardHolderRegEx = new RegExp(/^[a-zA-Z\s]+$/);
+  while(cardHolderRegEx.test(cardHolder) != true){
+     alert("Please use your name in the card holder field");
+  }
+}
+
+function verifyExpiration(expirationMonth, id){
+  var expirationDateRegEx = new RegExp(/^[0-9]+$/);
+  if(expirationMonth < 1 || expirationMonth > 12){
+    alert("Please enter a valid month");
+  }
+  if(expirationDateRegEx.test(expirationMonth) != true){
+    alert("Please use two numbers for the expiration month");
+  }
+}
+
+
+function verifyExpirationYear(expirationYear, id){
+  var expirationDateRegEx = new RegExp(/^[0-9]+$/);
+  if(expirationDateRegEx.test(expirationYear) != true){
+    alert("Please use two numbers for the expiriation year");
+  }
+}
+
+function verifyCard(cardNumber, id){
+  //This is the regular expression for visa, mastercard, amex, and discover
+  var visa = new RegExp("^(?:4[0-9]{12}(?:[0-9]{3})?)");
+  var mastercard = new RegExp("^5[1-5][0-9]{14}$");
+  var amex = new RegExp("3[47][0-9]{13}$");
+  var discover = new RegExp("6(?:011|5[0-9]{2})[0-9]{12}");
+  var goodCard = false;
+  //Here we test every card and see which it may be.
+  if(visa.test(cardNumber) == true){
+    goodCard = true;
+  }
+  if(mastercard.test(cardNumber) == true){
+    goodCard = true;
+  }
+  if(amex.test(cardNumber) == true){
+    goodCard = true;
+  }
+  if(discover.test(cardNumber) == true){
+    goodCard = true;
+  }
+  //If none of the validations work then we need a new card number
+  if(!goodCard){
+    alert("Please enter a valid credit card");
+  }
+}
+
+
+function verifyCVC(cvc, id){
+  var cvcRegExp = new RegExp(/^[0-9]+$/);
+  var cvcLength = document.getElementById("cvc").value;
+  if(cvcRegExp.test(cvc) != true || cvcLength.length < 3){
+    alert("Please enter a valid cvc combination");
   }
 }
