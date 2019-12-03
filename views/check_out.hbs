@@ -15,7 +15,7 @@
         <div class="container border rounded shadow-sm" style="margin-top: 50px;padding-top: 20px;padding-bottom: 20px;padding-right: 20px;background-color: #ffffff;"><button class="btn btn-primary" id="backToShipping" type="button" style="background-color: rgb(137,140,149);display: none;margin-top: 10px;margin-bottom: 30px;">Back To Shipping Information</button>
             <div class="form-group">
                 <!--This is the form we use to order-->
-                <form >
+                <form>
                     <div id="shipping" class="card-details" style="margin-top: 10px;">
                         <h3 class="title" style="font-size: 30px;"><strong>Delivery Details</strong></h3>
                         <p style="margin-top: 40px;font-size: 22px;">Choose Your Preferred Method Of Delivery</p>
@@ -23,32 +23,29 @@
                             <div class="form-group" style="padding-left: 10px;"><select class="custom-select" id="deliveryMethod" style="width: 270px;margin-top: 20px;height: 45px;font-size: 17px;"><optgroup label="Delivery Method"><option value="shipToAddress" selected="">Ship To Address</option><option value="pickUpInStore">Pick Up In Store (No Additional Fee)</option></optgroup></select></div>
                         </form>
                         <p style="margin-top: 40px;font-size: 22px;margin-bottom: 30px;">Please Fill Out The Information Below</p>
+                        {{#each customerInfo}}
                         <div id="shipToAddress" style="display:block;">
                             <div class="form-row" style="padding-left: 10px;">
 
                                 <div class="col-sm-7" id="recipientName">
 
-                                    <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>First Name</strong></label><input class="form-control" type="text" id="recipientName"  placeholder="First Name" value="{{customerInfo.firstname}}"minlength="1" required="">
+                                    <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>First Name</strong></label><input class="form-control" type="text" id="firstName"  placeholder="First Name" value="{{firstname}}"minlength="1" required="">
                                     <!--This is the validation funciton for the recipient name-->
-                                    <script type = "text/javascript">
 
-                                    </script>
                                   </div>
                                 </div>
                                 <div class="form-row" style="padding-left: 10px;">
 
                                     <div class="col-sm-7" id="recipientName">
 
-                                        <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>Last Name</strong></label><input class="form-control" type="text" id="recipientName"  placeholder="Last Name" value="{{customerInfo.lastname}}" minlength="1" required="">
+                                        <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>Last Name</strong></label><input class="form-control" type="text" id="lastName"  placeholder="Last Name" value="{{lastname}}" minlength="1" required="">
                                         <!--This is the validation funciton for the recipient name-->
-                                        <script type = "text/javascript">
 
-                                        </script>
                                     </div>
                                 </div>
                                 <!--This is the phone number-->
                                 <div class="col-sm-7" id="phoneNumber" style="height: 87px;">
-                                    <div class="form-group" style="height: 27px;"><label for="card-holder" style="font-size: 17px;"><strong>Phone Number (No dashes needed)</strong></label><input class="form-control" type="tel"  id="phoneNumber" placeholder="Phone Number" value="{{customerInfo.phonehome}}" required="" minlength="1" maxlength = "13" inputmode="tel">
+                                    <div class="form-group" style="height: 27px;"><label for="card-holder" style="font-size: 17px;"><strong>Phone Number (No dashes needed)</strong></label><input class="form-control" type="tel"  id="phoneNumber" placeholder="Phone Number" value="{{phonehome}}" required="" minlength="1" maxlength = "13" inputmode="tel">
                                       <!--This is the validation function for the phone number-->
                                       <script type = "text/javascript">
 
@@ -57,55 +54,46 @@
                                 </div>
                                 <!--This is the address box-->
                                 <div class="col-sm-8" id="address1">
-                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Address 1</strong></label><input class="form-control" type="text"  value="{{customerInfo.address1}}" id="shippingAddress1" placeholder="Address 1" required="" minlength="1">
+                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Address 1</strong></label><input class="form-control" type="text"  value="{{address1}}" id="shippingAddress1" placeholder="Address 1" required="" minlength="1">
                                       <!--This is the validation function for the address-->
-                                      <script type = "text/javascript">
 
-                                      </script>
                                     </div>
                                 </div>
                                 <!--This is the address 2 section-->
                                 <div class="col-sm-8" id="address2">
-                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Address 2</strong></label><input class="form-control" type="text"  id="shippingAddress2" value="{{customerInfo.address2}}" placeholder="Address 2">
+                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Address 2</strong></label><input class="form-control" type="text"  id="shippingAddress2" value="{{address2}}" placeholder="Address 2">
                                       <!--This is the validation script for the address-->
-                                      <script type = "text/javascript">
 
-                                      </script>
                                     </div>
                                 </div>
                                 <!--This is the city field-->
                                 <div class="col-sm-8 col-xl-5 offset-xl-0" id="city">
-                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>City</strong></label><input class="form-control"  type="text" id="shippingCity" value="{{customerInfo.citycode}}" placeholder="City" required="" minlength="1">
+                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>City</strong></label><input class="form-control"  type="text" id="shippingCity" value="{{citycode}}" placeholder="City" required="" minlength="1">
                                       <!--This is validation for the city field-->
-                                      <script type = "text/javascript">
 
-                                      </script>
                                     </div>
                                 </div>
                                 <!--This is the zip code-->
                                 <div class="col-sm-8 col-xl-3" id="zipCode">
-                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Zip Code</strong></label><input class="form-control" type="text"  id="shippingZipCode" placeholder="Zip Code" value="{{customerInfo.postcode}}" required="" minlength="5" maxlength = "5" pattern="/(^\d{5}$)|(^\d{5}-\d{4}$)/"
+                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Zip Code</strong></label><input class="form-control" type="text"  id="shippingZipCode" placeholder="Zip Code" value="{{postcode}}" required="" minlength="5" maxlength = "5" pattern="/(^\d{5}$)|(^\d{5}-\d{4}$)/"
                                             inputmode="numeric">
                                         <!--This is the validation for the zip-->
-                                        <script type = "text/javascript">
 
-                                        </script>
                                     </div>
                                 </div>
                                 <!--This is the state-->
                                 <div class="col-sm-8 col-xl-3" id="state">
-                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>State (Two Letter, "NY" or "FL")</strong></label><input class="form-control" type="text" id="shippingState" value="{{customerInfo.statecode}}"  placeholder="State" required="" minlength="2" maxlength="2">
+                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>State (Two Letter, "NY" or "FL")</strong></label><input class="form-control" type="text" id="shippingState" value="{{statecode}}"  placeholder="State" required="" minlength="2" maxlength="2">
                                       <!--This is the validation for the state-->
-                                      <script type = "text/javascript">
 
-                                      </script>
                                     </div>
                                 </div>
                             </div>
                         </div>
                       </div>
+                      {{/each}}
                         <div class="col-sm-12" id="proceed">
-                            <div class="form-group"><button class="btn btn-primary btn-block" id="proceedShipping" type="button" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;font-size: 20px;">Proceed</button></div>
+                            <div class="form-group"><button class="btn btn-primary btn-block" onclick = "verifyName(firstName.value, id); verifyName(lastName.value, id); verifyPhoneNum(phoneNumber.value, id); verifyAddress(shippingAddress1.value, id); verifyAddress2(shippingAddress2.value, id); verifyCity(shippingCity.value, id); verifyZip(shippingZipCode.value, id); verifyState(shippingState.value, id);" id="proceedShipping" type="button" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;font-size: 20px;">Proceed</button></div>
                         </div>
                     </div>
                 </form>
