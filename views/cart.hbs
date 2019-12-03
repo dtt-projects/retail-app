@@ -79,28 +79,22 @@
            location.reload();
          });
        }
-
      });
    }
-
    function updatePage() {
      var ids = []
      {{#each items}}
        ids.push({{itemId}});
      {{/each}}
-
      var totalCount = 0;
      var total = 0;
-
      // get total item quan
      for (var i = 0; i < ids.length; i++) {
        var currentCount = parseInt(document.getElementById(ids[i].toString()).value);
        var pricePerUnit = parseFloat(document.getElementById(ids[i].toString() + "Price").innerHTML.replace("$", ""));
-
        var itemTotal = currentCount * pricePerUnit;
        document.getElementById(ids[i].toString() + "TotalItemPrice").innerHTML = "$" + itemTotal.toString();
        total += itemTotal;
-
        var json = JSON.stringify({
          "itemId" : ids[i],
          "amount" : currentCount,
@@ -114,16 +108,12 @@
          },
          body : json
        })
-
-
        if (i == ids.length - 1) {
          document.getElementById("subTotal").innerHTML = "$" + total.toString();
          document.getElementById("totalTotal").innerHTML = "$" + total.toString();
        }
      }
    }
-
    function checkOut() {
-
    }
    </script>

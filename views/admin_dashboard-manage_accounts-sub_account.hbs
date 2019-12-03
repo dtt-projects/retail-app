@@ -1,70 +1,90 @@
-<input type=button value="logout" onClick="eraseCookie()"/>
-<h2> ADMIN ACCOUNT SUB ACCOUNTS PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-<h2> {{email}} </h2>
+<!--File: admin_dashboard-manage_accounts-sub_account.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 11/10/2019-->
+<!--Description: This is the body of the admin_dashboard-manage_accounts-sub_account page-->
 
-<ul>
-  <li> <a href="/admin_dashboard"> Main </a> </li>
-  <li> <a href="/admin_dashboard/manage_inventory"> Manage Inventory </a> </li>
-  <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
-  <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
-</ul>
-<h1> START ACCOUNTS </h1>
-<table>
-<tr>
-  <td> aid </td>
-  <td> firstname </td>
-  <td> lastname </td>
-  <td> address </td>
-  <td> city </td>
-  <td> zip </td>
-  <td> email </td>
-  <td> phone number </td>
-  <td> username </td>
-  <td> creationdate </td>
-  <td> updateddate </td>
-  <td> isadmin </td>
-
-</tr>
-{{#each account}}
-<tr>
-  <td>{{aid}}</td>
-  <td>{{firstname}}</td>
-  <td>{{lastname}}</td>
-  <td>{{address}}</td>
-  <td>{{city}}</td>
-  <td>{{zip}}</td>
-  <td>{{email}}</td>
-  <td>{{phonenumber}}</td>
-  <td>{{username}}</td>
-  <td>{{creationdate}}</td>
-  <td>{{updateddate}}</td>
-  <td>{{isadmin}}</td>
-</tr>
-{{/each}}
-</table>
-<h1> END ACCOUNTS </h1>
-
-<script> function eraseCookie() {
-  // make the api call
-  fetch("/api/logout",
-    {method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        alert("Logout failed. Try again.");
-        location.reload(true);
-        return
-      } else {
-        // send to a webpage
-        location.reload(true);
-        return;
-      }
-    });
-}
-
-</script>
+<!--This is the go to the manage accounts page-->
+<header></header><a href="/admin_dashboard/manage_accounts" style="margin-left: 40px;margin-top: 0px;color: rgb(133,135,150);font-size: 20px;">Back To Accounts</a>
+  <div class="container-fluid text-center border rounded shadow-sm" style="background-color: #ffffff;margin-top: 60px;max-width: 960px;padding-top: 15px;padding-bottom: 15px;padding-right: 50px;padding-left: 50px;">
+      <h1 class="text-center" style="color: rgb(133,135,150);font-size: 28px;height: 90px;">Account Details</h1>
+      <div class="row">
+          <div class="col align-self-center m-auto">
+              <div class="table-responsive" style="margin-top: 25px;padding: 10px;">
+                  <!--This is the table for the accounts that exists in the table-->
+                  <table class="table table-hover">
+                      <thead>
+                          <tr></tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>User ID</td>
+                              <td id="aid" contenteditable="false">{{scfUserInfo.aid}}</td>
+                          </tr>
+                          <tr>
+                              <td>Admin</td>
+                              <td id="adminStatus" contenteditable="false">{{scfUserInfo.isadmin}}</td>
+                          </tr>
+                          <tr>
+                              <td>Username</td>
+                              <td id="userName" contenteditable="false">{{scfUserInfo.username}}</td>
+                          </tr>
+                          <tr>
+                              <td>First Name</td>
+                              <td id="firstName" contenteditable="false">{{userInfo.firstname}}</td>
+                          </tr>
+                          <tr>
+                              <td>Last Name</td>
+                              <td id="lastName" contenteditable="false">{{userInfo.lastname}}</td>
+                          </tr>
+                          <tr>
+                              <td>E-Mail</td>
+                              <td id="eMail" contenteditable="false">{{userInfo.emailaddres}}</td>
+                          </tr>
+                          <tr>
+                              <td>Phone Number (Home)</td>
+                              <td id="phoneNumberHome" contenteditable="false">{{userInfo.phonehome}}</td>
+                          </tr>
+                          <tr>
+                              <td>Phone Number (Mobile)</td>
+                              <td id="phoneNumberMobile" contenteditable="false">{{userInfo.phonemobile}}</td>
+                          </tr>
+                          <tr>
+                              <td>Address (1)</td>
+                              <td id="addressOne" contenteditable="false">{{userInfo.address1}}</td>
+                          </tr>
+                          <tr>
+                              <td>Address (2)</td>
+                              <td id="addressTwo" contenteditable="false">{{userInfo.address2}}</td>
+                          </tr>
+                          <tr>
+                              <td>City</td>
+                              <td id="cityName" contenteditable="false">{{userInfo.citycode}}</td>
+                          </tr>
+                          <tr>
+                              <td>State</td>
+                              <td id="stateName" contenteditable="false">{{userInfo.statecode}}</td>
+                          </tr>
+                          <tr>
+                              <td>Zip Code</td>
+                              <td id="zipCode" contenteditable="false">{{userInfo.postcode}}</td>
+                          </tr>
+                          <tr>
+                              <td contenteditable="false">Gender</td>
+                              <td id="genderCode" contenteditable="false">{{userInfo.gendercode}}</td>
+                          </tr>
+                          <tr>
+                              <td contenteditable="false">Creation Date</td>
+                              <td id="creationDate" contenteditable="false">{{scfUserInfo.creationdate}}</td>
+                          </tr>
+                          <tr>
+                              <td contenteditable="false">Last Updated</td>
+                              <td id="lastUpdated" contenteditable="false">{{scfUserInfo.updateddate}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div><button class="btn btn-primary" id="editAccountInformation" type="button" style="background-color: rgb(79,121,96);margin-top: 15px;font-size: 18px;">Edit Information</button>
+      <button class="btn btn-primary text-center" id="sumbitChanges" type="button"
+          style="background-color: rgb(100,117,207);margin-top: 15px;font-size: 18px;display:none;">Submit Changes</button>
+          <button class="btn btn-primary" id="cancelChanges" type="button" style="background-color: rgb(129,130,133);margin-top: 15px;font-size: 18px;display: none;">Cancel</button></div>

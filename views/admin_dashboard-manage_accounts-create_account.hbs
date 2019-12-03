@@ -1,127 +1,30 @@
-<input type=button value="logout" onClick="eraseCookie()"/>
-<h2> ADMIN ACCOUNT Create ACCOUNTS PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-<h2> {{email}} </h2>
-<script src="../../javascripts/createAccount.js" async></script>
+<!--File: admin_dashboard-manage_account-create_account.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 12/01/2019-->
+<!--Description: This is the body of the admin_dashboard-mangage_account-create_account page-->
 
-<ul>
-  <li> <a href="/admin_dashboard"> Main </a> </li>
-  <li> <a href="/admin_dashboard/manage_inventory"> Manage Inventory </a> </li>
-  <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
-  <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
-</ul>
-<form>
-  <table>
-    <tr>
-      <td>
-        First Name
-      </td>
-      <td>
-        <input id="first_name" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Last Name
-      </td>
-      <td>
-        <input id="last_name" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Address
-      </td>
-      <td>
-        <input id="address" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        City
-      </td>
-      <td>
-        <input id="city" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        ZIP
-      </td>
-      <td>
-        <input id="zip" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Email
-      </td>
-      <td>
-        <input id="email" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Phone Number
-      </td>
-      <td>
-        <input id="phone_number" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Username
-      </td>
-      <td>
-        <input id="username" type="textbox"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Password
-      </td>
-      <td>
-        <input id="password" type="password"> </input>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Type
-      </td>
-      <td>
-        <select id="isAdmin">
-          <option value="True"> Admin </option>
-          <option value="False"> User </option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="button" value="Submit" onclick="createAccount()"/>
-      </td>
-    </tr>
-</form>
-
-<script> function eraseCookie() {
-  // make the api call
-  fetch("/api/logout",
-    {method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        alert("Logout failed. Try again.");
-        location.reload(true);
-        return
-      } else {
-        // send to a webpage
-        location.reload(true);
-        return;
-      }
-    });
-}
-
-</script>
+<!--This the the button that brings you back to the previous page-->
+<header></header><a href="/admin_dashboard/manage_accounts" style="margin-left: 40px;margin-top: 0px;color: rgb(133,135,150);font-size: 20px;">Back To Accounts</a>
+<div class="container-fluid text-center border rounded shadow-sm" style="background-color: #ffffff;margin-top: 60px;max-width: 800px;">
+    <!--This is the button that text that says create an admin account-->
+    <h5 class="text-left" style="color: rgb(133,135,150);font-size: 28px;padding-top: 30px;"><strong>Create An Account</strong></h5>
+    <div class="row">
+        <div class="col text-left" style="padding-top: 15px;padding-bottom: 15px;">
+            <!--This is the form to create an account-->
+            <form action = "/api/create_account" method = "post">
+                <div class="form-group"><label style="font-size: 20px;"><strong>User Name:</strong><br><input class="form-control" type="text" name="username" id="username" placeholder="User Name" required="" minlength="1"></label></div>
+                <div class="form-group"><label style="font-size: 20px;"><strong>Temporary Password:</strong><br><input class="form-control" type="password" name="password" id="password" placeholder="Temp Password" required="" minlength="1"></label></div>
+                <div class="form-group"><label style="font-size: 20px;"><strong>First Name:</strong><br><input class="form-control" type="text" name="firstName" id="firstName" placeholder="First Name" required="" minlength="1"></label></div>
+                <div class="form-group"><label style="font-size: 20px;"><strong>Last Name:</strong><br><input class="form-control" type="text" name="lastName" id="lastName" placeholder="Last Name" required="" minlength="1"></label></div>
+                <div class="form-group"><label style="font-size: 20px;"><strong>E-Mail:</strong><br><input class="form-control" type="email" name="email" id="email" placeholder="E-Mail" required="" minlength="1"></label></div>
+                <div class="form-group"><label style="font-size: 20px;"><strong>Phone Number:</strong><br><input class="form-control" type="tel" name="phonenumber" id="phonenumber" placeholder="Phone Number" required="" minlength="1"></label></div>
+                <div class="form-group"><label style="font-size: 20px;"><strong>Address:</strong><br><input class="form-control" type="text" name="address" id="address" placeholder="Address" required="" minlength="1"></label></div>
+                <div class="form-group"><label style="font-size: 20px;"><strong>Zip:</strong><br><input class="form-control" type="text" name="zip" id="zip" placeholder="Zip" required="" minlength="1" inputmode="numeric"></label></div>
+                <div class="form-group"><label style="font-size: 20px;"><strong>City:</strong><br><input class="form-control" type="text" name="city" id="city" placeholder="City" required="" minlength="1"></label></div>
+                <div class="form-group"><label style="font-size: 20px;"><strong>State:</strong><br><input class="form-control" type="text" name="state" id="state" placeholder="State" required="" minlength="1"></label></div>
+                <div class="form-group"><label style="font-size: 20px;"><strong>Admin:</strong><br><input class="form-control" type="text" name="isAdmin" id="isAdmin" placeholder="0" required="" minlength="1"></label></div>
+                <!--This is the button to submit the new account-->
+                <button class="btn btn-primary" type="submit" id="createAccount">Create Account</button></div>
+            </form>
+    </div>
+</div>

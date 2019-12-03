@@ -33,6 +33,7 @@
  */
 const addItem = (req, res, next) => {
   // make sure an admin is making the call
+  console.log("addItem");
   var sessionId = req.cookies["sessionId"];
   sessions.handleSessionIsAdmin(sessionId)
     .then(isAdmin => {
@@ -40,6 +41,8 @@ const addItem = (req, res, next) => {
         //  read creds from the secret file
         hidden.readHidden()
           .then(json => {
+            console.log(req);
+            console.log(req.data);
               // build the data that will be sent
               var data = {
                 "merchantId" : req.body["merchantId"],
@@ -50,6 +53,9 @@ const addItem = (req, res, next) => {
                 "price": req.body["price"],
                 "quantity": req.body["quantity"]
               };
+              console.log("==============================");
+              console.log(data);
+              console.log("==============================");
 
               // prepare the request and the ibm api
               var options = {
@@ -72,8 +78,9 @@ const addItem = (req, res, next) => {
                   res.status(401);
                   res.send('Failed:');
                 } else {
+                  console.log(body);
                   res.status(200);
-                  res.send('Success:');
+                  res.redirect('/admin_dashboard/manage_inventory');
                 }
               });
             });

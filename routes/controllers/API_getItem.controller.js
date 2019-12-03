@@ -54,7 +54,14 @@ const getItem = (req, res, next) => {
           res.setHeader('Content-Type', 'plain/text');
           res.send();
         } else {
-          data = JSON.parse(body.toString())
+          try {
+            data = JSON.parse(body.toString())
+          } catch (e) {
+            console.log("market item error");
+            console.log(body);
+            console.log(itemNum);
+            console.log("end market item error");
+          }
           res.send(data["data"]["inventoryList"]);
         }
       });
