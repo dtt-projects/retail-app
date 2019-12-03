@@ -17,6 +17,8 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+const request = require('request');
+
 /**
  * @function sendAdminDashboardManageAccountsSubAccountPage
  * @description Send the base page rendered by `Handlebars.js`. Compilation
@@ -28,7 +30,7 @@
  */
 const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
   // handle the cookies of a user and update them
-  var aid = req.baseUrl.split("/")[4];
+  var ibmId = req.baseUrl.split("/")[4];
 
   // check their session and update it
   sessions.handleSession(req.cookies)
@@ -64,35 +66,51 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                         }
                       });
 
-                      // get all the account info for a user
-                      var statement = ("SELECT * from accounts "
-                          + "where aid=" + aid);
-                      con.query(statement, function(err, result) {
-                        if (err) {
-                          console.log(err);
-                          res.status(400);
-                          //res.setHeader('Content-Type', 'plain/text');
+                      var options = { method: 'GET',
+                        url: json[2]["apiUrl"] + 'Customer/' + ibmId,
+                        headers:
+                         { accept: 'application/json',
+                            'content-type': 'application/json',
+                            'x-ibm-client-secret': json[2]["ClientSecret"],
+                            'x-ibm-client-id': json[2]["ClientId"] },
+                        json: true };
+
+                      request(options, function (error, response, body) {
+                        if (error) {
+                          console.error('Failed: %s', error.message);
                           con.end();
-                          //res.send("getting account info failed!");
-                        // got account data
-                        } else if (result.length > 0) {
-                          res.status(200);
-                          //res.setHeader('Content-Type', 'text/html');
-                          con.end();
-                          var account = result
-                          res.render('admin_dashboard-manage_accounts-sub_account', {
-                            title: 'Sprout Creek Farm Admin Dashboard | Sub Account',
-                            page: 'login',
-                            "account": account});
-                        // aid doesnt exist
+                          res.status(401);
+                          res.send();
+                          return;
                         } else {
-                          console.log(err);
-                          res.status(400);
-                          //res.setHeader('Content-Type', 'plain/text');
-                          con.end();
-                          //res.send("user doesnt exist failed!");
+                          userInfo = body["data"]["customerList"][0];
+
+
+                          console.log("++++++++++++++++++++++++++++++++++++++");
+                          console.log(userInfo);
+                          console.log("======================================");
+
+                          var statement = ("SELECT * FROM ibm RIGHT JOIN accounts ON ibm.aid=accounts.aid WHERE ibmid=" + ibmId);
+                          con.query(statement, function(err, result) {
+                            if (err) {
+                              console.log(err);
+                              res.status(400);
+                              res.setHeader('Content-Type', 'plain/text');
+                              res.redirect("/");
+                            } else {
+                              var scfUserInfo = result[0];
+                              console.log(scfUserInfo);
+                              res.render('admin_dashboard-manage_accounts-sub_account', {
+                                "title": 'Sprout Creek Farm Admin Dashboard | Sub Account',
+                                "page": 'login',
+                                "userInfo": userInfo,
+                                "isDashboard": true,
+                                "scfUserInfo": scfUserInfo
+                              });
+                            }
+                          })
                         }
-                      });
+                      })
                     });
                 // user is not an admin
                 } else {
