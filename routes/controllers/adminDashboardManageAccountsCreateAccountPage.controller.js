@@ -35,7 +35,8 @@ const sendAdminDashboardManageAccountsCreateAccountPage = (req, res, next) => {
                 if (isAdmin) {
                   res.render('admin_dashboard-manage_accounts-create_account', {
                     title: 'Sprout Creek Farm Admin Dashboard | Create Account',
-                    page: 'login' });
+                    page: 'login',
+                    "isDashboard": true});
                 // user is not an admin
                 } else {
                   res.redirect("/user_dashboard");
