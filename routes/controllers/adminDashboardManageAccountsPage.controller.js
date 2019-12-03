@@ -11,6 +11,9 @@
   * This is to help with handling sessions to maintain cart and auth
   */
  const sessions = require('../../scripts/session-helper.js');
+ const hidden = require('../../scripts/read-hidden.js');
+ const request = require('request');
+ const mysql = require('mysql');
 
 /**
  * @function sendAdminDashboardManageAccountsPage
@@ -34,32 +37,77 @@ const sendAdminDashboardManageAccountsPage = (req, res, next) => {
               .then(isAdmin => {
                 // user is an admin
                 if (isAdmin) {
-                  const request = require("request");
+                  sessions.handleSessionGetSessionInfo(sessionId)
+                    .then(aid => {
+                      hidden.readHidden()
+                        .then(json => {
+                          // connect to db
+                          // log into database
+                          var con = mysql.createConnection({
+                            host: json[0]["host"],
+                            user: json[0]["user"],
+                            password: json[0]["password"],
+                            database: json[0]["database"]
+                          });
+                          con.connect(function(err) {
+                            if (err) {
+                              console.log(err);
+                              res.status(400);
+                              res.setHeader('Content-Type', 'plain/text');
+                              res.send("Account creation failed!");
+                            }
+                          });
 
-                  //  testing of base url
-                  var options ={
-                    method: 'GET',
-                    url: 'http://' + req.headers["host"] + '/api/getAllAccounts',
-                    body: req.cookies,
-                    json: true
-                  };
+                          var statement = ("SELECT * FROM accounts where aid=" + aid);
+                          con.query(statement, function(err, result) {
+                          if (err) {
+                            console.log(err);
+                            res.status(400);
+                            res.setHeader('Content-Type', 'plain/text');
+                            res.redirect("/");
+                          } else {
+                            var userInfo = result[0];
+                            console.log(userInfo);
 
-                  // the request on failure log and redirect back
-                  // on success send to page and populate it
-                  request(options, function (error, response, body) {
-                    if (error) {
-                      console.log(error.message);
-                      res.status(400);
-                      res.redirect('../admin_dashboard');
-                    } else {
-                      console.log(body);
-                      var accounts = body;//JSON.parse(body.toString());
-                      res.render('admin_dashboard-manage_accounts', {
-                        title: 'Sprout Creek Farm Admin Dashboard | Accounts',
-                        page: 'login',
-                        "accounts": accounts});
-                    }
-                  });
+                            // kill the db connection
+                            con.end();
+
+                            var options = { method: 'GET',
+                              url: json[2]["apiUrl"] + 'Customer',
+                              headers:
+                               { accept: 'application/json',
+                                 'x-ibm-client-secret': json[2]["ClientSecret"],
+                                 'x-ibm-client-id': json[2]["ClientId"] } };
+
+                            request(options, function (error, response, body) {
+                              if (error) {
+                                console.error('Failed: %s', error.message);
+                                res.status(400);
+                                res.send();
+                                return
+                              } else {
+                                console.log('Success: ', body);
+                                body = JSON.parse(body);
+                                var customers = body["data"]["customerList"];
+                                var hasCustomers = true;
+                                if (customers.length == 0) {
+                                  hasCustomers = false;
+                                }
+
+                                res.render('admin_dashboard-manage_accounts', {
+                                  title: 'Sprout Creek Farm Admin Dashboard',
+                                  page: 'login',
+                                  "isDashboard": true,
+                                  "userInfo": userInfo,
+                                  "hasCustomers": hasCustomers,
+                                  "customers": customers,
+                                  "isDashboard": true});
+                              }
+                            });
+                          }
+                        });
+                        })
+                    })
                 // user is not an admin
                 } else {
                   res.redirect("/user_dashboard");
