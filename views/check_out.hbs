@@ -160,12 +160,7 @@
                                 <div class="form-group"><label for="card-holder">Card Holder</label><input class="form-control" type="text" id="cardHolder"  placeholder="Card Holder">
                                   <!--This is the validation for the card holders-->
                                   <script type = "text/javascript">
-                                  //  function verifyCardHolder(cardHolder, id){
-                                    //   var cardHolderRegEx = new RegExp(/^[a-zA-Z\s]+$/);
-                                    //   if(cardHolderRegEx.test(cardHolder) != true){
-                                    //     alert("Please use your name in the card holder field");
-                                    //   }
-                                    // }
+
                                   </script>
                                 </div>
                             </div>
@@ -175,24 +170,11 @@
                                     <div class="input-group expiration-date"><input class="form-control" type="text" minlength = "2" maxlength = "2" id="monthExpr"  placeholder="MM"><input class="form-control" type="text" id="yearExpr" minlength = "2" maxlength = "2" onchange = "verifyExpirationYear(this.value, id)" placeholder="YY">
                                       <!--This is the validation for the month-->
                                       <script type = "text/javascript">
-                                        // function verifyExpiration(expirationMonth, id){
-                                        //   var expirationDateRegEx = new RegExp(/^[0-9]+$/);
-                                        //   if(expirationMonth < 1 || expirationMonth > 12){
-                                        //     alert("Please enter a valid month");
-                                        //   }
-                                        //   if(expirationDateRegEx.test(expirationMonth) != true){
-                                        //     alert("Please use two numbers for the expiration month");
-                                        //   }
-                                        // }
+
                                         </script>
                                         <!--This is the validation for the year-->
                                         <script type = "text/javascript">
-                                        // function verifyExpirationYear(expirationYear, id){
-                                        //   var expirationDateRegEx = new RegExp(/^[0-9]+$/);
-                                        //   if(expirationDateRegEx.test(expirationYear) != true){
-                                        //     alert("Please use two numbers for the expiriation year");
-                                        //   }
-                                        // }
+
                                       </script>
                                     </div>
                                 </div>
@@ -202,31 +184,7 @@
                                 <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" minlength = "13" maxlength = "16" type="text"  id="cardNumber" placeholder="Card Number">
                                   <!--This is the credit card validation-->
                                   <script type = "text/javascript">
-                                    // function verifyCard(cardNumber, id){
-                                    //   //This is the regular expression for visa, mastercard, amex, and discover
-                                    //   var visa = new RegExp("^(?:4[0-9]{12}(?:[0-9]{3})?)");
-                                    //   var mastercard = new RegExp("^5[1-5][0-9]{14}$");
-                                    //   var amex = new RegExp("3[47][0-9]{13}$");
-                                    //   var discover = new RegExp("6(?:011|5[0-9]{2})[0-9]{12}");
-                                    //   var goodCard = false;
-                                    //   //Here we test every card and see which it may be.
-                                    //   if(visa.test(cardNumber) == true){
-                                    //     goodCard = true;
-                                    //   }
-                                    //   if(mastercard.test(cardNumber) == true){
-                                    //     goodCard = true;
-                                    //   }
-                                    //   if(amex.test(cardNumber) == true){
-                                    //     goodCard = true;
-                                    //   }
-                                    //   if(discover.test(cardNumber) == true){
-                                    //     goodCard = true;
-                                    //   }
-                                    //   //If none of the validations work then we need a new card number
-                                    //   if(!goodCard){
-                                    //     alert("Please enter a valid credit card");
-                                    //   }
-                                    // }
+
                                   </script>
                                 </div>
                             </div>
@@ -235,13 +193,7 @@
                                 <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text"  id="cvc" placeholder="CVC" minlength="3" maxlength="4">
                                 <!--This is the cvc validation-->
                                 <script type = "text/javascript">
-                            //      function verifyCVC(cvc, id){
-                            //        var cvcRegExp = new RegExp(/^[0-9]+$/);
-                            //        var cvcLength = document.getElementById("cvc").value;
-                            //        if(cvcRegExp.test(cvc) != true || cvcLength.length < 3){
-                            //         alert("Please enter a valid cvc combination");
-                            //        }
-                            //      }
+                      
                                 </script>
                               </div>
                             </div>
