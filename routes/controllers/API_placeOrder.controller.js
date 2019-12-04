@@ -111,13 +111,59 @@ const placeOrder = (req, res, next) => {
                               "company": req.body["cartType"],
                               "cardNum": req.body["cardNumber"],
                               "ccid": req.body["cvc"],
-                              "expirationDate": req.body["monthExpr"] },
+                              "expirationDate": req.body["monthExpr"] + '/' + req.body["yearExpr"] },
                           json: true };
+                          console.log(req.body["monthExpr"] + '/' + req.body["yearExpr"]);
 
                         request(options, function (error, response, body) {
-                          if (error) return console.error('Failed: %s', error.message);
+                          if (error) {
+                            console.error('Failed: %s', error.message);
+                            return;
+                          } else {
+                            //console.log('Success: ', body);
+                            //var cardId = JSON.parse(body.toString()
+                            sessions.handleSessionGetCart(sessionId)
+                              .then(currentCart => {
+                                // get each key and put into order
+                                console.log("CART PROCESS");
+                                console.log(currentCart);
+                                var keys = Object.keys(currentCart);
+                                keys.forEach(element => {
+                                  var amount = currentCart[element];
+                                  var options = { method: 'POST',
+                                      url: 'https://api.us-south.apiconnect.appdomain.cloud/lasermusibmcom-dev/sb/Retail/PlaceOrder',
+                                      headers:
+                                       { accept: 'application/json',
+                                         'content-type': 'application/json',
+                                         'x-ibm-client-secret': json[2]["ClientSecret"],
+                                         'x-ibm-client-id': json[2]["ClientId"] },
+                                      body:
+                                       { orderInfo:
+                                          { orderDetail:
+                                             { customerNumber: ibmId,
+                                               itemID: element,
+                                               itemQuantity: amount,
+                                               creditCardNumber: req.body["cardNumber"],
+                                               shippingName: 'Johnny Burgess',
+                                               shippingAddress1: '108.232.189.108',
+                                               shippingAddress2: '35.208.101.107',
+                                               shippingState: 'GA',
+                                               shippingCity: 'Zabmunpat',
+                                               shippingZipCode: '18525' } } },
+                                      json: true };
 
-                          console.log('Success: ', body);
+                                    request(options, function (error, response, body) {
+                                      if (error) {
+                                        return console.error('Failed: %s', error.message);
+                                      } else {
+                                          console.log('Success: ', body);
+                                          res.redirect("/");
+                                      }
+                                    });
+                                })
+
+                              }); // end getCart
+                          }
                         });
                       }
                     });

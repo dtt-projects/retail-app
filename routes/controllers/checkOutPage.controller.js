@@ -134,11 +134,14 @@ const sendCheckOutPage = (req, res, next) => {
                                         res.status(401);
                                         res.send();
                                         return;
-                                      } else {
+                                      } else if (body["data"]["creditCardList"].length > 0) {
                                         console.log("CARD");
                                         console.log(body);
-                                        console.log(body["data"]["creditCardList"][0])
-                                        var customerCard = body["data"]["creditCardList"][0];
+                                        var cardListLen = body["data"]["creditCardList"].length - 1;
+                                        console.log(body["data"]["creditCardList"][cardListLen])
+                                        var customerCard = body["data"]["creditCardList"][cardListLen];
+                                        customerCard["monthExpr"] = customerCard["credexpd"].split("/")[0]
+                                        customerCard["yearExpr"] = customerCard["credexpd"].split("/")[1]
 
                                         sessions.handleSessionGetCart(sessionId)
                                           .then(cart => {
@@ -191,7 +194,58 @@ const sendCheckOutPage = (req, res, next) => {
                                               })
                                             }
                                           })
-                                      }
+                                      } else {
+                                        sessions.handleSessionGetCart(sessionId)
+                                          .then(cart => {
+                                            var keys = Object.keys(cart);
+                                            // has values in cart
+                                            var cartDisplay = [];
+                                            console.log("before key length if")
+                                            if (keys.length > 0) {
+                                              keys.forEach(function(key) {
+                                                var amount = cart[key];
+                                                // setup url for api call
+                                                var options = {
+                                                  method: 'GET',
+                                                  url: 'http://' + req.headers["host"] + '/api/getItem/' + key,
+                                                };
+                                                // make the request to get a single item from IBM DB
+                                                // if error send user back to root admin Inventory page
+                                                // if sucess populate the item page
+                                                request(options, function (error, response, body) {
+                                                  if (error) {
+                                                    console.log(error.message);
+                                                  } else {
+                                                    //itemsList = JSON.parse(body.toString())
+                                                    var data = JSON.parse(body.toString())[0];
+                                                    console.log("else")
+                                                    cartDisplay.push({"img": data["itemimagelink"]
+                                                                    , "name": data["itemname"]
+                                                                    , "cat": data["itemcat"]
+                                                                    , "price": data["price"]
+                                                                    , "quantity": cart[key]
+                                                                    , "itemId": key
+                                                                    , "total": data["price"] * cart[key]
+                                                                    , "maxQuantity": data["quantity"]
+                                                                  });
+                                                    console.log("before length check");
+                                                    if (cartDisplay.length == keys.length) {
+                                                      console.log(cartDisplay);
+
+                                                      res.render('check_out', {
+                                                        "title": 'Sprout Creek Farm Check Out',
+                                                        "page": 'cart',
+                                                        "customerInfo": customerInfo,
+                                                        "goatPoints": goatPoints,
+                                                        "items": cartDisplay,
+                                                        "isLogged": isLoggedIn});
+                                                    }
+                                                  }
+                                                });
+                                              })
+                                            }
+                                          })
+                                        }
                                     })
                                   }
                               });

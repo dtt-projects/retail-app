@@ -97,7 +97,7 @@
                 </form>
 
                 <!--This is the next part of the page that is our cart-->
-                <form>
+                <form action="/api/placeOrder" method="post">
                     <div class="border rounded products" id="cartContent" style="margin-top: 0px;background-color: rgb(248,247,245);display: none;">
                         <h3 class="text-center title" style="margin-top: 0px;padding-bottom: 10px;padding-top: 10px;">Cart Summary</h3>
                         <div class="form-row no-gutters text-left justify-content-center align-items-center" style="/*overflow: auto;*/">
@@ -157,7 +157,7 @@
                         <h3 class="title" style="font-size: 30px;margin-bottom: 40px;"><strong>Credit Card Details</strong></h3>
                         <div class="form-row">
                             <div class="col-sm-7">
-                                <div class="form-group"><label for="card-holder">Card Holder</label><input class="form-control" type="text" id="cardHolder"  placeholder="Card Holder">
+                                <div class="form-group"><label for="card-holder">Card Holder</label><input class="form-control" type="text" id="cardHolder"  placeholder="Card Holder" value="{{customerInfo.firstname}} {{customerInfo.lastname}}">
                                   <!--This is the validation for the card holders-->
                                   <script type = "text/javascript">
 
@@ -167,11 +167,7 @@
                             <!--This is the expiration field-->
                             <div class="col-sm-5">
                                 <div class="form-group"><label>Expiration date (12/20, 06/21)</label>
-<<<<<<< HEAD
-                                    <div class="input-group expiration-date"><input class="form-control" type="text" minlength = "2" maxlength = "2" id="monthExpr" name="monthExpr" onchange = "verifyExpiration(this.value, id)" placeholder="MM"><input class="form-control" type="text" id="yearExpr" minlength = "2" maxlength = "2" onchange = "verifyExpirationYear(this.value, id)" placeholder="YY">
-=======
-                                    <div class="input-group expiration-date"><input class="form-control" type="text" minlength = "2" maxlength = "2" id="monthExpr"  placeholder="MM"><input class="form-control" type="text" id="yearExpr" minlength = "2" maxlength = "2" onchange = "verifyExpirationYear(this.value, id)" placeholder="YY">
->>>>>>> 9a51480ae19d7e8c08d5645e33c04676b80f5b13
+                                    <div class="input-group expiration-date"><input class="form-control" type="text" minlength = "2" maxlength = "2" id="monthExpr" name="monthExpr" value="{{customerCard.monthExpr}}" onchange = "verifyExpiration(this.value, id)" placeholder="MM"><input class="form-control" type="text" id="yearExpr" name="yearExpr" value="{{customerCard.yearExpr}}" minlength = "2" maxlength="2" onchange = "verifyExpirationYear(this.value, id)" placeholder="YY">
                                       <!--This is the validation for the month-->
                                       <script type = "text/javascript">
 
@@ -187,11 +183,7 @@
                               <input type="hidden" id="cardType" name="cartType" value="">
 
                                 <!--This is the credit card form-->
-<<<<<<< HEAD
-                                <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" minlength = "13" maxlength = "16" type="text" onchange = "verifyCard(this.value, id)" id="cardNumber" name="cardNumber" placeholder="Card Number">
-=======
-                                <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" minlength = "13" maxlength = "16" type="text"  id="cardNumber" placeholder="Card Number">
->>>>>>> 9a51480ae19d7e8c08d5645e33c04676b80f5b13
+                                <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" minlength = "13" maxlength = "16" type="text" onchange = "verifyCard(this.value, id)" id="cardNumber" name="cardNumber" value="{{customerCard.credcarnn}}" placeholder="Card Number">
                                   <!--This is the credit card validation-->
                                   <script type = "text/javascript">
 
@@ -200,24 +192,16 @@
                             </div>
                             <!--This is the cvc form-->
                             <div class="col-sm-4">
-<<<<<<< HEAD
-                                <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text" onchange = "verifyCVC(this.value, id)" id="cvc" name="cvc" placeholder="CVC" minlength="3" maxlength="4">
-=======
-                                <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text"  id="cvc" placeholder="CVC" minlength="3" maxlength="4">
->>>>>>> 9a51480ae19d7e8c08d5645e33c04676b80f5b13
+                                <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text" onchange = "verifyCVC(this.value, id)" id="cvc" name="cvc" value="{{customerCard.credccidd}}" placeholder="CVC" minlength="3" maxlength="4">
                                 <!--This is the cvc validation-->
                                 <script type = "text/javascript">
-                      
+
                                 </script>
                               </div>
                             </div>
                             <!--This is the big button on the bottom of the page-->
                             <div class="col-sm-12">
-<<<<<<< HEAD
-                                <div class="form-group"><button class="btn btn-primary btn-block" id="confirmPurchase" type="button" onClick="purchaseItems()" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;">Confirm Purchase</button></div>
-=======
-                                <div class="form-group"><button class="btn btn-primary btn-block" onclick = "verifyCardHolder(cardHolder.value, id); verifyExpiration(monthExpr.value, id); verifyExpirationYear(yearExpr.value, id); verifyCard(cardNumber.value, id); verifyCVC(cvc.value, id);" id="confirmPurchase" type="button" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;">Confirm Purchase</button></div>
->>>>>>> 9a51480ae19d7e8c08d5645e33c04676b80f5b13
+                                <div class="form-group"><button class="btn btn-primary btn-block" onclick = "verifyCardHolder(cardHolder.value, id); verifyExpiration(monthExpr.value, id); verifyExpirationYear(yearExpr.value, id); verifyCard(cardNumber.value, id); verifyCVC(cvc.value, id);" id="confirmPurchase" type="submit" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;">Confirm Purchase</button></div>
                             </div>
                         </div>
                     </div>

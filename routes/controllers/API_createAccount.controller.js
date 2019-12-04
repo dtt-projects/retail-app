@@ -164,7 +164,8 @@ const createAccount = (req, res, next) => {
                            "city": req.body["city"],
                            "state": req.body["state"],
                            "zip": req.body["zip"],
-                           "phoneHome": req.body["phonenumber"],},
+                           "phoneHome": req.body["phonenumber"],
+                           "spendingCode": 99999999},
                         json: true };
 
                       request(options, function (error, response, body) {
