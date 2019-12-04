@@ -48,7 +48,7 @@
                                 </div>
                                 <!--This is the phone number-->
                                 <div class="col-sm-7" id="phoneNumber" style="height: 87px;">
-                                    <div class="form-group" style="height: 27px;"><label for="card-holder" style="font-size: 17px;"><strong>Phone Number (No dashes needed)</strong></label><input class="form-control" type="tel"  id="phoneNumber" placeholder="Phone Number" value="{{customerInfo.phonehome}}" required="" minlength="1" maxlength = "13" inputmode="tel">
+                                    <div class="form-group" style="height: 27px;"><label for="card-holder" style="font-size: 17px;"><strong>Phone Number (No dashes needed)</strong></label><input class="form-control" type="tel"  name="phoneNumber" id="phoneNumber" placeholder="Phone Number" value="{{customerInfo.phonehome}}" required="" minlength="1" maxlength = "13" inputmode="tel">
                                       <!--This is the validation function for the phone number-->
                                       <script type = "text/javascript">
 
@@ -57,7 +57,7 @@
                                 </div>
                                 <!--This is the address box-->
                                 <div class="col-sm-8" id="address1">
-                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Address 1</strong></label><input class="form-control" type="text"  value="{{customerInfo.address1}}" id="shippingAddress1" placeholder="Address 1" required="" minlength="1">
+                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Address 1</strong></label><input class="form-control" type="text"  value="{{customerInfo.address1}}" name="shippingAddress1" id="shippingAddress1" placeholder="Address 1" required="" minlength="1">
                                       <!--This is the validation function for the address-->
                                       <script type = "text/javascript">
 
@@ -75,7 +75,7 @@
                                 </div>
                                 <!--This is the city field-->
                                 <div class="col-sm-8 col-xl-5 offset-xl-0" id="city">
-                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>City</strong></label><input class="form-control"  type="text" id="shippingCity" value="{{customerInfo.citycode}}" placeholder="City" required="" minlength="1">
+                                    <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>City</strong></label><input class="form-control"  type="text" name="shippingCity" id="shippingCity" value="{{customerInfo.citycode}}" placeholder="City" required="" minlength="1">
                                       <!--This is validation for the city field-->
                                       <script type = "text/javascript">
 
@@ -186,7 +186,7 @@
                             <!--This is the expiration field-->
                             <div class="col-sm-5">
                                 <div class="form-group"><label>Expiration date (12/20, 06/21)</label>
-                                    <div class="input-group expiration-date"><input class="form-control" type="text" minlength = "2" maxlength = "2" id="monthExpr" onchange = "verifyExpiration(this.value, id)" placeholder="MM"><input class="form-control" type="text" id="yearExpr" minlength = "2" maxlength = "2" onchange = "verifyExpirationYear(this.value, id)" placeholder="YY">
+                                    <div class="input-group expiration-date"><input class="form-control" type="text" minlength = "2" maxlength = "2" id="monthExpr" name="monthExpr" onchange = "verifyExpiration(this.value, id)" placeholder="MM"><input class="form-control" type="text" id="yearExpr" minlength = "2" maxlength = "2" onchange = "verifyExpirationYear(this.value, id)" placeholder="YY">
                                       <!--This is the validation for the month-->
                                       <script type = "text/javascript">
                                         function verifyExpiration(expirationMonth, id){
@@ -212,8 +212,10 @@
                                 </div>
                             </div>
                             <div class="col-sm-8">
+                              <input type="hidden" id="cardType" name="cartType" value="">
+
                                 <!--This is the credit card form-->
-                                <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" minlength = "13" maxlength = "16" type="text" onchange = "verifyCard(this.value, id)" id="cardNumber" placeholder="Card Number">
+                                <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" minlength = "13" maxlength = "16" type="text" onchange = "verifyCard(this.value, id)" id="cardNumber" name="cardNumber" placeholder="Card Number">
                                   <!--This is the credit card validation-->
                                   <script type = "text/javascript">
                                     function verifyCard(cardNumber, id){
@@ -246,7 +248,7 @@
                             </div>
                             <!--This is the cvc form-->
                             <div class="col-sm-4">
-                                <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text" onchange = "verifyCVC(this.value, id)" id="cvc" placeholder="CVC" minlength="3" maxlength="4">
+                                <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text" onchange = "verifyCVC(this.value, id)" id="cvc" name="cvc" placeholder="CVC" minlength="3" maxlength="4">
                                 <!--This is the cvc validation-->
                                 <script type = "text/javascript">
                                   function verifyCVC(cvc, id){
@@ -261,7 +263,7 @@
                             </div>
                             <!--This is the big button on the bottom of the page-->
                             <div class="col-sm-12">
-                                <div class="form-group"><button class="btn btn-primary btn-block" id="confirmPurchase" type="button" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;">Confirm Purchase</button></div>
+                                <div class="form-group"><button class="btn btn-primary btn-block" id="confirmPurchase" type="button" onClick="purchaseItems()" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;">Confirm Purchase</button></div>
                             </div>
                         </div>
                     </div>
@@ -286,3 +288,12 @@
     </section>
     <br/><br/>
 </main>
+
+<script>
+function purchaseItems() {
+  card = {
+    "cardHolder": document.getElementById("cardHolder").value;
+  }
+}
+
+</script>

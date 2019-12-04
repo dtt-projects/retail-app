@@ -86,7 +86,9 @@ const createAccount = (req, res, next) => {
               console.log(err);
               res.status(400);
               res.setHeader('Content-Type', 'plain/text');
+              con.end();
               res.send("Account creation failed!");
+              return;
             } else {
               // statement was successful
               var nodemailer = require('nodemailer');
