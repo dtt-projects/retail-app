@@ -157,7 +157,8 @@ const placeOrder = (req, res, next) => {
                                         return console.error('Failed: %s', error.message);
                                       } else {
                                           console.log('Success: ', body);
-                                          res.redirect("/");
+                                          res.status(200);
+                                          res.redirect("/login");
                                       }
                                     });
                                 })
