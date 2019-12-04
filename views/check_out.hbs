@@ -91,7 +91,7 @@
                         </div>
                       </div>
                         <div class="col-sm-12" id="proceed">
-                            <div class="form-group"><button class="btn btn-primary btn-block" onclick = "verifyFirstName(firstName.value, id); verifyLastName(lastName.value, id); verifyPhoneNum(phoneNumber.value, id); verifyAddress(shippingAddress1.value, id); verifyAddress2(shippingAddress2.value, id); verifyCity(shippingCity.value, id); verifyZip(shippingZipCode.value, id); verifyState(shippingState.value, id);" id="proceedShipping" type="button" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;font-size: 20px;">Proceed</button></div>
+                            <div class="form-group"><button class="btn btn-primary btn-block" onclick = "verifyFirstName(firstName.value, id); verifyLastName(lastName.value, id); verifyPhoneNum(phoneNumber.value, id); verifyAddress(shippingAddress1.value, id); verifyCity(shippingCity.value, id); verifyZip(shippingZipCode.value, id); verifyState(shippingState.value, id);" id="proceedShipping" type="button" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;font-size: 20px;">Proceed</button></div>
                         </div>
                     </div>
                 </form>
@@ -113,14 +113,14 @@
 
                                             <div class="col-md-5 col-xl-4 product-info">
                                                 <div class="product-specs">
-                                                    <div><span>Price Per Unit:&nbsp;</span><span id="pricePerUnit" class="value">${{price}}</span></div>
+                                                    <div><span>Price Per Unit:&nbsp;</span><span id="{{itemId}}Price" class="value">${{price}}</span></div>
                                                 </div>
                                             </div>
                                             <!--This is the total price section-->
 
-                                            <div class="col-6 col-md-2 col-xl-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="quantity" value="{{quantity}}" readonly=""></div>
+                                            <div class="col-6 col-md-2 col-xl-2 quantity"><label class="d-none d-md-block" for="quantity">Quantity</label><input class="form-control form-control quantity-input" type="number" id="{{itemId}}" value="{{quantity}}" readonly=""></div>
                                             <div class="col-6 col-md-2 col-xl-2 text-right price"
-                                                id="totalItemPrice" style="margin-top: 5px;"><span id="totalItemPrice">${{total}}</span></div>
+                                                id="totalItemPrice" style="margin-top: 5px;"><span id="{{itemId}}TotalItemPrice">${{total}}</span></div>
                                         </div>
                                       {{/each}}
                                       </div>
@@ -133,7 +133,6 @@
                                     <h4 class="text-center" style="padding-bottom: 5px;padding-top: 5px;"><span class="text" style="font-size: 22px;">Subtotal: &nbsp;</span><span id="subtotalPrice" class="price" style="font-size: 22px;">$25.00</span></h4>
                                     <h4 style="padding-bottom: 17px;padding-top: 5px;height: 38px;"><span class="text" style="font-size: 22px;">Shipping: &nbsp;</span><span id="shippingPrice" class="price" style="font-size: 22px;">$5.99</span></h4>
                                     <h4 id="goatPointsSummary" style="padding-bottom: 17px;padding-top: 5px;height: 38px;display:none;"><span class="text" style="font-size: 22px;">Goat Points: &nbsp;</span><span id="shippingPrice" class="price" style="font-size: 22px;">$5.99</span></h4>
-                                    <h4 class="text-center" style="padding-bottom: 5px;padding-top: 5px;"><span class="text" style="font-size: 22px;">Tax: &nbsp;</span><span id="taxPrice" class="price" style="font-size: 22px;">$3.00</span></h4>
                                     <h4 style="padding-bottom: 10px;padding-top: 26px;margin-bottom: 45px;margin-top: 5px;"><span class="text" style="font-size: 25px;"><strong>Total: &nbsp;</strong></span><span id="totalPrice" class="price" style="font-size: 25px;"><strong>$30.99</strong></span></h4>
                                 </div>
                             </div>
@@ -228,11 +227,42 @@
     <br/><br/>
 </main>
 
-<script>
-function purchaseItems() {
-  card = {
-    "cardHolder": document.getElementById("cardHolder").value;
-  }
-}
+<body  onLoad="updatePage();"/>
+   <script>
 
-</script>
+   function updatePage() {
+     var ids = []
+     {{#each items}}
+       ids.push({{itemId}});
+     {{/each}}
+     var totalCount = 0;
+     var total = 0;
+     // get total item quan
+     for (var i = 0; i < ids.length; i++) {
+       var currentCount = parseInt(document.getElementById(ids[i].toString()).value);
+       var pricePerUnit = parseFloat(document.getElementById(ids[i].toString() + "Price").innerHTML.replace("$", ""));
+       var itemTotal = currentCount * pricePerUnit;
+       document.getElementById(ids[i].toString() + "TotalItemPrice").innerHTML = "$" + itemTotal.toString().slice(0, (itemTotal.toString().indexOf("."))+3);
+       total += itemTotal;
+       var json = JSON.stringify({
+         "itemId" : ids[i],
+         "amount" : currentCount,
+       });
+       // make the api call
+       fetch("/api/setToCart",
+         {method: "POST",
+           headers: {
+           "Accept": "application/json",
+           "Content-Type": "application/json"
+         },
+         body : json
+       })
+       if (i == ids.length - 1) {
+         console.log(total);
+         document.getElementById("subtotalPrice").innerHTML = "$" + total.toString();
+         total += 5.99;
+         document.getElementById("totalPrice").innerHTML = "$" + total.toString().slice(0, (total.toString().indexOf("."))+3);
+       }
+     }
+   }
+   </script>

@@ -63,7 +63,9 @@ const forgotPassword = (req, res, next) => {
               // make new temp password
               // from bytes and convert to string
               var newpw = crypto.randomBytes(50);
-              newpw = newpw.toString('hex');
+
+              const hash = crypto.createHash('sha256');
+              newpw = hash.digest(newpw).toString('hex');
               statement = ("UPDATE accounts SET "
                   + "UPDATEDDATE='CURRENT_TIMESTAMP', "
                   + "password ='" + newpw.toString()
