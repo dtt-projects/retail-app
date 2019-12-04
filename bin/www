@@ -282,7 +282,6 @@ server = http.createServer(app);
 
 console.log('Server instance created.');
 
-
 /**
  * Listen on provided port, on all network interfaces.
  */

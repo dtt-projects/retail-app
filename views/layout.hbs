@@ -1,43 +1,186 @@
+<!--File: layout.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 11/09/2019-->
+<!--Description: This is the layout page.  This is the header and footer for every page-->
+
 <!DOCTYPE html>
-<html>
+<html style="height: 556px;">
 
+<head>
+    <!--Use the necessary character set-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-  <head>
     <title>{{title}}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--URL Logo Icon-->
-    <link rel='icon' href='/images/favicon.ico' type='image/x-icon'/ >
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
 
 
-  <body>
-    <div class="header">
-      <h2>Scroll Down</h2>
-      <p>Scroll down to see the sticky effect.</p>
+    <!--Import all images-->
+    <link rel="icon" type="image/png" sizes="290x290" href="/images/logo.png">
+    <link rel="icon" type="image/png" sizes="290x290" href="/images/logo.png">
+    <link rel="icon" type="image/png" sizes="290x290" href="/images/logo.png">
+    <link rel="icon" type="image/png" sizes="290x290" href="/images/logo.png">
+    <link rel="icon" type="image/png" sizes="290x290" href="/images/logo.png">
+
+    <!--Import all stylesheets-->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css?h=ec6a64da64c307166a1dd4c6c6003e96">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="/fonts/fontawesome-all.min.css?h=cfa788754642173dafbd830bd7969fdb">
+    <link rel="stylesheet" href="/fonts/font-awesome.min.css?h=cfa788754642173dafbd830bd7969fdb">
+    <link rel="stylesheet" href="/fonts/ionicons.min.css?h=cfa788754642173dafbd830bd7969fdb">
+    <link rel="stylesheet" href="/fonts/simple-line-icons.min.css?h=cfa788754642173dafbd830bd7969fdb">
+    <link rel="stylesheet" href="/fonts/fontawesome5-overrides.min.css?h=cfa788754642173dafbd830bd7969fdb">
+    <link rel="stylesheet" href="/stylesheets/Animated-Pretty-Product-List-v12.css?h=05002a2c3312bdb94ad95444ddc83d83">
+    <link rel="stylesheet" href="/stylesheets/Article-List.css?h=cec575f25bba55cfaa10100750e76412">
+    <link rel="stylesheet" href="/stylesheets/Data-Table-1.css?h=71f79ecfb6de2ac09d4f4c6f4b749319">
+    <link rel="stylesheet" href="/stylesheets/Data-Table.css?h=71f79ecfb6de2ac09d4f4c6f4b749319">
+    <link rel="stylesheet" href="/stylesheets/Footer-Dark.css?h=cabc25193678a4e8700df5b6f6e02b7c">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.0/assets/owl.carousel.css">
+    <link rel="stylesheet" href="/stylesheets/Navigation-Clean.css?h=f742aa10258cad897eb316e6515a3007">
+    <link rel="stylesheet" href="/stylesheets/Parallax-Scroll-Effect.css?h=a65c0cd6fefe7dc2a87d573c021d4bf7">
+    <link rel="stylesheet" href="/stylesheets/Projects-Horizontal.css?h=fb28b8d95a28dba5c6fec23412473f65">
+    <link rel="stylesheet" href="/stylesheets/slider-hover.css?h=ac7643cf4b032ef58097227967402ac1">
+    <link rel="stylesheet" href="/stylesheets/Sprout-Creek-Shopping-Cart.css?h=38a515b6b30123300b3619cce6411cec">
+    <link rel="stylesheet" href="/stylesheets/Team-Clean.css?h=1ac6925d4adee31e563b4c0fad385e0e">
+    <link rel="stylesheet" href="/stylesheets/untitled.css?h=f6441da0d967d82071852bf314b3de49">
+
+    <!--Import all script files-->
+    <script src="/javascripts/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
+    <script src="/bootstrap/js/bootstrap.min.js?h=63715b63ee49d5fe4844c2ecae071373"></script>
+    <script src="/javascripts/chart.min.js?h=cfa788754642173dafbd830bd7969fdb"></script>
+    <script src="/bootstrap/js/bs-animation.js?h=009e1093d04bef4d964ccf07197400d3"></script>
+    <script src="/bootstrap/js/bs-charts.js?h=08ba999e06fc97f895c72848bddb91c1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    <script src="/bootstrap/js/Sprout-Creek-Shopping-Cart-1.js?h=975b2635c9a06eae9f47d6cae8158a12"></script>
+    <script src="/bootstrap/js/Sprout-Creek-Shopping-Cart.js?h=417b03f5f0a4f9f27f8c248f532eb5af"></script>
+     <!--<script src="/bootstrap/js/cart.js?h=66e43e4e02fe90f22c60cb6f3009905b"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.0/owl.carousel.js"></script>
+    <script src="/javascripts/paymentPage.js?h=4e608b48fff1ea5dffa039eb883dac8e"></script>
+    <script src="/bootstrap/js/slider-hover.js?h=c1e4ccc027c05db2a63a66297f1c4871"></script>
+    <script src="/bootstrap/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
+    <script src="/javascripts/addItem.js"></script>
+    <script src="/javascripts/login.js"></script>
+    <script src="/javascripts/editAccount.js"></script>
+    <script src="/javascripts/validation.js"></script>
+    <script src="/javascripts/script.min.js?h=f61c25f2cf09fbf27b6a6183faa71610" async></script>
+</head>
+
+<!--This is the nav bar section of the layout-->
+<body style="background-color: #fffaf2;">
+    <nav class="navbar navbar-light navbar-expand-lg sticky-top shadow navigation-clean" style="background-color: rgb(255,250,241);padding: 0px;">
+        <div class="container-fluid"><a href = "/"><img class="img-fluid" src="/images/logo.png?h=adece2ed323b3f2ce91ddc8f52cddb21" style="width: 500px;height: 51%;padding: 0px;margin: 3px;"></a>
+            <div><a class="navbar-brand text-left float-left" href="/" style="padding: 3px;margin: 0px;font-size: 25px;">Sprout Creek Farm<div style="width: 173px;height: 32px;"><input class="form-control-plaintext" type="text" value="Educate, Cultivate, Aspire" readonly="" style="font-size: 15px;width: 176px;"></div></a></div>
+            <!--This is the button to go home that looks like the Sprout Creek Farm logo-->
+            <button
+                data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse text-justify" id="navcol-1" style="width: 653px;background-color: #fffaf1;">
+                    <!--This is the links that we see on the nav bar-->
+                    <ul class="nav navbar-nav ml-auto" style="background-color: #fffaf1;">
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/about" style="height: 46px;width: 98px;font-size: 20px;">About</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/market" style="font-size: 20px;">Market</a></li>
+                        <li class="nav-item" role="presentation"></li>
+                        <li class="nav-item dropdown" style="background-color: rgb(255,250,241);"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="" style="font-size: 20px;">At The Farm&nbsp;</a>
+                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="/visitTheFarm">Visit The Farm</a><a class="dropdown-item" role="presentation" href="/summerCamp">Summer Camp</a><a class="dropdown-item" role="presentation" href="/blog">Blog</a></div>
+                        </li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/contact" style="font-size: 20px;">Contact</a></li>
+                        <li class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" href = "/cart" aria-expanded="false"><i class="fas fa-shopping-cart fa-fw" style="font-size: 23px;height: 27px;width: 30px;margin: 3px;"></i><span class="badge badge-danger badge-counter"></span></a>
+                          <!--This is where the cart is located-->
+                          <div
+                              class="dropdown-menu dropdown-list dropdown-menu-right animated--grow-in" role="menu">
+                              <h6 class="dropdown-header" style="font-size: 14px;background-color: rgb(180,116,66);" href = "/cart">My basket</h6>
+                              <a class="d-flex align-items-center dropdown-item" href="#">
+                                  <div class="text-center float-left dropdown-list-image mr-3"><img class="rounded-circle" style="width: 50px;height: 50px;"></div>
+                                  <div class="font-weight-bold">
+                                      <div class="text-truncate"><span style="font-size: 15px;">Bogart</span></div>
+                                      <p class="small text-gray-500 mb-0" style="font-size: 13px;">Price Per Unit: $12.00&nbsp;<br>Quantity: 1</p>
+                                  </div>
+                                  <div></div>
+                                  <p class="text-center d-inline float-left"></p>
+                              </a>
+                              <a class="d-flex align-items-center dropdown-item" href="#">
+                                  <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="/images/batch35.jpg?h=3228dc9d8a5e17d2246c29dfb556fb50" style="width: 50px;height: 50px;"></div>
+                                  <div class="font-weight-bold">
+                                      <div class="text-truncate"><span style="font-size: 15px;">Batch 35</span></div>
+                                      <p class="small text-gray-500 mb-0" style="font-size: 13px;">Price Per Unit: $10.00<br>Quantity: 1</p>
+                                  </div>
+                              </a><a class="text-center dropdown-item small text-gray-500" href="#" style="font-size: 20px;background-color: rgb(79,121,96);color: rgb(255,255,255);padding: 4px;"><strong>Check Out</strong></a></div>
+              </li>
+            </ul>
+            <!--This is this login button-->
+            <button onclick = {{#if isDashboard}}"eraseCookie();"{{else}}"window.location.href='/login'"{{/if}}"window.location.href='/login'" class="btn btn-primary" type="hidden" style="width: 90px;margin: 9px;padding: 6px;background-color: rgb(79,121,96);">{{#if isDashboard}} Logout {{else if isLogged}} Dashboard {{else}} Log In {{/if}}</button></div>
+
+        </div>
+    </nav>
+    <script> function eraseCookie() {
+      // make the api call
+      fetch("/api/logout",
+        {method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+        })
+        .then(function(response) {
+          if (response.status !== 200) {
+            alert("Logout failed. Try again.");
+            location.reload(true);
+            return
+          } else {
+            // send to a webpage
+            location.reload(true);
+            return;
+          }
+        });
+    }
+
+    </script>
+    {{{body}}}
+  <!--  <div class="container" style="height: 1180px;"></div>-->
+
+  <!--Here is our footer section-->
+  <div class="footer-dark" style="background-color: rgb(144,93,51);padding: 50px;">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <!--Here is the logo-->
+                    <div class="col-sm-6 col-md-3 item">
+                        <ul></ul><img src="/images/logo.png?h=adece2ed323b3f2ce91ddc8f52cddb21" style="width: 166px;padding: -2px;margin: 1px;"></div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <ul>
+                          <!--These are the links on the bottom-->
+                          <li class="nav-item" role="presentation"><a class="nav-link" href="/about" style="font-size: 20px;">About</a></li>
+                          <li class="nav-item" role="presentation"><a class="nav-link" href="/market" style="font-size: 20px;">Market</a></li>
+                          <li class="nav-item" role="presentation"></li>
+                          <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#" style="font-size: 20px;">At The Farm&nbsp;</a>
+                              <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="/visitTheFarm">Visit The Farm</a><a class="dropdown-item" role="presentation" href="/summerCamp">Summer Camp</a><a class="dropdown-item" role="presentation" href="/blog">Blog</a></div>
+                          </li>
+                          <li class="nav-item" role="presentation"><a class="nav-link" href="/contact" style="font-size: 20px;">Contact</a></li>
+                        </ul>
+                    </div>
+                    <!--This is the information regarding contact and the address-->
+                    <div class="col-md-6 item text">
+                        <h3 style="font-size: 20px;">Sprout Creek Farm<br></h3>
+                        <p>34 Lauer Road, Poughkeepsie, New York, 12603<br><br>Hours: &nbsp;Everyday, 11:00 AM - 4:00 PM<br><br>Inquiry Phone Number: +1 (845) 485-8438<br>Market Ordering Phone Number: +1 (845) 485-9886<br>E-Mail: info@sproutcreekfarm.org</p>
+                    </div>
+                    <!--This is the social media profile links-->
+                    <div class="col item social" style="height: 41px;"><a href="https://www.facebook.com/sproutcreekfarm/" style="width: 41px;"><i class="icon ion-social-facebook"></i></a><a href="https://twitter.com/SproutCreekFarm"><i class="icon ion-social-twitter"></i></a><a href="https://www.youtube.com/user/SproutCreekFarm"><i class="icon ion-social-youtube-outline"></i></a>
+                        <a
+                            href="https://www.instagram.com/sproutcreekfarm/?hl=en"><i class="icon ion-social-instagram"></i></a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <p class="copyright">Sprout Creek Farm © 2019</p>
+            </div>
+        </footer>
     </div>
 
-    <ul>
-      <li><a class="active" href="#home">Home</a></li>
-      <li><a href="#news">News</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+</body>
 
-    <h3>Sticky Navigation Bar Example</h3>
-
-    <p>The navbar will <strong>stick</strong> to the top when you reach its scroll position.</p>
-    <p><strong>Note:</strong> Internet Explorer, Edge 15 and earlier versions do not support sticky positioning. Safari requires a -webkit- prefix.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-
-
-    {{{body}}}
-
-    <script src="javascripts/client.js" async></script>
-  </body>
 </html>

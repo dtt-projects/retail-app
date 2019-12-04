@@ -3,7 +3,19 @@
  * @fileoverview API_login route's controller. Handle all business logic
  * relative to login for the users.
  * @exports {Object} Functions to attach to the `users` router.
+ * @require read-hidden
+ * @require session-helper
  */
+
+ /* hidden
+  * This is to read the hidden credentials file
+  */
+ var hidden = require('../../scripts/read-hidden.js');
+
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
+  */
+ const sessions = require('../../scripts/session-helper.js');
 
 
 /**
@@ -20,56 +32,90 @@ const login = (req, res, next) => {
   var password = req.body["password"];
 
   //  read creds from the secret file
-  const fs = require("fs");
-  fs.readFile('.hiddenCreds', (err, data) => {
-      if (err) {
-        throw err;
-      } else {
-        json = JSON.parse(data.toString());
-        var mysql = require("mysql");
+  hidden.readHidden()
+    .then(json => {
+      var mysql = require("mysql");
 
-        // connect to the database
-        var con = mysql.createConnection({
-          host: json[0]["host"],
-          user: json[0]["user"],
-          password: json[0]["password"],
-          database: json[0]["database"]
-        });
-        con.connect(function(err) {
-          if (err) {
-            throw err;
-          }
-        });
+      // connect to the database
+      var con = mysql.createConnection({
+        host: json[0]["host"],
+        user: json[0]["user"],
+        password: json[0]["password"],
+        database: json[0]["database"]
+      });
+      con.connect(function(err) {
+        if (err) {
+          res.setHeader('Content-Type', 'plain/text');
+          res.status(401);
+          res.redirect("/login");
+          console.log(err);
+        }
+      });
+      console.log("connected");
+      // get username and password to comprare to
+      statement = ("select username, password, isadmin, aid "
+          + "from accounts where username = '"
+          + username + "'");
+      con.query(statement, function(err, result) {
+        // send error back and 401
+        if (err) {
+          res.setHeader('Content-Type', 'plain/text');
+          res.status(401);
+          console.log("user doesnt exist");
+          console.log(err);
+          con.end();
+          res.send("/login");
+          return;
+        // got data back from server so user exists
+        } else if (result.length > 0) {
+          var db_username = result[0]["username"];
+          var db_password = result[0]["password"];
+          var aid = result[0]["aid"];
+          // if valid creds send to proper dashboard if admin or not
+          if (username == db_username && password == db_password) {
+            var isAdmin = result[0]["isadmin"];
+            sessions.handleSessionUpdateValues(req.cookies["sessionId"], aid, isAdmin);
 
-        // get username and password to comprare to
-        statement = ("select username, password, isadmin from account where username = '"
-            + username + "'");
-        con.query(statement, function(err, result) {
-          if (err) {
-            res.setHeader('Content-Type', 'plain/text');
-            res.send("none");
-            throw err;
-          } else {
-            var db_username = result[0]["username"];
-            var db_password = result[0]["password"];
-            // if valid creds send to proper dashboard if admin or not
-            if (username == db_username && password == db_password) {
-              var isAdmin = result[0]["isadmin"];
-              if (isAdmin == 1) {
-                res.setHeader('Content-Type', 'plain/text');
-                res.send("admin");
-              } else {
-                res.setHeader('Content-Type', 'plain/text');
-                res.send("user");
-              }
-            }  else {
+            if (isAdmin == 1) {
+              // log the user in and send to dashboard
               res.setHeader('Content-Type', 'plain/text');
-              res.send("none");
+              res.status(200);
+              con.end();
+              res.redirect("/admin_dashboard");
+              return;
+            } else {
+              // log the user in and send to dashboard
+              res.setHeader('Content-Type', 'plain/text');
+              res.status(200);
+              con.end();
+              res.redirect("/user_dashboard");
+              return;
             }
+          // invalid creds
+          }  else {
+            console.log("Invalid creds")
+            res.setHeader('Content-Type', 'plain/text');
+            res.status(401);
+            con.end();
+            res.redirect("/login");
+            return;
           }
-        });
-      }
-  });
+        // user doesnt exist
+        } else {
+          console.log("user doesnt exist");
+          res.setHeader('Content-Type', 'plain/text');
+          res.status(401);
+          con.end();
+          res.redirect("/login");
+          return;
+        }
+      });
+    });
+
+
+
+
+
 };
 
 // so other files can call this function

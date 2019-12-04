@@ -1,10 +1,15 @@
 /**
- * @module routes/controllers/forgotPassword
- * @fileoverview forgot Password route's controller. Exports functions to be used by each
- *    route handler.
- * @exports {Object} Functions to attach to the `support` router.
+ * @module routes/controllers/supportPage
+ * @fileoverview supportPage route's controller. Exports
+ *    functions to be used by each route handler.
+ * @exports {Object} Functions to attach to the `supportPage` router.
+ * @require session-helper
  */
 
+ /* sessions
+  * This is to help with handling sessions to maintain cart and auth
+  */
+ const sessions = require('../../scripts/session-helper.js');
 
 /**
  * @function sendSupportPage
@@ -16,7 +21,18 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const sendSupportPage = (req, res, next) => {
-  res.render('support', { title: 'Sprout Creek Farm Support', page: 'Support' });
+  // handle the cookies of a user and update them
+  sessions.handleSession(req.cookies)
+    .then(sessionId => {
+      res.cookie("sessionId", sessionId);
+      sessions.handleSessionIsLoggedIn(sessionId)
+        .then(isLoggedIn => {
+          res.render('support', {
+            title: 'Sprout Creek Farm Support',
+            page: 'Support',
+            "isLogged": isLoggedIn});
+        });
+    });
 };
 
 
