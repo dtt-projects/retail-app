@@ -15,7 +15,7 @@
         <div class="container border rounded shadow-sm" style="margin-top: 50px;padding-top: 20px;padding-bottom: 20px;padding-right: 20px;background-color: #ffffff;"><button class="btn btn-primary" id="backToShipping" type="button" style="background-color: rgb(137,140,149);display: none;margin-top: 10px;margin-bottom: 30px;">Back To Shipping Information</button>
             <div class="form-group">
                 <!--This is the form we use to order-->
-                <form >
+                <form>
                     <div id="shipping" class="card-details" style="margin-top: 10px;">
                         <h3 class="title" style="font-size: 30px;"><strong>Delivery Details</strong></h3>
                         <p style="margin-top: 40px;font-size: 22px;">Choose Your Preferred Method Of Delivery</p>
@@ -28,22 +28,18 @@
 
                                 <div class="col-sm-7" id="recipientName">
 
-                                    <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>First Name</strong></label><input class="form-control" type="text" id="recipientName"  placeholder="First Name" value="{{customerInfo.firstname}}"minlength="1" required="">
+                                    <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>First Name</strong></label><input class="form-control" type="text" id="firstName"  placeholder="First Name" value="{{customerInfo.firstname}}"minlength="1" required="">
                                     <!--This is the validation funciton for the recipient name-->
-                                    <script type = "text/javascript">
 
-                                    </script>
                                   </div>
                                 </div>
                                 <div class="form-row" style="padding-left: 10px;">
 
                                     <div class="col-sm-7" id="recipientName">
 
-                                        <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>Last Name</strong></label><input class="form-control" type="text" id="recipientName"  placeholder="Last Name" value="{{customerInfo.lastname}}" minlength="1" required="">
+                                        <div class="form-group"><label for="card-holder" style="font-size: 17px;"><strong>Last Name</strong></label><input class="form-control" type="text" id="lastName"  placeholder="Last Name" value="{{customerInfo.lastname}}" minlength="1" required="">
                                         <!--This is the validation funciton for the recipient name-->
-                                        <script type = "text/javascript">
 
-                                        </script>
                                     </div>
                                 </div>
                                 <!--This is the phone number-->
@@ -59,27 +55,21 @@
                                 <div class="col-sm-8" id="address1">
                                     <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Address 1</strong></label><input class="form-control" type="text"  value="{{customerInfo.address1}}" id="shippingAddress1" placeholder="Address 1" required="" minlength="1">
                                       <!--This is the validation function for the address-->
-                                      <script type = "text/javascript">
 
-                                      </script>
                                     </div>
                                 </div>
                                 <!--This is the address 2 section-->
                                 <div class="col-sm-8" id="address2">
                                     <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Address 2</strong></label><input class="form-control" type="text"  id="shippingAddress2" value="{{customerInfo.address2}}" placeholder="Address 2">
                                       <!--This is the validation script for the address-->
-                                      <script type = "text/javascript">
 
-                                      </script>
                                     </div>
                                 </div>
                                 <!--This is the city field-->
                                 <div class="col-sm-8 col-xl-5 offset-xl-0" id="city">
                                     <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>City</strong></label><input class="form-control"  type="text" id="shippingCity" value="{{customerInfo.citycode}}" placeholder="City" required="" minlength="1">
                                       <!--This is validation for the city field-->
-                                      <script type = "text/javascript">
 
-                                      </script>
                                     </div>
                                 </div>
                                 <!--This is the zip code-->
@@ -87,25 +77,21 @@
                                     <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>Zip Code</strong></label><input class="form-control" type="text"  id="shippingZipCode" placeholder="Zip Code" value="{{customerInfo.postcode}}" required="" minlength="5" maxlength = "5" pattern="/(^\d{5}$)|(^\d{5}-\d{4}$)/"
                                             inputmode="numeric">
                                         <!--This is the validation for the zip-->
-                                        <script type = "text/javascript">
 
-                                        </script>
                                     </div>
                                 </div>
                                 <!--This is the state-->
                                 <div class="col-sm-8 col-xl-3" id="state">
                                     <div class="form-group"><label for="card-number" style="font-size: 17px;"><strong>State (Two Letter, "NY" or "FL")</strong></label><input class="form-control" type="text" id="shippingState" value="{{customerInfo.statecode}}"  placeholder="State" required="" minlength="2" maxlength="2">
                                       <!--This is the validation for the state-->
-                                      <script type = "text/javascript">
 
-                                      </script>
                                     </div>
                                 </div>
                             </div>
                         </div>
                       </div>
                         <div class="col-sm-12" id="proceed">
-                            <div class="form-group"><button class="btn btn-primary btn-block" id="proceedShipping" type="button" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;font-size: 20px;">Proceed</button></div>
+                            <div class="form-group"><button class="btn btn-primary btn-block" onclick = "verifyFirstName(firstName.value, id); verifyLastName(lastName.value, id); verifyPhoneNum(phoneNumber.value, id); verifyAddress(shippingAddress1.value, id); verifyAddress2(shippingAddress2.value, id); verifyCity(shippingCity.value, id); verifyZip(shippingZipCode.value, id); verifyState(shippingState.value, id);" id="proceedShipping" type="button" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;font-size: 20px;">Proceed</button></div>
                         </div>
                     </div>
                 </form>
@@ -171,97 +157,49 @@
                         <h3 class="title" style="font-size: 30px;margin-bottom: 40px;"><strong>Credit Card Details</strong></h3>
                         <div class="form-row">
                             <div class="col-sm-7">
-                                <div class="form-group"><label for="card-holder">Card Holder</label><input class="form-control" type="text" id="cardHolder" onchange = "verifyCardHolder(this.value, id)" placeholder="Card Holder">
+                                <div class="form-group"><label for="card-holder">Card Holder</label><input class="form-control" type="text" id="cardHolder"  placeholder="Card Holder">
                                   <!--This is the validation for the card holders-->
                                   <script type = "text/javascript">
-                                    function verifyCardHolder(cardHolder, id){
-                                      var cardHolderRegEx = new RegExp(/^[a-zA-Z\s]+$/);
-                                      if(cardHolderRegEx.test(cardHolder) != true){
-                                        alert("Please use your name in the card holder field");
-                                      }
-                                    }
+
                                   </script>
                                 </div>
                             </div>
                             <!--This is the expiration field-->
                             <div class="col-sm-5">
                                 <div class="form-group"><label>Expiration date (12/20, 06/21)</label>
-                                    <div class="input-group expiration-date"><input class="form-control" type="text" minlength = "2" maxlength = "2" id="monthExpr" onchange = "verifyExpiration(this.value, id)" placeholder="MM"><input class="form-control" type="text" id="yearExpr" minlength = "2" maxlength = "2" onchange = "verifyExpirationYear(this.value, id)" placeholder="YY">
+                                    <div class="input-group expiration-date"><input class="form-control" type="text" minlength = "2" maxlength = "2" id="monthExpr"  placeholder="MM"><input class="form-control" type="text" id="yearExpr" minlength = "2" maxlength = "2" onchange = "verifyExpirationYear(this.value, id)" placeholder="YY">
                                       <!--This is the validation for the month-->
                                       <script type = "text/javascript">
-                                        function verifyExpiration(expirationMonth, id){
-                                          var expirationDateRegEx = new RegExp(/^[0-9]+$/);
-                                          if(expirationMonth < 1 || expirationMonth > 12){
-                                            alert("Please enter a valid month");
-                                          }
-                                          if(expirationDateRegEx.test(expirationMonth) != true){
-                                            alert("Please use two numbers for the expiration month");
-                                          }
-                                        }
+
                                         </script>
                                         <!--This is the validation for the year-->
                                         <script type = "text/javascript">
-                                        function verifyExpirationYear(expirationYear, id){
-                                          var expirationDateRegEx = new RegExp(/^[0-9]+$/);
-                                          if(expirationDateRegEx.test(expirationYear) != true){
-                                            alert("Please use two numbers for the expiriation year");
-                                          }
-                                        }
+
                                       </script>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-8">
                                 <!--This is the credit card form-->
-                                <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" minlength = "13" maxlength = "16" type="text" onchange = "verifyCard(this.value, id)" id="cardNumber" placeholder="Card Number">
+                                <div class="form-group"><label for="card-number">Card Number</label><input class="form-control" minlength = "13" maxlength = "16" type="text"  id="cardNumber" placeholder="Card Number">
                                   <!--This is the credit card validation-->
                                   <script type = "text/javascript">
-                                    function verifyCard(cardNumber, id){
-                                      //This is the regular expression for visa, mastercard, amex, and discover
-                                      var visa = new RegExp("^(?:4[0-9]{12}(?:[0-9]{3})?)");
-                                      var mastercard = new RegExp("^5[1-5][0-9]{14}$");
-                                      var amex = new RegExp("3[47][0-9]{13}$");
-                                      var discover = new RegExp("6(?:011|5[0-9]{2})[0-9]{12}");
-                                      var goodCard = false;
-                                      //Here we test every card and see which it may be.
-                                      if(visa.test(cardNumber) == true){
-                                        goodCard = true;
-                                      }
-                                      if(mastercard.test(cardNumber) == true){
-                                        goodCard = true;
-                                      }
-                                      if(amex.test(cardNumber) == true){
-                                        goodCard = true;
-                                      }
-                                      if(discover.test(cardNumber) == true){
-                                        goodCard = true;
-                                      }
-                                      //If none of the validations work then we need a new card number
-                                      if(!goodCard){
-                                        alert("Please enter a valid credit card");
-                                      }
-                                    }
+
                                   </script>
                                 </div>
                             </div>
                             <!--This is the cvc form-->
                             <div class="col-sm-4">
-                                <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text" onchange = "verifyCVC(this.value, id)" id="cvc" placeholder="CVC" minlength="3" maxlength="4">
+                                <div class="form-group"><label for="cvc">CVC</label><input class="form-control" type="text"  id="cvc" placeholder="CVC" minlength="3" maxlength="4">
                                 <!--This is the cvc validation-->
                                 <script type = "text/javascript">
-                                  function verifyCVC(cvc, id){
-                                    var cvcRegExp = new RegExp(/^[0-9]+$/);
-                                    var cvcLength = document.getElementById("cvc").value;
-                                    if(cvcRegExp.test(cvc) != true || cvcLength.length < 3){
-                                      alert("Please enter a valid cvc combination");
-                                    }
-                                  }
+                      
                                 </script>
                               </div>
                             </div>
                             <!--This is the big button on the bottom of the page-->
                             <div class="col-sm-12">
-                                <div class="form-group"><button class="btn btn-primary btn-block" id="confirmPurchase" type="button" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;">Confirm Purchase</button></div>
+                                <div class="form-group"><button class="btn btn-primary btn-block" onclick = "verifyCardHolder(cardHolder.value, id); verifyExpiration(monthExpr.value, id); verifyExpirationYear(yearExpr.value, id); verifyCard(cardNumber.value, id); verifyCVC(cvc.value, id);" id="confirmPurchase" type="button" style="background-color: rgb(79,121,96);margin-top: 20px;height: 40px;">Confirm Purchase</button></div>
                             </div>
                         </div>
                     </div>
