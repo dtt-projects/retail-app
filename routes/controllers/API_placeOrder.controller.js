@@ -156,6 +156,7 @@ const placeOrder = (req, res, next) => {
                                       if (error) {
                                         return console.error('Failed: %s', error.message);
                                       } else {
+                                          sessions.handleSessionUpdateCart(sessionId, element, 999, false);
                                           console.log('Success: ', body);
                                           res.redirect("/");
                                       }

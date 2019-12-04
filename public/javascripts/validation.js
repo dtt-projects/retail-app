@@ -102,6 +102,7 @@ function verifyAddress(address, id){
 
 }
 
+/*
 function verifyAddress2(address, id){
   var address1 = new RegExp(/^[0-9]+$/);
   var address2 = new RegExp(/^[a-zA-Z]+$/);
@@ -114,7 +115,7 @@ function verifyAddress2(address, id){
     alert("Please use letters after the numbers for the address field");
   }
 }
-
+*/
 
 function verifyCity(city, id){
   var cityRegEx = new RegExp(/^[a-zA-Z]+$/);

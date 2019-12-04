@@ -11,6 +11,8 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+ const crypto = require('crypto')
+
 /**
  * @function createAccount
  * @description Create an account based on the form data and validate.
@@ -50,6 +52,11 @@ const createAccount = (req, res, next) => {
           }
         });
         var statement = "";
+        var password = req.body["password"];
+        const hash = crypto.createHash('sha256');
+        password = hash.digest(password).toString('hex');
+        console.log(password);
+
         // if request came from admin dashboard
         sessions.handleSessionIsAdmin(req.cookies)
           .then(isAdmin => {
@@ -61,7 +68,7 @@ const createAccount = (req, res, next) => {
                                   "'" + req.body["lastName"] + "' ," +
                                   "'" + req.body["email"] + "' ," +
                                   "'" + req.body["username"] + "' ," +
-                                  "'" + req.body["password"] + "' ," +
+                                  "'" + password + "' ," +
                                   "CURRENT_TIMESTAMP, " +
                                   "CURRENT_TIMESTAMP, " +
                                   "True, "
@@ -74,7 +81,7 @@ const createAccount = (req, res, next) => {
                                   "'" + req.body["lastName"] + "' ," +
                                   "'" + req.body["email"] + "' ," +
                                   "'" + req.body["username"] + "' ," +
-                                  "'" + req.body["password"] + "' ," +
+                                  "'" + password + "' ," +
                                   "CURRENT_TIMESTAMP, " +
                                   "CURRENT_TIMESTAMP, " +
                                   "True, " +

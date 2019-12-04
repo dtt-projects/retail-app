@@ -19,6 +19,8 @@
 
 const request = require('request');
 
+const mysql = require('mysql');
+
 /**
  * @function sendAdminDashboardManageAccountsSubAccountPage
  * @description Send the base page rendered by `Handlebars.js`. Compilation
@@ -47,7 +49,6 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                   hidden.readHidden()
                     .then(json => {
                       // required packages for db connection
-                      var mysql = require("mysql");
 
                       // connect to the database
                       var con = mysql.createConnection({
@@ -80,7 +81,7 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                           console.error('Failed: %s', error.message);
                           con.end();
                           res.status(401);
-                          res.send();
+                          res.redirect("/admin_dashboard/manage_accounts");
                           return;
                         } else {
                           userInfo = body["data"]["customerList"][0];
@@ -96,7 +97,7 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                               console.log(err);
                               res.status(400);
                               res.setHeader('Content-Type', 'plain/text');
-                              res.redirect("/");
+                              res.redirect("/admin_dashboard/manage_accounts");
                             } else {
                               var scfUserInfo = result[0];
                               console.log(scfUserInfo);
