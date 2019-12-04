@@ -7,7 +7,7 @@
           <div class="row">
               <!--This is the welcome message for the admin-->
               <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
-                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {userName}!</strong></h1>
+                  <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {{userInfo.firstname}}!</strong></h1>
               </div>
           </div>
           <!--This is the nav bar that has the dashboard, manage inventory, manage orders, manage accounts-->
@@ -43,89 +43,19 @@
                                           </tr>
                                       </thead>
                                       <tbody>
+                                          {{#each customers}}
                                           <tr>
-                                              <td>Cell 1</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 2</td>
-                                              <td>Cell 5</td>
-                                              <td>Cell 6</td>
+                                              <td><a href="/admin_dashboard/manage_accounts/sub_account/{{customernumber}}">{{customernumber}}</a></td>
+                                              <td>{{firstname}}</td>
+                                              <td>{{lastname}}</td>
+                                              <td>{{emailaddres}}</td>
+                                              <td>{{citycode}}</td>
+                                              <td>{{statecode}}</td>
                                           </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 5</td>
-                                              <td>Cell 6</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 5</td>
-                                              <td>Cell 6</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 5</td>
-                                              <td>Cell 6</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 5</td>
-                                              <td>Cell 6</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 5</td>
-                                              <td>Cell 6</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 5</td>
-                                              <td>Cell 6</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 5</td>
-                                              <td>Cell 6</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 5</td>
-                                              <td>Cell 6</td>
-                                          </tr>
-                                          <tr>
-                                              <td>Cell 3</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 4</td>
-                                              <td>Cell 5</td>
-                                              <td>Cell 6</td>
-                                          </tr>
+                                          {{/each}}
                                       </tbody>
                                   </table>
-                                  
+
                               </div>
                           </div>
                       </div>
@@ -134,78 +64,3 @@
           </div>
       </div>
   </div>
-
-<!--This is the logout button-->
-<input type=button value="logout" onClick="eraseCookie()"/>
-<!-- <h2> ADMIN ACCOUNT ACCOUNTS PAGE!!!! </h2>
-<h2> THEY DO!!!! 🐐🐐🐐🐐🐐🐐🐐🐐 </h2>
-<h2> {{email}} </h2>
-
-<ul>
-  <li> <a href="/admin_dashboard"> Main </a> </li>
-  <li> <a href="/admin_dashboard/manage_inventory"> Manage Inventory </a> </li>
-  <li> <a href="/admin_dashboard/manage_orders"> Manage Orders </a> </li>
-  <li> <a href="/admin_dashboard/manage_accounts"> Manage Accounts </a> </li>
-</ul>
-<ul>
-  <li> <a href="/admin_dashboard/manage_accounts/create_account"> Create Accounts </a> </li>
-</ul>
-<h1> START ACCOUNTS </h1>
-<table>
-<tr>
-  <td> aid </td>
-  <td> firstname </td>
-  <td> lastname </td>
-  <td> address </td>
-  <td> city </td>
-  <td> zip </td>
-  <td> email </td>
-  <td> phone number </td>
-  <td> username </td>
-  <td> creationdate </td>
-  <td> updateddate </td>
-  <td> isadmin </td>
-
-</tr>
-{{#each accounts}}
-<tr>
-  <td> <a href="/admin_dashboard/manage_accounts/sub_account/{{aid}}">{{aid}}</a></td>
-  <td>{{firstname}}</td>
-  <td>{{lastname}}</td>
-  <td>{{address}}</td>
-  <td>{{city}}</td>
-  <td>{{zip}}</td>
-  <td>{{email}}</td>
-  <td>{{phonenumber}}</td>
-  <td>{{username}}</td>
-  <td>{{creationdate}}</td>
-  <td>{{updateddate}}</td>
-  <td>{{isadmin}}</td>
-</tr>
-{{/each}}
-</table>
-<h1> END ACCOUNTS </h1> -->
-
-<script> function eraseCookie() {
-  // make the api call
-  fetch("/api/logout",
-    {method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        alert("Logout failed. Try again.");
-        location.reload(true);
-        return
-      } else {
-        // send to a webpage
-        location.reload(true);
-        return;
-      }
-    });
-}
-
-</script>

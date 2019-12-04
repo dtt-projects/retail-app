@@ -23,6 +23,8 @@
   */
  const request = require("request");
 
+ const mysql = require('mysql');
+
 
 /**
  * @function updateItem
@@ -33,6 +35,7 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const updateItem = (req, res, next) => {
+  console.log("update ITEM");
   // make sure an admin is making the call
   var sessionId = req.cookies["sessionId"];
   sessions.handleSessionIsAdmin(sessionId)
@@ -66,6 +69,9 @@ const updateItem = (req, res, next) => {
               "quantity": req.body["quantity"]
             };
 
+            console.log(data);
+            console.log(json[2]["apiUrl"] + 'Inventory/' + req.body["itemId"])
+
             // build out the request for the api call
             var options = {
               method: 'PUT',
@@ -89,7 +95,7 @@ const updateItem = (req, res, next) => {
                 res.send();
               } else {
                 res.status(200);
-                res.send();
+                res.redirect("/admin_dashboard/manage_inventory/sub_inventory/" + req.body["itemId"]);
                 console.log('Success: ', body);
               }
             });

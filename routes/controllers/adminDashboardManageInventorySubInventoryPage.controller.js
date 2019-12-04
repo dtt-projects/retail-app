@@ -51,12 +51,13 @@ const sendAdminDashboardManageInventorySubInventoryPage = (req, res, next) => {
                       res.redirect('/admin_dashboard/manage_inventory');
                     } else {
                       //itemsList = JSON.parse(body.toString())
-                      var data = JSON.parse(body.toString());
+                      var data = JSON.parse(body.toString())[0];
                       console.log(data);
                       res.render('admin_dashboard-manage_inventory-sub_inventory', {
                         title: 'Sprout Creek Farm Admin Dashboard | Sub Inventory',
                         page: 'login',
-                        "item": data});
+                        "item": data,
+                        "isDashboard": true});
                     }
                   });
                 // user is not an admin

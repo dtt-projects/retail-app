@@ -29,6 +29,6 @@ const API_updateItemController = require('./controllers/API_updateItem.controlle
 
 
 // Put the information to the controller for updating items
-API_updateItemRouter.put('/', API_updateItemController.updateItem);
+API_updateItemRouter.post('/', API_updateItemController.updateItem);
 
 module.exports = API_updateItemRouter;

@@ -38,7 +38,8 @@ const sendAdminDashboardManageInventoryCreateInventoryPage = (req, res, next) =>
                 if (isAdmin) {
                   res.render('admin_dashboard-manage_inventory-create_inventory', {
                     title: 'Sprout Creek Farm Admin Dashboard | Create Inventory',
-                    page: 'login' });
+                    page: 'login',
+                    "isDashboard": true});
                 // user is not an admin
                 } else {
                   res.redirect("/user_dashboard");
