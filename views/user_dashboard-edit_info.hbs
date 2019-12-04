@@ -1,22 +1,17 @@
 <div style="margin-top: 30px;margin-bottom: 50px;">
       <div class="container-fluid">
-          <div class="row">
-              <div class="col-md-12 offset-xl-1" style="margin-top: 25px;height: 90px;margin-bottom: 10px;">
-                  <h1 style="color: rgb(133,135,150);font-size: 35px;"><strong>Hi There, {{userInfo.firstname}}!</strong></h1>
-              </div>
-          </div>
+        <div>
+          <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px; padding-bottom: 35px; padding-left: 85px;"><strong>Hi There, {{userInfo.firstname}}!</strong></h1>
+        </div>
           <div class="row justify-content-center" style="margin-bottom: 50px;">
               <div class="col-xl-4 m-auto" style="margin-top: 10px;margin-bottom: 15px;">
                   <div class="card shadow border-left-primary py-2" style="margin-top: 10px;margin-bottom: 10px;">
-                      <div class="card-body">
-                          <div class="row text-center align-items-center no-gutters">
-                              <div class="col-xl-9 text-center mr-2">
-                                  <div class="text-uppercase text-primary font-weight-bold text-xs mb-1" style="height: 28px;"><span style="font-size: 16px;">GoAT POINT BALANCE</span></div>
-                                  <div class="text-dark font-weight-bold h5 mb-0"><span style="font-size: 22px;">{{goatPoints}} Goat Point(s)</span></div>
-                              </div>
-                              <div class="col-auto" style="font-size: 20px;"><i class="fas fa-money-bill fa-2x text-gray-300"></i></div>
-                          </div>
-                      </div>
+                    <div class="card-body">
+                            <div class="col-xl-9 text-center mr-2">
+                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1" style="height: 28px;"><span style="font-size: 16px;">GOAT POINT BALANCE</span></div>
+                                <div class="text-dark font-weight-bold h5 mb-0"><span id="totalGoatPoints" style="font-size: 22px;">{{goatPoints}} Goat Point(s)</span></div>
+                            </div>
+                    </div>
                   </div>
               </div>
               <div class="col-xl-6"></div>
