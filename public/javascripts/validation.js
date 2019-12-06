@@ -1,3 +1,14 @@
+//File: validation.js
+//Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh
+//Date: 12/05/2019
+//Description: This is the validation functions for the input fields
+
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a username
+*@exports No front end code is exported
+*@parameters username, id
+*/
 function verifyUserName(username, id){
   var userNameRegExp = new RegExp(/^[a-z0-9]+$/i);
   if(userNameRegExp.test(username) != true){
@@ -5,6 +16,12 @@ function verifyUserName(username, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a password
+*@exports No front end code is exported
+*@parameters password, id
+*/
 function verifyPassword(password, id){
   var passwordRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
   if(passwordRegExp.test(password) != true){
@@ -12,6 +29,12 @@ function verifyPassword(password, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for an email
+*@exports No front end code is exported
+*@parameters email, id
+*/
 function verifyEmailAddress(email, id){
   var emailAddressRegExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   if(emailAddressRegExp.test(email) != true){
@@ -21,6 +44,12 @@ function verifyEmailAddress(email, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a first name
+*@exports No front end code is exported
+*@parameters firstname, id
+*/
 function verifyFirstName(firstname, id){
   var firstNameRegExp = new RegExp(/^[A-Za-z]+$/);
   if(firstNameRegExp.test(firstname) != true){
@@ -28,6 +57,12 @@ function verifyFirstName(firstname, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a last name
+*@exports No front end code is exported
+*@parameters lastname, id
+*/
 function verifyLastName(lastname, id){
   var lastnameRegExp = new RegExp(/^[A-Za-z]+$/);
   if(lastnameRegExp.test(lastname) != true){
@@ -35,6 +70,12 @@ function verifyLastName(lastname, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a username
+*@exports No front end code is exported
+*@parameters username, id
+*/
 function verifyUser_Name(username, id){
   var userNameRegExp = new RegExp(/^[a-z0-9]+$/i);
   if(userNameRegExp.test(username) != true){
@@ -42,6 +83,12 @@ function verifyUser_Name(username, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for an email
+*@exports No front end code is exported
+*@parameters email, id
+*/
 function verifyEmail(email, id){
   var emailAddressRegExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   if(emailAddressRegExp.test(email) != true){
@@ -49,7 +96,12 @@ function verifyEmail(email, id){
   }
 }
 
-
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a password
+*@exports No front end code is exported
+*@parameters password, id
+*/
 function verifyPassword(password, id){
   var passwordRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
   if(passwordRegExp.test(password) != true){
@@ -59,6 +111,13 @@ function verifyPassword(password, id){
           "At least 8 characters \n");
   }
 }
+
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a password
+*@exports No front end code is exported
+*@parameters passsord, id
+*/
 
 function verifyPasswordRepeat(password, passwordRepeat, id){
   var passwordRegExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
@@ -71,17 +130,25 @@ function verifyPasswordRepeat(password, passwordRepeat, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a name
+*@exports No front end code is exported
+*@parameters username, id
+*/
 function verifyName(name, id){
   var nameRegEx = new RegExp(/^[a-zA-Z\s]+$/);
   if(nameRegEx.test(name) != true){
     alert("Please use letters in the name field");
   }
-//  var validName = prompt("Please use letter only!");
-  //while(nameRegEx.test(validName) != true){
-  //  validName = prompt("Please enter letters only");
-  //}
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a phone number
+*@exports No front end code is exported
+*@parameters number, id
+*/
 function verifyPhoneNum(number, id){
   var phoneNum = new RegExp(/^[0-9]+$/);
   if(phoneNum.test(number) != true){
@@ -89,6 +156,12 @@ function verifyPhoneNum(number, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for an address
+*@exports No front end code is exported
+*@parameters address, id
+*/
 function verifyAddress(address, id){
   var address1 = new RegExp(/^[0-9]+$/);
   var address2 = new RegExp(/^[a-zA-Z]+$/);
@@ -102,6 +175,12 @@ function verifyAddress(address, id){
 
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for an address
+*@exports No front end code is exported
+*@parameters address, id
+*/
 function verifyAddress2(address, id){
   var address1 = new RegExp(/^[0-9]+$/);
   var address2 = new RegExp(/^[a-zA-Z]+$/);
@@ -115,7 +194,12 @@ function verifyAddress2(address, id){
   }
 }
 
-
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a city
+*@exports No front end code is exported
+*@parameters city, id
+*/
 function verifyCity(city, id){
   var cityRegEx = new RegExp(/^[a-zA-Z]+$/);
   if(cityRegEx.test(city) != true){
@@ -123,16 +207,26 @@ function verifyCity(city, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a zipcode
+*@exports No front end code is exported
+*@parameters zip, id
+*/
 function verifyZip(zip, id){
   var zipRegExp = new RegExp(/^[0-9]+$/);
 
   if(zipRegExp.test(zip) != true || zip.length != 5){
     alert("Please use 5 numbers for your zip code");
   }
-
-
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a state
+*@exports No front end code is exported
+*@parameters state, id
+*/
 function verifyState(state, id){
   var stateRegEx = new RegExp(/^[a-zA-Z]+$/);
 
@@ -141,7 +235,12 @@ function verifyState(state, id){
   }
 }
 
-
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a card holder
+*@exports No front end code is exported
+*@parameters cardHolder, id
+*/
 function verifyCardHolder(cardHolder, id){
   var cardHolderRegEx = new RegExp(/^[a-zA-Z\s]+$/);
   while(cardHolderRegEx.test(cardHolder) != true){
@@ -149,6 +248,12 @@ function verifyCardHolder(cardHolder, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a card expiration date
+*@exports No front end code is exported
+*@parameters expirationMonth, id
+*/
 function verifyExpiration(expirationMonth, id){
   var expirationDateRegEx = new RegExp(/^[0-9]+$/);
   if(expirationMonth < 1 || expirationMonth > 12){
@@ -159,7 +264,12 @@ function verifyExpiration(expirationMonth, id){
   }
 }
 
-
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a card expiration date
+*@exports No front end code is exported
+*@parameters exiprationYear, id
+*/
 function verifyExpirationYear(expirationYear, id){
   var expirationDateRegEx = new RegExp(/^[0-9]+$/);
   if(expirationDateRegEx.test(expirationYear) != true){
@@ -167,6 +277,12 @@ function verifyExpirationYear(expirationYear, id){
   }
 }
 
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a valid card
+*@exports No front end code is exported
+*@parameters cardNumber, id
+*/
 function verifyCard(cardNumber, id){
   //This is the regular expression for visa, mastercard, amex, and discover
   var visa = new RegExp("^(?:4[0-9]{12}(?:[0-9]{3})?)");
@@ -193,7 +309,12 @@ function verifyCard(cardNumber, id){
   }
 }
 
-
+/*
+*@module /public/javascripts/validation.js
+*@fileoverview Validate the user is inputting correct information for a cvc
+*@exports No front end code is exported
+*@parameters cvc, id
+*/
 function verifyCVC(cvc, id){
   var cvcRegExp = new RegExp(/^[0-9]+$/);
   var cvcLength = document.getElementById("cvc").value;
