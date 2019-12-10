@@ -1,8 +1,3 @@
-//File: validation.js
-//Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh
-//Date: 12/05/2019
-//Description: This is the validation functions for the input fields
-
 /*
 *@module /public/javascripts/validation.js
 *@fileoverview Validate the user is inputting correct information for a username
