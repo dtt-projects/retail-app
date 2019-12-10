@@ -151,9 +151,9 @@ const sendUserDashboardViewOrdersPage = (req, res, next) => {
                                             hasOrders = false;
                                           }
 
-                                          console.log("++++++++++++++++++++++++++++++++++++++");
-                                          console.log(userInfo);
-                                          console.log("======================================");
+                                          // console.log("++++++++++++++++++++++++++++++++++++++");
+                                          // console.log(userInfo);
+                                          // console.log("======================================");
                                           try {
                                             console.log("RENDER")
                                           res.render('user_dashboard-view_orders', {
@@ -189,7 +189,7 @@ const sendUserDashboardViewOrdersPage = (req, res, next) => {
     });
 };
 
-
+//This makes the function available for other pages
 module.exports = {
   sendUserDashboardViewOrdersPage,
 };

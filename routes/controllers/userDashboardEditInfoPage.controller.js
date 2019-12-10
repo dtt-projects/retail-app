@@ -7,6 +7,7 @@
  * @require session-helper
  * @require mysql
  * @require request
+ * @require hidden
  */
 
  /* request
@@ -14,8 +15,14 @@
   */
  const request = require("request");
 
+ /* mysql
+  * This is for calling a request from the database
+  */
  const mysql = require('mysql');
 
+ /* hidden
+  * This is for calling a request from the hidden credentials file
+  */
  const hidden = require('../../scripts/read-hidden.js');
 
  /* sessions
@@ -119,9 +126,9 @@ const sendUserDashboardEditInfoPage = (req, res, next) => {
                                       userInfo = body["data"]["customerList"][0];
 
 
-                                      console.log("++++++++++++++++++++++++++++++++++++++");
-                                      console.log(userInfo);
-                                      console.log("======================================");
+                                      // console.log("++++++++++++++++++++++++++++++++++++++");
+                                      // console.log(userInfo);
+                                      // console.log("======================================");
                                       res.render('user_dashboard-edit_info', {
                                         "title": 'Sprout Creek Farm User Dashboard',
                                         "page": 'login',
@@ -148,7 +155,7 @@ const sendUserDashboardEditInfoPage = (req, res, next) => {
     });
 };
 
-
+//This allows other files to call this function
 module.exports = {
   sendUserDashboardEditInfoPage,
 };
