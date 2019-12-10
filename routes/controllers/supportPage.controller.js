@@ -35,7 +35,7 @@ const sendSupportPage = (req, res, next) => {
     });
 };
 
-
+//This is now available to other files
 module.exports = {
   sendSupportPage,
 };

@@ -33,7 +33,7 @@ const sendVisitTheFarmPage = (req, res, next) => {
     });
 };
 
-
+//This is now available to other pages
 module.exports = {
   sendVisitTheFarmPage,
 };

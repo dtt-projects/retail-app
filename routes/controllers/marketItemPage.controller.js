@@ -71,7 +71,7 @@ const sendMarketItemPage = (req, res, next) => {
     });
 };
 
-
+//This can be used on other funcitons now
 module.exports = {
   sendMarketItemPage,
 };

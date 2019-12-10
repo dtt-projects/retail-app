@@ -94,7 +94,7 @@ const sendCartPage = (req, res, next) => {
   });
 };
 
-
+//We can use this function to be used for other files
 module.exports = {
   sendCartPage,
 };
