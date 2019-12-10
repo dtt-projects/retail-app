@@ -3,7 +3,8 @@
  * @fileoverview Root router for `/` based paths.
  * @requires Express
  * @requires routes/controllers/adminDashboardManageAccountsSubAccountPage
- * @exports {Express#Router} An Express router instance for the root server path.
+ * @exports {Express#Router} An Express router instance for the
+ *    adminDashboardManageAccountsSubAccountPage server path.
  */
 
 /**
@@ -14,7 +15,7 @@
 const express = require('express');
 
 /**
- * @description Router to mount user related functions on.
+ * @description Router to mount an admin page related functions on.
  * @type {Object}
  * @constant
  */
