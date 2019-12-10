@@ -1,6 +1,13 @@
+<!--File: user_dashboard.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 12/05/2019-->
+<!--Description: This is the body of the user_dashboard page-->
+
+<!--This is the containing div for the whole page-->
 <div style="margin-top: 30px;margin-bottom: 50px;">
       <div class="container-fluid">
         <div>
+          <!--This is our welcome message-->
           <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px; padding-bottom: 35px; padding-left: 85px;"><strong>Hi There, {{userInfo.firstname}}!</strong></h1>
         </div>
           <div class="row justify-content-center" style="margin-bottom: 50px;">
@@ -8,6 +15,7 @@
                   <div class="card shadow border-left-primary py-2" style="margin-top: 10px;margin-bottom: 10px;">
                       <div class="card-body">
                               <div class="col-xl-9 text-center mr-2">
+                                  <!--This is the goat point balance section-->
                                   <div class="text-uppercase text-primary font-weight-bold text-xs mb-1" style="height: 28px;"><span style="font-size: 16px;">GOAT POINT BALANCE</span></div>
                                   <div class="text-dark font-weight-bold h5 mb-0"><span id="totalGoatPoints" style="font-size: 22px;">{{goatPoints}} Goat Point(s)</span></div>
                               </div>
@@ -20,17 +28,20 @@
               <div class="col-auto col-sm-11 col-md-9 col-lg-9 col-xl-11 text-break text-center align-self-center m-auto" style="padding: 5px;padding-left: 40px;">
                   <div class="card">
                       <div class="card-header">
+                          <!--This is the nav bar on the user dashboard-->
                           <ul class="nav nav-tabs card-header-tabs">
                               <li class="nav-item"><a class="nav-link active" href="/login" style="font-size: 20px;">Dashboard</a></li>
                               <li class="nav-item"><a class="nav-link" href="/user_dashboard/view_orders" style="font-size: 20px;">Order(s)</a></li>
                               <li class="nav-item"><a class="nav-link" href="/user_dashboard/edit_information" style="font-size: 20px;">Account Details</a></li>
                           </ul>
                       </div>
+                      <!--This is the part that says account dassbaord with the corresponding information-->
                       <div class="card-body">
                           <h4 class="card-title" style="font-size: 28px;margin-top: 20px;">Account Dashboard</h4>
                           <div class="col align-self-center m-auto">
                               <h4 style="margin-top: 35px;"><em>Account Information</em></h4><a href="#">Update Information</a>
                               <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 250px;">
+                                  <!--This table holds the user information-->
                                   <table class="table table-hover">
                                       <thead>
                                           <tr></tr>
@@ -84,10 +95,12 @@
                                   </table>
                               </div>
                           </div>
+                          <!--This is the orders view the dashboard provides-->
                           <div class="col align-self-center m-auto">
                               <h4 style="margin-top: 65px;"><em>Recent Order(s)</em></h4><a href="/user_dashboard/view_orders">View All Orders</a>
                               {{#if hasOrders}}
                               <div class="table-responsive" style="margin-top: 40px;padding: 10px;height: 280px;">
+                                  <!--This is the table that has orders if they are made-->
                                   <table class="table table-hover">
                                       <thead>
                                           <tr>
