@@ -67,6 +67,7 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                         }
                       });
 
+                      // make customer api call to IBM
                       var options = { method: 'GET',
                         url: json[2]["apiUrl"] + 'Customer/' + ibmId,
                         headers:
@@ -87,9 +88,9 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                           userInfo = body["data"]["customerList"][0];
 
 
-                          console.log("++++++++++++++++++++++++++++++++++++++");
-                          console.log(userInfo);
-                          console.log("======================================");
+                          //console.log("++++++++++++++++++++++++++++++++++++++");
+                          //console.log(userInfo);
+                          //console.log("======================================");
 
                           var statement = ("SELECT * FROM ibm RIGHT JOIN accounts ON ibm.aid=accounts.aid WHERE ibmid=" + ibmId);
                           con.query(statement, function(err, result) {
@@ -100,7 +101,7 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                               res.redirect("/admin_dashboard/manage_accounts");
                             } else {
                               var scfUserInfo = result[0];
-                              console.log(scfUserInfo);
+                              //console.log(scfUserInfo);
                               res.render('admin_dashboard-manage_accounts-sub_account', {
                                 "title": 'Sprout Creek Farm Admin Dashboard | Sub Account',
                                 "page": 'login',
@@ -126,7 +127,7 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
     });
 };
 
-
+// exports so other files can call it
 module.exports = {
   sendAdminDashboardManageAccountsSubAccountPage,
 };
