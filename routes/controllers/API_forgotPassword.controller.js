@@ -66,9 +66,11 @@ const forgotPassword = (req, res, next) => {
 
               const hash = crypto.createHash('sha256');
               newpw = hash.digest(newpw).toString('hex');
+              hash.update(newpw);
+              password = hash.digest('hex');
               statement = ("UPDATE accounts SET "
                   + "UPDATEDDATE='CURRENT_TIMESTAMP', "
-                  + "password ='" + newpw.toString()
+                  + "password ='" + password
                   + "' WHERE email ='" + email + "'");
 
               con.query(statement, function(err, result) {
