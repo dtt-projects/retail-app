@@ -17,6 +17,10 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+ /* request
+  * This is to help with making internal and external api calls
+  */
+  const request = require('request');
 
 /**
  * @function getItems
@@ -30,9 +34,6 @@ const getItems = (req, res, next) => {
   //  read creds from the secret file
   hidden.readHidden()
     .then(json => {
-
-      // required for db connection and api call
-      var request = require("request");
 
       // setup the call for the api
       var options = {

@@ -5,6 +5,8 @@
  * @exports {Object} Functions to attach to the `users` router.
  * @require read-hidden
  * @require session-helper
+ * @require crypto
+ * @require mysql
  */
 
  /* hidden
@@ -17,9 +19,15 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
-const crypto = require('crypto');
+ /* crypto
+  * This is to help with hashing passwords
+  */
+ const crypto = require('crypto');
 
-const mysql = require('mysql');
+/* sessions
+ * This is to help with handling db calls
+ */
+ const mysql = require('mysql');
 
 /**
  * @function login
@@ -74,8 +82,9 @@ const login = (req, res, next) => {
 
           var password = req.body["password"];
           const hash = crypto.createHash('sha256');
-          password = hash.digest(password).toString('hex');
-          console.log(password);
+          hash.update(password);
+          password = hash.digest('hex');
+          //console.log(password);
 
           var db_password = result[0]["password"];
           var aid = result[0]["aid"];
@@ -119,10 +128,6 @@ const login = (req, res, next) => {
         }
       });
     });
-
-
-
-
 
 };
 
