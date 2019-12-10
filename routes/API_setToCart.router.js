@@ -22,7 +22,7 @@ const API_setToCartRouter = express.Router();
 
 
 /**
- * @description API_addToCartController for API_addToCart route.
+ * @description API_setToCartController for API_setToCart route.
  * @type {Object}
  * @constant
  */
