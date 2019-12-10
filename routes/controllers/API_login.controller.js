@@ -17,6 +17,9 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+const crypto = require('crypto');
+
+const mysql = require('mysql');
 
 /**
  * @function login
@@ -34,7 +37,6 @@ const login = (req, res, next) => {
   //  read creds from the secret file
   hidden.readHidden()
     .then(json => {
-      var mysql = require("mysql");
 
       // connect to the database
       var con = mysql.createConnection({
@@ -69,6 +71,12 @@ const login = (req, res, next) => {
         // got data back from server so user exists
         } else if (result.length > 0) {
           var db_username = result[0]["username"];
+
+          var password = req.body["password"];
+          const hash = crypto.createHash('sha256');
+          password = hash.digest(password).toString('hex');
+          console.log(password);
+
           var db_password = result[0]["password"];
           var aid = result[0]["aid"];
           // if valid creds send to proper dashboard if admin or not

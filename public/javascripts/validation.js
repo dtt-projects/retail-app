@@ -189,12 +189,7 @@ function verifyAddress2(address, id){
   }
 }
 
-/*
-*@module /public/javascripts/validation.js
-*@fileoverview Validate the user is inputting correct information for a city
-*@exports No front end code is exported
-*@parameters city, id
-*/
+
 function verifyCity(city, id){
   var cityRegEx = new RegExp(/^[a-zA-Z]+$/);
   if(cityRegEx.test(city) != true){

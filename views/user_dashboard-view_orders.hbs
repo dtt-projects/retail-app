@@ -56,10 +56,10 @@
                                           {{#each orders}}
                                           <tr>
                                               <td>{{ordernum}}</td>
-                                              <td>{{quanitity}}</td>
+                                              <td>{{quantity}}</td>
                                               <td>{{ordertotal}}</td>
                                               <td>{{orderdate}}</td>
-                                              <td>{{itemid}}</td>
+                                              <td><a href="/marketItem/{{itemid}}">{{itemid}}</a></td>
                                           </tr>
                                           {{/each}}
                                       </tbody>

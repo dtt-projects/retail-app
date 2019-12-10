@@ -3,7 +3,8 @@
  * @fileoverview Root router for `/` based paths.
  * @requires Express
  * @requires routes/controllers/aboutPage
- * @exports {Express#Router} An Express router instance for the root server path.
+ * @exports {Express#Router} An Express router instance for the
+ *    aboutPage server path.
  */
 
 /**

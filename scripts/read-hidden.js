@@ -6,7 +6,7 @@
 
 /**
  * @function readHidden
- * @description This reads the hiddenCreds file for db connections
+ * @description This reads the hiddenCreds file for hidden content
  * @param None
  */
 exports.readHidden = function() {

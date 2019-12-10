@@ -156,8 +156,16 @@ const placeOrder = (req, res, next) => {
                                       if (error) {
                                         return console.error('Failed: %s', error.message);
                                       } else {
+                                          sessions.handleSessionUpdateCart(sessionId, element, 999, false)
+                                            .then(worked => {
+                                              sessions.handleSessionGetCart(sessionId)
+                                                .then(cart => {
+                                                  if (Object.keys(cart).length == 0) {
+                                                    res.redirect("/login");
+                                                  }
+                                                })
+                                            });
                                           console.log('Success: ', body);
-                                          res.redirect("/");
                                       }
                                     });
                                 })
