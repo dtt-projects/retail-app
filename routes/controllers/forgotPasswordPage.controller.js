@@ -51,7 +51,7 @@ const sendForgotPasswordPage = (req, res, next) => {
     });
 };
 
-
+//This allows us to use this function on different pages in the system
 module.exports = {
   sendForgotPasswordPage,
 };

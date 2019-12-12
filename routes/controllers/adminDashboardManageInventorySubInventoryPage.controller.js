@@ -12,6 +12,9 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+ /* request
+  * This is to help with making internal and external api calls
+  */
  const request = require('request');
 
 /**
@@ -52,7 +55,7 @@ const sendAdminDashboardManageInventorySubInventoryPage = (req, res, next) => {
                     } else {
                       //itemsList = JSON.parse(body.toString())
                       var data = JSON.parse(body.toString())[0];
-                      console.log(data);
+                      //console.log(data);
                       res.render('admin_dashboard-manage_inventory-sub_inventory', {
                         title: 'Sprout Creek Farm Admin Dashboard | Sub Inventory',
                         page: 'login',
@@ -73,7 +76,7 @@ const sendAdminDashboardManageInventorySubInventoryPage = (req, res, next) => {
     });
 };
 
-
+// export so other files can use it
 module.exports = {
   sendAdminDashboardManageInventorySubInventoryPage,
 };

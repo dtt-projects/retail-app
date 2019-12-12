@@ -19,7 +19,14 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+ /* mysql
+  * This is to help with working with the db
+  */
  const mysql = require("mysql");
+
+ /* request
+  * This is to help with making internal and external api calls
+  */
  const request = require("request");
 
 
@@ -61,6 +68,7 @@ const getGoatPoints = (req, res, next) => {
               }
             });
 
+            // get goat points from db
             var statement = ("SELECT goatPoints FROM rewards WHERE "
                 + "aid=" + aid)
             con.query(statement, function(err, result) {

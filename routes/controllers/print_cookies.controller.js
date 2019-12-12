@@ -27,7 +27,7 @@ const printDaCookies = (req, res, next) => {
   sessions.printSessions();
 };
 
-
+//This can be used on other files now
 module.exports = {
   printDaCookies,
 };

@@ -51,7 +51,7 @@ const sendCreateAccountPage = (req, res, next) => {
     });
 };
 
-
+//This allows us to use this function with different pages
 module.exports = {
   sendCreateAccountPage,
 };

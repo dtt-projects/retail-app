@@ -65,7 +65,7 @@ const getAccount = (req, res, next) => {
 
             var statement = ("SELECT * FROM accounts WHERE "
                 + "aid=" + aid)
-            console.log(statement);
+            //console.log(statement);
             con.query(statement, function(err, result) {
               if (err) {
                 console.log(err);
@@ -75,7 +75,7 @@ const getAccount = (req, res, next) => {
                 res.send("getting account failed!");
               } else if (result.length > 0) {
                 var accounts = result[0];
-                console.log(accounts)
+                //console.log(accounts)
                 res.status(200);
                 res.setHeader('Content-Type', 'application/json');
                 con.end();

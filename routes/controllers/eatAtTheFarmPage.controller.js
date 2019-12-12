@@ -35,7 +35,7 @@ const sendEatAtTheFarmPage = (req, res, next) => {
     });
 };
 
-
+//This allows us to use this function on differen pages
 module.exports = {
   sendEatAtTheFarmPage,
 };

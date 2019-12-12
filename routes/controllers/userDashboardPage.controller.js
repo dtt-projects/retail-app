@@ -19,8 +19,14 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+ /* hidden
+  * This is for calling a request from the hidden credentials
+  */
 const hidden = require('../../scripts/read-hidden.js');
 
+/* mysql
+ * This is for calling a request from the database
+ */
 const mysql = require('mysql');
 
 
@@ -145,9 +151,9 @@ const sendUserDashboardPage = (req, res, next) => {
                                             orders = orders.slice(0, 5);
                                           }
 
-                                          console.log("++++++++++++++++++++++++++++++++++++++");
-                                          console.log(userInfo);
-                                          console.log("======================================");
+                                          // console.log("++++++++++++++++++++++++++++++++++++++");
+                                          // console.log(userInfo);
+                                          // console.log("======================================");
                                           res.render('user_dashboard', {
                                             "title": 'Sprout Creek Farm User Dashboard',
                                             "page": 'login',
@@ -178,7 +184,7 @@ const sendUserDashboardPage = (req, res, next) => {
     });
 };
 
-
+//This makes the user dashboard available to be called
 module.exports = {
   sendUserDashboardPage,
 };

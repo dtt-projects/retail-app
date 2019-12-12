@@ -5,6 +5,7 @@
  * @exports {Object} Functions to attach to the `API_getItem` router.
  * @require read-hidden
  * @require session-helper
+ * @requrie request
  */
 
  /* hidden
@@ -16,6 +17,11 @@
   * This is to help with handling sessions to maintain cart and auth
   */
  const sessions = require('../../scripts/session-helper.js');
+
+ /* request
+  * This is to help with making internal and external api calls
+  */
+ const request = require("request");
 
 
 /**
@@ -32,8 +38,6 @@ const getItem = (req, res, next) => {
   //  read creds from the secret file
   hidden.readHidden()
     .then(json => {
-      // required package for request to DB
-      var request = require("request");
 
       // setup the api call and point it towards a single item
       var options = {

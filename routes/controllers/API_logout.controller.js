@@ -35,7 +35,7 @@ const logout = (req, res, next) => {
     })
 };
 
-
+// so other files can call this function
 module.exports = {
   logout,
 };

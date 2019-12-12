@@ -50,7 +50,7 @@ const sendLoginPage = (req, res, next) => {
     });
 };
 
-
+//This can be used on other pages now
 module.exports = {
   sendLoginPage,
 };
