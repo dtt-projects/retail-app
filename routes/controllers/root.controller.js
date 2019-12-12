@@ -33,7 +33,7 @@ const sendHomePage = (req, res, next) => {
     });
 };
 
-
+//This can be use on other pages now
 module.exports = {
   sendHomePage,
 };

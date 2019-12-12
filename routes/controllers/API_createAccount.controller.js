@@ -4,12 +4,29 @@
  * logic relative to creating an account.
  * @exports {Object} Functions to attach to the `API_createAccount` router.
  * @require session-helper
+ * @require crypto
  */
 
  /* sessions
   * This is to help with handling sessions to maintain cart and auth
   */
  const sessions = require('../../scripts/session-helper.js');
+
+ /* crypto
+  * This is to help with hashing user passwords
+  */
+ const crypto = require('crypto')
+
+ /* mysql
+  * This is to help with connecting to our db
+  */
+ const mysql = require('mysql');
+
+ /* request
+  * This is to help with making internal and external api calls
+  */
+ const request = require('request');
+
 
 /**
  * @function createAccount
@@ -32,7 +49,6 @@ const createAccount = (req, res, next) => {
         // get file data and convert to json
         json = JSON.parse(data.toString());
         var email = req.body["email"];
-        var mysql = require("mysql");
 
         // log into database
         var con = mysql.createConnection({
@@ -49,7 +65,15 @@ const createAccount = (req, res, next) => {
             res.send("Account creation failed!");
           }
         });
+
+        // hash the user's password
         var statement = "";
+        var password = req.body["password"];
+        const hash = crypto.createHash('sha256');
+        hash.update(password);
+        password = hash.digest('hex');
+        //console.log(password);
+
         // if request came from admin dashboard
         sessions.handleSessionIsAdmin(req.cookies)
           .then(isAdmin => {
@@ -61,7 +85,7 @@ const createAccount = (req, res, next) => {
                                   "'" + req.body["lastName"] + "' ," +
                                   "'" + req.body["email"] + "' ," +
                                   "'" + req.body["username"] + "' ," +
-                                  "'" + req.body["password"] + "' ," +
+                                  "'" + password + "' ," +
                                   "CURRENT_TIMESTAMP, " +
                                   "CURRENT_TIMESTAMP, " +
                                   "True, "
@@ -74,7 +98,7 @@ const createAccount = (req, res, next) => {
                                   "'" + req.body["lastName"] + "' ," +
                                   "'" + req.body["email"] + "' ," +
                                   "'" + req.body["username"] + "' ," +
-                                  "'" + req.body["password"] + "' ," +
+                                  "'" + password + "' ," +
                                   "CURRENT_TIMESTAMP, " +
                                   "CURRENT_TIMESTAMP, " +
                                   "True, " +
@@ -104,7 +128,7 @@ const createAccount = (req, res, next) => {
 
               var emailContent = ('<!DOCTYPE html><html lang="en"><head><title>Welcome To Sprout Creek Farm</title><meta charset="utf-8"><meta name="viewport" content="width=device-width"><style type="text/css"> /* CLIENT-SPECIFIC STYLES */ #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */ .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */ .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */ body, table, td, a{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */ table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */ img{-ms-interpolation-mode:bicubic;} /* Allow smoother rendering of resized image in Internet Explorer */ /* RESET STYLES */ body{margin:0; padding:0;} img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;} table{border-collapse:collapse !important;} body{height:100% !important; margin:0; padding:0; width:100% !important;} /* iOS BLUE LINKS */ .appleBody a {color:#68440a; text-decoration: none;} .appleFooter a {color:#999999; text-decoration: none;} /* MOBILE STYLES */ @media screen and (max-width: 525px) { /* ALLOWS FOR FLUID TABLES */ table[class="wrapper"]{ width:100% !important; } /* ADJUSTS LAYOUT OF LOGO IMAGE */ td[class="logo"]{ text-align: left; padding: 20px 0 20px 0 !important; } td[class="logo"] img{ margin:0 auto!important; } /* USE THESE CLASSES TO HIDE CONTENT ON MOBILE */ td[class="mobile-hide"]{ display:none;} img[class="mobile-hide"]{ display: none !important; } img[class="img-max"]{ max-width: 100% !important; height:auto !important; } /* FULL-WIDTH TABLES */ table[class="responsive-table"]{ width:100%!important; } /* UTILITY CLASSES FOR ADJUSTING PADDING ON MOBILE */ td[class="padding"]{ padding: 10px 5% 15px 5% !important; } td[class="padding-copy"]{ padding: 10px 5% 10px 5% !important; text-align: center; } td[class="padding-meta"]{ padding: 30px 5% 0px 5% !important; text-align: center; } td[class="no-pad"]{ padding: 0 0 20px 0 !important; } td[class="no-padding"]{ padding: 0 !important; } td[class="section-padding"]{ padding: 50px 15px 50px 15px !important; } td[class="section-padding-bottom-image"]{ padding: 50px 15px 0 15px !important; } /* ADJUST BUTTONS ON MOBILE */ td[class="mobile-wrapper"]{ padding: 10px 5% 15px 5% !important; } table[class="mobile-button-container"]{ margin:0 auto; width:100% !important; } a[class="mobile-button"]{ width:80% !important; padding: 15px !important; border: 0 !important; font-size: 16px !important; } }</style></head><body style="margin: 0; padding: 0;"><!-- HEADER --><table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td bgcolor="#fffaf1"> <div align="center" style="padding: 0px 15px 0px 15px;"> <table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper"> <!-- LOGO/PREHEADER TEXT --> <tr> <td style="padding: 20px 0px 30px 0px;" class="logo"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td bgcolor="#fffaf1" width="300" align="center"><a href="http://' + req.headers["host"] + '" target="_blank"><img alt="Logo" src="https://sproutcreekfarm.org/sites/all/themes/sproutcreek/logo.png" width="150" height="150" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td> </tr> </table> </td> </tr> </table> </div> </td> </tr></table><!-- ONE COLUMN SECTION --><table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td bgcolor="#fffdfa" align="center" style="padding: 20px 15px 30px 15px;" class="section-padding"> <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table"> <tr> <td> <table width="100%" border="0" cellspacing="0" cellpadding="0"> <tr> <td> <!-- COPY --> <table width="100%" border="0" cellspacing="0" cellpadding="0"> <tr> <td align="center" style="font-size: 25px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 10px;" class="padding-copy">Welcome To The Sprout Creek Family, ' + req.body["firstName"] + ' !</td> </tr> <tr> <td align="center" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Alright, now that I have an account, what\'s does that do?</td> </tr> <tr> <td align="center" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">We are glad you asked!</td> </tr> </table> </td> </tr> </table> </td> </tr> </table> </td> </tr></table><!-- ONE COLUMN W/ BOTTOM IMAGE SECTION --><table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td bgcolor="#fffdfa" align="center" style="padding: 40px 15px 40px 15px;" class="section-padding-bottom-image"> <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table"> <tr> <td> <table width="100%" border="0" cellspacing="0" cellpadding="0"> <tr> <td> <!-- COPY --> <table width="100%" border="0" cellspacing="0" cellpadding="0"> <tr> <td align="center" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #333333;" class="padding-copy">With Your Sprout Creek Account, You Have Access To:</td> </tr> <tr> <td align="center" style="padding: 30px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Goat Points</td> </tr> <tr> <td align="center" style="padding: 10px 0 0 0; font-size: 12px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Goat points are Sprout Creek Farm\'s very own rewards system. For every $10 you spend online with Sprout Creek, you get a goat point. Goat points can be redeemed for discounts on your purchases!</td> </tr> <tr> <td align="center" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Promotions</td> </tr> <tr> <td align="center" style="padding: 10px 0 0 0; font-size: 12px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">You will be one of the first to know of special promotions with Sprout Creek products and our wide selection of award winning cheeses.</td> </tr> <tr> <td align="center" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Events</td> </tr> <tr> <td align="center" style="padding: 10px 0 0 0; font-size: 12px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">You will be notified of events run by Sprout Creek Farm. From baking classes, to cookouts, to wine tasting, Sprout Creek does it all. We look foward to seeing you here.</td> </tr> </table> </td> </tr> </table> </td> </tr> </table> </td> </tr></table><!-- TWO COLUMN SECTION --><table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td bgcolor="#fffdfa" align="center" style="padding: 40px 15px 20px 15px;" class="section-padding"> <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table"> <tr> <td> <!-- TITLE SECTION AND COPY --> <table width="100%" border="0" cellspacing="0" cellpadding="0"> <tr> <td align="center" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #333333;" class="padding-copy">Amazing! Now What?</td> </tr> <tr> <td align="center" style="padding: 20px 0 20px 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Now since you are a part of the Sprout Creek Family, login with the button below and explore everything that Sprout Creek Farm has to offer. From our events to our award winning cheeses, everything is just a click away!</td> </tr> </table> </td> </tr> </table> </td> </tr> <tr> <td style="padding:0 0 25px 25px;" align="center" class="padding"> <table border="0" cellspacing="0" cellpadding="0" class="mobile-button-container"> <tr> <td align="center"> <!-- BULLETPROOF BUTTON --> <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mobile-button-container"> <tr> <td align="center" style="padding: 0;" class="padding-copy"> <table border="0" cellspacing="0" cellpadding="0" class="responsive-table"> <tr> <td align="center"><a href="http://'+ req.headers["host"] + '/login" target="_blank" style="font-size: 15px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #ffffff; text-decoration: none; background-color: #4f7960; border-top: 10px solid #4f7960; border-bottom: 10px solid #4f7960; border-left: 20px solid #4f7960; border-right: 20px solid #4f7960; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;" class="mobile-button">Login &rarr;</a></td> </tr> <tr> <td align="center" style="padding: 50px 0 20px 0; font-size: 20px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Thank you for your support, and welcome to the family.</td> </tr> </table> </td> </tr> </table> </td> </tr> </table> </td> </tr></table><!-- TWO COLUMN SECTION --><table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td bgcolor="#905d33" align="center" style="padding: 40px 15px 20px 15px;" class="section-padding"> <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table"> <tr> <td> <!-- TITLE SECTION AND COPY --> <table width="100%" border="0" cellspacing="0" cellpadding="0"> <tr> <td align="center" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff;" class="padding-copy">Cannot Make It To The Farm?</td> </tr> <tr> <td align="center" style="padding: 20px 0 20px 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #ffffff;" class="padding-copy">Follow us on your favorite social media platorm to see what\'s happening at the farm!</td> </tr> </table> </td> </tr> </table> </td> </tr> <tr> <td bgcolor="#905d33" style="padding:0 0 25px 25px;" align="center" class="padding"> <table border="0" cellspacing="0" cellpadding="0" class="mobile-button-container"> <tr> <td align="center"> <!-- BULLETPROOF BUTTON --> <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mobile-button-container"> <tr> <td align="center" style="padding: 0;" class="padding-copy"> <table border="0" cellspacing="0" cellpadding="0" class="responsive-table"> <tr> <td bgcolor="#905d33" width="105" align="center"><a href="https://www.facebook.com/sproutcreekfarm/" target="_blank"><img alt="Logo" src="https://sproutcreekfarm.org/sites/all/themes/sproutcreek/images/fb.png" width="35" height="35" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td> <td bgcolor="#905d33" width="105" align="center"><a href="https://twitter.com/sproutcreekfarm?lang=en" target="_blank"><img alt="Logo" src="https://sproutcreekfarm.org/sites/all/themes/sproutcreek/images/tw.png" width="35" height="35" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td> <td bgcolor="#905d33" width="105" align="center"><a href="https://www.instagram.com/sproutcreekfarm/?hl=en" target="_blank"><img alt="Logo" src="https://sproutcreekfarm.org/sites/all/themes/sproutcreek/images/insta.png" width="35" height="35" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td> <td bgcolor="#905d33" width="105" align="center"><a href="https://www.pinterest.com/pin/304204149807681044/" target="_blank"><img alt="Logo" src="https://sproutcreekfarm.org/sites/all/themes/sproutcreek/images/pi.png" width="35" height="35" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td> </tr> </table> </td> </tr> </table> </td> </tr> </table> </td> </tr></table><!-- FOOTER --><table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td bgcolor="#ffffff" align="center"> <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"> <tr> <td bgcolor="#905d33" style="padding: 20px 0px 20px 0px;"> <!-- UNSUBSCRIBE COPY --> <table width="500" border="0" cellspacing="0" cellpadding="0" align="center" class="responsive-table"> <tr> <td align="center" valign="middle" style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color:#905d33;"> <span class="appleFooter" style="color:#ffffff;">34 Lauer Road, Poughkeepsie, New York, 12603, USA</span></br> <span class="appleFooter" style="color:#ffffff;">Inquiry Phone Number: +1 (845) 485-8438 | E-Mail: info@sproutcreekfarm.org</span> </td> </tr> </table> </td> </tr> </table> </td> </tr></table></body></html>');
 
-              console.log(emailContent)
+              //console.log(emailContent)
 
               // email from, to, subject, text
               var mailOptions = {
@@ -146,8 +170,7 @@ const createAccount = (req, res, next) => {
                       res.send();
                     } else {
                       // setup ibm customer
-                      // Install request by running "npm install --save request"
-                      var request = require("request");
+
 
                       var options = { method: 'POST',
                         url: json[2]["apiUrl"] + 'Customer',
@@ -180,7 +203,7 @@ const createAccount = (req, res, next) => {
                           //console.log(ibmId);
                           var statement4 = ("INSERT INTO ibm(ibmid, aid) "
                               + "VALUES(" + ibmId + ", " + aid +")");
-                          console.log(statement4);
+                          //console.log(statement4);
                           con.query(statement4, function(err4, result4) {
                             // error from ibm insert
                             if (err4) {

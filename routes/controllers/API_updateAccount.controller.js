@@ -126,7 +126,7 @@ const updateAccount = (req, res, next) => {
                     phoneHome: req.body["phone_number"],
                   },
                   json: true
-                };mm
+                };
 
 
               } else {

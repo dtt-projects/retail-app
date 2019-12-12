@@ -1,34 +1,34 @@
 /**
  * @module routes/API_addItem
- * @fileoverview Routes for the login
+ * @fileoverview Routes for the add item api
  * @requires Express
- * @requires routes/controllers/API_login
+ * @requires routes/controllers/API_addItem
  * @exports {Express#Router} The user path router.
  */
 
 /**
  * @description Express module
  * @constant
- * @memberof routes/API_login
+ * @memberof routes/API_addItem
  */
 const express = require('express');
 
 /**
- * @description API_loginRouter for a login function
+ * @description API_addItemRouter for an add item function
  * @type {Object}
  * @constant
  */
 const API_addItemRouter = express.Router();
 
 /**
- * @description API_loginController to handle to login data and validate
+ * @description API_addItemController to handle API_addItem data and validate
  * @type {Object}
  * @constant
  */
 const API_addItemController = require('./controllers/API_addItem.controller');
 
 
-// Post the information to the controller for login
+// Post the information to the controller for API_addItemController
 API_addItemRouter.post('/', API_addItemController.addItem);
 
 module.exports = API_addItemRouter;

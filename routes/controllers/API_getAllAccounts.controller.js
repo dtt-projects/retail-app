@@ -11,13 +11,16 @@
  /* hidden
   * This is to read the hidden credentials file
   */
- var hidden = require('../../scripts/read-hidden.js');
+ const hidden = require('../../scripts/read-hidden.js');
 
  /* sessions
   * This is to help with handling sessions to maintain cart and auth
   */
  const sessions = require('../../scripts/session-helper.js');
 
+ /* mysql
+  * This is to help with working with the db
+  */
  const mysql = require('mysql');
 
 
@@ -61,7 +64,7 @@ const getAllAccounts = (req, res, next) => {
             });
 
             var statement = ("SELECT * FROM accounts");
-            console.log(statement);
+            //console.log(statement);
             con.query(statement, function(err, result) {
               if (err) {
                 console.log(err);
@@ -71,7 +74,7 @@ const getAllAccounts = (req, res, next) => {
                 res.send("getting account failed!");
               } else if (result.length > 0) {
                 var accounts = result;
-                console.log(accounts)
+                //console.log(accounts)
                 res.status(200);
                 res.setHeader('Content-Type', 'application/json');
                 con.end();

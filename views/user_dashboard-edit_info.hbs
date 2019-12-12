@@ -1,12 +1,20 @@
+<!--File: user_dashboard-edit_info.hbs-->
+<!--Authors: Alex Antaki, Matthew Oakley, Alex Mahlmeister, Raislan Aiken, and Jaspreet Singh-->
+<!--Date: 12/05/2019-->
+<!--Description: This is the body of the user_dashboard-edit_info page-->
+
+<!--This is the containing div-->
 <div style="margin-top: 30px;margin-bottom: 50px;">
       <div class="container-fluid">
         <div>
+          <!--This is the welcome message-->
           <h1 id="welcomeName" style="color: rgb(133,135,150);font-size: 35px; padding-bottom: 35px; padding-left: 85px;"><strong>Hi There, {{userInfo.firstname}}!</strong></h1>
         </div>
           <div class="row justify-content-center" style="margin-bottom: 50px;">
               <div class="col-xl-4 m-auto" style="margin-top: 10px;margin-bottom: 15px;">
                   <div class="card shadow border-left-primary py-2" style="margin-top: 10px;margin-bottom: 10px;">
                     <div class="card-body">
+                            <!--This is the goat points part-->
                             <div class="col-xl-9 text-center mr-2">
                                 <div class="text-uppercase text-primary font-weight-bold text-xs mb-1" style="height: 28px;"><span style="font-size: 16px;">GOAT POINT BALANCE</span></div>
                                 <div class="text-dark font-weight-bold h5 mb-0"><span id="totalGoatPoints" style="font-size: 22px;">{{goatPoints}} Goat Point(s)</span></div>
@@ -20,25 +28,24 @@
               <div class="col-auto col-sm-11 col-md-9 col-lg-9 col-xl-11 text-break text-center align-self-center m-auto" style="padding: 5px;padding-left: 40px;">
                   <div class="card">
                       <div class="card-header">
+                          <!--This is the nav bar the dashboard shows us-->
                           <ul class="nav nav-tabs card-header-tabs">
                               <li class="nav-item"><a class="nav-link" href="/login" style="font-size: 20px;">Dashboard</a></li>
                               <li class="nav-item"><a class="nav-link" href="/user_dashboard/view_orders" style="font-size: 20px;">Order(s)</a></li>
                               <li class="nav-item"><a class="nav-link active" href="/user_dashboard/edit_information" style="font-size: 20px;">Account Details</a></li>
                           </ul>
                       </div>
+                      <!--This is the part of the page that has the account details-->
                       <div class="card-body">
                           <h4 class="card-title" style="font-size: 28px;margin-top: 20px;">Account Details</h4>
                           <div class="col align-self-center m-auto">
                               <div class="table-responsive" style="margin-top: 25px;padding: 10px;height: 544px;">
+                                  <!--This is the user information-->
                                   <table class="table table-hover">
                                       <thead>
                                           <tr></tr>
                                       </thead>
                                       <tbody>
-                                          <tr>
-                                              <td>Username</td>
-                                              <td id="firstName" contenteditable="false">johnDoe</td>
-                                          </tr>
                                           <tr>
                                               <td>First Name</td>
                                               <td id="firstName" contenteditable="false">{{userInfo.firstname}}</td>
@@ -94,7 +101,7 @@
       </div>
   </div>
 
-
+<!--
 <form>
   <table>
     <tr>
@@ -183,3 +190,4 @@
       </td>
     </tr>
 </form>
+-->

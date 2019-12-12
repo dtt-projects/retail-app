@@ -263,7 +263,7 @@ const sendCheckOutPage = (req, res, next) => {
   });
 };
 
-
+//This will now be available for other files
 module.exports = {
   sendCheckOutPage,
 };

@@ -60,7 +60,7 @@ const sendMarketPage = (req, res, next) => {
     });
 };
 
-
+//This can be used for other pages as well
 module.exports = {
   sendMarketPage,
 };

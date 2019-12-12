@@ -19,6 +19,8 @@
 
 const request = require('request');
 
+const mysql = require('mysql');
+
 /**
  * @function sendAdminDashboardManageAccountsSubAccountPage
  * @description Send the base page rendered by `Handlebars.js`. Compilation
@@ -47,7 +49,6 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                   hidden.readHidden()
                     .then(json => {
                       // required packages for db connection
-                      var mysql = require("mysql");
 
                       // connect to the database
                       var con = mysql.createConnection({
@@ -66,6 +67,7 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                         }
                       });
 
+                      // make customer api call to IBM
                       var options = { method: 'GET',
                         url: json[2]["apiUrl"] + 'Customer/' + ibmId,
                         headers:
@@ -80,15 +82,15 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                           console.error('Failed: %s', error.message);
                           con.end();
                           res.status(401);
-                          res.send();
+                          res.redirect("/admin_dashboard/manage_accounts");
                           return;
                         } else {
                           userInfo = body["data"]["customerList"][0];
 
 
-                          console.log("++++++++++++++++++++++++++++++++++++++");
-                          console.log(userInfo);
-                          console.log("======================================");
+                          //console.log("++++++++++++++++++++++++++++++++++++++");
+                          //console.log(userInfo);
+                          //console.log("======================================");
 
                           var statement = ("SELECT * FROM ibm RIGHT JOIN accounts ON ibm.aid=accounts.aid WHERE ibmid=" + ibmId);
                           con.query(statement, function(err, result) {
@@ -96,10 +98,10 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
                               console.log(err);
                               res.status(400);
                               res.setHeader('Content-Type', 'plain/text');
-                              res.redirect("/");
+                              res.redirect("/admin_dashboard/manage_accounts");
                             } else {
                               var scfUserInfo = result[0];
-                              console.log(scfUserInfo);
+                              //console.log(scfUserInfo);
                               res.render('admin_dashboard-manage_accounts-sub_account', {
                                 "title": 'Sprout Creek Farm Admin Dashboard | Sub Account',
                                 "page": 'login',
@@ -125,7 +127,7 @@ const sendAdminDashboardManageAccountsSubAccountPage = (req, res, next) => {
     });
 };
 
-
+// exports so other files can call it
 module.exports = {
   sendAdminDashboardManageAccountsSubAccountPage,
 };

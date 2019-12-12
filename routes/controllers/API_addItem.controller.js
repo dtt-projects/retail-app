@@ -41,10 +41,10 @@ const addItem = (req, res, next) => {
         //  read creds from the secret file
         hidden.readHidden()
           .then(json => {
-            console.log(req);
-            console.log(req.data);
-              // build the data that will be sent
-              var data = {
+            //console.log(req);
+            //console.log(req.data);
+            // build the data that will be sent
+            var data = {
                 "merchantId" : req.body["merchantId"],
                 "name" : req.body["name"],
                 "cat": req.body["cat"],
@@ -53,9 +53,9 @@ const addItem = (req, res, next) => {
                 "price": req.body["price"],
                 "quantity": req.body["quantity"]
               };
-              console.log("==============================");
-              console.log(data);
-              console.log("==============================");
+              //console.log("==============================");
+              //console.log(data);
+              //console.log("==============================");
 
               // prepare the request and the ibm api
               var options = {
@@ -78,7 +78,7 @@ const addItem = (req, res, next) => {
                   res.status(401);
                   res.send('Failed:');
                 } else {
-                  console.log(body);
+                  //console.log(body);
                   res.status(200);
                   res.redirect('/admin_dashboard/manage_inventory');
                 }

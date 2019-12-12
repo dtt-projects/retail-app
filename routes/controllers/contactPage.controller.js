@@ -34,7 +34,7 @@ const sendContactPage = (req, res, next) => {
     });
 };
 
-
+//This function can be used on other files
 module.exports = {
   sendContactPage,
 };

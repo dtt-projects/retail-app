@@ -5,6 +5,8 @@
  * @exports {Object} Functions to attach to the `users` router.
  * @require read-hidden
  * @require session-helper
+ * @require crypto
+ * @require mysql
  */
 
  /* hidden
@@ -17,6 +19,15 @@
   */
  const sessions = require('../../scripts/session-helper.js');
 
+ /* crypto
+  * This is to help with hashing passwords
+  */
+ const crypto = require('crypto');
+
+/* sessions
+ * This is to help with handling db calls
+ */
+ const mysql = require('mysql');
 
 /**
  * @function login
@@ -34,7 +45,6 @@ const login = (req, res, next) => {
   //  read creds from the secret file
   hidden.readHidden()
     .then(json => {
-      var mysql = require("mysql");
 
       // connect to the database
       var con = mysql.createConnection({
@@ -69,6 +79,13 @@ const login = (req, res, next) => {
         // got data back from server so user exists
         } else if (result.length > 0) {
           var db_username = result[0]["username"];
+
+          var password = req.body["password"];
+          const hash = crypto.createHash('sha256');
+          hash.update(password);
+          password = hash.digest('hex');
+          //console.log(password);
+
           var db_password = result[0]["password"];
           var aid = result[0]["aid"];
           // if valid creds send to proper dashboard if admin or not
@@ -111,10 +128,6 @@ const login = (req, res, next) => {
         }
       });
     });
-
-
-
-
 
 };
 

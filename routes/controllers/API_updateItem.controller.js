@@ -6,6 +6,7 @@
  * @require read-hidden
  * @require session-helper
  * @require request
+ * @require mysql
  */
 
 /* hidden
@@ -23,6 +24,9 @@
   */
  const request = require("request");
 
+ /* mysql
+  * required for making db calls
+  */
  const mysql = require('mysql');
 
 
@@ -35,7 +39,7 @@
  *    and does not return or render anything (no `res` methods called).
  */
 const updateItem = (req, res, next) => {
-  console.log("update ITEM");
+  //console.log("update ITEM");
   // make sure an admin is making the call
   var sessionId = req.cookies["sessionId"];
   sessions.handleSessionIsAdmin(sessionId)
@@ -69,8 +73,8 @@ const updateItem = (req, res, next) => {
               "quantity": req.body["quantity"]
             };
 
-            console.log(data);
-            console.log(json[2]["apiUrl"] + 'Inventory/' + req.body["itemId"])
+            //console.log(data);
+            //console.log(json[2]["apiUrl"] + 'Inventory/' + req.body["itemId"])
 
             // build out the request for the api call
             var options = {
@@ -96,7 +100,7 @@ const updateItem = (req, res, next) => {
               } else {
                 res.status(200);
                 res.redirect("/admin_dashboard/manage_inventory/sub_inventory/" + req.body["itemId"]);
-                console.log('Success: ', body);
+                //console.log('Success: ', body);
               }
             });
 

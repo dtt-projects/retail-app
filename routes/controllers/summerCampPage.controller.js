@@ -34,7 +34,7 @@ const sendSummerCampPage = (req, res, next) => {
     });
 };
 
-
+//This can be used on other pages now
 module.exports = {
   sendSummerCampPage,
 };

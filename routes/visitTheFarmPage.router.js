@@ -14,7 +14,7 @@
 const express = require('express');
 
 /**
- * @description Router to mount user related functions on.
+ * @description visitTheFarmPageRouter to mount user related functions on.
  * @type {Object}
  * @constant
  */
